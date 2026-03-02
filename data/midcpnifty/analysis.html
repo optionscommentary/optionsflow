@@ -1,59 +1,694 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><title>GEXMA Analysis — MIDCPNIFTY — 20260302_205632</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"><style>
+/* ─── DARK THEME (default) ────────────────────────────────────────────────── */
+:root,[data-theme="dark"] {
+  --bg:           #0D1520;
+  --surface:      #13202F;
+  --raised:       #192B3C;
+  --hover:        #1E3347;
+  --input-bg:     #0A1220;
+  --border:       #243749;
+  --border-lit:   #2E4862;
 
+  --call:         #42A5F5;
+  --put:          #FFA726;
+  --spot:         #00E676;
+  --synth:        #FF80AB;
+  --pos:          #00E676;
+  --neg:          #FF5252;
+
+  --t1:           #F0F4F8;
+  --t2:           #CBD5E1;
+  --t3:           #8FA8BF;
+  --t4:           #5C7A94;
+  --accent:       #64B5F6;
+
+  --sidebar:      280px;
+  --topbar:       48px;
+  --radius:       10px;
+  --card-radius:  12px;
+}
+
+/* ─── LIGHT THEME ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:           #ECF1F7;
+  --surface:      #FFFFFF;
+  --raised:       #E2EAF4;
+  --hover:        #D5E1EE;
+  --input-bg:     #F8FAFC;
+  --border:       #B8CCDE;
+  --border-lit:   #9BBAD0;
+
+  --call:         #0D47A1;
+  --put:          #BF360C;
+  --spot:         #00695C;
+  --synth:        #6A1B9A;
+  --pos:          #1B5E20;
+  --neg:          #B71C1C;
+
+  --t1:           #08192A;
+  --t2:           #1A3A52;
+  --t3:           #3D6482;
+  --t4:           #7090A8;
+  --accent:       #0D47A1;
+
+  --sidebar:      280px;
+  --topbar:       48px;
+  --radius:       10px;
+  --card-radius:  12px;
+}
+
+/* ── Light theme component overrides ────────────────────────────── */
+
+/* Sidebar + topbar */
+[data-theme="light"] .topbar,
+[data-theme="light"] .sidebar {
+  background: #FFFFFF;
+  border-color: #B8CCDE;
+}
+
+/* Cards */
+[data-theme="light"] .gcard {
+  box-shadow: 0 1px 8px rgba(0,30,60,.10);
+}
+[data-theme="light"] .gcard:hover {
+  box-shadow: 0 3px 16px rgba(0,30,60,.16);
+  border-color: #9BBAD0;
+}
+
+/* Analysis container */
+[data-theme="light"] .analysis-wrap {
+  box-shadow: 0 1px 10px rgba(0,30,60,.10);
+}
+[data-theme="light"] .analysis-hdr {
+  background: linear-gradient(90deg, #D8E8F6, #E2EAF4);
+}
+[data-theme="light"] .analysis-hdr-title { color: #0D47A1; }
+
+/* AI verdict badges — high-contrast on white */
+[data-theme="light"] .ai-verdict.bull {
+  background: rgba(27,94,32,.13);
+  color: #1B5E20;
+  border: 1.5px solid rgba(27,94,32,.45);
+  font-weight: 800;
+}
+[data-theme="light"] .ai-verdict.bear {
+  background: rgba(183,28,28,.11);
+  color: #B71C1C;
+  border: 1.5px solid rgba(183,28,28,.40);
+  font-weight: 800;
+}
+[data-theme="light"] .ai-verdict.neut {
+  background: rgba(191,54,12,.10);
+  color: #BF360C;
+  border: 1.5px solid rgba(191,54,12,.35);
+  font-weight: 800;
+}
+
+/* KV cards */
+[data-theme="light"] .ai-kv-item {
+  background: #EBF3FC;
+  border-color: #B8CCDE;
+}
+[data-theme="light"] .ai-kv-label { color: #2A5270; font-weight: 700; }
+[data-theme="light"] .ai-kv-val   { color: #08192A; }
+
+/* Strategy box */
+[data-theme="light"] .ai-strat-box {
+  background: #EBF3FC;
+  border-color: #9BBAD0;
+}
+[data-theme="light"] .ai-strat-title { color: #0D47A1; }
+[data-theme="light"] .ai-section-title::before { background: #0D47A1; }
+
+/* Log console */
+[data-theme="light"] .log-panel {
+  background: #F0F5FA;
+  border-color: #B8CCDE;
+}
+[data-theme="light"] .log-m.ok  { color: #1B5E20; font-weight: 600; }
+[data-theme="light"] .log-m.err { color: #B71C1C; font-weight: 600; }
+
+/* Warning/error banner */
+[data-theme="light"] .warn-banner {
+  background: rgba(183,28,28,.08);
+  border-color: rgba(183,28,28,.30);
+}
+
+/* Config rows */
+[data-theme="light"] .cfg-row {
+  border-bottom-color: rgba(0,30,60,.12);
+}
+[data-theme="light"] .cfg-k { color: #1A3A52; }
+[data-theme="light"] .cfg-v { color: #08192A; }
+
+/* Tabs — active state */
+[data-theme="light"] .tab.on {
+  color: #0D47A1;
+  border-bottom-color: #0D47A1;
+  background: #E2EAF4;
+}
+[data-theme="light"] .tab:hover { color: #1A3A52; background: #D5E1EE; }
+[data-theme="light"] .tab.ana.on  { color: #00695C; border-bottom-color: #00695C; }
+[data-theme="light"] #tab-ivtrack { color: #0D47A1 !important; }
+
+/* Sub-tabs */
+[data-theme="light"] .stab.on {
+  color: #0D47A1;
+  border-bottom-color: #0D47A1;
+  background: #E2EAF4;
+}
+[data-theme="light"] .stab:hover { color: #1A3A52; background: #D5E1EE; }
+
+/* Pill metric cards */
+[data-theme="light"] .pill {
+  background: #EBF3FC;
+  border-color: #B8CCDE;
+}
+[data-theme="light"] .pill .pl { color: #2A5270; }
+[data-theme="light"] .pill .pv { color: #08192A; }
+
+/* Stock cards */
+[data-theme="light"] .stock-card { background: #E8F0F8; }
+[data-theme="light"] .stock-card:hover { background: #D5E1EE; border-color: #9BBAD0; }
+[data-theme="light"] .stock-card.on { background: rgba(191,54,12,.08); border-color: #BF360C; }
+
+/* Scrollbar */
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #B8CCDE; }
+
+/* Input fields */
+[data-theme="light"] .fi,
+[data-theme="light"] select,
+[data-theme="light"] input[type="number"],
+[data-theme="light"] input[type="date"],
+[data-theme="light"] input[type="text"] {
+  background: #F8FAFC;
+  color: #08192A;
+  border-color: #B8CCDE;
+}
+
+/* Plot images — white background, no filter needed */
+[data-theme="light"] .gcard img { filter: none; }
+[data-theme="dark"] .gcard img  { filter: brightness(0.95) contrast(1.04); }
+
+/* IV tracking — nested expiry strike toggle */
+.ivt-exp-toggle {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 3px;
+  color: var(--t3);
+  cursor: pointer;
+  font-size: .6rem;
+  padding: 2px 5px;
+  flex-shrink: 0;
+  transition: background .15s, color .15s;
+}
+.ivt-exp-toggle:hover { background: rgba(255,255,255,.1); color: var(--t1); }
+[data-theme="light"] .ivt-exp-toggle {
+  border-color: rgba(0,0,0,.18);
+  color: #3D6482;
+}
+[data-theme="light"] .ivt-exp-toggle:hover { background: rgba(0,0,0,.07); color: #08192A; }
+
+/* IV tracking panel — replace hardcoded dark colours */
+[data-theme="light"] #panel-ivtrack .fl { color: #0D47A1; }
+[data-theme="light"] #panel-ivtrack > .panel-inner > div > .fl { color: #0D47A1; }
+[data-theme="light"] .ivt-load-btn {
+  background: linear-gradient(135deg, #0D47A1, #1565C0) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+
+/* Expiry/strike dropdown in IV tracking */
+[data-theme="light"] #ivt-expiry-btn,
+[data-theme="light"] #ivt-strike-btn {
+  background: #F8FAFC;
+  color: #08192A;
+  border-color: #B8CCDE;
+}
+[data-theme="light"] #ivt-expiry-panel,
+[data-theme="light"] #ivt-strike-panel {
+  background: #F0F6FF;
+  border-color: #B8CCDE;
+}
+
+/* Empty state */
+[data-theme="light"] .empty {
+  border-color: #B8CCDE;
+  background: #F8FAFC;
+}
+[data-theme="light"] .empty p { color: #3D6482; }
+[data-theme="light"] .empty .hint { color: #0D47A1; border-color: #B8CCDE; background: #EBF3FC; }
+
+/* Live price pill */
+[data-theme="light"] .lp-up { color: #1B5E20; }
+[data-theme="light"] .lp-dn { color: #B71C1C; }
+
+/* Iframes (vol surface) */
+[data-theme="light"] iframe {
+  border-color: #B8CCDE;
+}
+
+/* Analysis section title bar */
+[data-theme="light"] .ai-section { border-bottom-color: #C8D8E8; }
+[data-theme="light"] .ai-disclaimer { color: #3D6482; border-top-color: #C8D8E8; }
+[data-theme="light"] .ai-body { color: #08192A; }
+
+/* Sidebar run button hover glow fix */
+[data-theme="light"] .btn-run:hover {
+  box-shadow: 0 4px 22px rgba(13,71,161,.30);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+
+
+/* ── TOPBAR ─────────────────────────────────────────────────────────────────── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--topbar);
+  background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 20px;z-index:900;gap:0;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+.tb-brand{
+  font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;
+  color:var(--t1);letter-spacing:.05em;padding-right:20px;
+  border-right:1px solid var(--border);white-space:nowrap;
+}
+.tb-brand em{color:var(--call);font-style:normal}
+.tb-pills{display:flex;align-items:stretch;flex:1;overflow:hidden}
+.tb-pill{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 14px;border-right:1px solid var(--border);
+  font-family:'IBM Plex Mono',monospace;
+  min-width:0;flex-shrink:0;
+}
+.tb-pill .lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);margin-bottom:2px;font-weight:600}
+.tb-pill .val{font-size:.88rem;color:var(--t1);font-weight:700}
+.tb-right{padding-left:16px;font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--accent)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--t3);display:inline-block;vertical-align:middle;margin-right:4px}
+.dot.live{background:var(--pos);box-shadow:0 0 8px var(--pos);animation:blink 2.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────────────── */
+#layout{display:flex;padding-top:var(--topbar);min-height:100vh}
+
+/* Sidebar collapse — ThinkorSwim style */
+#sidebar{transition:width .22s cubic-bezier(.4,0,.2,1),min-width .22s,opacity .18s}
+#sidebar.collapsed{width:0!important;min-width:0!important;overflow:hidden;opacity:0;border-right:none}
+#main{transition:padding-left .22s}
+
+/* Collapse toggle button — floats on the left edge of main */
+#sb-toggle{
+  position:fixed;
+  top:calc(var(--topbar) + 12px);
+  left:calc(var(--sidebar) - 1px);
+  z-index:200;
+  width:20px;height:44px;
+  background:var(--raised);
+  border:1px solid var(--border-lit);
+  border-left:none;
+  border-radius:0 6px 6px 0;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:left .22s cubic-bezier(.4,0,.2,1),background .15s;
+  box-shadow:2px 0 8px rgba(0,0,0,.25);
+}
+#sb-toggle:hover{background:var(--hover)}
+#sb-toggle svg{transition:transform .22s;flex-shrink:0}
+#sb-toggle.collapsed{left:0px}
+#sb-toggle.collapsed svg{transform:rotate(180deg)}
+
+/* ── SIDEBAR ────────────────────────────────────────────────────────────────── */
+#sidebar{
+  width:var(--sidebar);min-width:var(--sidebar);
+  background:var(--surface);border-right:1px solid var(--border);
+  position:sticky;top:var(--topbar);height:calc(100vh - var(--topbar));
+  overflow-y:auto;display:flex;flex-direction:column;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.s-section{padding:16px;border-bottom:1px solid var(--border)}
+.s-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--t3);margin-bottom:12px;font-weight:600;
+  display:flex;align-items:center;gap:6px;
+}
+.s-label svg{opacity:.5;flex-shrink:0}
+
+/* index card */
+.icard{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;
+  cursor:pointer;transition:border-color .2s,background .2s;
+}
+.icard:hover{border-color:var(--border-lit)}
+.icard.on{border-color:var(--call);background:rgba(33,150,243,.06)}
+.icard-row{display:flex;align-items:center;gap:9px}
+.chk{
+  width:16px;height:16px;appearance:none;
+  border:1.5px solid var(--border-lit);border-radius:3px;
+  background:var(--input-bg);cursor:pointer;position:relative;
+  flex-shrink:0;transition:all .15s;
+}
+.chk:checked{background:var(--call);border-color:var(--call)}
+.chk:checked::after{
+  content:'';position:absolute;left:4px;top:1.5px;
+  width:5px;height:9px;border:2px solid #fff;
+  border-top:none;border-left:none;transform:rotate(45deg);
+}
+.iname{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--t1)}
+.iparams{display:none;flex-direction:column;gap:7px;margin-top:10px;animation:fade .2s}
+.iparams.on{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.fl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);margin-bottom:4px;font-weight:500}
+.fi{
+  font-family:'IBM Plex Mono',monospace;font-size:.82rem;
+  background:var(--input-bg);border:1px solid var(--border);
+  border-radius:5px;color:var(--t1);padding:5px 8px;width:100%;outline:none;
+  transition:border-color .15s;
+}
+.fi:focus{border-color:var(--call)}
+.fi::-webkit-calendar-picker-indicator{filter:invert(.5) sepia(1) saturate(2) hue-rotate(180deg)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+
+/* toggle */
+.tog-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tog{position:relative;width:38px;height:21px;flex-shrink:0}
+.tog input{display:none}
+.tog-track{
+  position:absolute;inset:0;background:var(--input-bg);
+  border:1.5px solid var(--border-lit);border-radius:20px;cursor:pointer;transition:all .2s;
+}
+.tog input:checked~.tog-track{background:var(--pos);border-color:var(--pos)}
+.tog-knob{
+  position:absolute;top:2.5px;left:2.5px;width:14px;height:14px;
+  background:#fff;border-radius:50%;transition:transform .2s;pointer-events:none;
+}
+.tog input:checked~.tog-track .tog-knob{transform:translateX(17px)}
+.tog-lbl{font-size:.85rem;color:var(--t2)}
+.int-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--t2)}
+.int-row input{
+  width:68px;font-family:'IBM Plex Mono',monospace;font-size:.82rem;
+  background:var(--input-bg);border:1px solid var(--border);
+  border-radius:5px;color:var(--t1);padding:4px 7px;outline:none;text-align:center;
+}
+.int-row input:focus{border-color:var(--call)}
+
+/* run button */
+.btn-run{
+  width:100%;padding:12px;border:none;border-radius:var(--radius);
+  font-family:'Inter',sans-serif;font-size:.9rem;font-weight:600;
+  letter-spacing:.04em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .2s;
+  background:linear-gradient(135deg,#2196F3,#1565C0);
+  color:#fff;box-shadow:0 4px 14px rgba(33,150,243,.3);
+}
+.btn-run:hover{background:linear-gradient(135deg,#42A5F5,#2196F3);box-shadow:0 4px 22px rgba(33,150,243,.5);transform:translateY(-1px)}
+.btn-run.stop{background:linear-gradient(135deg,#FF5252,#D32F2F);box-shadow:0 4px 14px rgba(255,82,82,.3)}
+.btn-run.stop:hover{background:linear-gradient(135deg,#FF6E6E,#FF5252);box-shadow:0 4px 22px rgba(255,82,82,.5)}
+
+/* log panel */
+.log-hdr{
+  padding:8px 12px;background:var(--raised);border-top:1px solid var(--border);
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--t3);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.log-badge{
+  background:var(--input-bg);border:1px solid var(--border);
+  border-radius:8px;padding:1px 7px;font-size:.6rem;color:var(--t3);
+}
+.log-body{
+  flex:1;background:var(--input-bg);font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;overflow-y:auto;padding:8px 10px;
+  display:flex;flex-direction:column;gap:2px;
+  min-height:160px;max-height:260px;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.log-row{display:flex;gap:8px;padding:2px 0;border-bottom:1px solid var(--border);line-height:1.5}
+.log-row:last-child{border:none}
+.log-t{color:var(--t3);flex-shrink:0;font-size:.68rem}
+.log-m{color:var(--t1);word-break:break-word}
+.log-m.ok{color:#69F0AE}.log-m.err{color:#FF8A80}
+
+/* ── MAIN ───────────────────────────────────────────────────────────────────── */
+#main{flex:1;min-width:0;padding:24px;display:flex;flex-direction:column;gap:20px}
+
+.alert{
+  background:rgba(255,82,82,.07);border:1px solid rgba(255,82,82,.25);
+  border-left:3px solid var(--neg);border-radius:var(--radius);
+  padding:10px 14px;font-size:.85rem;color:#FF8A80;
+  display:flex;align-items:center;gap:8px;
+}
+
+/* ── TABS ───────────────────────────────────────────────────────────────────── */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:0}
+.tab{
+  padding:11px 22px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  border:none;background:transparent;color:var(--t2);cursor:pointer;
+  border-bottom:2px solid transparent;border-right:1px solid var(--border);
+  transition:all .15s;white-space:nowrap;
+}
+.tab:hover{background:var(--hover);color:var(--t2)}
+.tab.on{background:var(--raised);color:var(--call);border-bottom-color:var(--call)}
+.tab.ana{color:var(--t3)}
+.tab.ana:hover{color:var(--spot)}
+.tab.ana.on{color:var(--spot);border-bottom-color:var(--spot)}
+.tab-sep{width:1px;background:var(--border-lit);margin:8px 4px;align-self:stretch;flex-shrink:0}
+.tab-dot{width:5px;height:5px;border-radius:50%;background:var(--pos);display:inline-block;margin-left:6px;box-shadow:0 0 4px var(--pos)}
+.tab-panel{display:none}.tab-panel.on{display:block}
+
+/* ── SUB-TABS (graph switcher inside each index panel) ──────────────────────── */
+.sub-tabs{
+  display:flex;flex-wrap:wrap;gap:0;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--radius);margin-top:16px;overflow:hidden;
+}
+.stab{
+  padding:9px 16px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;
+  font-weight:500;letter-spacing:.09em;text-transform:uppercase;
+  border:none;background:transparent;color:var(--t2);cursor:pointer;
+  border-right:1px solid var(--border);border-bottom:2px solid transparent;
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
+}
+.stab:last-child{border-right:none}
+.stab:hover{background:var(--hover);color:var(--t2)}
+.stab.on{background:var(--raised);color:var(--call);border-bottom-color:var(--call)}
+.stab-panel{display:none;padding:16px 0 0 0}
+.stab-panel.on{display:block}
+.sym-panel{display:none;padding:12px 0 0 0}
+.sym-panel.on{display:block}
+
+/* ── GRAPH DISPLAY — elegant full-width stacked layout ─────────────────────── */
+.panel-inner{padding-top:0;display:flex;flex-direction:column;gap:0}
+
+/* two-across row for same-category charts */
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* single full-width */
+.row-1{display:grid;grid-template-columns:1fr;gap:18px}
+
+.gcard{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--card-radius);overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.4);
+  transition:border-color .2s,box-shadow .2s;
+}
+.gcard:hover{border-color:var(--border-lit);box-shadow:0 4px 28px rgba(0,0,0,.5)}
+.gcard-hdr{
+  padding:10px 16px;background:var(--raised);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.gcard-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.70rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t1);
+}
+.gcard-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);
+  background:var(--input-bg);border:1px solid var(--border);
+  border-radius:4px;padding:2px 7px;
+}
+.gcard img{width:100%;display:block;background:var(--bg);cursor:zoom-in;transition:opacity 0.15s}
+.gcard img:hover{opacity:0.9}
+/* Lightbox */
+#lbx-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;}
+#lbx-overlay.open{display:flex;}
+#lbx-overlay img{max-width:96vw;max-height:94vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 60px rgba(0,0,0,.8);}
+#lbx-close{position:absolute;top:14px;right:20px;color:#fff;font-size:2rem;cursor:pointer;line-height:1;user-select:none;z-index:10000;}
+[data-theme="light"] .gcard img{
+  filter:brightness(0.94) contrast(1.06);
+}
+
+/* ── ANALYSIS PANEL ─────────────────────────────────────────────────────────── */
+.analysis-wrap{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--card-radius);overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.4);
+}
+.analysis-hdr{
+  padding:11px 16px;background:var(--raised);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.analysis-hdr::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--call);flex-shrink:0}
+.analysis-hdr-title{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.analysis-hdr-sub{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);margin-left:auto}
+.analysis-body{padding:18px;overflow-y:auto;max-height:none;background:var(--surface)}
+.analysis-pre{
+  font-family:'IBM Plex Mono',monospace;font-size:.82rem;
+  line-height:1.95;color:var(--t1);white-space:pre-wrap;word-break:break-word;
+}
+
+/* metric pills */
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pill{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--radius);padding:8px 14px;min-width:90px;
+}
+.pill .pl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:3px}
+.pill .pv{font-family:'IBM Plex Mono',monospace;font-size:.9rem;font-weight:500;color:var(--t1)}
+
+/* empty state */
+.empty{
+  background:var(--surface);border:1px dashed var(--border);
+  border-radius:var(--card-radius);padding:56px 24px;text-align:center;margin-top:8px;
+}
+.empty p{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--t3);line-height:2}
+.empty .hint{
+  display:inline-block;margin-top:12px;background:var(--raised);
+  border:1px solid var(--border);border-radius:4px;padding:4px 10px;
+  font-size:.72rem;color:var(--call);font-family:'IBM Plex Mono',monospace;
+}
+
+/* config table */
+.cfg-row{display:flex;justify-content:space-between;padding:7px 0;font-size:.82rem;border-bottom:1px solid rgba(22,40,64,.5)}
+.cfg-row:last-child{border:none}
+.cfg-k{color:var(--t2);font-weight:500}
+.cfg-v{color:var(--t1);font-family:'IBM Plex Mono',monospace;font-size:.78rem}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.live-price-pill{padding:3px 14px!important;min-width:0!important;flex-shrink:0;}
+.live-price-pill .pill-row1{display:flex;align-items:baseline;gap:8px;white-space:nowrap;}
+.live-price-pill .pill-row2{display:block;white-space:nowrap;min-height:14px;line-height:1.2;}
+.lp-chg{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:0.01em;padding-left:3px}
+.lp-up{color:var(--pos)}
+.lp-dn{color:var(--neg)}
+
+/* ── ANALYSIS CARDS ───────────────────────────────────────────────────────── */
+.ai-section{padding:20px 24px;border-bottom:1px solid var(--border)}
+.ai-section:last-child{border-bottom:none}
+.ai-section-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px
+}
+.ai-section-title::before{content:'';display:inline-block;width:3px;height:14px;
+  border-radius:2px;background:var(--accent);flex-shrink:0}
+.ai-verdict{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;
+  padding:3px 10px;border-radius:12px;font-weight:700;letter-spacing:.06em
+}
+.ai-verdict.bull{background:rgba(38,166,91,.18);color:#26A65B;border:1px solid rgba(38,166,91,.35)}
+.ai-verdict.bear{background:rgba(239,83,80,.18);color:#EF5350;border:1px solid rgba(239,83,80,.35)}
+.ai-verdict.neut{background:rgba(255,167,38,.12);color:#FFA726;border:1px solid rgba(255,167,38,.25)}
+.ai-kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:14px}
+.ai-kv-item{background:var(--raised);border:1px solid var(--border);border-radius:6px;padding:9px 12px}
+.ai-kv-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t3);letter-spacing:.06em;margin-bottom:3px;font-weight:600}
+.ai-kv-val{font-family:'IBM Plex Mono',monospace;font-size:.82rem;font-weight:600;color:var(--t1)}
+.ai-body{font-size:.83rem;color:var(--t1);line-height:1.75;white-space:pre-wrap}
+.ai-strat-box{
+  margin-top:14px;background:var(--raised);border:1px solid var(--border-lit);
+  border-radius:8px;padding:16px 20px
+}
+.ai-strat-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:700;
+  color:var(--call);letter-spacing:.12em;margin-bottom:12px
+}
+.ai-strat-legs{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.ai-strat-leg{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:.78rem}
+.ai-strat-leg .leg-act{color:var(--call);font-weight:700;min-width:34px}
+.ai-strat-leg .leg-desc{color:var(--t1)}
+.ai-strat-leg .leg-price{color:var(--t3);margin-left:auto}
+.ai-strat-meta{display:flex;gap:12px;flex-wrap:wrap}
+.ai-strat-meta-item{font-family:'IBM Plex Mono',monospace;font-size:.68rem}
+.ai-strat-meta-item .sm-lbl{color:var(--t3)}
+.ai-strat-meta-item .sm-val{color:var(--t1);font-weight:600}
+.ai-risk-bar{display:flex;gap:0;height:6px;border-radius:3px;overflow:hidden;margin-top:8px}
+.ai-disclaimer{
+  font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);
+  padding:10px 24px;border-top:1px solid var(--border);font-style:italic
+}
+/* ── STOCK CARDS ─────────────────────────────────────────────────────────────── */
+.stock-card{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px 12px;cursor:pointer;
+  transition:all .15s;position:relative;
+}
+.stock-card:hover{border-color:var(--border-lit);background:var(--hover)}
+.stock-card.on{border-color:var(--put);background:rgba(255,152,0,.07)}
+.sc-sym{font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-weight:600;color:var(--t1)}
+.sc-name{font-size:.7rem;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-tick{position:absolute;top:6px;right:8px;color:var(--put);font-size:.85rem;font-weight:700}
+body{margin:0;padding:0;background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif}.analysis-wrap{max-width:1200px;margin:0 auto;padding:24px 20px}</style></head><body><div class="analysis-wrap">
 <div class="ai-section" style="border-left:4px solid var(--accent);background:linear-gradient(90deg,rgba(108,92,231,0.07),transparent)">
 <div class="ai-section-title" style="color:var(--accent)">📐 KEY METRICS</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">IMPLIED 1σ RANGE</div><div class="ai-kv-val">12,723 – 13,977  (±627 pts / 4.6%)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM STRADDLE</div><div class="ai-kv-val">627 pts  |  AT PARITY</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM IV</div><div class="ai-kv-val">18.9%</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">IMPLIED 1σ RANGE</div><div class="ai-kv-val">12,740 – 13,960  (±610 pts / 4.5%)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM STRADDLE</div><div class="ai-kv-val">610 pts  |  CHEAP vs parity — long-vol edge</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM IV</div><div class="ai-kv-val">22.7%</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">VRP REGIME</div><div class="ai-kv-val" style="color:var(--t2)">insufficient history</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">RISK REVERSAL</div><div class="ai-kv-val">-14.1%  (PUT SKEW — extreme, near panic-hedging levels)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">RISK REVERSAL</div><div class="ai-kv-val">-15.6%  (PUT SKEW — extreme, near panic-hedging levels)</div></div>
 
-<div class="ai-kv-item"><div class="ai-kv-label">5% OTM PUT PREM</div><div class="ai-kv-val">+9.8% vs ATM</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">5% OTM CALL PREM</div><div class="ai-kv-val">-4.4% vs ATM</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SYNTHETIC FUT</div><div class="ai-kv-val">13,338  (-1.74%)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">TTE</div><div class="ai-kv-val">19 trading days  |  Expiry 30-03-2026</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">5% OTM PUT PREM</div><div class="ai-kv-val">+6.7% vs ATM</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">5% OTM CALL PREM</div><div class="ai-kv-val">-8.9% vs ATM</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SYNTHETIC FUT</div><div class="ai-kv-val">13,340  (-2.09%)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">TTE</div><div class="ai-kv-val">18 trading days  |  Expiry 30-03-2026</div></div>
 </div>
 </div>
 
 <div class="ai-section">
 <div class="ai-section-title">📊 DEALER &amp; GAMMA POSITIONING</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">DEALER POSITION</div><div class="ai-kv-val">LAYERED: STRUCTURAL LONG / FRESH SHORT-CALL GAMMA</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OI FLOW</div><div class="ai-kv-val">CALL BUYERS DOMINANT</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">NET GEX</div><div class="ai-kv-val">+20.32 Cr  |  LONG GAMMA</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX REGIME</div><div class="ai-kv-val">BELOW ZGL ⚠ — short-gamma amplifying zone</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ZERO GAMMA LEVEL</div><div class="ai-kv-val">13,585</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX PIN</div><div class="ai-kv-val">13,500  |  top γ exposure: #1 13,500  ›  #2 13,000  ›  #3 13,600</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">DEALER POSITION</div><div class="ai-kv-val">NET LONG GAMMA — CONFIRMED</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">OI FLOW</div><div class="ai-kv-val">INITIAL OI SNAPSHOT</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">NET GEX</div><div class="ai-kv-val">+27.30 Cr  |  LONG GAMMA</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX REGIME</div><div class="ai-kv-val">ABOVE ZGL ✓ — long-gamma damping zone</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ZERO GAMMA LEVEL</div><div class="ai-kv-val">13,582</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX PIN</div><div class="ai-kv-val">13,500  |  top γ exposure: #1 13,500  ›  #2 13,600  ›  #3 13,000</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">GEX CONCENTRATION</div><div class="ai-kv-val">43% in top 3  —  MODERATE</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX BOOK TILT</div><div class="ai-kv-val" style="color:var(--call)">CALL-TILTED (1.5x)   (skew-adjusted: CALL-TILTED 0.9x — steep put skew partially offsets call dominance)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX ACCELERATION</div><div class="ai-kv-val">+0.3039 Cr/pt</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">NET DEALER DELTA</div><div class="ai-kv-val">-78.3 Cr  |  NET SHORT ▼  (-57,664 delta-units)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OI GRAVITY</div><div class="ai-kv-val">Put gravity 13384 | peak OI 13500 (116pt diff)  |  Call gravity 13450 | peak OI 13450 (aligned)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX BOOK TILT</div><div class="ai-kv-val" style="color:var(--call)">CALL-TILTED (1.8x)   (skew-adjusted: CALL-TILTED 1.2x — steep put skew partially offsets call dominance)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX ACCELERATION</div><div class="ai-kv-val">+0.2270 Cr/pt</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">NET DEALER DELTA</div><div class="ai-kv-val">+243.3 Cr  |  NET LONG ▲  (+178,594 delta-units)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">OI GRAVITY</div><div class="ai-kv-val">Put gravity 13386 | peak OI 13500 (114pt diff)  |  Call gravity 13450 | peak OI 13450 (aligned)</div></div>
 </div>
 </div>
 
 <div class="ai-section">
 <div class="ai-section-title">⚡ OI &amp; PCR FLOW</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">ATM PCR</div><div class="ai-kv-val">1.672</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OVERALL PCR</div><div class="ai-kv-val">1.072</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM PCR</div><div class="ai-kv-val">1.662</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">OVERALL PCR</div><div class="ai-kv-val">1.065</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">SUPPORT LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Put OI below spot</span></div><div class="ai-kv-val">13500  ›  13300  ›  13200  (strongest: 13,500)</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">RESISTANCE LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Call OI above spot</span></div><div class="ai-kv-val">13450  (strongest: 13,450)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SPOT vs KEY LEVELS</div><div class="ai-kv-val">Spot 13,575  |  nearest γ: 13,550 ↔ 13,600  |  OI peaks: 13,500 ↔ 13,450  |  LONG γ at nearest strikes 13,550/13,600 — moves cushioned</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SPOT vs KEY LEVELS</div><div class="ai-kv-val">Spot 13,625  |  nearest γ: 13,600 ↔ 13,650  |  OI peaks: 13,500 ↔ 13,450  |  LONG γ at nearest strikes 13,600/13,650 — moves cushioned</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">VEX REGIME</div><div class="ai-kv-val">NEGLIGIBLE — vanna too small to drive meaningful flow</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">TAIL ASYMMETRY</div><div class="ai-kv-val">PUT TAIL ↓ dominant</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">BUTTERFLY (1.5σ)</div><div class="ai-kv-val" style="color:var(--neg)">HIGH BUTTERFLY +3.4vp — PUT WING RICH</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">BUTTERFLY (1.5σ)</div><div class="ai-kv-val" style="color:var(--pos)">LOW BUTTERFLY +0.1vp — WINGS CHEAP</div></div>
 </div>
 </div>
 
 <div class="ai-section" style="border-left:4px solid var(--accent)">
 <div class="ai-section-title" style="color:var(--accent)">⚡ FIXED STRIKE IV CHANGE</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">FXIV SCORE</div><div class="ai-kv-val" style="color:var(--pos)">+1</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SYNTH ΔPTS</div><div class="ai-kv-val">+2</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM CALL IV Δ</div><div class="ai-kv-val">+0.07%</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM PUT IV Δ</div><div class="ai-kv-val">-0.01%</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SKEW SHIFT Δ</div><div class="ai-kv-val">+0.08% (call-put)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">FXIV SCORE</div><div class="ai-kv-val" style="color:var(--t2)">+0</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SYNTH ΔPTS</div><div class="ai-kv-val">—</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM CALL IV Δ</div><div class="ai-kv-val">—</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM PUT IV Δ</div><div class="ai-kv-val">—</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SKEW SHIFT Δ</div><div class="ai-kv-val">—</div></div>
 </div>
 </div>
 
@@ -67,21 +702,22 @@
 <div style="font-size:0.72rem;color:var(--t2);margin-top:4px;font-style:italic;">Structural bias — driven by OI/GEX/PCR positioning. Updates when market structure changes, not on every price tick.</div>
 <div class="ai-kv" style="margin-top:10px">
 <div class="ai-kv-item"><div class="ai-kv-label">CONVICTION</div><div class="ai-kv-val">LOW</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">COMPOSITE SCORE</div><div class="ai-kv-val" style="color:var(--t2)">+1 / 10</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">COMPOSITE SCORE</div><div class="ai-kv-val" style="color:var(--t2)">-1 / 10  [first run — structure only]</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">MOVE TYPE</div><div class="ai-kv-val">RANGE-BOUND CONSOLIDATION</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">VELOCITY</div><div class="ai-kv-val">MODERATE</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">PIN PROBABILITY</div><div class="ai-kv-val">MODERATE | GEX 43% in top-3 | peak 13,500</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">GEX BASIS</div><div class="ai-kv-val">PROBABLE (OI flow inferred)</div></div>
 </div>
-<div class="ai-body" style="margin-top:10px">Composite score +1/10 — RANGE-BOUND. Spot (13,575) is approaching the put support level (13,500) — expect defensive buying from put writers in long-gamma regime. Expected trading range: 13,450–13,450 anchored by peak GEX at 13,500. Straddle-implied 1σ range: 12,723–13,977. ZGL at 13,585 — BELOW ZGL ⚠ — short-gamma amplifying zone. Distributed GEX: range is approximate, not strongly enforced. Move character: MODERATE — Normal volatility environment (18.9% ATM IV). Directional moves are possible without extreme acceleration. A decisive break outside 13,450–13,450 with volume and OI change confirmation would redefine the bias.</div>
+<div class="ai-body" style="margin-top:10px">Composite score -1/10 — RANGE-BOUND. Spot (13,625) is approaching the call resistance level (13,450) — expect call writer selling pressure. Expected trading range: 13,450–13,450 anchored by peak GEX at 13,500. Straddle-implied 1σ range: 12,740–13,960. ZGL at 13,582 — ABOVE ZGL ✓ — long-gamma damping zone. Distributed GEX: range is approximate, not strongly enforced. Move character: MODERATE — Long gamma dampens velocity but elevated IV signals some uncertainty. Moves are possible but will face resistance. A decisive break outside 13,450–13,450 with volume and OI change confirmation would redefine the bias.</div>
 </div>
 
 <div class="ai-disclaimer" style="border-left:3px solid var(--neg);padding:12px 16px;margin-top:16px;font-size:.65rem;line-height:1.8;color:var(--t3)">
 ⚠ IMPORTANT REGULATORY NOTICE: This report is generated by an automated quantitative analysis system and is provided for informational and educational purposes ONLY. It does not constitute financial advice, investment advice, or a recommendation to buy, sell, or hold any securities or derivatives. Options trading involves substantial risk and is not suitable for all investors. Past patterns do not guarantee future results. This analysis is based on publicly available NSE options data and mathematical models which may contain errors or limitations. Always consult a SEBI-registered investment advisor before making any investment decisions. The operator of this system is not registered with SEBI as an investment advisor.
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);margin-top:6px;text-align:right">
-Generated: 02 Mar 2026 14:46:17 IST &nbsp;|&nbsp; GEXMA — GEX Machine Analysis &nbsp;|&nbsp; Expiry: 30-03-2026
+Generated: 02 Mar 2026 20:56:41 IST &nbsp;|&nbsp; GEXMA — GEX Machine Analysis &nbsp;|&nbsp; Expiry: 30-03-2026
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);margin-top:4px;padding:6px 10px;border:1px solid var(--border);border-radius:4px;opacity:.7">
-🤖 ML: [ML — 6 runs | 0 resolved | 6 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 6 runs recorded. Outcomes resolve at session end (375 min after prediction).
+🤖 ML: [ML — 3 runs | 0 resolved | 3 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 3 runs recorded. Outcomes resolve at session end (375 min after prediction).
 </div>
+</div></body></html>
