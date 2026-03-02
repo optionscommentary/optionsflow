@@ -637,47 +637,47 @@ body{margin:0;padding:0;background:var(--bg);color:var(--t1);font-family:'Inter'
 <div class="ai-section" style="border-left:4px solid var(--accent);background:linear-gradient(90deg,rgba(108,92,231,0.07),transparent)">
 <div class="ai-section-title" style="color:var(--accent)">📐 KEY METRICS</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">IMPLIED 1σ RANGE</div><div class="ai-kv-val">24,826 – 24,874  (±24 pts / 0.1%)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM STRADDLE</div><div class="ai-kv-val">24 pts  |  Market 1σ range  |  BSM comparison N/A at 1d TTE</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM IV</div><div class="ai-kv-val">14.9%</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">VRP REGIME</div><div class="ai-kv-val" style="color:var(--t2)">insufficient history</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">RISK REVERSAL</div><div class="ai-kv-val">+0.0%  (BALANCED (minimal skew asymmetry))</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label" style="color:var(--warn)">⚠ ATM IV INVERSION</div><div class="ai-kv-val" style="color:var(--warn)">ATM call IV (14.9%) > ATM put IV (12.7%) — inverted from the norm. Standard index options have put IV ≥ call IV at ATM due to structural downside bias. OTM put skew remains +10.1% — tail protection is still being bought further out, so fear is not absent. This ATM-specific inversion points to active call buying or put writing right at the money, not a market-wide shift in sentiment.</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">5% OTM PUT PREM</div><div class="ai-kv-val">+10.1% vs ATM</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">5% OTM CALL PREM</div><div class="ai-kv-val">+10.1% vs ATM</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SYNTHETIC FUT</div><div class="ai-kv-val">24,873  (-0.11%)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">TTE</div><div class="ai-kv-val">1 trading days  |  Expiry 02-03-2026</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">IMPLIED 1σ RANGE</div><div class="ai-kv-val">24,370 – 25,430  (±530 pts / 2.1%)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM STRADDLE</div><div class="ai-kv-val">530 pts  |  CHEAP vs parity — long-vol edge</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM IV</div><div class="ai-kv-val">18.1%</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">VRP REGIME</div><div class="ai-kv-val" style="color:var(--neg)">-2.3% premium</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">RISK REVERSAL</div><div class="ai-kv-val">-9.1%  (PUT SKEW — extreme, near panic-hedging levels)</div></div>
+
+<div class="ai-kv-item"><div class="ai-kv-label">5% OTM PUT PREM</div><div class="ai-kv-val">+8.2% vs ATM</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">5% OTM CALL PREM</div><div class="ai-kv-val">-0.9% vs ATM</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SYNTHETIC FUT</div><div class="ai-kv-val">24,893  (+0.17%)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">TTE</div><div class="ai-kv-val">5 trading days  |  Expiry 10-03-2026</div></div>
 </div>
 </div>
 
 <div class="ai-section">
 <div class="ai-section-title">📊 DEALER &amp; GAMMA POSITIONING</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">DEALER POSITION</div><div class="ai-kv-val">NEUTRAL / BALANCED — Equal long & short positions near spot. No strong directional hedging pressure. Market is in equilibrium.</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OI FLOW</div><div class="ai-kv-val">INITIAL OI SNAPSHOT</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">NET GEX</div><div class="ai-kv-val">-1,275,453.97 Cr  |  SHORT GAMMA ⚠</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX REGIME</div><div class="ai-kv-val">Net SHORT gamma regime. 9 strikes short-gamma (-1276142 Cr) vs 4 strikes long-gamma (+688 Cr). Moves amplified overall but partially cushioned at the 4 long-gamma strike(s).</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ZERO GAMMA LEVEL</div><div class="ai-kv-val">MIXED — SHORT GAMMA DOMINANT (4 long-γ strike(s) exist)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX PIN</div><div class="ai-kv-val">24,900  |  top γ exposure: #1 24,900  ›  #2 24,850  ›  #3 25,000</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX CONCENTRATION</div><div class="ai-kv-val">100% in top 3  —  HIGH — PIN LIKELY (100% in low vol)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX BOOK TILT</div><div class="ai-kv-val" style="color:var(--call)">CALL-TILTED (252.9x)   (skew-adjusted: CALL-TILTED 151.8x — steep put skew partially offsets call dominance)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX ACCELERATION</div><div class="ai-kv-val">+1167.3427 Cr/pt</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">NET DEALER DELTA</div><div class="ai-kv-val">-47,848.4 Cr  |  NET SHORT ▼  (-19,216,084 delta-units)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OI GRAVITY</div><div class="ai-kv-val">Put gravity 24762 | peak OI 24850 (88pt diff)  |  Call gravity 25025 | peak OI 25000 (aligned)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">DEALER POSITION</div><div class="ai-kv-val">NET SHORT GAMMA — UPSIDE MOMENTUM AMPLIFIER: Dealers are short calls above spot. As price rises they SELL more to hedge, pushing price higher. Rallies accelerate.</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">OI FLOW</div><div class="ai-kv-val">CALL BUYERS DOMINANT</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">NET GEX</div><div class="ai-kv-val">-2,318.56 Cr  |  SHORT GAMMA ⚠</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX REGIME</div><div class="ai-kv-val">Net SHORT gamma regime. 32 strikes short-gamma (-2730 Cr) vs 49 strikes long-gamma (+411 Cr). Moves amplified overall but partially cushioned at the 49 long-gamma strike(s).</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ZERO GAMMA LEVEL</div><div class="ai-kv-val">MIXED — SHORT GAMMA DOMINANT (49 long-γ strike(s) exist)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX PIN</div><div class="ai-kv-val">25,000  |  top γ exposure: #1 25,000  ›  #2 24,700  ›  #3 24,500</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX CONCENTRATION</div><div class="ai-kv-val">44% in top 3  —  MODERATE</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX BOOK TILT</div><div class="ai-kv-val" style="color:var(--put)">PUT-TILTED (3.8x)  </div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">GEX ACCELERATION</div><div class="ai-kv-val">+16.8012 Cr/pt</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">NET DEALER DELTA</div><div class="ai-kv-val">-11,629.3 Cr  |  NET SHORT ▼  (-4,679,668 delta-units)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">OI GRAVITY</div><div class="ai-kv-val">Put gravity 24722 | peak OI 24800 (78pt diff)  |  Call gravity 25040 | peak OI 25000 (aligned)</div></div>
 </div>
 </div>
 
 <div class="ai-section">
 <div class="ai-section-title">⚡ OI &amp; PCR FLOW</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">ATM PCR</div><div class="ai-kv-val">0.934</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OVERALL PCR</div><div class="ai-kv-val">0.855</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SUPPORT LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Put OI below spot</span></div><div class="ai-kv-val">24900  ›  24850  ›  24800  (strongest: 24,850)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">RESISTANCE LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Call OI above spot</span></div><div class="ai-kv-val">24950  ›  25000  ›  25100  (strongest: 25,000)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SPOT vs KEY LEVELS</div><div class="ai-kv-val">Spot 24,900  |  nearest γ: 24,850 ↔ 24,950  |  OI peaks: 24,850 ↔ 25,000  |  ⚠ SHORT γ at nearest strikes 24,850/24,950 — moves accelerate through them</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">CEX REGIME</div><div class="ai-kv-val">CHARM: -481548.842 Cr/day</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">TAIL ASYMMETRY</div><div class="ai-kv-val">SYMMETRIC</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">BUTTERFLY (1.5σ)</div><div class="ai-kv-val" style="color:var(--t2)">EXPIRY DAY (1d) — wing IVs unreliable at near-zero TTE. Use GEX pin 24,900 and straddle ±24pts as range proxy.</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">ATM PCR</div><div class="ai-kv-val">1.059</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">OVERALL PCR</div><div class="ai-kv-val">0.738</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SUPPORT LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Put OI below spot</span></div><div class="ai-kv-val">24800  ›  24700  ›  24600  (strongest: 24,800)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">RESISTANCE LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Call OI above spot</span></div><div class="ai-kv-val">24900  ›  25000  ›  25200  (strongest: 25,000)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">SPOT vs KEY LEVELS</div><div class="ai-kv-val">Spot 24,850  |  nearest γ: 24,850 ↔ 24,900  |  OI peaks: 24,800 ↔ 25,000  |  ⚠ SHORT γ at nearest strikes 24,850/24,900 — moves accelerate through them</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">CEX REGIME</div><div class="ai-kv-val">CHARM: -2954.738 Cr/day</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">TAIL ASYMMETRY</div><div class="ai-kv-val">PUT TAIL ↓ dominant</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">BUTTERFLY (1.5σ)</div><div class="ai-kv-val" style="color:var(--t2)">NORMAL BUTTERFLY +2.1vp (put wing +8.0vp richer)</div></div>
 </div>
 </div>
 
@@ -705,17 +705,17 @@ body{margin:0;padding:0;background:var(--bg);color:var(--t1);font-family:'Inter'
 <div class="ai-kv-item"><div class="ai-kv-label">COMPOSITE SCORE</div><div class="ai-kv-val" style="color:var(--t2)">-1 / 10  [first run — structure only]</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">MOVE TYPE</div><div class="ai-kv-val">RANGE-BOUND CONSOLIDATION</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">VELOCITY</div><div class="ai-kv-val">MODERATE</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">PIN PROBABILITY</div><div class="ai-kv-val">HIGH PIN | GEX 100% in top-3 | peak 24,900</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">PIN PROBABILITY</div><div class="ai-kv-val">MODERATE | GEX 44% in top-3 | peak 25,000</div></div>
 <div class="ai-kv-item"><div class="ai-kv-label">GEX BASIS</div><div class="ai-kv-val">PROBABLE (OI flow inferred)</div></div>
 </div>
-<div class="ai-body" style="margin-top:10px">Composite score -1/10 — RANGE-BOUND. Spot (24,900) is near the put OI level (24,850). NOTE: net GEX is SHORT — in this regime, a break below 24,850 will be AMPLIFIED by dealer hedging, not cushioned. Short-gamma dealers sell into declines. Expected trading range: 24,800–25,000 anchored by peak GEX at 24,900. Straddle-implied 1σ range: 24,826–24,874. ZGL at MIXED — SHORT GAMMA DOMINANT (4 long-γ strike(s) exist) — Net SHORT gamma regime. 9 strikes short-gamma (-1276142 Cr) vs 4 strikes long-gamma (+688 Cr). Moves amplified overall but partially cushioned at the 4 long-gamma strike(s).. High GEX concentration (100%): strong pin to 24,900. Premium selling at wing strikes has a structural edge. Move character: MODERATE — Normal volatility environment (14.9% ATM IV). Directional moves are possible without extreme acceleration. A decisive break outside 24,800–25,000 with volume and OI change confirmation would redefine the bias.</div>
+<div class="ai-body" style="margin-top:10px">Composite score -1/10 — RANGE-BOUND. Spot (24,850) is near the put OI level (24,800). NOTE: net GEX is SHORT — in this regime, a break below 24,800 will be AMPLIFIED by dealer hedging, not cushioned. Short-gamma dealers sell into declines. Expected trading range: 24,750–25,000 anchored by peak GEX at 25,000. Straddle-implied 1σ range: 24,370–25,430. ZGL at MIXED — SHORT GAMMA DOMINANT (49 long-γ strike(s) exist) — Net SHORT gamma regime. 32 strikes short-gamma (-2730 Cr) vs 49 strikes long-gamma (+411 Cr). Moves amplified overall but partially cushioned at the 49 long-gamma strike(s).. Distributed GEX: range is approximate, not strongly enforced. Move character: MODERATE — Normal volatility environment (18.1% ATM IV). Directional moves are possible without extreme acceleration. A decisive break outside 24,750–25,000 with volume and OI change confirmation would redefine the bias.</div>
 </div>
 
 <div class="ai-disclaimer" style="border-left:3px solid var(--neg);padding:12px 16px;margin-top:16px;font-size:.65rem;line-height:1.8;color:var(--t3)">
 ⚠ IMPORTANT REGULATORY NOTICE: This report is generated by an automated quantitative analysis system and is provided for informational and educational purposes ONLY. It does not constitute financial advice, investment advice, or a recommendation to buy, sell, or hold any securities or derivatives. Options trading involves substantial risk and is not suitable for all investors. Past patterns do not guarantee future results. This analysis is based on publicly available NSE options data and mathematical models which may contain errors or limitations. Always consult a SEBI-registered investment advisor before making any investment decisions. The operator of this system is not registered with SEBI as an investment advisor.
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);margin-top:6px;text-align:right">
-Generated: 02 Mar 2026 15:22:00 IST &nbsp;|&nbsp; GEXMA — GEX Machine Analysis &nbsp;|&nbsp; Expiry: 02-03-2026
+Generated: 02 Mar 2026 15:33:38 IST &nbsp;|&nbsp; GEXMA — GEX Machine Analysis &nbsp;|&nbsp; Expiry: 10-03-2026
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);margin-top:4px;padding:6px 10px;border:1px solid var(--border);border-radius:4px;opacity:.7">
 🤖 ML: [ML — 0 runs | 0 resolved | 0 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  No learning history yet.
