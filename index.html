@@ -441,7 +441,7 @@ body{
   .sub-tabs{overflow-x:auto;flex-wrap:nowrap}
   #main{padding:14px}
   .contact-strip{padding:8px 14px}
-  .tb-pills .tb-pill:nth-child(n+4){display:none}
+  .tb-pills .tb-pill:nth-child(n+5){display:none}
   .kv-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
@@ -459,11 +459,11 @@ body{
   </a>
 
   <!-- Gmail — brand red #EA4335 -->
-  <a class="cs-link" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
+  <a class="cs-link" href="/cdn-cgi/l/email-protection#f19d9490839f859e9490839f97839e9c82859e929a9c90839a9485b1969c90989ddf929e9c" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" style="flex-shrink:0" width="15" height="15">
       <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/>
     </svg>
-    learntoearnfromstockmarket@gmail.com
+    <span class="__cf_email__" data-cfemail="55393034273b213a3034273b33273a3826213a363e3834273e3021153238343c397b363a38">[email&#160;protected]</span>
   </a>
 
   <!-- X/Twitter — white on dark, black on light -->
@@ -707,7 +707,7 @@ body{
   <img id="lbx-img" src="" alt="zoom">
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── THEME ──────────────────────────────────────────── */
 (function(){
   const t = localStorage.getItem('oc-theme') || 'dark';
@@ -722,6 +722,29 @@ function toggleTheme(){
   localStorage.setItem('oc-theme', nxt);
   document.getElementById('theme-btn').textContent = nxt==='dark' ? '☀ LIGHT' : '🌙 DARK';
 }
+
+/* ── AUTO-REFRESH ───────────────────────────────────── */
+const _lastTs = {};
+async function checkForUpdates(){
+  for(const idx of INDICES){
+    try{
+      const r = await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
+      if(!r.ok) continue;
+      const d = await r.json();
+      const ts = d.timestamp_iso || d.timestamp || '';
+      if(_lastTs[idx] && _lastTs[idx] !== ts){
+        // New data — refresh active tab
+        const active = document.querySelector('.tab.on')?.id?.replace('tab-','');
+        if(active === idx) renderIndex(idx, await fetchData(idx, true));
+        // Flash tab dot green briefly
+        const dot = document.getElementById(`tab-${idx}`)?.querySelector('.tab-dot');
+        if(dot){ dot.style.background='var(--pos)'; setTimeout(()=>dot.style.background='',2000); }
+      }
+      _lastTs[idx] = ts;
+    }catch{}
+  }
+}
+setInterval(checkForUpdates, 60000); // check every 60s
 
 /* ── CONFIG ─────────────────────────────────────────── */
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
@@ -770,7 +793,7 @@ const CHART_BADGE = {
 const YF = {
   nifty:'^NSEI', banknifty:'^NSEBANK',
   sensex:'^BSESN', finnifty:'NIFTY_FIN_SERVICE.NS',
-  midcpnifty:'NIFTY_MIDCAP_SELECT.NS'
+  midcpnifty:'NIFTY_MID_SELECT.NS'
 };
 const cache = {};
 
@@ -804,23 +827,51 @@ function scoreClass(sc){
 }
 
 /* ── LIVE TICKERS ───────────────────────────────────── */
+// Try 3 different CORS proxies in sequence, fallback to latest.json spot
+async function fetchYahoo(sym){
+  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`;
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(yUrl)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(yUrl)}`,
+    `https://thingproxy.freeboard.io/fetch/${yUrl}`,
+  ];
+  for(const proxy of proxies){
+    try{
+      const r = await fetch(proxy, {signal: AbortSignal.timeout(6000)});
+      if(!r.ok) continue;
+      const d = await r.json();
+      const meta = d?.chart?.result?.[0]?.meta;
+      if(meta?.regularMarketPrice) return meta;
+    }catch{}
+  }
+  return null;
+}
+
 async function fetchLive(idx){
-  const sym=YF[idx]; if(!sym) return;
+  const sym = YF[idx]; if(!sym) return;
+  const ev = document.getElementById(`tpv-${idx}`);
+  const ec = document.getElementById(`tpc-${idx}`);
+
+  const meta = await fetchYahoo(sym);
+  if(meta){
+    const price = meta.regularMarketPrice;
+    const prev  = meta.chartPreviousClose || meta.previousClose || price;
+    const chg   = price - prev;
+    const pct   = (chg / prev) * 100;
+    const sign  = chg >= 0 ? '+' : '';
+    const col   = chg > 0 ? 'var(--pos)' : chg < 0 ? 'var(--neg)' : 'var(--t3)';
+    if(ev) ev.textContent = f(Math.round(price));
+    if(ec) ec.innerHTML = `<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+    return;
+  }
+
+  // All proxies failed — show spot from last GEXMA run
   try{
-    const r=await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`);
-    if(!r.ok) return;
-    const d=await r.json();
-    const meta=d?.chart?.result?.[0]?.meta;
-    if(!meta?.regularMarketPrice) return;
-    const price=meta.regularMarketPrice;
-    const prev=meta.chartPreviousClose||meta.previousClose||price;
-    const chg=price-prev, pct=(chg/prev)*100;
-    const sign=chg>=0?'+':'';
-    const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
-    const ev=document.getElementById(`tpv-${idx}`);
-    const ec=document.getElementById(`tpc-${idx}`);
-    if(ev) ev.textContent=f(Math.round(price));
-    if(ec) ec.innerHTML=`<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+    const data = cache[idx]?.data || await fetchData(idx);
+    if(data?.spot && ev && ev.textContent === '—'){
+      ev.textContent = f(Math.round(data.spot));
+      if(ec) ec.innerHTML = `<span style="color:var(--t4);font-size:.6rem">last run</span>`;
+    }
   }catch{}
 }
 async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive)); }
@@ -855,9 +906,9 @@ function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
 
-  // Vol Surface: served as interactive iframe
+  // Vol Surface: always use fixed filename (pushed by push_to_web.py)
   if(key==='volsurf'){
-    const src=`data/${idx}/${fn}`;
+    const src=`data/${idx}/vol_surface.html`;
     return `<div class="gcard">
       <div class="gcard-hdr">
         <span class="gcard-title">${CHART_TITLE[key]}</span>
@@ -867,7 +918,9 @@ function chartHtml(idx, data, key){
                   color:var(--accent);text-decoration:none;border:1px solid var(--border);
                   border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a>
       </div>
-      <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"></iframe>
+      <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"
+              onerror="this.closest('.gcard').innerHTML+='<p style=padding:20px;color:var(--t3);font-family:monospace;font-size:.8rem>Vol surface not yet generated — run GEXMA first.</p>'">
+      </iframe>
     </div>`;
   }
 
@@ -886,51 +939,30 @@ function chartHtml(idx, data, key){
 /* ── ANALYSIS TAB HTML ──────────────────────────────── */
 function analysisHtml(idx, data){
   if(!data) return EMPTY;
-  const sc=data.composite_score||0;
-  const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-  const sup=(data.put_support_levels||[]).map(k=>f(k)).join(' · ')||'—';
-  const res=(data.call_resist_levels||[]).map(k=>f(k)).join(' · ')||'—';
-  const p3=(data.gex_pin_top3||[]).map((k,i)=>`#${i+1} ${f(k)}`).join(' · ')||'—';
+  // Force fresh load every time — bypass GitHub Pages & browser cache
+  const ts = data.timestamp_iso ? new Date(data.timestamp_iso).getTime() : Date.now();
+  const analysisSrc = `data/${idx}/analysis.html?v=${ts}`;
   return `
-  <div class="pills" style="padding-top:8px;margin-bottom:14px">
-    <div class="pill"><div class="pl">Engine</div><div class="pv" style="color:var(--accent)">Dealer Flow Analytics</div></div>
-    <div class="pill"><div class="pl">Generated</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div>
-  </div>
-  <div class="gcard">
-    <div class="gcard-hdr">
-      <span class="gcard-title">MARKET METRICS — ${idx.toUpperCase()}</span>
-      <span class="gcard-badge">DEALER FLOW + GREEK SYNTHESIS</span>
-    </div>
-    <div style="padding:22px">
-      <div class="ai-section">
-        <div class="ai-section-title">Composite Score &amp; Regime</div>
-        <div class="kv-grid">
-          <div class="kv-item"><div class="kv-lbl">COMPOSITE SCORE</div><div class="kv-val"><span class="score-pill ${scoreClass(sc)}">${sc>0?'+':''}${sc}</span></div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX REGIME</div><div class="kv-val" style="color:${gC}">${data.gex_regime||'—'} GAMMA</div></div>
-          <div class="kv-item"><div class="kv-lbl">VOL REGIME</div><div class="kv-val" style="color:var(--t3)">${(data.vol_regime||'—').replace(/_/g,' ').toUpperCase()}</div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX SPEED</div><div class="kv-val">${data.gex_speed!=null?`${Number(data.gex_speed)>0?'+':''}${Number(data.gex_speed).toFixed(4)} Cr/pt`:'—'}</div></div>
-        </div>
-      </div>
-      <div class="ai-section">
-        <div class="ai-section-title">Key Levels &amp; Greeks</div>
-        <div class="kv-grid">
-          <div class="kv-item"><div class="kv-lbl">SPOT</div><div class="kv-val">${f(data.spot)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">SYNTHETIC FUTURES</div><div class="kv-val">${f(data.synthetic_futures,0)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">ATM IV</div><div class="kv-val" style="color:${(data.atm_iv||0)>20?'var(--neg)':(data.atm_iv||0)<12?'var(--accent)':'var(--t3)'}">${f(data.atm_iv,1)}%</div></div>
-          <div class="kv-item"><div class="kv-lbl">1σ IMPLIED RANGE</div><div class="kv-val" style="font-size:.75rem">${f(data.implied_lower)} – ${f(data.implied_upper)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">NET GEX</div><div class="kv-val" style="color:${(data.net_gex||0)<0?'var(--neg)':'var(--pos)'}">${(data.net_gex||0)>0?'+':''}${f(data.net_gex,0)} Cr</div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX PIN</div><div class="kv-val" style="color:var(--accent)">${f(data.peak_gex_k)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX PIN TOP 3</div><div class="kv-val" style="font-size:.72rem">${p3}</div></div>
-          <div class="kv-item"><div class="kv-lbl">PUT SUPPORT</div><div class="kv-val" style="color:var(--pos);font-size:.75rem">${sup}</div></div>
-          <div class="kv-item"><div class="kv-lbl">CALL RESIST</div><div class="kv-val" style="color:var(--neg);font-size:.75rem">${res}</div></div>
-          <div class="kv-item"><div class="kv-lbl">ATM PCR</div><div class="kv-val" style="color:${(data.pcr_atm||1)<.7?'var(--neg)':(data.pcr_atm||1)>1.2?'var(--pos)':'var(--t3)'}">${f(data.pcr_atm,3)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">RISK REVERSAL</div><div class="kv-val" style="color:${(data.risk_reversal||0)<-3?'var(--neg)':(data.risk_reversal||0)>1?'var(--pos)':'var(--t3)'}">${(data.risk_reversal||0)>0?'+':''}${f(data.risk_reversal,1)}%</div></div>
-          <div class="kv-item"><div class="kv-lbl">DEALER DELTA</div><div class="kv-val" style="color:${(data.net_dealer_delta_cr||0)>0?'var(--pos)':'var(--neg)'}">${(data.net_dealer_delta_cr||0)>0?'+':''}${f(data.net_dealer_delta_cr,1)} Cr</div></div>
-          <div class="kv-item"><div class="kv-lbl">PUT SKEW 5%</div><div class="kv-val">${(data.put_skew||0)>0?'+':''}${f(data.put_skew,1)}%</div></div>
-        </div>
-      </div>
-    </div>
+  <div style="width:100%;position:relative">
+    <a href="${analysisSrc}" target="_blank" rel="noopener"
+       style="position:absolute;top:10px;right:14px;z-index:10;
+              font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+              color:var(--accent);text-decoration:none;border:1px solid var(--border);
+              border-radius:4px;padding:4px 10px;background:var(--surface)">⤢ OPEN FULL PAGE</a>
+    <iframe src="${analysisSrc}"
+            id="analysis-frame-${idx}"
+            style="width:100%;height:2400px;border:none;display:block"
+            title="Analysis ${idx.toUpperCase()}"
+            onload="autoResizeFrame(this)">
+    </iframe>
   </div>`;
+}
+
+function autoResizeFrame(frame){
+  try{
+    const h = frame.contentDocument?.documentElement?.scrollHeight || 2200;
+    frame.style.height = Math.max(h + 40, 800) + 'px';
+  }catch{}
 }
 
 /* ── RENDER INDEX ───────────────────────────────────── */
@@ -1078,11 +1110,11 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
           </div>
         </a>
 
-        <a class="cg-item" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
+        <a class="cg-item" href="/cdn-cgi/l/email-protection#c0aca5a1b2aeb4afa5a1b2aea6b2afadb3b4afa3abada1b2aba5b480a7ada1a9aceea3afad" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="18" height="18"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/></svg>
           <div>
             <div class="cg-label">Email</div>
-            <div class="cg-value">learntoearnfromstockmarket@gmail.com</div>
+            <div class="cg-value"><span class="__cf_email__" data-cfemail="d0bcb5b1a2bea4bfb5b1a2beb6a2bfbda3a4bfb3bbbdb1a2bbb5a490b7bdb1b9bcfeb3bfbd">[email&#160;protected]</span></div>
           </div>
         </a>
 
@@ -1163,31 +1195,10 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
       <p>We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated date. Continued use of the Website after changes constitutes your acceptance of the revised policy.</p>
 
       <h3>9. Contact</h3>
-      <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:learntoearnfromstockmarket@gmail.com">learntoearnfromstockmarket@gmail.com</a> or through any of our channels listed in the <button class="foot-link" style="display:inline;padding:0;font-size:inherit;text-transform:none;letter-spacing:0;color:var(--call)" onclick="closeModal('modal-privacy');openModal('modal-contact')">Contact Us</button> section.</p>
+      <p>If you have any questions about this Privacy Policy, please contact us at <a href="/cdn-cgi/l/email-protection#2d41484c5f435942484c5f434b5f42405e59424e46404c5f4648596d4a404c4441034e4240"><span class="__cf_email__" data-cfemail="036f6662716d776c6662716d65716c6e70776c60686e627168667743646e626a6f2d606c6e">[email&#160;protected]</span></a> or through any of our channels listed in the <button class="foot-link" style="display:inline;padding:0;font-size:inherit;text-transform:none;letter-spacing:0;color:var(--call)" onclick="closeModal('modal-privacy');openModal('modal-contact')">Contact Us</button> section.</p>
 
     </div>
   </div>
 </div>
 
-<script>
-/* ── MODAL HELPERS ──────────────────────────────── */
-function openModal(id){
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(id){
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow='';
-}
-function closeModalOutside(e, id){
-  if(e.target === document.getElementById(id)) closeModal(id);
-}
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape'){
-    ['modal-about','modal-contact','modal-privacy'].forEach(closeModal);
-  }
-});
-</script>
-
-</body>
-</html>
+<script data-cfasync="false" s
