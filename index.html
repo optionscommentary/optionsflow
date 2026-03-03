@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Options Flow Dashboard</title>
-<meta name="description" content="Options Commentary — Dealer Flow & GEX Analytics.">
+<meta name="description" content="Options Commentary \u2014 Dealer Flow & GEX Analytics.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 
-/* ══════════════════════════════════════════════════════
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
    DARK THEME
-   Inspired by unusualwhales.com — clean deep navy,
+   Inspired by unusualwhales.com \u2014 clean deep navy,
    near-white readable text, strong contrast.
    Not pitch-black; more like deep ocean slate.
-   ══════════════════════════════════════════════════════ */
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
 :root,[data-theme="dark"]{
-  --bg:          #0E1623;   /* deep slate — not pure black */
+  --bg:          #0E1623;   /* deep slate \u2014 not pure black */
   --surface:     #131F2E;   /* card surface */
   --raised:      #1A2B3D;   /* elevated elements */
   --hover:       #1F3248;
@@ -24,15 +24,15 @@
   --border:      #1E3248;
   --border-lit:  #2A4460;
 
-  /* Text — unusualwhales uses clear off-white, never grey soup */
-  --t1:          #F3F6FA;   /* primary — near white, easy on eyes */
-  --t2:          #D4DCE8;   /* secondary — still clearly readable */
-  --t3:          #8BA4BE;   /* tertiary — for labels */
-  --t4:          #5A7490;   /* muted — dim separators */
+  /* Text \u2014 unusualwhales uses clear off-white, never grey soup */
+  --t1:          #F3F6FA;   /* primary \u2014 near white, easy on eyes */
+  --t2:          #D4DCE8;   /* secondary \u2014 still clearly readable */
+  --t3:          #8BA4BE;   /* tertiary \u2014 for labels */
+  --t4:          #5A7490;   /* muted \u2014 dim separators */
 
-  --call:        #5BA8F5;   /* blue — calls */
-  --put:         #F97316;   /* orange — puts */
-  --spot:        #34D399;   /* green — spot/live */
+  --call:        #5BA8F5;   /* blue \u2014 calls */
+  --put:         #F97316;   /* orange \u2014 puts */
+  --spot:        #34D399;   /* green \u2014 spot/live */
   --pos:         #34D399;
   --neg:         #F87171;   /* red */
   --accent:      #5BA8F5;
@@ -43,84 +43,57 @@
   --contact-h:   44px;
 }
 
-/* ══════════════════════════════════════════════════════
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
    LIGHT THEME
-   High-contrast professional light mode.
-   Near-black text on white — no dull greys.
-   ══════════════════════════════════════════════════════ */
+   Clean, professional \u2014 white cards, slate text,
+   blue accents. Similar to a Bloomberg/UW light mode.
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
 [data-theme="light"]{
-  --bg:          #F0F4F8;
+  --bg:          #EEF2F7;
   --surface:     #FFFFFF;
-  --raised:      #F4F7FB;
-  --hover:       #E8EEF8;
+  --raised:      #F5F8FC;
+  --hover:       #EBF1FB;
   --input-bg:    #FFFFFF;
-  --border:      #C8D5E4;
-  --border-lit:  #8FAEC8;
+  --border:      #D1DCEA;
+  --border-lit:  #A8BED4;
 
-  /* Text — very dark, high contrast on white */
-  --t1:          #07111E;   /* almost black — primary */
-  --t2:          #142232;   /* dark navy — secondary */
-  --t3:          #2E4A62;   /* dark slate — tertiary */
-  --t4:          #5B7A96;   /* medium — labels only */
+  --t1:          #0C1829;   /* very dark for primary text */
+  --t2:          #1C3347;
+  --t3:          #4A6580;
+  --t4:          #8BA4BE;
 
-  --call:        #1558C0;
-  --put:         #C04A00;
-  --spot:        #0A7A50;
-  --pos:         #0A7A50;
-  --neg:         #B82020;
-  --accent:      #1558C0;
+  --call:        #1D6FD4;
+  --put:         #D45A0A;
+  --spot:        #0B8A5C;
+  --pos:         #0B8A5C;
+  --neg:         #C52B2B;
+  --accent:      #1D6FD4;
 }
 
-/* Light overrides — strong contrast, near-black text on white */
+/* Light overrides */
 [data-theme="light"] #topbar,
-[data-theme="light"] .tabs-bar      { background:#FFFFFF; border-color:#C8D5E4; box-shadow:0 1px 6px rgba(0,0,0,.08); }
-[data-theme="light"] .contact-strip { background:#FFFFFF; border-color:#C8D5E4; }
-[data-theme="light"] .tb-brand      { color:#07111E; }
-[data-theme="light"] .tb-pill .lbl  { color:#2E4A62; }
-[data-theme="light"] .tb-pill .val  { color:#07111E; font-weight:700; }
-[data-theme="light"] .tab           { color:#2E4A62; }
-[data-theme="light"] .tab.on        { color:var(--call); border-bottom-color:var(--call); background:#EBF3FF; }
-[data-theme="light"] .tab:hover     { background:#ECF2FA; color:#07111E; }
-[data-theme="light"] .stab          { color:#2E4A62; }
-[data-theme="light"] .stab.on       { color:var(--call); border-bottom-color:var(--call); background:#EBF3FF; }
-[data-theme="light"] .stab:hover    { background:#ECF2FA; color:#07111E; }
-[data-theme="light"] .sub-tabs      { background:#F4F7FB; border-color:#C8D5E4; }
-[data-theme="light"] .pill          { background:#F4F7FB; border-color:#C8D5E4; }
-[data-theme="light"] .pill .pl      { color:#5B7A96; }
-[data-theme="light"] .pill .pv      { color:#07111E; font-weight:600; }
-[data-theme="light"] .gcard         { box-shadow:0 1px 6px rgba(0,0,0,.08); border-color:#C8D5E4; background:#FFFFFF; }
-[data-theme="light"] .gcard:hover   { box-shadow:0 4px 20px rgba(0,0,0,.12); border-color:#8FAEC8; }
-[data-theme="light"] .gcard-hdr     { background:#F4F7FB; border-color:#C8D5E4; }
-[data-theme="light"] .gcard-title   { color:#07111E; }
-[data-theme="light"] .gcard-badge   { color:#2E4A62; background:#EAEFF6; border-color:#C8D5E4; }
-[data-theme="dark"]  .gcard img     { filter:brightness(.96) contrast(1.04); }
-[data-theme="light"] .gcard img     { filter:none; }
-[data-theme="light"] .kv-item       { background:#F4F7FB; border-color:#C8D5E4; }
-[data-theme="light"] .kv-lbl        { color:#5B7A96; }
-[data-theme="light"] .kv-val        { color:#07111E; }
-[data-theme="light"] .ai-section-title { color:#07111E; }
-[data-theme="light"] .ai-section    { border-color:#C8D5E4; }
-[data-theme="light"] .empty         { background:#F4F7FB; border-color:#C8D5E4; }
-[data-theme="light"] .empty p       { color:#2E4A62; }
-[data-theme="light"] .footer        { background:#FFFFFF; border-color:#C8D5E4; }
-[data-theme="light"] .disc          { color:#142232; }
-[data-theme="light"] .foot-brand    { color:#2E4A62; }
-[data-theme="light"] .theme-btn     { background:#F4F7FB; border-color:#C8D5E4; color:#2E4A62; }
-[data-theme="light"] .theme-btn:hover { color:#07111E; border-color:var(--accent); }
-[data-theme="light"] .cs-lbl        { color:#5B7A96; }
-[data-theme="light"] .cs-link       { color:#142232; border-color:#C8D5E4; }
-[data-theme="light"] .cs-link:hover { color:var(--call); border-color:var(--call); background:#EBF3FF; }
-[data-theme="light"] .mkt-open      { background:rgba(10,122,80,.1); border-color:rgba(10,122,80,.3); }
-[data-theme="light"] .mkt-close     { background:#F4F7FB; color:#5B7A96; border-color:#C8D5E4; }
-[data-theme="light"] #tb-clock      { color:var(--accent); }
+[data-theme="light"] .tabs-bar    { background:#FFFFFF; border-color:#D1DCEA; box-shadow:0 1px 6px rgba(0,0,0,.07); }
+[data-theme="light"] .contact-strip{ background:#FFFFFF; border-color:#D1DCEA; }
+[data-theme="light"] .tab.on      { color:var(--call); border-bottom-color:var(--call); background:#EBF1FB; }
+[data-theme="light"] .tab:hover   { background:#F0F5FC; color:var(--t2); }
+[data-theme="light"] .stab.on     { color:var(--call); border-bottom-color:var(--call); background:#EBF1FB; }
+[data-theme="light"] .stab:hover  { background:#F0F5FC; color:var(--t2); }
+[data-theme="light"] .sub-tabs    { background:#F5F8FC; border-color:#D1DCEA; }
+[data-theme="light"] .pill        { background:#F5F8FC; border-color:#D1DCEA; }
+[data-theme="light"] .gcard       { box-shadow:0 1px 6px rgba(0,0,0,.07); border-color:#D1DCEA; }
+[data-theme="light"] .gcard:hover { box-shadow:0 4px 18px rgba(0,0,0,.1); border-color:#A8BED4; }
+[data-theme="light"] .gcard-hdr   { background:#F5F8FC; border-color:#D1DCEA; }
+[data-theme="light"] .gcard img   { filter:none; }
+[data-theme="dark"]  .gcard img   { filter:brightness(.96) contrast(1.04); }
+[data-theme="light"] .kv-item     { background:#F5F8FC; border-color:#D1DCEA; }
+[data-theme="light"] .empty       { background:#F5F8FC; border-color:#D1DCEA; }
+[data-theme="light"] .footer      { background:#FFFFFF; border-color:#D1DCEA; }
+[data-theme="light"] .disc        { color:var(--t3); }
+[data-theme="light"] .theme-btn   { background:#F5F8FC; border-color:#D1DCEA; color:var(--t3); }
+[data-theme="light"] .cs-link     { color:var(--t2); border-color:#D1DCEA; }
+[data-theme="light"] .cs-link:hover{ color:var(--call); border-color:var(--call); background:#EBF1FB; }
 
-/* X and Threads icons adapt to theme */
-[data-theme="dark"]  .icon-x,
-[data-theme="dark"]  .icon-threads { fill:#F3F6FA; }
-[data-theme="light"] .icon-x,
-[data-theme="light"] .icon-threads { fill:#07111E; }
-
-/* ── Reset & base ─────────────────────────────────── */
+/* \u2500\u2500 Reset & base \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px}
 body{
@@ -130,9 +103,9 @@ body{
   display:flex;flex-direction:column;
 }
 
-/* ══════════════════════════════════════════════════════
-   CONTACT STRIP — bigger, more readable text
-   ══════════════════════════════════════════════════════ */
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   CONTACT STRIP \u2014 bigger, more readable text
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
 .contact-strip{
   background:var(--surface);
   border-bottom:1px solid var(--border);
@@ -145,11 +118,11 @@ body{
   font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:var(--t4);margin-right:6px;white-space:nowrap;
 }
-/* Each contact link — meaningfully bigger than before */
+/* Each contact link \u2014 meaningfully bigger than before */
 .cs-link{
   display:inline-flex;align-items:center;gap:8px;
   font-family:'IBM Plex Mono',monospace;
-  font-size:.85rem;           /* up from .65rem — clearly readable */
+  font-size:.85rem;           /* up from .65rem \u2014 clearly readable */
   font-weight:500;
   color:var(--t2);text-decoration:none;
   padding:6px 14px;border-radius:6px;
@@ -164,9 +137,9 @@ body{
 }
 .cs-link svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
 
-/* ══════════════════════════════════════════════════════
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
    TOPBAR
-   ══════════════════════════════════════════════════════ */
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
 #topbar{
   position:sticky;top:0;z-index:900;
   height:var(--topbar);
@@ -212,12 +185,12 @@ body{
 }
 .theme-btn:hover{color:var(--t1);border-color:var(--accent)}
 
-/* ══════════════════════════════════════════════════════
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
    MAIN
-   ══════════════════════════════════════════════════════ */
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
 #main{flex:1;padding:20px 24px;display:flex;flex-direction:column}
 
-/* ── INDEX TABS (horizontal, sticky under topbar) ── */
+/* \u2500\u2500 INDEX TABS (horizontal, sticky under topbar) \u2500\u2500 */
 .tabs-bar{
   display:flex;gap:0;
   border-bottom:1px solid var(--border);
@@ -241,13 +214,13 @@ body{
 }
 .idx-panel{display:none}.idx-panel.on{display:block}
 
-/* ── META PILLS ───────────────────────────────────── */
+/* \u2500\u2500 META PILLS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 .pills{display:flex;gap:8px;flex-wrap:wrap;padding-top:16px}
 .pill{background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);padding:8px 14px}
 .pill .pl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);margin-bottom:3px}
 .pill .pv{font-family:'IBM Plex Mono',monospace;font-size:.88rem;font-weight:500;color:var(--t1)}
 
-/* ── SUB-TABS ─────────────────────────────────────── */
+/* \u2500\u2500 SUB-TABS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 .sub-tabs{
   display:flex;flex-wrap:wrap;gap:0;
   background:var(--bg);border:1px solid var(--border);
@@ -266,7 +239,7 @@ body{
 .stab.on{background:var(--raised);color:var(--call);border-bottom-color:var(--call)}
 .stab-panel{display:none;padding:16px 0 0}.stab-panel.on{display:block}
 
-/* ── GRAPH CARDS ──────────────────────────────────── */
+/* \u2500\u2500 GRAPH CARDS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 .gcard{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--card-radius);overflow:hidden;
@@ -284,7 +257,7 @@ body{
 .gcard img:hover{opacity:.9}
 .vol-surface-frame{width:100%;height:680px;border:none;background:var(--bg);display:block}
 
-/* ── ANALYSIS KV ──────────────────────────────────── */
+/* \u2500\u2500 ANALYSIS KV \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 .kv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-bottom:14px}
 .kv-item{background:var(--raised);border:1px solid var(--border);border-radius:6px;padding:10px 13px}
 .kv-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t4);letter-spacing:.08em;margin-bottom:4px;font-weight:600;text-transform:uppercase}
@@ -304,7 +277,7 @@ body{
 .sp-neu {background:rgba(249,115,22,.12);color:var(--put);border:1px solid rgba(249,115,22,.3)}
 .sp-flat{background:var(--raised);color:var(--t4);border:1px solid var(--border)}
 
-/* ── EMPTY STATE ──────────────────────────────────── */
+/* \u2500\u2500 EMPTY STATE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 .empty{
   background:var(--surface);border:1px dashed var(--border);
   border-radius:var(--card-radius);padding:60px 24px;text-align:center;
@@ -321,7 +294,7 @@ body{
 #lbx img{max-width:96vw;max-height:94vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 60px rgba(0,0,0,.9)}
 #lbx-x{position:absolute;top:14px;right:20px;color:#fff;font-size:2rem;cursor:pointer;user-select:none;z-index:10000;line-height:1}
 
-/* ── FOOTER ───────────────────────────────────────── */
+/* \u2500\u2500 FOOTER \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 .footer{
   margin-top:auto;
   border-top:1px solid var(--border);background:var(--surface);
@@ -329,7 +302,7 @@ body{
 }
 .disc{
   font-family:'IBM Plex Mono',monospace;font-size:.63rem;
-  color:var(--t2);           /* brighter — t2 not t4 */
+  color:var(--t2);           /* brighter \u2014 t2 not t4 */
   line-height:2;max-width:840px;
 }
 .foot-brand{
@@ -343,169 +316,74 @@ body{
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border-lit);border-radius:2px}
 
-/* ── FOOTER LINKS BAR ─────────────────────────────── */
-.foot-links{
-  width:100%;border-top:1px solid var(--border);
-  padding:10px 0 0;margin-top:6px;
-  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
-}
-.foot-link{
-  font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:500;
-  letter-spacing:.07em;text-transform:uppercase;
-  color:var(--t3);background:none;border:none;cursor:pointer;
-  padding:4px 10px;border-radius:5px;
-  transition:color .15s,background .15s;
-}
-.foot-link:hover{color:var(--call);background:rgba(91,168,245,.08)}
-.foot-link-sep{color:var(--border-lit);font-size:.7rem;user-select:none}
-[data-theme="light"] .foot-link{color:var(--t3)}
-[data-theme="light"] .foot-link:hover{color:var(--call);background:#EBF3FF}
-[data-theme="light"] .foot-links{border-color:#C8D5E4}
-
-/* ── INFO MODAL ───────────────────────────────────── */
-.imodal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.72);z-index:9800;
-  align-items:center;justify-content:center;padding:20px;
-}
-.imodal-overlay.open{display:flex}
-.imodal{
-  background:var(--surface);border:1px solid var(--border-lit);
-  border-radius:14px;max-width:740px;width:100%;
-  max-height:88vh;overflow-y:auto;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-  position:relative;
-}
-[data-theme="light"] .imodal{box-shadow:0 8px 40px rgba(0,0,0,.18)}
-.imodal-hdr{
-  position:sticky;top:0;z-index:1;
-  background:var(--raised);border-bottom:1px solid var(--border);
-  padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
-  border-radius:14px 14px 0 0;
-}
-.imodal-title{
-  font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;
-  color:var(--t1);letter-spacing:.03em;
-}
-.imodal-close{
-  background:none;border:none;cursor:pointer;
-  font-size:1.4rem;color:var(--t3);line-height:1;padding:2px 6px;
-  border-radius:4px;transition:color .15s;
-}
-.imodal-close:hover{color:var(--t1)}
-.imodal-body{padding:24px 28px 28px}
-.imodal-body h3{
-  font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--accent);margin:22px 0 9px;
-}
-.imodal-body h3:first-child{margin-top:0}
-.imodal-body p{
-  font-family:'Inter',sans-serif;font-size:.9rem;
-  color:var(--t2);line-height:1.8;margin-bottom:10px;
-}
-.imodal-body ul{
-  margin:0 0 12px 18px;
-}
-.imodal-body ul li{
-  font-family:'Inter',sans-serif;font-size:.88rem;
-  color:var(--t2);line-height:1.8;margin-bottom:4px;
-}
-.imodal-body a{color:var(--call);text-decoration:none}
-.imodal-body a:hover{text-decoration:underline}
-.imodal-divider{
-  border:none;border-top:1px solid var(--border);margin:18px 0;
-}
-/* contact grid inside modal */
-.contact-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;
-  margin-top:12px;
-}
-.cg-item{
-  background:var(--raised);border:1px solid var(--border);
-  border-radius:8px;padding:12px 14px;
-  display:flex;align-items:center;gap:10px;
-  text-decoration:none;transition:border-color .15s,background .15s;
-}
-.cg-item:hover{border-color:var(--border-lit);background:var(--hover)}
-.cg-item svg{width:18px;height:18px;flex-shrink:0}
-.cg-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t4);margin-bottom:2px;letter-spacing:.06em;text-transform:uppercase}
-.cg-value{font-family:'Inter',sans-serif;font-size:.82rem;color:var(--t1);font-weight:500;word-break:break-all}
-[data-theme="light"] .cg-item{background:#F4F7FB;border-color:#C8D5E4}
-[data-theme="light"] .cg-item:hover{background:#EBF3FF;border-color:#8FAEC8}
-[data-theme="light"] .cg-label{color:#5B7A96}
-[data-theme="light"] .cg-value{color:#07111E}
-
 @media(max-width:760px){
   .tabs-bar{overflow-x:auto;margin:0 -14px;padding:0 14px}
   .sub-tabs{overflow-x:auto;flex-wrap:nowrap}
   #main{padding:14px}
   .contact-strip{padding:8px 14px}
-  .tb-pills .tb-pill:nth-child(n+5){display:none}
+  .tb-pills .tb-pill:nth-child(n+4){display:none}
   .kv-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ CONTACT STRIP ══════════════════════════════ -->
+<!-- \u2550\u2550 CONTACT STRIP \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
 <div class="contact-strip">
   <span class="cs-lbl">Connect</span>
 
-  <!-- WhatsApp — brand green #25D366 -->
   <a class="cs-link" href="https://wa.me/919677446082" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" style="fill:#25D366;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <!-- WhatsApp -->
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     +91 96774 46082
   </a>
 
-  <!-- Gmail — brand red #EA4335 -->
-  <a class="cs-link" href="mailto:learntoearnfromstockmarket&#64;gmail.com">
-    <svg viewBox="0 0 24 24" style="flex-shrink:0" width="15" height="15">
-      <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/>
-    </svg>
-    learntoearnfromstockmarket&#64;gmail.com
+  <a class="cs-link" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
+    <!-- Email -->
+    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    learntoearnfromstockmarket@gmail.com
   </a>
 
-  <!-- X/Twitter — white on dark, black on light -->
   <a class="cs-link" href="https://x.com/stock_right" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" class="icon-x" style="flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    <!-- X / Twitter -->
+    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
     @stock_right
   </a>
 
-  <!-- Threads — black on both (brand color) -->
   <a class="cs-link" href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener">
-    <svg viewBox="0 0 192 192" class="icon-threads" style="flex-shrink:0"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
+    <!-- Threads -->
+    <svg viewBox="0 0 192 192"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
     @optionscommentary
   </a>
 
-  <!-- Telegram — brand blue #229ED9 -->
   <a class="cs-link" href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" style="fill:#229ED9;flex-shrink:0"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+    <!-- Telegram -->
+    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
     Telegram
   </a>
 
   <div style="margin-left:auto">
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀ LIGHT</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">\u2600 LIGHT</button>
   </div>
 </div>
 
-<!-- ══ TOPBAR ══════════════════════════════════════ -->
+<!-- \u2550\u2550 TOPBAR \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
 <header id="topbar">
   <div class="tb-brand"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></div>
   <div class="tb-pills">
-    <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">—</span><div class="chg" id="tpc-nifty"></div></div>
-    <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">—</span><div class="chg" id="tpc-banknifty"></div></div>
-    <div class="tb-pill"><span class="lbl">SENSEX <span style="font-size:.5rem;opacity:.5;font-weight:400">~15m</span></span><span class="val" id="tpv-sensex">—</span><div class="chg" id="tpc-sensex"></div></div>
-    <div class="tb-pill"><span class="lbl">FINNIFTY</span><span class="val" id="tpv-finnifty">—</span><div class="chg" id="tpc-finnifty"></div></div>
-    <div class="tb-pill"><span class="lbl">MIDCAP</span><span class="val" id="tpv-midcpnifty">—</span><div class="chg" id="tpc-midcpnifty"></div></div>
+    <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">\u2014</span><div class="chg" id="tpc-nifty"></div></div>
+    <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">\u2014</span><div class="chg" id="tpc-banknifty"></div></div>
+    <div class="tb-pill"><span class="lbl">SENSEX <span style="font-size:.5rem;opacity:.5;font-weight:400">~15m</span></span><span class="val" id="tpv-sensex">\u2014</span><div class="chg" id="tpc-sensex"></div></div>
+    <div class="tb-pill"><span class="lbl">FINNIFTY</span><span class="val" id="tpv-finnifty">\u2014</span><div class="chg" id="tpc-finnifty"></div></div>
+    <div class="tb-pill"><span class="lbl">MIDCAP</span><span class="val" id="tpv-midcpnifty">\u2014</span><div class="chg" id="tpc-midcpnifty"></div></div>
   </div>
   <div class="tb-right">
-    <span class="mkt-badge mkt-close" id="mkt-badge">○ CLOSED</span>
-    <span id="tb-clock">—</span>
+    <span class="mkt-badge mkt-close" id="mkt-badge">\u25cb CLOSED</span>
+    <span id="tb-clock">\u2014</span>
   </div>
 </header>
 
-<!-- ══ MAIN ════════════════════════════════════════ -->
+<!-- \u2550\u2550 MAIN \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
 <div id="main">
 
   <!-- Index tabs row -->
@@ -517,12 +395,11 @@ body{
     <button class="tab"    id="tab-midcpnifty" onclick="switchIdx('midcpnifty')">MIDCAP</button>
   </div>
 
-  <!-- ── NIFTY ─────────────────────────── -->
+  <!-- \u2500\u2500 NIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
   <div id="panel-nifty" class="idx-panel on">
     <div id="pills-nifty" class="pills"></div>
     <div class="sub-tabs">
       <button class="stab on" id="st-nifty-oi"      onclick="switchStab('nifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-nifty-candles"  onclick="switchStab('nifty','candles',this)">Candles</button>
       <button class="stab"    id="st-nifty-gex"      onclick="switchStab('nifty','gex',this)">GEX</button>
       <button class="stab"    id="st-nifty-vex"      onclick="switchStab('nifty','vex',this)">VEX</button>
       <button class="stab"    id="st-nifty-cex"      onclick="switchStab('nifty','cex',this)">CEX</button>
@@ -532,10 +409,9 @@ body{
       <button class="stab"    id="st-nifty-topgex"   onclick="switchStab('nifty','topgex',this)">Top GEX</button>
       <button class="stab"    id="st-nifty-prob"     onclick="switchStab('nifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
       <button class="stab"    id="st-nifty-volsurf"  onclick="switchStab('nifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-nifty-analysis" onclick="switchStab('nifty','analysis',this)" style="color:var(--spot)">✦ Analysis</button>
+      <button class="stab"    id="st-nifty-analysis" onclick="switchStab('nifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-nifty-oi"       class="stab-panel on"></div>
-    <div id="sp-nifty-candles"  class="stab-panel"></div>
     <div id="sp-nifty-gex"      class="stab-panel"></div>
     <div id="sp-nifty-vex"      class="stab-panel"></div>
     <div id="sp-nifty-cex"      class="stab-panel"></div>
@@ -548,12 +424,11 @@ body{
     <div id="sp-nifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- ── BANKNIFTY ─────────────────────── -->
+  <!-- \u2500\u2500 BANKNIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
     <div class="sub-tabs">
       <button class="stab on" id="st-banknifty-oi"      onclick="switchStab('banknifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-banknifty-candles"  onclick="switchStab('banknifty','candles',this)">Candles</button>
       <button class="stab"    id="st-banknifty-gex"      onclick="switchStab('banknifty','gex',this)">GEX</button>
       <button class="stab"    id="st-banknifty-vex"      onclick="switchStab('banknifty','vex',this)">VEX</button>
       <button class="stab"    id="st-banknifty-cex"      onclick="switchStab('banknifty','cex',this)">CEX</button>
@@ -563,10 +438,9 @@ body{
       <button class="stab"    id="st-banknifty-topgex"   onclick="switchStab('banknifty','topgex',this)">Top GEX</button>
       <button class="stab"    id="st-banknifty-prob"     onclick="switchStab('banknifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
       <button class="stab"    id="st-banknifty-volsurf"  onclick="switchStab('banknifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-banknifty-analysis" onclick="switchStab('banknifty','analysis',this)" style="color:var(--spot)">✦ Analysis</button>
+      <button class="stab"    id="st-banknifty-analysis" onclick="switchStab('banknifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-banknifty-oi"       class="stab-panel on"></div>
-    <div id="sp-banknifty-candles"  class="stab-panel"></div>
     <div id="sp-banknifty-gex"      class="stab-panel"></div>
     <div id="sp-banknifty-vex"      class="stab-panel"></div>
     <div id="sp-banknifty-cex"      class="stab-panel"></div>
@@ -579,12 +453,11 @@ body{
     <div id="sp-banknifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- ── SENSEX ─────────────────────────── -->
+  <!-- \u2500\u2500 SENSEX \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
     <div class="sub-tabs">
       <button class="stab on" id="st-sensex-oi"      onclick="switchStab('sensex','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-sensex-candles"  onclick="switchStab('sensex','candles',this)">Candles</button>
       <button class="stab"    id="st-sensex-gex"      onclick="switchStab('sensex','gex',this)">GEX</button>
       <button class="stab"    id="st-sensex-vex"      onclick="switchStab('sensex','vex',this)">VEX</button>
       <button class="stab"    id="st-sensex-cex"      onclick="switchStab('sensex','cex',this)">CEX</button>
@@ -594,10 +467,9 @@ body{
       <button class="stab"    id="st-sensex-topgex"   onclick="switchStab('sensex','topgex',this)">Top GEX</button>
       <button class="stab"    id="st-sensex-prob"     onclick="switchStab('sensex','prob',this)" style="color:var(--put)">Probable Positioning</button>
       <button class="stab"    id="st-sensex-volsurf"  onclick="switchStab('sensex','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-sensex-analysis" onclick="switchStab('sensex','analysis',this)" style="color:var(--spot)">✦ Analysis</button>
+      <button class="stab"    id="st-sensex-analysis" onclick="switchStab('sensex','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-sensex-oi"       class="stab-panel on"></div>
-    <div id="sp-sensex-candles"  class="stab-panel"></div>
     <div id="sp-sensex-gex"      class="stab-panel"></div>
     <div id="sp-sensex-vex"      class="stab-panel"></div>
     <div id="sp-sensex-cex"      class="stab-panel"></div>
@@ -610,12 +482,11 @@ body{
     <div id="sp-sensex-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- ── FINNIFTY ───────────────────────── -->
+  <!-- \u2500\u2500 FINNIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
     <div class="sub-tabs">
       <button class="stab on" id="st-finnifty-oi"      onclick="switchStab('finnifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-finnifty-candles"  onclick="switchStab('finnifty','candles',this)">Candles</button>
       <button class="stab"    id="st-finnifty-gex"      onclick="switchStab('finnifty','gex',this)">GEX</button>
       <button class="stab"    id="st-finnifty-vex"      onclick="switchStab('finnifty','vex',this)">VEX</button>
       <button class="stab"    id="st-finnifty-cex"      onclick="switchStab('finnifty','cex',this)">CEX</button>
@@ -625,10 +496,9 @@ body{
       <button class="stab"    id="st-finnifty-topgex"   onclick="switchStab('finnifty','topgex',this)">Top GEX</button>
       <button class="stab"    id="st-finnifty-prob"     onclick="switchStab('finnifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
       <button class="stab"    id="st-finnifty-volsurf"  onclick="switchStab('finnifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-finnifty-analysis" onclick="switchStab('finnifty','analysis',this)" style="color:var(--spot)">✦ Analysis</button>
+      <button class="stab"    id="st-finnifty-analysis" onclick="switchStab('finnifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-finnifty-oi"       class="stab-panel on"></div>
-    <div id="sp-finnifty-candles"  class="stab-panel"></div>
     <div id="sp-finnifty-gex"      class="stab-panel"></div>
     <div id="sp-finnifty-vex"      class="stab-panel"></div>
     <div id="sp-finnifty-cex"      class="stab-panel"></div>
@@ -641,12 +511,11 @@ body{
     <div id="sp-finnifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- ── MIDCPNIFTY ─────────────────────── -->
+  <!-- \u2500\u2500 MIDCPNIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
     <div class="sub-tabs">
       <button class="stab on" id="st-midcpnifty-oi"      onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-midcpnifty-candles"  onclick="switchStab('midcpnifty','candles',this)">Candles</button>
       <button class="stab"    id="st-midcpnifty-gex"      onclick="switchStab('midcpnifty','gex',this)">GEX</button>
       <button class="stab"    id="st-midcpnifty-vex"      onclick="switchStab('midcpnifty','vex',this)">VEX</button>
       <button class="stab"    id="st-midcpnifty-cex"      onclick="switchStab('midcpnifty','cex',this)">CEX</button>
@@ -656,10 +525,9 @@ body{
       <button class="stab"    id="st-midcpnifty-topgex"   onclick="switchStab('midcpnifty','topgex',this)">Top GEX</button>
       <button class="stab"    id="st-midcpnifty-prob"     onclick="switchStab('midcpnifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
       <button class="stab"    id="st-midcpnifty-volsurf"  onclick="switchStab('midcpnifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-midcpnifty-analysis" onclick="switchStab('midcpnifty','analysis',this)" style="color:var(--spot)">✦ Analysis</button>
+      <button class="stab"    id="st-midcpnifty-analysis" onclick="switchStab('midcpnifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-midcpnifty-oi"       class="stab-panel on"></div>
-    <div id="sp-midcpnifty-candles"  class="stab-panel"></div>
     <div id="sp-midcpnifty-gex"      class="stab-panel"></div>
     <div id="sp-midcpnifty-vex"      class="stab-panel"></div>
     <div id="sp-midcpnifty-cex"      class="stab-panel"></div>
@@ -674,106 +542,56 @@ body{
 
 </div><!-- /#main -->
 
-<!-- ══ FOOTER (page bottom) ═══════════════════════ -->
+<!-- \u2550\u2550 FOOTER (page bottom) \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
 <div class="footer">
   <div class="disc">
-    ⚠ All content is for <strong>informational and educational purposes only</strong>
+    \u26a0 All content is for <strong>informational and educational purposes only</strong>
     and does not constitute investment advice or a recommendation to buy, sell or hold any security.
     Options trading involves substantial risk of loss and is not suitable for all investors.
-    Data is sourced from the publicly available option chain. Updated periodically during market hours (09:15–15:30 IST, Mon–Fri).
-    GEX figures are probabilistic dealer flow estimates — not confirmed positions.
+    Data is sourced from the publicly available option chain. Updated periodically during market hours (09:15\u201315:30 IST, Mon\u2013Fri).
+    GEX figures are probabilistic dealer flow estimates \u2014 not confirmed positions.
     Past analysis does not guarantee future accuracy. Not SEBI registered.
   </div>
   <div class="foot-brand">
     OPTIONS<em>FLOW</em><br>
-    <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW · GEX ANALYTICS</span>
-  </div>
-  <!-- Footer nav links -->
-  <div class="foot-links">
-    <button class="foot-link" onclick="openModal('modal-about')">About Us</button>
-    <span class="foot-link-sep">·</span>
-    <button class="foot-link" onclick="openModal('modal-contact')">Contact Us</button>
-    <span class="foot-link-sep">·</span>
-    <button class="foot-link" onclick="openModal('modal-privacy')">Privacy Policy</button>
-    <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t4)">
-      © 2025 Options Commentary. All rights reserved.
-    </span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW \u00b7 GEX ANALYTICS</span>
   </div>
 </div>
 
 <!-- Lightbox -->
 <div id="lbx" onclick="closeLbx()">
-  <span id="lbx-x" onclick="closeLbx()">✕</span>
+  <span id="lbx-x" onclick="closeLbx()">\u2715</span>
   <img id="lbx-img" src="" alt="zoom">
 </div>
 
 <script>
-/* ── THEME ──────────────────────────────────────────── */
+/* \u2500\u2500 THEME \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 (function(){
   const t = localStorage.getItem('oc-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', t);
   const b = document.getElementById('theme-btn');
-  if(b) b.textContent = t==='dark' ? '☀ LIGHT' : '🌙 DARK';
+  if(b) b.textContent = t==='dark' ? '\u2600 LIGHT' : '\ud83c\udf19 DARK';
 })();
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
   const nxt = cur==='dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
-  document.getElementById('theme-btn').textContent = nxt==='dark' ? '☀ LIGHT' : '🌙 DARK';
+  document.getElementById('theme-btn').textContent = nxt==='dark' ? '\u2600 LIGHT' : '\ud83c\udf19 DARK';
 }
 
-/* ── MODALS ─────────────────────────────────────────── */
-function openModal(id){
-  const m=document.getElementById(id);
-  if(m){ m.style.display='flex'; document.body.style.overflow='hidden'; }
-}
-function closeModal(id){
-  const m=document.getElementById(id);
-  if(m){ m.style.display='none'; document.body.style.overflow=''; }
-}
-function closeModalOutside(e,id){
-  if(e.target===document.getElementById(id)) closeModal(id);
-}
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){
-  ['modal-about','modal-contact','modal-privacy'].forEach(closeModal);
-}});
-
-/* ── AUTO-REFRESH ───────────────────────────────────── */
-const _lastTs = {};
-async function checkForUpdates(){
-  for(const idx of INDICES){
-    try{
-      const r = await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
-      if(!r.ok) continue;
-      const d = await r.json();
-      const ts = d.timestamp_iso || d.timestamp || '';
-      if(_lastTs[idx] && ts && _lastTs[idx] !== ts){
-        // New data pushed — reload to show fresh plots and analysis
-        window.location.reload(true);
-        return;
-      }
-      if(ts) _lastTs[idx] = ts; // only store once we have a real timestamp
-    }catch{}
-  }
-}
-// Polls every 30s — only reloads if new data was actually pushed, never interrupts reading
-setInterval(checkForUpdates, 30000);
-
-/* ── CONFIG ─────────────────────────────────────────── */
+/* \u2500\u2500 CONFIG \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS   = ['oi','candles','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];
+const STABS   = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];
 
-/* stab key → field in latest.json .plots{} */
+/* stab key \u2192 field in latest.json .plots{} */
 const PLOT_KEY = {
   oi:      'oi_gex_combined',
-  candles: 'candles_gex',
   gex:     'gamma_exp',
   vex:     'vanna_exp',
   cex:     'cex_exp',
   itmvex:  'itm_vex',
   skew:    'vol_skew',
-  otmiv:   'otm_iv',
   pcr:     'pcr_table',
   topgex:  'top_gamma',
   prob:    'prob_gex',
@@ -782,38 +600,37 @@ const PLOT_KEY = {
 const CHART_TITLE = {
   oi:      'OI & GEX Change Monitor',
   candles: '15-Min Candles & Gamma Exposure',
-  gex:     'Gamma Exposure — All 4 Dealer Scenarios',
-  vex:     'Vanna Exposure — All 4 Dealer Scenarios',
-  cex:     'Charm Exposure — All 4 Dealer Scenarios',
+  gex:     'Gamma Exposure \u2014 All 4 Dealer Scenarios',
+  vex:     'Vanna Exposure \u2014 All 4 Dealer Scenarios',
+  cex:     'Charm Exposure \u2014 All 4 Dealer Scenarios',
   itmvex:  'ITM Vanna Exposure',
   skew:    'Volatility Skew & Open Interest',
-  otmiv:   'OTM/ATM Implied Volatility',
   pcr:     'Put / Call Ratio Analysis',
   topgex:  'Top 6 Absolute GEX Strikes',
   prob:    'Probable Positioning Analysis',
   volsurf: 'Implied Volatility Surface',
 };
 const CHART_BADGE = {
-  oi:      'ATM ± 6 · Green=▲ Red=▼',
-  candles: '15M · Yahoo Finance',
-  gex:     'GEX · 4 Scenarios',
-  vex:     'VEX · 4 Scenarios',
-  cex:     'CEX · 4 Scenarios',
+  oi:      'ATM \u00b1 6 \u00b7 Green=\u25b2 Red=\u25bc',
+  candles: '15M \u00b7 Yahoo Finance',
+  gex:     'GEX \u00b7 4 Scenarios',
+  vex:     'VEX \u00b7 4 Scenarios',
+  cex:     'CEX \u00b7 4 Scenarios',
   itmvex:  'In-The-Money Strikes',
   skew:    'All Strikes',
-  pcr:     'Blue=Calls · Orange=Puts',
-  topgex:  'Abs GEX · ATM Highlighted',
+  pcr:     'Blue=Calls \u00b7 Orange=Puts',
+  topgex:  'Abs GEX \u00b7 ATM Highlighted',
   prob:    'PCR + GEX + OI Synthesised',
-  volsurf: 'Plotly · 3D Interactive',
+  volsurf: 'Plotly \u00b7 3D Interactive',
 };
 const YF = {
   nifty:'^NSEI', banknifty:'^NSEBANK',
   sensex:'^BSESN', finnifty:'NIFTY_FIN_SERVICE.NS',
-  midcpnifty:'NIFTY_MID_SELECT.NS'
+  midcpnifty:'NIFTY_MIDCAP_SELECT.NS'
 };
 const cache = {};
 
-/* ── CLOCK ──────────────────────────────────────────── */
+/* \u2500\u2500 CLOCK \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 function tick(){
   const ist = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
   const p = n=>String(n).padStart(2,'0');
@@ -822,13 +639,13 @@ function tick(){
   const h=ist.getHours(),m=ist.getMinutes(),d=ist.getDay();
   const open = d>=1&&d<=5 && (h>9||(h===9&&m>=15)) && (h<15||(h===15&&m<=30));
   const b = document.getElementById('mkt-badge');
-  b.textContent = open?'● OPEN':'○ CLOSED';
+  b.textContent = open?'\u25cf OPEN':'\u25cb CLOSED';
   b.className = 'mkt-badge '+(open?'mkt-open':'mkt-close');
 }
 setInterval(tick,1000); tick();
 
-/* ── HELPERS ────────────────────────────────────────── */
-const f = (v,d=0)=> typeof v==='number'?v.toLocaleString('en-IN',{maximumFractionDigits:d}):(v||'—');
+/* \u2500\u2500 HELPERS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+const f = (v,d=0)=> typeof v==='number'?v.toLocaleString('en-IN',{maximumFractionDigits:d}):(v||'\u2014');
 function ago(iso){
   if(!iso) return '';
   const s=(Date.now()-new Date(iso))/1000;
@@ -842,57 +659,29 @@ function scoreClass(sc){
   if(sc!==0) return 'sp-neu'; return 'sp-flat';
 }
 
-/* ── LIVE TICKERS ───────────────────────────────────── */
-// Try 3 different CORS proxies in sequence, fallback to latest.json spot
-async function fetchYahoo(sym){
-  const yUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`;
-  const proxies = [
-    `https://corsproxy.io/?${encodeURIComponent(yUrl)}`,
-    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(yUrl)}`,
-    `https://thingproxy.freeboard.io/fetch/${yUrl}`,
-  ];
-  for(const proxy of proxies){
-    try{
-      const r = await fetch(proxy, {signal: AbortSignal.timeout(6000)});
-      if(!r.ok) continue;
-      const d = await r.json();
-      const meta = d?.chart?.result?.[0]?.meta;
-      if(meta?.regularMarketPrice) return meta;
-    }catch{}
-  }
-  return null;
-}
-
+/* \u2500\u2500 LIVE TICKERS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 async function fetchLive(idx){
-  const sym = YF[idx]; if(!sym) return;
-  const ev = document.getElementById(`tpv-${idx}`);
-  const ec = document.getElementById(`tpc-${idx}`);
-
-  const meta = await fetchYahoo(sym);
-  if(meta){
-    const price = meta.regularMarketPrice;
-    const prev  = meta.chartPreviousClose || meta.previousClose || price;
-    const chg   = price - prev;
-    const pct   = (chg / prev) * 100;
-    const sign  = chg >= 0 ? '+' : '';
-    const col   = chg > 0 ? 'var(--pos)' : chg < 0 ? 'var(--neg)' : 'var(--t3)';
-    if(ev) ev.textContent = f(Math.round(price));
-    if(ec) ec.innerHTML = `<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
-    return;
-  }
-
-  // All proxies failed — show spot from last GEXMA run
+  const sym=YF[idx]; if(!sym) return;
   try{
-    const data = cache[idx]?.data || await fetchData(idx);
-    if(data?.spot && ev && ev.textContent === '—'){
-      ev.textContent = f(Math.round(data.spot));
-      if(ec) ec.innerHTML = `<span style="color:var(--t4);font-size:.6rem">last run</span>`;
-    }
+    const r=await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`);
+    if(!r.ok) return;
+    const d=await r.json();
+    const meta=d?.chart?.result?.[0]?.meta;
+    if(!meta?.regularMarketPrice) return;
+    const price=meta.regularMarketPrice;
+    const prev=meta.chartPreviousClose||meta.previousClose||price;
+    const chg=price-prev, pct=(chg/prev)*100;
+    const sign=chg>=0?'+':'';
+    const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
+    const ev=document.getElementById(`tpv-${idx}`);
+    const ec=document.getElementById(`tpc-${idx}`);
+    if(ev) ev.textContent=f(Math.round(price));
+    if(ec) ec.innerHTML=`<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
   }catch{}
 }
 async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive)); }
 
-/* ── FETCH DATA ─────────────────────────────────────── */
+/* \u2500\u2500 FETCH DATA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 async function fetchData(idx, force){
   if(!force && cache[idx] && Date.now()-cache[idx].ts<90000) return cache[idx].data;
   try{
@@ -909,7 +698,7 @@ async function fetchData(idx, force){
   }catch{ return cache[idx]?.data||null; }
 }
 
-/* ── EMPTY STATE ────────────────────────────────────── */
+/* \u2500\u2500 EMPTY STATE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 const EMPTY=`<div class="empty">
   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
     <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
@@ -917,38 +706,14 @@ const EMPTY=`<div class="empty">
   <p>No data available yet.</p>
 </div>`;
 
-/* ── SINGLE CHART HELPER ───────────────────────────── */
-function singleChart(idx, fn, ts, title, badge){
-  const src=`data/${idx}/plots/${fn.replace('plots/','').replace('plots\\','')}?_=${ts}`;
-  return `<div class="gcard" style="margin-bottom:14px">
-    <div class="gcard-hdr">
-      <span class="gcard-title">${title}</span>
-      <span class="gcard-badge">${badge}</span>
-    </div>
-    <img src="${src}" alt="${title}" style="width:100%;display:block"
-         onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<p style=padding:20px;color:var(--t3);font-family:monospace;font-size:.8rem>Not yet available — run GEXMA</p>')">
-  </div>`;
-}
-
-/* ── CHART CARD HTML ────────────────────────────────── */
+/* \u2500\u2500 CHART CARD HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 function chartHtml(idx, data, key){
-  // Vol Skew tab shows BOTH vol_skew and otm_iv plots stacked
-  if(key==='skew'){
-    const fn1=data?.plots?.['vol_skew'];
-    const fn2=data?.plots?.['otm_iv'];
-    if(!fn1 && !fn2) return EMPTY;
-    const ts=Date.now();
-    let html='';
-    if(fn1) html+=singleChart(idx,fn1,ts,'Volatility Skew & Open Interest','CALL/PUT OI + IV CURVE');
-    if(fn2) html+=singleChart(idx,fn2,ts,'OTM / ATM Implied Volatility','IV TERM STRUCTURE');
-    return html;
-  }
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
 
-  // Vol Surface: always use fixed filename (pushed by push_to_web.py)
+  // Vol Surface: served as interactive iframe
   if(key==='volsurf'){
-    const src=`data/${idx}/vol_surface.html`;
+    const src=`data/${idx}/${fn}`;
     return `<div class="gcard">
       <div class="gcard-hdr">
         <span class="gcard-title">${CHART_TITLE[key]}</span>
@@ -956,61 +721,81 @@ function chartHtml(idx, data, key){
         <a href="${src}" target="_blank" rel="noopener"
            style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;
                   color:var(--accent);text-decoration:none;border:1px solid var(--border);
-                  border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a>
+                  border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">\u2922 FULL SCREEN</a>
       </div>
-      <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"
-              onerror="this.closest('.gcard').innerHTML+='<p style=padding:20px;color:var(--t3);font-family:monospace;font-size:.8rem>Vol surface not yet generated — run GEXMA first.</p>'">
-      </iframe>
+      <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"></iframe>
     </div>`;
   }
 
   const src=`data/${idx}/${fn}?_=${Date.now()}`;
+  const safeEmpty=EMPTY.replace(/\
+/g,'').replace(/'/g,'\\x27');
   return `<div class="gcard">
     <div class="gcard-hdr">
       <span class="gcard-title">${CHART_TITLE[key]||key}</span>
       <span class="gcard-badge">${CHART_BADGE[key]||''}</span>
     </div>
     <img src="${src}" alt="${CHART_TITLE[key]||key}"
-         style="width:100%;display:block"
-         onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<p style=padding:20px;color:var(--t3);font-family:monospace;font-size:.8rem>Plot not yet pushed — run GEXMA and push_to_web.py</p>')">
+         onerror="this.closest('.gcard').outerHTML='${safeEmpty}'">
   </div>`;
 }
 
-/* ── ANALYSIS TAB HTML ──────────────────────────────── */
+/* \u2500\u2500 ANALYSIS TAB HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 function analysisHtml(idx, data){
   if(!data) return EMPTY;
-  // Force fresh load every time — bypass GitHub Pages & browser cache
-  const ts = data.timestamp_iso ? new Date(data.timestamp_iso).getTime() : Date.now();
-  const analysisSrc = `data/${idx}/analysis.html?v=${ts}`;
+  const sc=data.composite_score||0;
+  const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
+  const sup=(data.put_support_levels||[]).map(k=>f(k)).join(' \u00b7 ')||'\u2014';
+  const res=(data.call_resist_levels||[]).map(k=>f(k)).join(' \u00b7 ')||'\u2014';
+  const p3=(data.gex_pin_top3||[]).map((k,i)=>`#${i+1} ${f(k)}`).join(' \u00b7 ')||'\u2014';
   return `
-  <div style="width:100%;position:relative">
-    <a href="${analysisSrc}" target="_blank" rel="noopener"
-       style="position:absolute;top:10px;right:14px;z-index:10;
-              font-family:'IBM Plex Mono',monospace;font-size:.6rem;
-              color:var(--accent);text-decoration:none;border:1px solid var(--border);
-              border-radius:4px;padding:4px 10px;background:var(--surface)">⤢ OPEN FULL PAGE</a>
-    <iframe src="${analysisSrc}"
-            id="analysis-frame-${idx}"
-            style="width:100%;height:2400px;border:none;display:block"
-            title="Analysis ${idx.toUpperCase()}"
-            onload="autoResizeFrame(this)">
-    </iframe>
+  <div class="pills" style="padding-top:8px;margin-bottom:14px">
+    <div class="pill"><div class="pl">Engine</div><div class="pv" style="color:var(--accent)">Dealer Flow Analytics</div></div>
+    <div class="pill"><div class="pl">Generated</div><div class="pv" style="font-size:.75rem">${data.timestamp||'\u2014'}</div></div>
+  </div>
+  <div class="gcard">
+    <div class="gcard-hdr">
+      <span class="gcard-title">MARKET METRICS \u2014 ${idx.toUpperCase()}</span>
+      <span class="gcard-badge">DEALER FLOW + GREEK SYNTHESIS</span>
+    </div>
+    <div style="padding:22px">
+      <div class="ai-section">
+        <div class="ai-section-title">Composite Score &amp; Regime</div>
+        <div class="kv-grid">
+          <div class="kv-item"><div class="kv-lbl">COMPOSITE SCORE</div><div class="kv-val"><span class="score-pill ${scoreClass(sc)}">${sc>0?'+':''}${sc}</span></div></div>
+          <div class="kv-item"><div class="kv-lbl">GEX REGIME</div><div class="kv-val" style="color:${gC}">${data.gex_regime||'\u2014'} GAMMA</div></div>
+          <div class="kv-item"><div class="kv-lbl">VOL REGIME</div><div class="kv-val" style="color:var(--t3)">${(data.vol_regime||'\u2014').replace(/_/g,' ').toUpperCase()}</div></div>
+          <div class="kv-item"><div class="kv-lbl">GEX SPEED</div><div class="kv-val">${data.gex_speed!=null?`${Number(data.gex_speed)>0?'+':''}${Number(data.gex_speed).toFixed(4)} Cr/pt`:'\u2014'}</div></div>
+        </div>
+      </div>
+      <div class="ai-section">
+        <div class="ai-section-title">Key Levels &amp; Greeks</div>
+        <div class="kv-grid">
+          <div class="kv-item"><div class="kv-lbl">SPOT</div><div class="kv-val">${f(data.spot)}</div></div>
+          <div class="kv-item"><div class="kv-lbl">SYNTHETIC FUTURES</div><div class="kv-val">${f(data.synthetic_futures,0)}</div></div>
+          <div class="kv-item"><div class="kv-lbl">ATM IV</div><div class="kv-val" style="color:${(data.atm_iv||0)>20?'var(--neg)':(data.atm_iv||0)<12?'var(--accent)':'var(--t3)'}">${f(data.atm_iv,1)}%</div></div>
+          <div class="kv-item"><div class="kv-lbl">1\u03c3 IMPLIED RANGE</div><div class="kv-val" style="font-size:.75rem">${f(data.implied_lower)} \u2013 ${f(data.implied_upper)}</div></div>
+          <div class="kv-item"><div class="kv-lbl">NET GEX</div><div class="kv-val" style="color:${(data.net_gex||0)<0?'var(--neg)':'var(--pos)'}">${(data.net_gex||0)>0?'+':''}${f(data.net_gex,0)} Cr</div></div>
+          <div class="kv-item"><div class="kv-lbl">GEX PIN</div><div class="kv-val" style="color:var(--accent)">${f(data.peak_gex_k)}</div></div>
+          <div class="kv-item"><div class="kv-lbl">GEX PIN TOP 3</div><div class="kv-val" style="font-size:.72rem">${p3}</div></div>
+          <div class="kv-item"><div class="kv-lbl">PUT SUPPORT</div><div class="kv-val" style="color:var(--pos);font-size:.75rem">${sup}</div></div>
+          <div class="kv-item"><div class="kv-lbl">CALL RESIST</div><div class="kv-val" style="color:var(--neg);font-size:.75rem">${res}</div></div>
+          <div class="kv-item"><div class="kv-lbl">ATM PCR</div><div class="kv-val" style="color:${(data.pcr_atm||1)<.7?'var(--neg)':(data.pcr_atm||1)>1.2?'var(--pos)':'var(--t3)'}">${f(data.pcr_atm,3)}</div></div>
+          <div class="kv-item"><div class="kv-lbl">RISK REVERSAL</div><div class="kv-val" style="color:${(data.risk_reversal||0)<-3?'var(--neg)':(data.risk_reversal||0)>1?'var(--pos)':'var(--t3)'}">${(data.risk_reversal||0)>0?'+':''}${f(data.risk_reversal,1)}%</div></div>
+          <div class="kv-item"><div class="kv-lbl">DEALER DELTA</div><div class="kv-val" style="color:${(data.net_dealer_delta_cr||0)>0?'var(--pos)':'var(--neg)'}">${(data.net_dealer_delta_cr||0)>0?'+':''}${f(data.net_dealer_delta_cr,1)} Cr</div></div>
+          <div class="kv-item"><div class="kv-lbl">PUT SKEW 5%</div><div class="kv-val">${(data.put_skew||0)>0?'+':''}${f(data.put_skew,1)}%</div></div>
+        </div>
+      </div>
+    </div>
   </div>`;
 }
 
-function autoResizeFrame(frame){
-  try{
-    const h = frame.contentDocument?.documentElement?.scrollHeight || 2200;
-    frame.style.height = Math.max(h + 40, 800) + 'px';
-  }catch{}
-}
-
-/* ── RENDER INDEX ───────────────────────────────────── */
+/* \u2500\u2500 RENDER INDEX \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 function renderIndex(idx, data){
   // Update topbar spot price if not yet set
   if(data){
     const ev=document.getElementById(`tpv-${idx}`);
-    if(ev&&ev.textContent==='—') ev.textContent=f(Math.round(data.spot||0));
+    if(ev&&ev.textContent==='\u2014') ev.textContent=f(Math.round(data.spot||0));
   }
 
   // Pills
@@ -1021,11 +806,12 @@ function renderIndex(idx, data){
       pills.innerHTML=`
         <div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div>
         <div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div>
-        <div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div>
-        <div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div>
-        <div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div>
+        <div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'\u2014'}</div></div>
+        <div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'\u2014'}</div></div>
+        <div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'\u2014'}d</div></div>
         <div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div>
-        <div class="pill"><div class="pl">Last Updated</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
+        <div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'\u2014'}</div></div>
+        <div class="pill"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">\u2014</div></div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
@@ -1034,7 +820,7 @@ function renderIndex(idx, data){
   }
 
   // Chart tabs
-  ['oi','candles','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'].forEach(key=>{
+  ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'].forEach(key=>{
     const sp=document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
     sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
@@ -1048,7 +834,7 @@ function renderIndex(idx, data){
   if(spa) spa.innerHTML=analysisHtml(idx,data);
 }
 
-/* ── SWITCH INDEX TAB ───────────────────────────────── */
+/* \u2500\u2500 SWITCH INDEX TAB \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 async function switchIdx(idx){
   INDICES.forEach(i=>{
     document.getElementById(`tab-${i}`)?.classList.toggle('on',i===idx);
@@ -1058,19 +844,19 @@ async function switchIdx(idx){
   renderIndex(idx, await fetchData(idx));
 }
 
-/* ── SWITCH SUB-TAB ─────────────────────────────────── */
+/* \u2500\u2500 SWITCH SUB-TAB \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 function switchStab(idx, key, btn){
   document.getElementById(`panel-${idx}`)?.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
   STABS.forEach(k=>document.getElementById(`sp-${idx}-${k}`)?.classList.toggle('on',k===key));
 }
 
-/* ── LIGHTBOX ───────────────────────────────────────── */
+/* \u2500\u2500 LIGHTBOX \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 function openLbx(src){ document.getElementById('lbx-img').src=src; document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
-/* ── INIT ───────────────────────────────────────────── */
+/* \u2500\u2500 INIT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 (async()=>{
   renderIndex('nifty', await fetchData('nifty'));
   for(const idx of ['banknifty','sensex','finnifty','midcpnifty'])
@@ -1084,160 +870,5 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
   }, 5*60*1000);
 })();
 </script>
-<!-- ══ ABOUT US MODAL ══════════════════════════════ -->
-<div class="imodal-overlay" id="modal-about" onclick="closeModalOutside(event,'modal-about')">
-  <div class="imodal">
-    <div class="imodal-hdr">
-      <span class="imodal-title">About Us</span>
-      <button class="imodal-close" onclick="closeModal('modal-about')">✕</button>
-    </div>
-    <div class="imodal-body">
-
-      <h3>Who We Are</h3>
-      <p>Options Commentary is an independent research and analytics platform focused on Indian index options markets. We are a team of passionate market analysts and quantitative researchers who believe that institutional-grade dealer flow analysis should be accessible to serious retail participants.</p>
-      <p>We are not a brokerage, investment advisor, or SEBI-registered entity. We are analysts who share our work publicly.</p>
-
-      <hr class="imodal-divider">
-
-      <h3>What We Do</h3>
-      <p>We run a proprietary Gamma Exposure Model (GEXMA) that processes publicly available option chain data for Indian indices — NIFTY, BANKNIFTY, SENSEX, FINNIFTY, and MIDCAP NIFTY — and produces the following analytics:</p>
-      <ul>
-        <li><strong>GEX (Gamma Exposure)</strong> — dealer hedging pressure at each strike</li>
-        <li><strong>VEX (Vanna Exposure)</strong> — sensitivity of dealer delta to volatility changes</li>
-        <li><strong>CEX (Charm Exposure)</strong> — time-decay effect on dealer delta hedging</li>
-        <li><strong>ITM VEX</strong> — vanna exposure from in-the-money strikes</li>
-        <li><strong>Probable Positioning</strong> — synthesised view of likely dealer and institutional positioning</li>
-        <li><strong>Volatility Surface</strong> — 3D implied volatility across strikes and expiries</li>
-        <li><strong>PCR, Vol Skew, OI Analysis</strong> — complementary flow and sentiment indicators</li>
-      </ul>
-      <p>All analytics are updated periodically during market hours (09:15–15:30 IST, Monday–Friday) and published to this public dashboard.</p>
-
-      <hr class="imodal-divider">
-
-      <h3>Our Philosophy</h3>
-      <p>Markets are largely driven by dealer hedging flows, not just directional sentiment. By understanding where dealers are forced to buy and sell to hedge their options books, participants can better anticipate short-term price behaviour around key strikes and levels.</p>
-      <p>We do not provide trade recommendations or buy/sell signals. We provide the analytical framework — you draw your own conclusions.</p>
-
-      <hr class="imodal-divider">
-
-      <h3>Connect With Us</h3>
-      <p>For queries, feedback, or commentary, reach us through any of the channels listed in the contact bar at the top of the page, or visit our <button class="foot-link" style="display:inline;padding:0;font-size:inherit;text-transform:none;letter-spacing:0;color:var(--call)" onclick="closeModal('modal-about');openModal('modal-contact')">Contact Us</button> page.</p>
-
-    </div>
-  </div>
-</div>
-
-<!-- ══ CONTACT US MODAL ════════════════════════════ -->
-<div class="imodal-overlay" id="modal-contact" onclick="closeModalOutside(event,'modal-contact')">
-  <div class="imodal">
-    <div class="imodal-hdr">
-      <span class="imodal-title">Contact Us</span>
-      <button class="imodal-close" onclick="closeModal('modal-contact')">✕</button>
-    </div>
-    <div class="imodal-body">
-
-      <h3>Get In Touch</h3>
-      <p>We welcome questions, feedback, and collaboration enquiries. Reach us through any of the channels below. We are most responsive on WhatsApp and Telegram during Indian market hours.</p>
-
-      <div class="contact-grid">
-
-        <a class="cg-item" href="https://wa.me/919677446082" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" style="fill:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <div>
-            <div class="cg-label">WhatsApp</div>
-            <div class="cg-value">+91 96774 46082</div>
-          </div>
-        </a>
-
-        <a class="cg-item" href="mailto:learntoearnfromstockmarket@gmail.com">
-            <div class="cg-icon">
-              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/></svg>
-            </div>
-            <div class="cg-label">Gmail</div>
-            <div class="cg-value">learntoearnfromstockmarket@gmail.com</div>
-          </a>
-
-        <a class="cg-item" href="https://x.com/stock_right" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-x" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          <div>
-            <div class="cg-label">X / Twitter</div>
-            <div class="cg-value">@stock_right</div>
-          </div>
-        </a>
-
-        <a class="cg-item" href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener">
-          <svg viewBox="0 0 192 192" class="icon-threads" width="18" height="18"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
-          <div>
-            <div class="cg-label">Threads</div>
-            <div class="cg-value">@optionscommentary</div>
-          </div>
-        </a>
-
-        <a class="cg-item" href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" style="fill:#229ED9" width="18" height="18"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          <div>
-            <div class="cg-label">Telegram Channel</div>
-            <div class="cg-value">Join our Telegram →</div>
-          </div>
-        </a>
-
-      </div>
-
-      <hr class="imodal-divider">
-      <p style="font-size:.8rem;color:var(--t4);font-family:'IBM Plex Mono',monospace">Response times: WhatsApp & Telegram — same day during market hours. Email — within 48 hours.</p>
-
-    </div>
-  </div>
-</div>
-
-<!-- ══ PRIVACY POLICY MODAL ═══════════════════════ -->
-<div class="imodal-overlay" id="modal-privacy" onclick="closeModalOutside(event,'modal-privacy')">
-  <div class="imodal">
-    <div class="imodal-hdr">
-      <span class="imodal-title">Privacy Policy</span>
-      <button class="imodal-close" onclick="closeModal('modal-privacy')">✕</button>
-    </div>
-    <div class="imodal-body">
-
-      <p style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--t4)">Last updated: January 2025 &nbsp;·&nbsp; Options Commentary</p>
-
-      <h3>1. Introduction</h3>
-      <p>Options Commentary ("we", "our", or "us") operates this public dashboard at optionscommentary.github.io (the "Website"). This Privacy Policy explains what information we collect, how we use it, and your rights in relation to it. By using this Website, you agree to the practices described below.</p>
-
-      <h3>2. Information We Collect</h3>
-      <p><strong>Information you do not provide:</strong> This Website does not require any registration, login, or account creation. We do not collect your name, email address, phone number, or any personally identifiable information through the Website itself.</p>
-      <p><strong>Automatically collected data:</strong> Like most websites, our hosting provider (GitHub Pages) may automatically collect standard server log information including your IP address, browser type, pages visited, and time of visit. We do not control or access this data directly — it is governed by GitHub's Privacy Policy.</p>
-      <p><strong>Local storage:</strong> We store your theme preference (dark or light mode) in your browser's <code>localStorage</code>. This data stays entirely on your device and is never transmitted to us or any server.</p>
-
-      <h3>3. Third-Party Services</h3>
-      <p>This Website uses the following third-party services whose privacy policies apply independently:</p>
-      <ul>
-        <li><strong>GitHub Pages</strong> — hosting provider. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.</li>
-        <li><strong>Yahoo Finance API</strong> — used to fetch live spot price data for indices. Requests are made from your browser directly. No personal data is shared.</li>
-        <li><strong>Google Fonts</strong> — used to load typography (Inter, IBM Plex Mono, Syne). Google may log font requests. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
-      </ul>
-
-      <h3>4. Cookies</h3>
-      <p>This Website does not use cookies. We use <code>localStorage</code> (a browser feature) solely to remember your theme preference. No tracking cookies, advertising cookies, or analytics cookies are used.</p>
-
-      <h3>5. How We Use Information</h3>
-      <p>We do not collect, sell, rent, or share personal information. The Website is a read-only analytics dashboard — no user data is ingested, stored, or processed by us at any point.</p>
-
-      <h3>6. Financial Data Disclaimer</h3>
-      <p>All market data and analytics published on this Website are for informational and educational purposes only. Nothing on this Website constitutes financial advice, investment recommendations, or a solicitation to trade. GEX and related figures are probabilistic estimates derived from publicly available option chain data and do not represent confirmed market positions.</p>
-      <p>Options trading involves substantial risk of loss. Past analysis does not guarantee future results. We are not registered with SEBI or any other regulatory authority.</p>
-
-      <h3>7. External Links</h3>
-      <p>This Website contains links to external platforms (WhatsApp, Telegram, X, Threads, email). Once you leave our Website, we have no control over and take no responsibility for the content or privacy practices of those platforms.</p>
-
-      <h3>8. Changes to This Policy</h3>
-      <p>We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated date. Continued use of the Website after changes constitutes your acceptance of the revised policy.</p>
-
-      <h3>9. Contact</h3>
-      <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:learntoearnfromstockmarket@gmail.com" style="color:var(--call)">learntoearnfromstockmarket@gmail.com</a> or through any of our channels listed in the <button class="foot-link" style="display:inline;padding:0;font-size:inherit;text-transform:none;letter-spacing:0;color:var(--call)" onclick="closeModal('modal-privacy');openModal('modal-contact')">Contact Us</button> section.</p>
-
-    </div>
-  </div>
-</div>
-
-<script data-cfasync="false" s
+</body>
+</html>
