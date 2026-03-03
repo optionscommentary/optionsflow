@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><title>GEXMA Analysis — NIFTY — 20260302_210357</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><title>GEXMA Analysis — NIFTY — 20260303_141310</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"><style>
 /* ─── DARK THEME (default) ────────────────────────────────────────────────── */
 :root,[data-theme="dark"] {
   --bg:           #0D1520;
@@ -633,91 +633,257 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-hei
 .sc-sym{font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-weight:600;color:var(--t1)}
 .sc-name{font-size:.7rem;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sc-tick{position:absolute;top:6px;right:8px;color:var(--put);font-size:.85rem;font-weight:700}
+.sig-table{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
+.sig-header{display:grid;grid-template-columns:2fr 3fr 1.5fr 1fr;gap:8px;padding:4px 8px;font-size:.6rem;color:var(--t4);border-bottom:1px solid var(--border)}
+.sig-row{display:grid;grid-template-columns:2fr 3fr 1.5fr 1fr;gap:8px;padding:5px 8px;font-size:.68rem;border-radius:3px;background:var(--raised)}
+.sig-lbl{color:var(--t3);font-weight:600;font-size:.62rem}
+.sig-val{color:var(--t2);font-family:IBM Plex Mono,monospace}
+.sig-dir{font-weight:600;font-size:.65rem}
+.sig-wt{color:var(--t4);font-size:.6rem;text-align:right}
+
 body{margin:0;padding:0;background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif}.analysis-wrap{max-width:1200px;margin:0 auto;padding:24px 20px}</style></head><body><div class="analysis-wrap">
-<div class="ai-section" style="border-left:4px solid var(--accent);background:linear-gradient(90deg,rgba(108,92,231,0.07),transparent)">
-<div class="ai-section-title" style="color:var(--accent)">📐 KEY METRICS</div>
-<div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">IMPLIED 1σ RANGE</div><div class="ai-kv-val">24,370 – 25,430  (±530 pts / 2.1%)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM STRADDLE</div><div class="ai-kv-val">530 pts  |  CHEAP vs parity — long-vol edge</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM IV</div><div class="ai-kv-val">18.3%</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">VRP REGIME</div><div class="ai-kv-val" style="color:var(--neg)">-2.1% premium</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">RISK REVERSAL</div><div class="ai-kv-val">-9.4%  (PUT SKEW — extreme, near panic-hedging levels)</div></div>
+<style>
+.syn-wrap{font-family:'Inter',sans-serif;max-width:1100px;margin:0 auto}
+.syn-header{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:18px}
+.syn-pill{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px}
+.syn-pill-lbl{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t4);margin-bottom:3px}
+.syn-pill-val{font-size:.95rem;font-weight:700;color:var(--t1);font-family:'IBM Plex Mono',monospace}
+.syn-pill-sub{font-size:.62rem;color:var(--t3);margin-top:2px}
+.syn-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.syn-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.syn-card-title{font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t4);margin-bottom:10px;font-weight:600}
+.syn-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border)}
+.syn-row:last-child{border-bottom:none}
+.syn-row-lbl{font-size:.64rem;color:var(--t3)}
+.syn-row-val{font-size:.7rem;font-weight:600;font-family:'IBM Plex Mono',monospace;color:var(--t1)}
+.syn-view-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+.syn-view-title{font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t4);margin-bottom:10px;font-weight:600}
+.syn-sig-row{display:grid;grid-template-columns:2fr 2fr 90px 60px;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
+.syn-sig-row:last-child{border-bottom:none}
+.syn-sig-row-hdr{display:grid;grid-template-columns:2fr 2fr 90px 60px;gap:6px;padding:3px 0 6px;border-bottom:2px solid var(--border);margin-bottom:3px}
+.syn-hdr-cell{font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t4)}
+.syn-sig-lbl{font-size:.64rem;color:var(--t3)}
+.syn-sig-val{font-size:.64rem;font-family:'IBM Plex Mono',monospace;color:var(--t2)}
+.syn-sig-dir{font-size:.66rem;font-weight:700}
+.syn-sig-wt{font-size:.58rem;color:var(--t4);text-align:right}
+.syn-iter{font-size:.64rem;color:var(--t3);padding:8px 12px;border:1px solid var(--border);border-radius:6px;margin-top:10px;background:var(--surface)}
+.syn-fullwidth{grid-column:1/-1}
+.syn-sig-bar-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border)}
+.syn-sig-bar-row:last-child{border-bottom:none}
+.syn-sig-bar-lbl{font-size:.62rem;color:var(--t3);width:64px;flex-shrink:0;text-align:right;padding-right:6px}
+.syn-sig-bar-track{flex:1;height:10px;background:var(--raised);border-radius:3px;position:relative;overflow:visible}
+.syn-sig-bar-val{position:absolute;top:0;height:10px;border-radius:3px;transition:width .3s}
+.syn-sig-bar-num{font-size:.6rem;font-family:'IBM Plex Mono',monospace;color:var(--t3);width:26px;text-align:left;padding-left:4px}
+.syn-sig-bar-desc{font-size:.6rem;color:var(--t4);max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
 
-<div class="ai-kv-item"><div class="ai-kv-label">5% OTM PUT PREM</div><div class="ai-kv-val">+8.5% vs ATM</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">5% OTM CALL PREM</div><div class="ai-kv-val">-0.9% vs ATM</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SYNTHETIC FUT</div><div class="ai-kv-val">24,893  (+0.11%)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">TTE</div><div class="ai-kv-val">5 trading days  |  Expiry 10-03-2026</div></div>
-</div>
-</div>
+<div class="syn-wrap">
 
-<div class="ai-section">
-<div class="ai-section-title">📊 DEALER &amp; GAMMA POSITIONING</div>
-<div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">DEALER POSITION</div><div class="ai-kv-val">NET SHORT GAMMA — UPSIDE MOMENTUM AMPLIFIER: Dealers are short calls above spot. As price rises they SELL more to hedge, pushing price higher. Rallies accelerate.</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OI FLOW</div><div class="ai-kv-val">CALL BUYERS DOMINANT</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">NET GEX</div><div class="ai-kv-val">-6,133.43 Cr  |  SHORT GAMMA ⚠</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX REGIME</div><div class="ai-kv-val">Net SHORT gamma regime. 32 strikes short-gamma (-7482 Cr) vs 54 strikes long-gamma (+1349 Cr). Moves amplified overall but partially cushioned at the 54 long-gamma strike(s).</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ZERO GAMMA LEVEL</div><div class="ai-kv-val">MIXED — SHORT GAMMA DOMINANT (54 long-γ strike(s) exist)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX PIN</div><div class="ai-kv-val">25,000  |  top γ exposure: #1 25,000  ›  #2 24,500  ›  #3 24,700</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX CONCENTRATION</div><div class="ai-kv-val">47% in top 3  —  MODERATE</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX BOOK TILT</div><div class="ai-kv-val" style="color:var(--put)">PUT-TILTED (3.5x)  </div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX ACCELERATION</div><div class="ai-kv-val">+37.9556 Cr/pt</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">NET DEALER DELTA</div><div class="ai-kv-val">-53,907.9 Cr  |  NET SHORT ▼  (-21,679,641 delta-units)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OI GRAVITY</div><div class="ai-kv-val">Put gravity 24720 | peak OI 24800 (80pt diff)  |  Call gravity 25039 | peak OI 25000 (aligned)</div></div>
-</div>
-</div>
-
-<div class="ai-section">
-<div class="ai-section-title">⚡ OI &amp; PCR FLOW</div>
-<div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">ATM PCR</div><div class="ai-kv-val">1.237</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">OVERALL PCR</div><div class="ai-kv-val">0.819</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SUPPORT LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Put OI below spot</span></div><div class="ai-kv-val">24800  ›  24700  ›  24600  (strongest: 24,800)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">RESISTANCE LEVELS<br><span style="font-size:.6rem;color:var(--t4)">nearest→farthest  ·  ranked by Call OI above spot</span></div><div class="ai-kv-val">24900  ›  25000  ›  25200  (strongest: 25,000)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SPOT vs KEY LEVELS</div><div class="ai-kv-val">Spot 24,865  |  nearest γ: 24,850 ↔ 24,900  |  OI peaks: 24,800 ↔ 25,000  |  ⚠ SHORT γ at nearest strikes 24,850/24,900 — moves accelerate through them</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">VEX REGIME</div><div class="ai-kv-val">NEGLIGIBLE — vanna too small to drive meaningful flow</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">TAIL ASYMMETRY</div><div class="ai-kv-val">PUT TAIL ↓ dominant</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">BUTTERFLY (1.5σ)</div><div class="ai-kv-val" style="color:var(--t2)">NORMAL BUTTERFLY +2.3vp (put wing +8.1vp richer)</div></div>
-</div>
-</div>
-
-<div class="ai-section" style="border-left:4px solid var(--accent)">
-<div class="ai-section-title" style="color:var(--accent)">⚡ FIXED STRIKE IV CHANGE</div>
-<div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">FXIV SCORE</div><div class="ai-kv-val" style="color:var(--t2)">+0</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SYNTH ΔPTS</div><div class="ai-kv-val">—</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM CALL IV Δ</div><div class="ai-kv-val">—</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">ATM PUT IV Δ</div><div class="ai-kv-val">—</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">SKEW SHIFT Δ</div><div class="ai-kv-val">—</div></div>
-</div>
-</div>
-
-
-
-
-
-<div class="ai-section">
-<div class="ai-section-title">VERDICT &amp; MARKET OUTLOOK</div>
-<span class="ai-verdict neut">NEUTRAL / RANGE</span>
-<div style="font-size:0.72rem;color:var(--t2);margin-top:4px;font-style:italic;">Structural bias — driven by OI/GEX/PCR positioning. Updates when market structure changes, not on every price tick.</div>
-<div class="ai-kv" style="margin-top:10px">
-<div class="ai-kv-item"><div class="ai-kv-label">CONVICTION</div><div class="ai-kv-val">LOW</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">COMPOSITE SCORE</div><div class="ai-kv-val" style="color:var(--t2)">+1 / 10  [first run — structure only]</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">MOVE TYPE</div><div class="ai-kv-val">RANGE-BOUND CONSOLIDATION</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">VELOCITY</div><div class="ai-kv-val">MODERATE</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">PIN PROBABILITY</div><div class="ai-kv-val">MODERATE | GEX 47% in top-3 | peak 25,000</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">GEX BASIS</div><div class="ai-kv-val">PROBABLE (OI flow inferred)</div></div>
-</div>
-<div class="ai-body" style="margin-top:10px">Composite score +1/10 — RANGE-BOUND. Spot (24,865) is near the put OI level (24,800). NOTE: net GEX is SHORT — in this regime, a break below 24,800 will be AMPLIFIED by dealer hedging, not cushioned. Short-gamma dealers sell into declines. Expected trading range: 24,750–25,000 anchored by peak GEX at 25,000. Straddle-implied 1σ range: 24,370–25,430. ZGL at MIXED — SHORT GAMMA DOMINANT (54 long-γ strike(s) exist) — Net SHORT gamma regime. 32 strikes short-gamma (-7482 Cr) vs 54 strikes long-gamma (+1349 Cr). Moves amplified overall but partially cushioned at the 54 long-gamma strike(s).. Distributed GEX: range is approximate, not strongly enforced. Move character: MODERATE — Normal volatility environment (18.3% ATM IV). Directional moves are possible without extreme acceleration. A decisive break outside 24,750–25,000 with volume and OI change confirmation would redefine the bias.</div>
+<!-- ── HEADER PILLS ─────────────────────────────── -->
+<div class="syn-header">
+  <div class="syn-pill">
+    <div class="syn-pill-lbl">Index</div>
+    <div class="syn-pill-val" style="color:var(--call)">NIFTY</div>
+  </div>
+  <div class="syn-pill">
+    <div class="syn-pill-lbl">Spot</div>
+    <div class="syn-pill-val">24,865</div>
+  </div>
+  <div class="syn-pill">
+    <div class="syn-pill-lbl">ATM IV</div>
+    <div class="syn-pill-val">19.2%</div>
+    <div class="syn-pill-sub">normal</div>
+  </div>
+  <div class="syn-pill">
+    <div class="syn-pill-lbl">Expiry</div>
+    <div class="syn-pill-val" style="font-size:.75rem">10-03-2026</div>
+    <div class="syn-pill-sub">5d TTE</div>
+  </div>
+  <div class="syn-pill">
+    <div class="syn-pill-lbl">1σ Range</div>
+    <div class="syn-pill-val" style="font-size:.72rem">24,370–25,430</div>
+    <div class="syn-pill-sub">±530pts / 2.1%</div>
+  </div>
+  <div class="syn-pill">
+    <div class="syn-pill-lbl">Straddle</div>
+    <div class="syn-pill-val">530pts</div>
+    <div class="syn-pill-sub">CHEAP vs parity — long-vol edge</div>
+  </div>
 </div>
 
-<div class="ai-disclaimer" style="border-left:3px solid var(--neg);padding:12px 16px;margin-top:16px;font-size:.65rem;line-height:1.8;color:var(--t3)">
+<!-- ── VIEW + GAUGE ──────────────────────────────── -->
+<div class="syn-view-box">
+  <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+    <!-- SVG Gauge -->
+    <div style="flex-shrink:0">
+      <svg width="160" height="90" viewBox="0 0 160 90">
+        <!-- Background arc -->
+        <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="var(--border)" stroke-width="10" stroke-linecap="round"/>
+        <!-- Score arc: map norm_score (-10→10) to 0→180 degrees -->
+        <path d="M 80 20 A 65 65 0 0 0 15 85" fill="none" stroke="var(--neg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="102.1" stroke-dashoffset="81.7"/>
+        <!-- Needle: pre-computed from norm_score -->
+        <line x1="80" y1="85"
+          x2="63.0" y2="32.7"
+          stroke="var(--t1)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="80" cy="85" r="5" fill="var(--t1)"/>
+        <!-- Labels -->
+        <text x="8"  y="90" font-size="9" fill="var(--t4)" font-family="monospace">-10</text>
+        <text x="75" y="16" font-size="9" fill="var(--t4)" font-family="monospace">0</text>
+        <text x="140" y="90" font-size="9" fill="var(--t4)" font-family="monospace">+10</text>
+        <text x="80" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="var(--t2)" font-family="monospace">-2</text>
+      </svg>
+    </div>
+    <!-- View + key stats -->
+    <div style="flex:1;min-width:160px">
+      <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t4);margin-bottom:4px">VIEW</div>
+      <div style="display:inline-block;padding:5px 16px;border-radius:6px;font-size:1rem;font-weight:700;letter-spacing:.05em;
+        background:rgba(239,83,80,.15);color:#EF5350;border:1px solid rgba(239,83,80,.3)">
+        MILD BEARISH
+      </div>
+      <div style="margin-top:10px;display:flex;gap:16px;flex-wrap:wrap">
+        <div><span style="font-size:.58rem;color:var(--t4)">CONVICTION</span><br><span style="font-size:.72rem;font-weight:600;color:var(--t2)">MEDIUM</span></div>
+        <div><span style="font-size:.58rem;color:var(--t4)">VELOCITY</span><br><span style="font-size:.72rem;font-weight:600;color:var(--t2)">MODERATE</span></div>
+        <div><span style="font-size:.58rem;color:var(--t4)">GEX REGIME</span><br><span style="font-size:.72rem;font-weight:600;color:var(--neg)">SHORT γ</span></div>
+        <div><span style="font-size:.58rem;color:var(--t4)">GEX PIN</span><br><span style="font-size:.72rem;font-weight:600;color:var(--t2)">25,000</span></div>
+        <div><span style="font-size:.58rem;color:var(--t4)">GEX/PT</span><br><span style="font-size:.72rem;font-weight:600;color:var(--t2)">+17.0864</span></div>
+      </div>
+    </div>
+    <!-- Signal distribution mini-donut -->
+    <div style="flex-shrink:0;text-align:center;margin-right:4px">
+      <div style="font-size:.58rem;color:var(--t4);margin-bottom:4px;text-transform:uppercase">SIGNALS</div>
+      <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="12"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="var(--pos)" stroke-width="12" stroke-dasharray="0.0 175.9" stroke-dashoffset="44" stroke-linecap="butt" opacity="0.85"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="var(--neg)" stroke-width="12" stroke-dasharray="88.0 175.9" stroke-dashoffset="44.0" stroke-linecap="butt" opacity="0.85"/>
+          <text x="40" y="38" text-anchor="middle" font-size="10" font-weight="700" fill="var(--pos)" font-family="monospace">0</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="var(--neg)" font-family="monospace">3</text>
+        </svg>
+      <div style="font-size:.58rem;color:var(--t3);margin-top:2px">0B · 3Br · 3N</div>
+    </div>
+
+    <!-- Put/Call OI donut -->
+    <div style="flex-shrink:0;text-align:center">
+      <div style="font-size:.58rem;color:var(--t4);margin-bottom:4px;text-transform:uppercase">OI TILT</div>
+      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="var(--call)" stroke-width="12" stroke-dasharray="0.0 175.9" stroke-dashoffset="44" stroke-linecap="round"/><circle cx="40" cy="40" r="28" fill="none" stroke="var(--put)" stroke-width="12" stroke-dasharray="175.9 175.9" stroke-dashoffset="44.0" stroke-linecap="round"/><text x="40" y="44" text-anchor="middle" font-size="9" font-weight="600" fill="var(--t2)" font-family="monospace">2.6x</text></svg>
+      <div style="font-size:.62rem;color:var(--put);margin-top:3px">PUT-TILTED</div>
+    </div>
+  </div>
+  <!-- Last iteration row -->
+  
+</div>
+
+<!-- ── TWO-COLUMN GRID ────────────────────────────── -->
+<div class="syn-grid">
+
+  <!-- SIGNAL SCORECARD — Interactive SVG bars -->
+  <div class="syn-card">
+    <div class="syn-card-title" style="display:flex;justify-content:space-between;align-items:center">
+      <span>Signals</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--neg);font-weight:700">BEARISH LEAN — 4 of 7 signals bearish, 0 bullish</span>
+    </div>
+    <!-- SVG horizontal bar chart: each signal gets a bar, centered on 0, max ±3 -->
+    <svg width="100%" height="202" viewBox="0 0 320 202" style="overflow:visible">
+      <g transform="translate(0,6)"><text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">GEX/OI</text><line x1="76" y1="12" x2="76" y2="12" stroke="var(--border)" stroke-width="0.5"/><line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/><text x="163" y="15" font-size="8" fill="var(--t4)" font-family="monospace">0</text><text x="250" y="12" font-size="7.5" fill="var(--t4)" font-family="monospace">NEUTRAL / BALANCED</text></g><g transform="translate(0,38)"><text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">OI FLOW</text><line x1="76" y1="12" x2="76" y2="12" stroke="var(--border)" stroke-width="0.5"/><line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/><text x="163" y="15" font-size="8" fill="var(--t4)" font-family="monospace">0</text><text x="250" y="12" font-size="7.5" fill="var(--t4)" font-family="monospace">INITIAL OI SNAPSHOT</text></g><g transform="translate(0,70)"><text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">PCR</text><line x1="76" y1="12" x2="76" y2="12" stroke="var(--border)" stroke-width="0.5"/><line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/><rect x="132.7" y="7" width="27.3" height="10" rx="2" fill="var(--neg)" opacity="0.85"/><text x="130" y="15" text-anchor="end" font-size="8" fill="var(--neg)" font-family="monospace">-1</text><text x="250" y="12" font-size="7.5" fill="var(--t4)" font-family="monospace">ATM 1.06 / OVR 0.74</text></g><g transform="translate(0,102)"><text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">VEX</text><line x1="76" y1="12" x2="76" y2="12" stroke="var(--border)" stroke-width="0.5"/><line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/><rect x="132.7" y="7" width="27.3" height="10" rx="2" fill="var(--neg)" opacity="0.85"/><text x="130" y="15" text-anchor="end" font-size="8" fill="var(--neg)" font-family="monospace">-1</text><text x="250" y="12" font-size="7.5" fill="var(--t4)" font-family="monospace">score -1</text></g><g transform="translate(0,134)"><text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">SKEW</text><line x1="76" y1="12" x2="76" y2="12" stroke="var(--border)" stroke-width="0.5"/><line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/><rect x="132.7" y="7" width="27.3" height="10" rx="2" fill="var(--neg)" opacity="0.85"/><text x="130" y="15" text-anchor="end" font-size="8" fill="var(--neg)" font-family="monospace">-1</text><text x="250" y="12" font-size="7.5" fill="var(--t4)" font-family="monospace">put +9.0% / call -1.</text></g><g transform="translate(0,166)"><text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">FXIV</text><line x1="76" y1="12" x2="76" y2="12" stroke="var(--border)" stroke-width="0.5"/><line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/><text x="163" y="15" font-size="8" fill="var(--t4)" font-family="monospace">0</text><text x="250" y="12" font-size="7.5" fill="var(--t4)" font-family="monospace">score +0</text></g>
+      <!-- GEX TILT — structural, no score bar, just label -->
+      <g transform="translate(0,198)">
+        <text x="72" y="12" text-anchor="end" font-size="8.5" fill="var(--t3)" font-family="monospace">GEX TILT</text>
+        <line x1="160" y1="4" x2="160" y2="22" stroke="var(--border)" stroke-width="0.8"/>
+        <text x="163" y="15" font-size="8" fill="var(--put)" font-family="monospace" font-weight="600">PUT-TILTED 2.6x</text>
+      </g>
+      <!-- axis labels: BEAR | 0 | BULL -->
+      <text x="76" y="244" text-anchor="start" font-size="7" fill="var(--neg)" font-family="monospace">◀ BEAR</text>
+      <text x="244" y="244" text-anchor="end" font-size="7" fill="var(--pos)" font-family="monospace">BULL ▶</text>
+    </svg>
+  </div>
+
+  <!-- KEY LEVELS — SVG price ladder -->
+  <div class="syn-card">
+    <div class="syn-card-title">Key Levels</div>
+    <svg width="100%" height="220" viewBox="0 0 280 220" style="font-family:monospace">
+            <!-- Range bar background -->
+            <rect x="20" y="0" width="240" height="220" fill="none"/>
+            <!-- 1σ range band -->
+            <rect x="70" y="184" width="140" height="-169"
+                  fill="var(--accent)" opacity="0.07" rx="3"/>
+            <!-- GEX zone band -->
+            <rect x="70" y="195" width="140" height="2"
+                  fill="var(--t3)" opacity="0.08" rx="2"/>
+            <!-- Lines: implied range -->
+            <line x1="60" y1="184" x2="220" y2="184" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="4,3"/>
+            <line x1="60" y1="15" x2="220" y2="15" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="4,3"/>
+            <!-- Call Wall -->
+            <line x1="60" y1="115" x2="220" y2="115" stroke="var(--call)" stroke-width="1.2"/>
+            <text x="222" y="119" font-size="8" fill="var(--call)">CW 25,000</text>
+            <!-- Put Floor -->
+            <line x1="60" y1="84" x2="220" y2="84" stroke="var(--put)" stroke-width="1.2"/>
+            <text x="222" y="88" font-size="8" fill="var(--put)">PF 24,800</text>
+            <!-- GEX Pin -->
+            <line x1="60" y1="115" x2="220" y2="115" stroke="var(--synth)" stroke-width="1" stroke-dasharray="3,2"/>
+            <text x="222" y="119" font-size="8" fill="var(--synth)">PIN 25,000</text>
+            <!-- SPOT — thick line -->
+            <line x1="55" y1="94" x2="220" y2="94" stroke="var(--spot)" stroke-width="2"/>
+            <circle cx="62" cy="94" r="4" fill="var(--spot)"/>
+            <text x="222" y="98" font-size="9" font-weight="700" fill="var(--spot)">SPOT 24,865</text>
+            <!-- 1σ labels -->
+            <text x="58" y="181" text-anchor="end" font-size="7.5" fill="var(--accent)">1σ↑ 25,430</text>
+            <text x="58" y="24" text-anchor="end" font-size="7.5" fill="var(--accent)">1σ↓ 24,370</text>
+          </svg>
+    <!-- compact data row below the viz -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <div class="syn-row"><span class="syn-row-lbl">ZGL</span><span class="syn-row-val">MIXED — SHORT GAMMA DOMINANT</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX Zone</span><span class="syn-row-val">24,900–25,500</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Call Gravity</span><span class="syn-row-val">25,040</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Put Gravity</span><span class="syn-row-val">24,722</span></div>
+    </div>
+  </div>
+
+  <!-- GAMMA / DEALER -->
+  <div class="syn-card">
+    <div class="syn-card-title">Gamma &amp; Dealer</div>
+    <div class="syn-row"><span class="syn-row-lbl">Net GEX</span><span class="syn-row-val" style="color:var(--neg)">-1,422.5 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX/pt</span><span class="syn-row-val">+17.0864</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Top-3 GEX conc.</span><span class="syn-row-val">29% — LOW — TREND BIAS</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Pin prob.</span><span class="syn-row-val">LOW @ 25,000</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 12885.2 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">OI Flow</span><span class="syn-row-val">INITIAL OI SNAPSHOT</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--put)">PUT-TILTED (2.6x)</span></div>
+  </div>
+
+  <!-- VOLATILITY -->
+  <div class="syn-card">
+    <div class="syn-card-title">Volatility</div>
+    <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">19.2%</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">-10.0%</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">5% OTM Put</span><span class="syn-row-val" style="color:var(--put)">+9.0% vs ATM</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">5% OTM Call</span><span class="syn-row-val" style="color:var(--call)">-1.0% vs ATM</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">RR Regime</span><span class="syn-row-val">PUT SKEW</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">VRP</span><span class="syn-row-val" style="color:var(--t2)">-1.5% premium</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Synth Fut</span><span class="syn-row-val">24,893 (+0.11%)</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Straddle</span><span class="syn-row-val">530 pts</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Tail Asymmetry</span><span class="syn-row-val">PUT ↓</span></div>
+  </div>
+
+  <!-- TERM STRUCTURE (only if multi-expiry) -->
+  
+
+  <!-- AI SECTION -->
+  
+
+</div>
+
+<!-- STRATEGY -->
+<div class="ai-strat-box"><div class="ai-strat-title">RATIO PUT SPREAD — STRONG BEAR  [10-03-2026]  (1×2)</div><div class="ai-strat-legs"><div class="ai-strat-leg"><span class="leg-act">BUY</span><span class="leg-desc">24900 PUT [10-03-2026]</span><span class="leg-price">270</span></div><div class="ai-strat-leg"><span class="leg-act">SELL</span><span class="leg-desc">24800 PUT [10-03-2026]</span><span class="leg-price">227</span></div><div class="ai-strat-leg"><span class="leg-act">SELL</span><span class="leg-desc">24800 PUT [10-03-2026]</span><span class="leg-price">227</span></div></div><div class="ai-strat-meta"><div class="ai-strat-meta-item"><span class="sm-lbl">SYNTH ENTRY </span><span class="sm-val">24,893</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">SYNTH TARGET </span><span class="sm-val">24,700</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">SYNTH SL </span><span class="sm-val">25,000</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">NET CREDIT </span><span class="sm-val">184</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">PROFIT TARGET </span><span class="sm-val">Buy back at 181  → locks in 3 profit</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">STOP-LOSS </span><span class="sm-val">Buy back at 141  → loss of 0</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">STRUCTURE </span><span class="sm-val">Buy 1 / Sell 2</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">MAX PROFIT </span><span class="sm-val">-84 at 24,800</span></div><div class="ai-strat-meta-item"><span class="sm-lbl">BREAKEVEN </span><span class="sm-val">24,700</span></div></div></div><div class="ai-body" style="margin-top:12px;font-size:.76rem;line-height:1.7">Strong bearish: 1×2 ratio spread leverages downside. Buy 24,900 put, sell 2× 24,800 puts. Net credit 184. SL: synth futures rises above 25,000.</div>
+
+<!-- DISCLAIMER -->
+<div style="border-left:3px solid var(--border);padding:10px 14px;margin-top:14px;font-size:.62rem;line-height:1.7;color:var(--t4)">
 ⚠ IMPORTANT REGULATORY NOTICE: This report is generated by an automated quantitative analysis system and is provided for informational and educational purposes ONLY. It does not constitute financial advice, investment advice, or a recommendation to buy, sell, or hold any securities or derivatives. Options trading involves substantial risk and is not suitable for all investors. Past patterns do not guarantee future results. This analysis is based on publicly available NSE options data and mathematical models which may contain errors or limitations. Always consult a SEBI-registered investment advisor before making any investment decisions. The operator of this system is not registered with SEBI as an investment advisor.
 </div>
-<div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t3);margin-top:6px;text-align:right">
-Generated: 02 Mar 2026 21:04:07 IST &nbsp;|&nbsp; GEXMA — GEX Machine Analysis &nbsp;|&nbsp; Expiry: 10-03-2026
+<div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t4);margin-top:5px;text-align:right">
+Generated: 03 Mar 2026 14:13:19 IST | GEXMA — SYNOPSIS | Expiry: 10-03-2026
 </div>
-<div style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--t3);margin-top:4px;padding:6px 10px;border:1px solid var(--border);border-radius:4px;opacity:.7">
-🤖 ML: [ML — 6 runs | 0 resolved | 6 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 6 runs recorded. Outcomes resolve at session end (375 min after prediction).
+<div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t4);margin-top:3px;padding:5px 8px;border:1px solid var(--border);border-radius:4px;opacity:.6">
+🤖 ML: [ML — 0 runs | 0 resolved | 0 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  No learning history yet.
+</div>
+
 </div>
 </div></body></html>
