@@ -4,871 +4,1291 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Options Flow Dashboard</title>
-<meta name="description" content="Options Commentary \u2014 Dealer Flow & GEX Analytics.">
+<meta name="description" content="Options Commentary — Dealer Flow & GEX Analytics.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-
-/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-   DARK THEME
-   Inspired by unusualwhales.com \u2014 clean deep navy,
-   near-white readable text, strong contrast.
-   Not pitch-black; more like deep ocean slate.
-   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
-:root,[data-theme="dark"]{
-  --bg:          #0E1623;   /* deep slate \u2014 not pure black */
-  --surface:     #131F2E;   /* card surface */
-  --raised:      #1A2B3D;   /* elevated elements */
-  --hover:       #1F3248;
-  --input-bg:    #0A1118;
-  --border:      #1E3248;
-  --border-lit:  #2A4460;
-
-  /* Text \u2014 unusualwhales uses clear off-white, never grey soup */
-  --t1:          #F3F6FA;   /* primary \u2014 near white, easy on eyes */
-  --t2:          #D4DCE8;   /* secondary \u2014 still clearly readable */
-  --t3:          #8BA4BE;   /* tertiary \u2014 for labels */
-  --t4:          #5A7490;   /* muted \u2014 dim separators */
-
-  --call:        #5BA8F5;   /* blue \u2014 calls */
-  --put:         #F97316;   /* orange \u2014 puts */
-  --spot:        #34D399;   /* green \u2014 spot/live */
-  --pos:         #34D399;
-  --neg:         #F87171;   /* red */
-  --accent:      #5BA8F5;
-
-  --radius:      8px;
+/* ----- DARK THEME (default) ----- */
+:root, [data-theme="dark"] {
+  --bg: #121212;
+  --surface: #1E1E1E;
+  --raised: #2C2C2C;
+  --hover: #383838;
+  --input-bg: #1E1E1E;
+  --border: #AAAAAA;        /* light grey for dark bg */
+  --border-lit: #CCCCCC;
+  --t1: #FFFFFF;
+  --t2: #E0E0E0;
+  --t3: #A0A0A0;
+  --t4: #808080;
+  --call: #64B5F6;
+  --put: #F9AB64;
+  --spot: #81C995;
+  --pos: #81C995;
+  --neg: #F28B82;
+  --accent: #64B5F6;
+  --prob-color: #BB86FC;        /* purple */
+  --volsurf-color: #4DD0E1;     /* cyan */
+  --synopsis-color: #FFD54F;    /* amber */
+  --radius: 8px;
   --card-radius: 10px;
-  --topbar:      52px;
-  --contact-h:   44px;
+  --topbar: 52px;
 }
 
-/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-   LIGHT THEME
-   Clean, professional \u2014 white cards, slate text,
-   blue accents. Similar to a Bloomberg/UW light mode.
-   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
-[data-theme="light"]{
-  --bg:          #EEF2F7;
-  --surface:     #FFFFFF;
-  --raised:      #F5F8FC;
-  --hover:       #EBF1FB;
-  --input-bg:    #FFFFFF;
-  --border:      #D1DCEA;
-  --border-lit:  #A8BED4;
-
-  --t1:          #0C1829;   /* very dark for primary text */
-  --t2:          #1C3347;
-  --t3:          #4A6580;
-  --t4:          #8BA4BE;
-
-  --call:        #1D6FD4;
-  --put:         #D45A0A;
-  --spot:        #0B8A5C;
-  --pos:         #0B8A5C;
-  --neg:         #C52B2B;
-  --accent:      #1D6FD4;
+/* ----- LIGHT THEME (soft grey background, darker specialty colors) ----- */
+[data-theme="light"] {
+  --bg: #E8E8E8;
+  --surface: #FFFFFF;
+  --raised: #F0F0F0;
+  --hover: #E0E0E0;
+  --input-bg: #FFFFFF;
+  --border: #333333;        /* dark grey for light bg */
+  --border-lit: #111111;
+  --t1: #212121;
+  --t2: #333333;
+  --t3: #666666;
+  --t4: #999999;
+  --call: #1976D2;
+  --put: #D45A0A;
+  --spot: #0B8A5C;
+  --pos: #0B8A5C;
+  --neg: #C52B2B;
+  --accent: #1976D2;
+  --prob-color: #6200EE;        /* deep purple */
+  --volsurf-color: #004D40;     /* dark teal */
+  --synopsis-color: #E65100;    /* dark orange */
 }
 
-/* Light overrides */
+/* Light-specific overrides (borders now inherit contrast) */
 [data-theme="light"] #topbar,
-[data-theme="light"] .tabs-bar    { background:#FFFFFF; border-color:#D1DCEA; box-shadow:0 1px 6px rgba(0,0,0,.07); }
-[data-theme="light"] .contact-strip{ background:#FFFFFF; border-color:#D1DCEA; }
-[data-theme="light"] .tab.on      { color:var(--call); border-bottom-color:var(--call); background:#EBF1FB; }
-[data-theme="light"] .tab:hover   { background:#F0F5FC; color:var(--t2); }
-[data-theme="light"] .stab.on     { color:var(--call); border-bottom-color:var(--call); background:#EBF1FB; }
-[data-theme="light"] .stab:hover  { background:#F0F5FC; color:var(--t2); }
-[data-theme="light"] .sub-tabs    { background:#F5F8FC; border-color:#D1DCEA; }
-[data-theme="light"] .pill        { background:#F5F8FC; border-color:#D1DCEA; }
-[data-theme="light"] .gcard       { box-shadow:0 1px 6px rgba(0,0,0,.07); border-color:#D1DCEA; }
-[data-theme="light"] .gcard:hover { box-shadow:0 4px 18px rgba(0,0,0,.1); border-color:#A8BED4; }
-[data-theme="light"] .gcard-hdr   { background:#F5F8FC; border-color:#D1DCEA; }
-[data-theme="light"] .gcard img   { filter:none; }
-[data-theme="dark"]  .gcard img   { filter:brightness(.96) contrast(1.04); }
-[data-theme="light"] .kv-item     { background:#F5F8FC; border-color:#D1DCEA; }
-[data-theme="light"] .empty       { background:#F5F8FC; border-color:#D1DCEA; }
-[data-theme="light"] .footer      { background:#FFFFFF; border-color:#D1DCEA; }
-[data-theme="light"] .disc        { color:var(--t3); }
-[data-theme="light"] .theme-btn   { background:#F5F8FC; border-color:#D1DCEA; color:var(--t3); }
-[data-theme="light"] .cs-link     { color:var(--t2); border-color:#D1DCEA; }
-[data-theme="light"] .cs-link:hover{ color:var(--call); border-color:var(--call); background:#EBF1FB; }
-
-/* \u2500\u2500 Reset & base \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);color:var(--t1);
-  min-height:100vh;overflow-x:hidden;
-  display:flex;flex-direction:column;
+[data-theme="light"] .tabs-bar {
+  background: #FFFFFF;
+  border-color: var(--border);
+  box-shadow: 0 1px 6px rgba(0,30,60,.07);
+}
+[data-theme="light"] .gcard {
+  box-shadow: 0 1px 8px rgba(0,30,60,.10);
+  border-color: var(--border);
+}
+[data-theme="light"] .gcard:hover {
+  box-shadow: 0 3px 16px rgba(0,30,60,.16);
+  border-color: var(--border-lit);
+}
+[data-theme="light"] .gcard-hdr {
+  background: var(--raised);
+  border-color: var(--border);
+}
+[data-theme="light"] .gcard img {
+  filter: none;
+}
+[data-theme="light"] .kv-item {
+  background: var(--raised);
+  border-color: var(--border);
+}
+[data-theme="light"] .kv-lbl {
+  color: #2A5270;
+  font-weight: 700;
+}
+[data-theme="light"] .kv-val {
+  color: var(--t1);
+}
+[data-theme="light"] .tab.on {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: var(--raised);
+}
+[data-theme="light"] .tab:hover {
+  color: var(--t2);
+  background: var(--hover);
+}
+[data-theme="light"] .stab.on {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: var(--raised);
+}
+[data-theme="light"] .stab:hover {
+  color: var(--t2);
+  background: var(--hover);
+}
+[data-theme="light"] .stab-prob {
+  color: var(--prob-color) !important;
+}
+[data-theme="light"] .stab-volsurf {
+  color: var(--volsurf-color) !important;
+}
+[data-theme="light"] .stab-synopsis {
+  color: var(--synopsis-color) !important;
+}
+[data-theme="light"] .pill {
+  background: var(--raised);
+  border-color: var(--border);
+}
+[data-theme="light"] .pill .pl {
+  color: #2A5270;
+}
+[data-theme="light"] .pill .pv {
+  color: var(--t1);
+}
+[data-theme="light"] .empty {
+  border-color: var(--border);
+  background: var(--surface);
+}
+[data-theme="light"] .empty p {
+  color: var(--t3);
+}
+[data-theme="light"] .footer {
+  background: #FFFFFF;
+  border-color: var(--border);
+}
+[data-theme="light"] .disc {
+  color: var(--t3);
+}
+[data-theme="light"] .theme-btn {
+  background: var(--raised);
+  border-color: var(--border);
+  color: var(--t2);
+}
+[data-theme="light"] .theme-btn:hover {
+  color: var(--t1);
+  border-color: var(--accent);
+}
+[data-theme="light"] .cs-link {
+  color: var(--t1);
+  border-color: var(--border);
+}
+[data-theme="light"] .cs-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(25,118,210,.05);
+}
+[data-theme="light"] .cs-lbl {
+  color: var(--accent);
+}
+[data-theme="light"] .ai-section {
+  border-bottom-color: var(--border);
+}
+[data-theme="light"] .ai-section-title::before {
+  background: var(--accent);
+}
+[data-theme="light"] .score-pill.sp-pos {
+  background: rgba(27,94,32,.13);
+  color: #1B5E20;
+  border-color: rgba(27,94,32,.4);
+}
+[data-theme="light"] .score-pill.sp-neg {
+  background: rgba(183,28,28,.11);
+  color: #B71C1C;
+  border-color: rgba(183,28,28,.4);
+}
+[data-theme="light"] .score-pill.sp-neu {
+  background: rgba(191,54,12,.10);
+  color: #BF360C;
+  border-color: rgba(191,54,12,.3);
+}
+[data-theme="light"] .mkt-open {
+  background: rgba(27,94,32,.12);
+  color: #1B5E20;
+  border-color: rgba(27,94,32,.3);
+}
+[data-theme="light"] .mkt-close {
+  background: var(--raised);
+  color: var(--t4);
+  border-color: var(--border);
+}
+[data-theme="light"] .fi,
+[data-theme="light"] select,
+[data-theme="light"] input[type="number"],
+[data-theme="light"] input[type="date"],
+[data-theme="light"] input[type="text"] {
+  background: #F8FAFC;
+  color: var(--t1);
+  border-color: var(--border);
+}
+[data-theme="light"] .vol-surface-frame {
+  border-color: var(--border);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: var(--border-lit);
 }
 
-/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-   CONTACT STRIP \u2014 bigger, more readable text
-   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
-.contact-strip{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:10px 24px;
-  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
-  flex-shrink:0;
+/* ----- Base Styles (used by both themes) ----- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.cs-lbl{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--t4);margin-right:6px;white-space:nowrap;
+html {
+  font-size: 15px;
 }
-/* Each contact link \u2014 meaningfully bigger than before */
-.cs-link{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.85rem;           /* up from .65rem \u2014 clearly readable */
-  font-weight:500;
-  color:var(--t2);text-decoration:none;
-  padding:6px 14px;border-radius:6px;
-  border:1px solid var(--border);
-  transition:color .15s,border-color .15s,background .15s;
-  white-space:nowrap;line-height:1;
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
-.cs-link:hover{
-  color:var(--call);
-  border-color:var(--call);
-  background:rgba(91,168,245,.07);
-}
-.cs-link svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
 
-/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-   TOPBAR
-   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
-#topbar{
-  position:sticky;top:0;z-index:900;
-  height:var(--topbar);
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 24px;
-  box-shadow:0 2px 16px rgba(0,0,0,.25);
+/* Contact Strip */
+.contact-strip {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
 }
-.tb-brand{
-  font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;
-  color:var(--t1);letter-spacing:.04em;
-  padding-right:20px;border-right:1px solid var(--border);
-  white-space:nowrap;display:flex;align-items:center;gap:9px;flex-shrink:0;
+.cs-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-right: 6px;
+  white-space: nowrap;
 }
-.tb-brand em{color:var(--call);font-style:normal}
-.tb-dot{
-  width:7px;height:7px;border-radius:50%;background:var(--pos);
-  box-shadow:0 0 8px var(--pos);
-  animation:blink 2.5s ease-in-out infinite;flex-shrink:0;
+.cs-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--t1);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+  line-height: 1;
 }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.cs-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(100, 181, 246, 0.07);
+}
+.cs-link svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
 
-.tb-pills{display:flex;align-items:stretch;flex:1;overflow:hidden}
-.tb-pill{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:0 16px;border-right:1px solid var(--border);
-  font-family:'IBM Plex Mono',monospace;min-width:0;flex-shrink:0;
+/* Topbar */
+#topbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  height: var(--topbar);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
 }
-.tb-pill .lbl{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:2px;font-weight:600}
-.tb-pill .val{font-size:.92rem;color:var(--t1);font-weight:700}
-.tb-pill .chg{font-family:'IBM Plex Mono',monospace;font-size:.63rem;min-height:13px}
-
-.tb-right{padding-left:16px;margin-left:auto;display:flex;align-items:center;gap:12px}
-.mkt-badge{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;padding:4px 11px;border-radius:6px;letter-spacing:.05em}
-.mkt-open {background:rgba(52,211,153,.12);color:var(--pos);border:1px solid rgba(52,211,153,.3)}
-.mkt-close{background:var(--raised);color:var(--t4);border:1px solid var(--border)}
-#tb-clock{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--accent);letter-spacing:.04em}
-.theme-btn{
-  display:flex;align-items:center;gap:6px;padding:5px 13px;
-  background:var(--raised);border:1px solid var(--border-lit);border-radius:6px;
-  cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:.65rem;
-  letter-spacing:.08em;color:var(--t3);transition:all .18s;white-space:nowrap;
+.tb-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: 0.04em;
+  padding-right: 20px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
 }
-.theme-btn:hover{color:var(--t1);border-color:var(--accent)}
-
-/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-   MAIN
-   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
-#main{flex:1;padding:20px 24px;display:flex;flex-direction:column}
-
-/* \u2500\u2500 INDEX TABS (horizontal, sticky under topbar) \u2500\u2500 */
-.tabs-bar{
-  display:flex;gap:0;
-  border-bottom:1px solid var(--border);
-  background:var(--surface);
-  position:sticky;top:var(--topbar);z-index:800;
-  margin:0 -24px;padding:0 24px;
+.tb-brand em {
+  color: var(--accent);
+  font-style: normal;
 }
-.tab{
-  padding:12px 22px;
-  font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;
-  border:none;background:transparent;color:var(--t3);cursor:pointer;
-  border-bottom:2px solid transparent;border-right:1px solid var(--border);
-  transition:all .15s;white-space:nowrap;
+.tb-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pos);
+  box-shadow: 0 0 8px var(--pos);
+  animation: blink 2.5s ease-in-out infinite;
+  flex-shrink: 0;
 }
-.tab:hover{background:var(--hover);color:var(--t2)}
-.tab.on{background:var(--raised);color:var(--call);border-bottom-color:var(--call)}
-.tab-dot{
-  width:5px;height:5px;border-radius:50%;background:var(--pos);
-  display:inline-block;margin-left:6px;box-shadow:0 0 4px var(--pos);vertical-align:middle;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
-.idx-panel{display:none}.idx-panel.on{display:block}
-
-/* \u2500\u2500 META PILLS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-.pills{display:flex;gap:8px;flex-wrap:wrap;padding-top:16px}
-.pill{background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);padding:8px 14px}
-.pill .pl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);margin-bottom:3px}
-.pill .pv{font-family:'IBM Plex Mono',monospace;font-size:.88rem;font-weight:500;color:var(--t1)}
-
-/* \u2500\u2500 SUB-TABS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-.sub-tabs{
-  display:flex;flex-wrap:wrap;gap:0;
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--radius);margin-top:14px;overflow:hidden;
+.tb-pills {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  overflow: hidden;
 }
-.stab{
-  padding:9px 15px;
-  font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;
-  letter-spacing:.08em;text-transform:uppercase;
-  border:none;background:transparent;color:var(--t3);cursor:pointer;
-  border-right:1px solid var(--border);border-bottom:2px solid transparent;
-  transition:all .15s;white-space:nowrap;flex-shrink:0;
+.tb-pill {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px;
+  border-right: 1px solid var(--border);
+  font-family: 'IBM Plex Mono', monospace;
+  min-width: 0;
+  flex-shrink: 0;
 }
-.stab:last-child{border-right:none}
-.stab:hover{background:var(--hover);color:var(--t2)}
-.stab.on{background:var(--raised);color:var(--call);border-bottom-color:var(--call)}
-.stab-panel{display:none;padding:16px 0 0}.stab-panel.on{display:block}
-
-/* \u2500\u2500 GRAPH CARDS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-.gcard{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--card-radius);overflow:hidden;
-  box-shadow:0 2px 12px rgba(0,0,0,.28);
-  transition:border-color .18s,box-shadow .18s;
+.tb-pill .lbl {
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 2px;
+  font-weight: 600;
 }
-.gcard:hover{border-color:var(--border-lit);box-shadow:0 4px 24px rgba(0,0,0,.38)}
-.gcard-hdr{
-  padding:10px 16px;background:var(--raised);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:12px;
+.tb-pill .val {
+  font-size: 1rem;
+  color: var(--t1);
+  font-weight: 700;
 }
-.gcard-title{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--t1)}
-.gcard-badge{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t4);background:var(--input-bg);border:1px solid var(--border);border-radius:4px;padding:2px 8px;white-space:nowrap;flex-shrink:0}
-.gcard img{width:100%;display:block;background:var(--bg);cursor:zoom-in;transition:opacity .15s}
-.gcard img:hover{opacity:.9}
-.vol-surface-frame{width:100%;height:680px;border:none;background:var(--bg);display:block}
-
-/* \u2500\u2500 ANALYSIS KV \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-.kv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-bottom:14px}
-.kv-item{background:var(--raised);border:1px solid var(--border);border-radius:6px;padding:10px 13px}
-.kv-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t4);letter-spacing:.08em;margin-bottom:4px;font-weight:600;text-transform:uppercase}
-.kv-val{font-family:'IBM Plex Mono',monospace;font-size:.84rem;font-weight:600;color:var(--t1)}
-.ai-section{padding:20px 0;border-bottom:1px solid var(--border)}
-.ai-section:last-child{border-bottom:none}
-.ai-section-title{
-  font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;
-  display:flex;align-items:center;gap:9px;color:var(--t1);
+.tb-pill .chg {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  min-height: 13px;
+  font-weight: 600;
 }
-.ai-section-title::before{content:'';display:inline-block;width:3px;height:14px;border-radius:2px;background:var(--accent);flex-shrink:0}
-
-.score-pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.7rem;padding:4px 12px;border-radius:12px;font-weight:700;letter-spacing:.06em}
-.sp-pos {background:rgba(52,211,153,.15);color:var(--pos);border:1px solid rgba(52,211,153,.4)}
-.sp-neg {background:rgba(248,113,113,.15);color:var(--neg);border:1px solid rgba(248,113,113,.4)}
-.sp-neu {background:rgba(249,115,22,.12);color:var(--put);border:1px solid rgba(249,115,22,.3)}
-.sp-flat{background:var(--raised);color:var(--t4);border:1px solid var(--border)}
-
-/* \u2500\u2500 EMPTY STATE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-.empty{
-  background:var(--surface);border:1px dashed var(--border);
-  border-radius:var(--card-radius);padding:60px 24px;text-align:center;
+.tb-right {
+  padding-left: 16px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.empty svg{color:var(--border);margin:0 auto 14px;display:block}
-.empty p{font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--t3);line-height:2}
-
-@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.sk{background:linear-gradient(90deg,var(--raised) 25%,var(--hover) 50%,var(--raised) 75%);background-size:200% 100%;animation:sk 1.4s infinite;border-radius:4px}
-
-/* lightbox */
-#lbx{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
-#lbx.open{display:flex}
-#lbx img{max-width:96vw;max-height:94vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 60px rgba(0,0,0,.9)}
-#lbx-x{position:absolute;top:14px;right:20px;color:#fff;font-size:2rem;cursor:pointer;user-select:none;z-index:10000;line-height:1}
-
-/* \u2500\u2500 FOOTER \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-.footer{
-  margin-top:auto;
-  border-top:1px solid var(--border);background:var(--surface);
-  padding:16px 24px;display:flex;align-items:flex-start;flex-wrap:wrap;gap:16px;
+.mkt-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
 }
-.disc{
-  font-family:'IBM Plex Mono',monospace;font-size:.63rem;
-  color:var(--t2);           /* brighter \u2014 t2 not t4 */
-  line-height:2;max-width:840px;
+.mkt-open {
+  background: rgba(129, 201, 149, 0.15);
+  color: var(--pos);
+  border: 1px solid rgba(129, 201, 149, 0.3);
 }
-.foot-brand{
-  margin-left:auto;font-family:'Syne',sans-serif;font-size:.85rem;
-  font-weight:800;letter-spacing:.04em;color:var(--t4);
-  text-align:right;white-space:nowrap;line-height:2;
+.mkt-close {
+  background: var(--raised);
+  color: var(--t4);
+  border: 1px solid var(--border);
 }
-.foot-brand em{color:var(--call);font-style:normal}
+#tb-clock {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  background: var(--raised);
+  border: 1px solid var(--border-lit);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--t2);
+  transition: all 0.18s;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.theme-btn:hover {
+  color: var(--t1);
+  border-color: var(--accent);
+}
 
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border-lit);border-radius:2px}
+/* Main */
+#main {
+  flex: 1;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+}
 
-@media(max-width:760px){
-  .tabs-bar{overflow-x:auto;margin:0 -14px;padding:0 14px}
-  .sub-tabs{overflow-x:auto;flex-wrap:nowrap}
-  #main{padding:14px}
-  .contact-strip{padding:8px 14px}
-  .tb-pills .tb-pill:nth-child(n+4){display:none}
-  .kv-grid{grid-template-columns:repeat(2,1fr)}
+/* Tabs (main index tabs) */
+.tabs-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: var(--topbar);
+  z-index: 800;
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+.tab {
+  padding: 13px 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  color: var(--t3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  border-right: 1px solid var(--border);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tab:hover {
+  background: var(--hover);
+  color: var(--t2);
+}
+.tab.on {
+  background: var(--raised);
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pos);
+  display: inline-block;
+  margin-left: 6px;
+  box-shadow: 0 0 4px var(--pos);
+  vertical-align: middle;
+}
+.idx-panel {
+  display: none;
+}
+.idx-panel.on {
+  display: block;
+}
+
+/* Pills */
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+}
+.pill {
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  transition: background 0.15s;
+}
+.pill:hover {
+  background: var(--hover);
+}
+.pill .pl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t4);
+  margin-bottom: 3px;
+  font-weight: 700;
+}
+.pill .pv {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--t1);
+}
+/* Colorful pill values based on context (we'll set via inline styles in JS) */
+
+/* Sub-tabs */
+.sub-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-top: 14px;
+  overflow: hidden;
+}
+.stab {
+  padding: 10px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  color: var(--t3);
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.stab:last-child {
+  border-right: none;
+}
+.stab:hover {
+  background: var(--hover);
+  color: var(--t2);
+}
+.stab.on {
+  background: var(--raised);
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.stab-prob {
+  color: var(--prob-color) !important;
+}
+.stab-volsurf {
+  color: var(--volsurf-color) !important;
+}
+.stab-synopsis {
+  color: var(--synopsis-color) !important;
+}
+.stab-panel {
+  display: none;
+  padding: 16px 0 0;
+}
+.stab-panel.on {
+  display: block;
+}
+
+/* Graph cards */
+.gcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.gcard:hover {
+  border-color: var(--border-lit);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.38);
+}
+.gcard-hdr {
+  padding: 10px 16px;
+  background: var(--raised);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.gcard-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--t1);
+}
+.gcard-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--t4);
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+.gcard img {
+  width: 100%;
+  display: block;
+  background: var(--bg);
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+}
+.gcard img:hover {
+  opacity: 0.9;
+}
+.vol-surface-frame {
+  width: 100%;
+  height: 680px;
+  border: none;
+  background: var(--bg);
+  display: block;
+}
+
+/* Analysis KV */
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.kv-item {
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 13px;
+  transition: background 0.15s;
+}
+.kv-item:hover {
+  background: var(--hover);
+}
+.kv-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--t4);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.kv-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--t1);
+}
+.ai-section {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ai-section:last-child {
+  border-bottom: none;
+}
+.ai-section-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--accent);  /* title now uses accent color */
+}
+.ai-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.score-pill {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.sp-pos {
+  background: rgba(129, 201, 149, 0.15);
+  color: var(--pos);
+  border: 1px solid rgba(129, 201, 149, 0.4);
+}
+.sp-neg {
+  background: rgba(242, 139, 130, 0.15);
+  color: var(--neg);
+  border: 1px solid rgba(242, 139, 130, 0.4);
+}
+.sp-neu {
+  background: rgba(249, 171, 100, 0.12);
+  color: var(--put);
+  border: 1px solid rgba(249, 171, 100, 0.3);
+}
+.sp-flat {
+  background: var(--raised);
+  color: var(--t4);
+  border: 1px solid var(--border);
+}
+
+/* Empty state */
+.empty {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--card-radius);
+  padding: 60px 24px;
+  text-align: center;
+}
+.empty svg {
+  color: var(--border);
+  margin: 0 auto 14px;
+  display: block;
+}
+.empty p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--t3);
+  line-height: 2;
+  font-weight: 500;
+}
+
+/* Lightbox */
+#lbx {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.93);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+#lbx.open {
+  display: flex;
+}
+#lbx img {
+  max-width: 96vw;
+  max-height: 94vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.9);
+}
+#lbx-x {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10000;
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px 24px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.disc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--t2);
+  line-height: 2;
+  max-width: 840px;
+  font-weight: 600;
+}
+.foot-brand {
+  margin-left: auto;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--t4);
+  text-align: right;
+  white-space: nowrap;
+  line-height: 2;
+}
+.foot-brand em {
+  color: var(--accent);
+  font-style: normal;
+}
+.footer-links {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.footer-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--t2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.15s;
+  cursor: pointer;
+  font-weight: 600;
+}
+.footer-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-lit);
+  border-radius: 2px;
+}
+
+@media (max-width: 760px) {
+  .tabs-bar {
+    overflow-x: auto;
+    margin: 0 -14px;
+    padding: 0 14px;
+  }
+  .sub-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  #main {
+    padding: 14px;
+  }
+  .contact-strip {
+    padding: 8px 14px;
+  }
+  .tb-pills .tb-pill:nth-child(n+4) {
+    display: none;
+  }
+  .kv-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- \u2550\u2550 CONTACT STRIP \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- Contact Strip -->
 <div class="contact-strip">
   <span class="cs-lbl">Connect</span>
-
   <a class="cs-link" href="https://wa.me/919677446082" target="_blank" rel="noopener">
-    <!-- WhatsApp -->
-    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     +91 96774 46082
   </a>
-
   <a class="cs-link" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
-    <!-- Email -->
-    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     learntoearnfromstockmarket@gmail.com
   </a>
-
   <a class="cs-link" href="https://x.com/stock_right" target="_blank" rel="noopener">
-    <!-- X / Twitter -->
-    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
     @stock_right
   </a>
-
   <a class="cs-link" href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener">
-    <!-- Threads -->
-    <svg viewBox="0 0 192 192"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
+    <svg viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
     @optionscommentary
   </a>
-
   <a class="cs-link" href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener">
-    <!-- Telegram -->
-    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+    <svg viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
     Telegram
   </a>
-
   <div style="margin-left:auto">
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">\u2600 LIGHT</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀ Light</button>
   </div>
 </div>
 
-<!-- \u2550\u2550 TOPBAR \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- Topbar -->
 <header id="topbar">
   <div class="tb-brand"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></div>
   <div class="tb-pills">
-    <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">\u2014</span><div class="chg" id="tpc-nifty"></div></div>
-    <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">\u2014</span><div class="chg" id="tpc-banknifty"></div></div>
-    <div class="tb-pill"><span class="lbl">SENSEX <span style="font-size:.5rem;opacity:.5;font-weight:400">~15m</span></span><span class="val" id="tpv-sensex">\u2014</span><div class="chg" id="tpc-sensex"></div></div>
-    <div class="tb-pill"><span class="lbl">FINNIFTY</span><span class="val" id="tpv-finnifty">\u2014</span><div class="chg" id="tpc-finnifty"></div></div>
-    <div class="tb-pill"><span class="lbl">MIDCAP</span><span class="val" id="tpv-midcpnifty">\u2014</span><div class="chg" id="tpc-midcpnifty"></div></div>
+    <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">—</span><div class="chg" id="tpc-nifty"></div></div>
+    <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">—</span><div class="chg" id="tpc-banknifty"></div></div>
+    <div class="tb-pill">
+      <span class="lbl">SENSEX <span style="font-size:0.75rem; font-weight:600; color:var(--t3); margin-left:2px;">~15m</span></span>
+      <span class="val" id="tpv-sensex">—</span>
+      <div class="chg" id="tpc-sensex"></div>
+    </div>
+    <div class="tb-pill"><span class="lbl">FINNIFTY</span><span class="val" id="tpv-finnifty">—</span><div class="chg" id="tpc-finnifty"></div></div>
+    <div class="tb-pill"><span class="lbl">MIDCAP</span><span class="val" id="tpv-midcpnifty">—</span><div class="chg" id="tpc-midcpnifty"></div></div>
   </div>
   <div class="tb-right">
-    <span class="mkt-badge mkt-close" id="mkt-badge">\u25cb CLOSED</span>
-    <span id="tb-clock">\u2014</span>
+    <span class="mkt-badge mkt-close" id="mkt-badge">● CLOSED</span>
+    <span id="tb-clock">—</span>
   </div>
 </header>
 
-<!-- \u2550\u2550 MAIN \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- Main -->
 <div id="main">
-
   <!-- Index tabs row -->
   <div class="tabs-bar">
-    <button class="tab on" id="tab-nifty"     onclick="switchIdx('nifty')">NIFTY</button>
-    <button class="tab"    id="tab-banknifty"  onclick="switchIdx('banknifty')">BANKNIFTY</button>
-    <button class="tab"    id="tab-sensex"     onclick="switchIdx('sensex')">SENSEX</button>
-    <button class="tab"    id="tab-finnifty"   onclick="switchIdx('finnifty')">FINNIFTY</button>
-    <button class="tab"    id="tab-midcpnifty" onclick="switchIdx('midcpnifty')">MIDCAP</button>
+    <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty')">NIFTY</button>
+    <button class="tab" id="tab-banknifty" onclick="switchIdx('banknifty')">BANKNIFTY</button>
+    <button class="tab" id="tab-sensex" onclick="switchIdx('sensex')">SENSEX</button>
+    <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty')">FINNIFTY</button>
+    <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty')">MIDCAP</button>
   </div>
 
-  <!-- \u2500\u2500 NIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
+  <!-- NIFTY Panel -->
   <div id="panel-nifty" class="idx-panel on">
     <div id="pills-nifty" class="pills"></div>
     <div class="sub-tabs">
-      <button class="stab on" id="st-nifty-oi"      onclick="switchStab('nifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-nifty-gex"      onclick="switchStab('nifty','gex',this)">GEX</button>
-      <button class="stab"    id="st-nifty-vex"      onclick="switchStab('nifty','vex',this)">VEX</button>
-      <button class="stab"    id="st-nifty-cex"      onclick="switchStab('nifty','cex',this)">CEX</button>
-      <button class="stab"    id="st-nifty-itmvex"   onclick="switchStab('nifty','itmvex',this)">ITM VEX</button>
-      <button class="stab"    id="st-nifty-skew"     onclick="switchStab('nifty','skew',this)">Vol Skew</button>
-      <button class="stab"    id="st-nifty-pcr"      onclick="switchStab('nifty','pcr',this)">PCR</button>
-      <button class="stab"    id="st-nifty-topgex"   onclick="switchStab('nifty','topgex',this)">Top GEX</button>
-      <button class="stab"    id="st-nifty-prob"     onclick="switchStab('nifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
-      <button class="stab"    id="st-nifty-volsurf"  onclick="switchStab('nifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-nifty-analysis" onclick="switchStab('nifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('nifty','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">Top GEX</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('nifty','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
-    <div id="sp-nifty-oi"       class="stab-panel on"></div>
-    <div id="sp-nifty-gex"      class="stab-panel"></div>
-    <div id="sp-nifty-vex"      class="stab-panel"></div>
-    <div id="sp-nifty-cex"      class="stab-panel"></div>
-    <div id="sp-nifty-itmvex"   class="stab-panel"></div>
-    <div id="sp-nifty-skew"     class="stab-panel"></div>
-    <div id="sp-nifty-pcr"      class="stab-panel"></div>
-    <div id="sp-nifty-topgex"   class="stab-panel"></div>
-    <div id="sp-nifty-prob"     class="stab-panel"></div>
-    <div id="sp-nifty-volsurf"  class="stab-panel"></div>
+    <div id="sp-nifty-oi" class="stab-panel on"></div>
+    <div id="sp-nifty-gex" class="stab-panel"></div>
+    <div id="sp-nifty-vex" class="stab-panel"></div>
+    <div id="sp-nifty-cex" class="stab-panel"></div>
+    <div id="sp-nifty-itmvex" class="stab-panel"></div>
+    <div id="sp-nifty-skew" class="stab-panel"></div>
+    <div id="sp-nifty-pcr" class="stab-panel"></div>
+    <div id="sp-nifty-topgex" class="stab-panel"></div>
+    <div id="sp-nifty-prob" class="stab-panel"></div>
+    <div id="sp-nifty-volsurf" class="stab-panel"></div>
     <div id="sp-nifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- \u2500\u2500 BANKNIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
+  <!-- BANKNIFTY Panel -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
     <div class="sub-tabs">
-      <button class="stab on" id="st-banknifty-oi"      onclick="switchStab('banknifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-banknifty-gex"      onclick="switchStab('banknifty','gex',this)">GEX</button>
-      <button class="stab"    id="st-banknifty-vex"      onclick="switchStab('banknifty','vex',this)">VEX</button>
-      <button class="stab"    id="st-banknifty-cex"      onclick="switchStab('banknifty','cex',this)">CEX</button>
-      <button class="stab"    id="st-banknifty-itmvex"   onclick="switchStab('banknifty','itmvex',this)">ITM VEX</button>
-      <button class="stab"    id="st-banknifty-skew"     onclick="switchStab('banknifty','skew',this)">Vol Skew</button>
-      <button class="stab"    id="st-banknifty-pcr"      onclick="switchStab('banknifty','pcr',this)">PCR</button>
-      <button class="stab"    id="st-banknifty-topgex"   onclick="switchStab('banknifty','topgex',this)">Top GEX</button>
-      <button class="stab"    id="st-banknifty-prob"     onclick="switchStab('banknifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
-      <button class="stab"    id="st-banknifty-volsurf"  onclick="switchStab('banknifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-banknifty-analysis" onclick="switchStab('banknifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('banknifty','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">Top GEX</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('banknifty','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
-    <div id="sp-banknifty-oi"       class="stab-panel on"></div>
-    <div id="sp-banknifty-gex"      class="stab-panel"></div>
-    <div id="sp-banknifty-vex"      class="stab-panel"></div>
-    <div id="sp-banknifty-cex"      class="stab-panel"></div>
-    <div id="sp-banknifty-itmvex"   class="stab-panel"></div>
-    <div id="sp-banknifty-skew"     class="stab-panel"></div>
-    <div id="sp-banknifty-pcr"      class="stab-panel"></div>
-    <div id="sp-banknifty-topgex"   class="stab-panel"></div>
-    <div id="sp-banknifty-prob"     class="stab-panel"></div>
-    <div id="sp-banknifty-volsurf"  class="stab-panel"></div>
+    <div id="sp-banknifty-oi" class="stab-panel on"></div>
+    <div id="sp-banknifty-gex" class="stab-panel"></div>
+    <div id="sp-banknifty-vex" class="stab-panel"></div>
+    <div id="sp-banknifty-cex" class="stab-panel"></div>
+    <div id="sp-banknifty-itmvex" class="stab-panel"></div>
+    <div id="sp-banknifty-skew" class="stab-panel"></div>
+    <div id="sp-banknifty-pcr" class="stab-panel"></div>
+    <div id="sp-banknifty-topgex" class="stab-panel"></div>
+    <div id="sp-banknifty-prob" class="stab-panel"></div>
+    <div id="sp-banknifty-volsurf" class="stab-panel"></div>
     <div id="sp-banknifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- \u2500\u2500 SENSEX \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
+  <!-- SENSEX Panel -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
     <div class="sub-tabs">
-      <button class="stab on" id="st-sensex-oi"      onclick="switchStab('sensex','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-sensex-gex"      onclick="switchStab('sensex','gex',this)">GEX</button>
-      <button class="stab"    id="st-sensex-vex"      onclick="switchStab('sensex','vex',this)">VEX</button>
-      <button class="stab"    id="st-sensex-cex"      onclick="switchStab('sensex','cex',this)">CEX</button>
-      <button class="stab"    id="st-sensex-itmvex"   onclick="switchStab('sensex','itmvex',this)">ITM VEX</button>
-      <button class="stab"    id="st-sensex-skew"     onclick="switchStab('sensex','skew',this)">Vol Skew</button>
-      <button class="stab"    id="st-sensex-pcr"      onclick="switchStab('sensex','pcr',this)">PCR</button>
-      <button class="stab"    id="st-sensex-topgex"   onclick="switchStab('sensex','topgex',this)">Top GEX</button>
-      <button class="stab"    id="st-sensex-prob"     onclick="switchStab('sensex','prob',this)" style="color:var(--put)">Probable Positioning</button>
-      <button class="stab"    id="st-sensex-volsurf"  onclick="switchStab('sensex','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-sensex-analysis" onclick="switchStab('sensex','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('sensex','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">Top GEX</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('sensex','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">◈ SYNOPSIS</button>
     </div>
-    <div id="sp-sensex-oi"       class="stab-panel on"></div>
-    <div id="sp-sensex-gex"      class="stab-panel"></div>
-    <div id="sp-sensex-vex"      class="stab-panel"></div>
-    <div id="sp-sensex-cex"      class="stab-panel"></div>
-    <div id="sp-sensex-itmvex"   class="stab-panel"></div>
-    <div id="sp-sensex-skew"     class="stab-panel"></div>
-    <div id="sp-sensex-pcr"      class="stab-panel"></div>
-    <div id="sp-sensex-topgex"   class="stab-panel"></div>
-    <div id="sp-sensex-prob"     class="stab-panel"></div>
-    <div id="sp-sensex-volsurf"  class="stab-panel"></div>
+    <div id="sp-sensex-oi" class="stab-panel on"></div>
+    <div id="sp-sensex-gex" class="stab-panel"></div>
+    <div id="sp-sensex-vex" class="stab-panel"></div>
+    <div id="sp-sensex-cex" class="stab-panel"></div>
+    <div id="sp-sensex-itmvex" class="stab-panel"></div>
+    <div id="sp-sensex-skew" class="stab-panel"></div>
+    <div id="sp-sensex-pcr" class="stab-panel"></div>
+    <div id="sp-sensex-topgex" class="stab-panel"></div>
+    <div id="sp-sensex-prob" class="stab-panel"></div>
+    <div id="sp-sensex-volsurf" class="stab-panel"></div>
     <div id="sp-sensex-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- \u2500\u2500 FINNIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
+  <!-- FINNIFTY Panel -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
     <div class="sub-tabs">
-      <button class="stab on" id="st-finnifty-oi"      onclick="switchStab('finnifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-finnifty-gex"      onclick="switchStab('finnifty','gex',this)">GEX</button>
-      <button class="stab"    id="st-finnifty-vex"      onclick="switchStab('finnifty','vex',this)">VEX</button>
-      <button class="stab"    id="st-finnifty-cex"      onclick="switchStab('finnifty','cex',this)">CEX</button>
-      <button class="stab"    id="st-finnifty-itmvex"   onclick="switchStab('finnifty','itmvex',this)">ITM VEX</button>
-      <button class="stab"    id="st-finnifty-skew"     onclick="switchStab('finnifty','skew',this)">Vol Skew</button>
-      <button class="stab"    id="st-finnifty-pcr"      onclick="switchStab('finnifty','pcr',this)">PCR</button>
-      <button class="stab"    id="st-finnifty-topgex"   onclick="switchStab('finnifty','topgex',this)">Top GEX</button>
-      <button class="stab"    id="st-finnifty-prob"     onclick="switchStab('finnifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
-      <button class="stab"    id="st-finnifty-volsurf"  onclick="switchStab('finnifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-finnifty-analysis" onclick="switchStab('finnifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('finnifty','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">Top GEX</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('finnifty','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
-    <div id="sp-finnifty-oi"       class="stab-panel on"></div>
-    <div id="sp-finnifty-gex"      class="stab-panel"></div>
-    <div id="sp-finnifty-vex"      class="stab-panel"></div>
-    <div id="sp-finnifty-cex"      class="stab-panel"></div>
-    <div id="sp-finnifty-itmvex"   class="stab-panel"></div>
-    <div id="sp-finnifty-skew"     class="stab-panel"></div>
-    <div id="sp-finnifty-pcr"      class="stab-panel"></div>
-    <div id="sp-finnifty-topgex"   class="stab-panel"></div>
-    <div id="sp-finnifty-prob"     class="stab-panel"></div>
-    <div id="sp-finnifty-volsurf"  class="stab-panel"></div>
+    <div id="sp-finnifty-oi" class="stab-panel on"></div>
+    <div id="sp-finnifty-gex" class="stab-panel"></div>
+    <div id="sp-finnifty-vex" class="stab-panel"></div>
+    <div id="sp-finnifty-cex" class="stab-panel"></div>
+    <div id="sp-finnifty-itmvex" class="stab-panel"></div>
+    <div id="sp-finnifty-skew" class="stab-panel"></div>
+    <div id="sp-finnifty-pcr" class="stab-panel"></div>
+    <div id="sp-finnifty-topgex" class="stab-panel"></div>
+    <div id="sp-finnifty-prob" class="stab-panel"></div>
+    <div id="sp-finnifty-volsurf" class="stab-panel"></div>
     <div id="sp-finnifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- \u2500\u2500 MIDCPNIFTY \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->
+  <!-- MIDCPNIFTY Panel -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
     <div class="sub-tabs">
-      <button class="stab on" id="st-midcpnifty-oi"      onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab"    id="st-midcpnifty-gex"      onclick="switchStab('midcpnifty','gex',this)">GEX</button>
-      <button class="stab"    id="st-midcpnifty-vex"      onclick="switchStab('midcpnifty','vex',this)">VEX</button>
-      <button class="stab"    id="st-midcpnifty-cex"      onclick="switchStab('midcpnifty','cex',this)">CEX</button>
-      <button class="stab"    id="st-midcpnifty-itmvex"   onclick="switchStab('midcpnifty','itmvex',this)">ITM VEX</button>
-      <button class="stab"    id="st-midcpnifty-skew"     onclick="switchStab('midcpnifty','skew',this)">Vol Skew</button>
-      <button class="stab"    id="st-midcpnifty-pcr"      onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
-      <button class="stab"    id="st-midcpnifty-topgex"   onclick="switchStab('midcpnifty','topgex',this)">Top GEX</button>
-      <button class="stab"    id="st-midcpnifty-prob"     onclick="switchStab('midcpnifty','prob',this)" style="color:var(--put)">Probable Positioning</button>
-      <button class="stab"    id="st-midcpnifty-volsurf"  onclick="switchStab('midcpnifty','volsurf',this)" style="color:var(--accent)">Vol Surface</button>
-      <button class="stab"    id="st-midcpnifty-analysis" onclick="switchStab('midcpnifty','analysis',this)" style="color:var(--spot)">◈ SYNOPSIS</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('midcpnifty','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">Top GEX</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
-    <div id="sp-midcpnifty-oi"       class="stab-panel on"></div>
-    <div id="sp-midcpnifty-gex"      class="stab-panel"></div>
-    <div id="sp-midcpnifty-vex"      class="stab-panel"></div>
-    <div id="sp-midcpnifty-cex"      class="stab-panel"></div>
-    <div id="sp-midcpnifty-itmvex"   class="stab-panel"></div>
-    <div id="sp-midcpnifty-skew"     class="stab-panel"></div>
-    <div id="sp-midcpnifty-pcr"      class="stab-panel"></div>
-    <div id="sp-midcpnifty-topgex"   class="stab-panel"></div>
-    <div id="sp-midcpnifty-prob"     class="stab-panel"></div>
-    <div id="sp-midcpnifty-volsurf"  class="stab-panel"></div>
+    <div id="sp-midcpnifty-oi" class="stab-panel on"></div>
+    <div id="sp-midcpnifty-gex" class="stab-panel"></div>
+    <div id="sp-midcpnifty-vex" class="stab-panel"></div>
+    <div id="sp-midcpnifty-cex" class="stab-panel"></div>
+    <div id="sp-midcpnifty-itmvex" class="stab-panel"></div>
+    <div id="sp-midcpnifty-skew" class="stab-panel"></div>
+    <div id="sp-midcpnifty-pcr" class="stab-panel"></div>
+    <div id="sp-midcpnifty-topgex" class="stab-panel"></div>
+    <div id="sp-midcpnifty-prob" class="stab-panel"></div>
+    <div id="sp-midcpnifty-volsurf" class="stab-panel"></div>
     <div id="sp-midcpnifty-analysis" class="stab-panel"></div>
   </div>
+</div>
 
-</div><!-- /#main -->
-
-<!-- \u2550\u2550 FOOTER (page bottom) \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- Footer -->
 <div class="footer">
   <div class="disc">
-    \u26a0 All content is for <strong>informational and educational purposes only</strong>
+    ⚠ All content is for <strong>informational and educational purposes only</strong>
     and does not constitute investment advice or a recommendation to buy, sell or hold any security.
     Options trading involves substantial risk of loss and is not suitable for all investors.
-    Data is sourced from the publicly available option chain. Updated periodically during market hours (09:15\u201315:30 IST, Mon\u2013Fri).
-    GEX figures are probabilistic dealer flow estimates \u2014 not confirmed positions.
+    Data is sourced from the publicly available option chain. Updated periodically during market hours (09:15–15:30 IST, Mon–Fri).
+    GEX figures are probabilistic dealer flow estimates — not confirmed positions.
     Past analysis does not guarantee future accuracy. Not SEBI registered.
   </div>
-  <div class="foot-brand">
-    OPTIONS<em>FLOW</em><br>
-    <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW \u00b7 GEX ANALYTICS</span>
+  <div style="margin-left:auto;text-align:right">
+    <div class="foot-brand">
+      OPTIONS<em>FLOW</em><br>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW · GEX ANALYTICS</span>
+    </div>
+    <div class="footer-links">
+      <a href="#about" onclick="document.getElementById('modal-about').style.display='flex';return false" class="footer-link">About Us</a>
+      <a href="#contact" onclick="document.getElementById('modal-contact').style.display='flex';return false" class="footer-link">Contact Us</a>
+      <a href="#privacy" onclick="document.getElementById('modal-privacy').style.display='flex';return false" class="footer-link">Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div id="modal-about" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:520px;width:90%;position:relative">
+    <button onclick="this.closest('#modal-about').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">About Us</div>
+    <div style="font-size:.88rem;color:var(--t2);line-height:1.8">
+      <strong style="color:var(--t1)">OptionsFlow</strong> is an independent options analytics platform focused on Nifty, BankNifty, Sensex, FinNifty and MidcapNifty.
+      <br><br>We compute <strong style="color:var(--t1)">Gamma Exposure (GEX)</strong>, Vanna, Charm and dealer positioning from NSE option chain data.
+      <br><br>This is an educational tool. Not SEBI registered.
+    </div>
+  </div>
+</div>
+<div id="modal-contact" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:480px;width:90%;position:relative">
+    <button onclick="this.closest('#modal-contact').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:18px">Contact OptionsFlow</div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/919677446082" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        +91 96774 46082
+      </a>
+      <!-- Email -->
+      <a href="mailto:learntoearnfromstockmarket@gmail.com" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        learntoearnfromstockmarket@gmail.com
+      </a>
+      <!-- X / Twitter -->
+      <a href="https://x.com/stock_right" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @stock_right
+      </a>
+      <!-- Threads -->
+      <a href="https://www.threads.net/@optionscommentary" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
+        <svg width="20" height="20" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
+        @optionscommentary
+      </a>
+      <!-- Telegram -->
+      <a href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram Channel
+      </a>
+    </div>
+  </div>
+</div>
+<div id="modal-privacy" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:540px;width:90%;max-height:80vh;overflow-y:auto;position:relative">
+    <button onclick="this.closest('#modal-privacy').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Privacy Policy</div>
+    <div style="font-size:.82rem;color:var(--t2);line-height:2">
+      <strong>Data Collection</strong><br>We do not collect personal information. This site does not use tracking cookies or analytics beyond basic server logs.<br><br>
+      <strong>Option Chain Data</strong><br>All option chain data is sourced from publicly available NSE feeds. We do not store user data or trade history.<br><br>
+      <strong>No Investment Advice</strong><br>All content is for educational and informational purposes only. We are not SEBI registered.
+    </div>
   </div>
 </div>
 
 <!-- Lightbox -->
 <div id="lbx" onclick="closeLbx()">
-  <span id="lbx-x" onclick="closeLbx()">\u2715</span>
+  <span id="lbx-x" onclick="closeLbx()">✕</span>
   <img id="lbx-img" src="" alt="zoom">
 </div>
 
 <script>
-/* \u2500\u2500 THEME \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-(function(){
-  const t = localStorage.getItem('oc-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', t);
-  const b = document.getElementById('theme-btn');
-  if(b) b.textContent = t==='dark' ? '\u2600 LIGHT' : '\ud83c\udf19 DARK';
+// Theme toggle
+(function() {
+  const saved = localStorage.getItem('oc-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = saved === 'dark' ? '☀ Light' : '🌙 Dark';
 })();
-function toggleTheme(){
+
+function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-  const nxt = cur==='dark' ? 'light' : 'dark';
+  const nxt = cur === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
-  document.getElementById('theme-btn').textContent = nxt==='dark' ? '\u2600 LIGHT' : '\ud83c\udf19 DARK';
+  document.getElementById('theme-btn').textContent = nxt === 'dark' ? '☀ Light' : '🌙 Dark';
 }
 
-/* \u2500\u2500 CONFIG \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS   = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];
-
-/* stab key \u2192 field in latest.json .plots{} */
-const PLOT_KEY = {
-  oi:      'oi_gex_combined',
-  gex:     'gamma_exp',
-  vex:     'vanna_exp',
-  cex:     'cex_exp',
-  itmvex:  'itm_vex',
-  skew:    'vol_skew',
-  pcr:     'pcr_table',
-  topgex:  'top_gamma',
-  prob:    'prob_gex',
-  volsurf: 'vol_surface',
-};
-const CHART_TITLE = {
-  oi:      'OI & GEX Change Monitor',
-  candles: '15-Min Candles & Gamma Exposure',
-  gex:     'Gamma Exposure \u2014 All 4 Dealer Scenarios',
-  vex:     'Vanna Exposure \u2014 All 4 Dealer Scenarios',
-  cex:     'Charm Exposure \u2014 All 4 Dealer Scenarios',
-  itmvex:  'ITM Vanna Exposure',
-  skew:    'Volatility Skew & Open Interest',
-  pcr:     'Put / Call Ratio Analysis',
-  topgex:  'Top 6 Absolute GEX Strikes',
-  prob:    'Probable Positioning Analysis',
-  volsurf: 'Implied Volatility Surface',
-};
-const CHART_BADGE = {
-  oi:      'ATM \u00b1 6 \u00b7 Green=\u25b2 Red=\u25bc',
-  candles: '15M \u00b7 Yahoo Finance',
-  gex:     'GEX \u00b7 4 Scenarios',
-  vex:     'VEX \u00b7 4 Scenarios',
-  cex:     'CEX \u00b7 4 Scenarios',
-  itmvex:  'In-The-Money Strikes',
-  skew:    'All Strikes',
-  pcr:     'Blue=Calls \u00b7 Orange=Puts',
-  topgex:  'Abs GEX \u00b7 ATM Highlighted',
-  prob:    'PCR + GEX + OI Synthesised',
-  volsurf: 'Plotly \u00b7 3D Interactive',
-};
+// Yahoo Finance symbols
 const YF = {
-  nifty:'^NSEI', banknifty:'^NSEBANK',
-  sensex:'^BSESN', finnifty:'NIFTY_FIN_SERVICE.NS',
-  midcpnifty:'NIFTY_MIDCAP_SELECT.NS'
+  nifty: '^NSEI',
+  banknifty: '^NSEBANK',
+  sensex: '^BSESN',
+  finnifty: 'NIFTY_FIN_SERVICE.NS',
+  midcpnifty: 'NIFTY_MIDCAP_SELECT.NS'
 };
-const cache = {};
 
-/* \u2500\u2500 CLOCK \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-function tick(){
-  const ist = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
-  const p = n=>String(n).padStart(2,'0');
-  document.getElementById('tb-clock').textContent =
-    `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
-  const h=ist.getHours(),m=ist.getMinutes(),d=ist.getDay();
-  const open = d>=1&&d<=5 && (h>9||(h===9&&m>=15)) && (h<15||(h===15&&m<=30));
-  const b = document.getElementById('mkt-badge');
-  b.textContent = open?'\u25cf OPEN':'\u25cb CLOSED';
-  b.className = 'mkt-badge '+(open?'mkt-open':'mkt-close');
-}
-setInterval(tick,1000); tick();
-
-/* \u2500\u2500 HELPERS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-const f = (v,d=0)=> typeof v==='number'?v.toLocaleString('en-IN',{maximumFractionDigits:d}):(v||'\u2014');
-function ago(iso){
-  if(!iso) return '';
-  const s=(Date.now()-new Date(iso))/1000;
-  if(s<60) return `${Math.round(s)}s ago`;
-  if(s<3600) return `${Math.round(s/60)}m ago`;
-  if(s<86400) return `${Math.round(s/3600)}h ago`;
-  return `${Math.round(s/86400)}d ago`;
-}
-function scoreClass(sc){
-  if(sc>=4) return 'sp-pos'; if(sc<=-4) return 'sp-neg';
-  if(sc!==0) return 'sp-neu'; return 'sp-flat';
+// Fetch live prices
+async function fetchLive(idx) {
+  const sym = YF[idx];
+  if (!sym) return;
+  try {
+    const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`);
+    if (!r.ok) return;
+    const d = await r.json();
+    const meta = d?.chart?.result?.[0]?.meta;
+    if (!meta?.regularMarketPrice) return;
+    const price = meta.regularMarketPrice;
+    const prev = meta.chartPreviousClose || meta.previousClose || price;
+    const chg = price - prev;
+    const pct = (chg / prev) * 100;
+    const sign = chg >= 0 ? '+' : '';
+    const col = chg > 0 ? 'var(--pos)' : chg < 0 ? 'var(--neg)' : 'var(--t3)';
+    const ev = document.getElementById(`tpv-${idx}`);
+    const ec = document.getElementById(`tpc-${idx}`);
+    if (ev) ev.textContent = Math.round(price).toLocaleString('en-IN');
+    if (ec) ec.innerHTML = `<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+  } catch {}
 }
 
-/* \u2500\u2500 LIVE TICKERS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-async function fetchLive(idx){
-  const sym=YF[idx]; if(!sym) return;
-  try{
-    const r=await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`);
-    if(!r.ok) return;
-    const d=await r.json();
-    const meta=d?.chart?.result?.[0]?.meta;
-    if(!meta?.regularMarketPrice) return;
-    const price=meta.regularMarketPrice;
-    const prev=meta.chartPreviousClose||meta.previousClose||price;
-    const chg=price-prev, pct=(chg/prev)*100;
-    const sign=chg>=0?'+':'';
-    const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
-    const ev=document.getElementById(`tpv-${idx}`);
-    const ec=document.getElementById(`tpc-${idx}`);
-    if(ev) ev.textContent=f(Math.round(price));
-    if(ec) ec.innerHTML=`<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
-  }catch{}
+// Update all tickers
+function updateTickers() {
+  Object.keys(YF).forEach(fetchLive);
 }
-async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive)); }
+setInterval(updateTickers, 5000); // every 5 seconds
+updateTickers();
 
-/* \u2500\u2500 FETCH DATA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-async function fetchData(idx, force){
-  if(!force && cache[idx] && Date.now()-cache[idx].ts<90000) return cache[idx].data;
-  try{
-    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
-    if(!r.ok) throw 0;
-    const d=await r.json();
-    cache[idx]={data:d,ts:Date.now()};
-    // green dot on tab
-    const tab=document.getElementById(`tab-${idx}`);
-    if(tab&&!tab.querySelector('.tab-dot')){
-      const dot=document.createElement('span'); dot.className='tab-dot'; tab.appendChild(dot);
-    }
-    return d;
-  }catch{ return cache[idx]?.data||null; }
+// Tab switching
+const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
+const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];
+
+function switchIdx(idx) {
+  INDICES.forEach(i => {
+    document.getElementById(`tab-${i}`)?.classList.toggle('on', i === idx);
+    document.getElementById(`panel-${i}`)?.classList.toggle('on', i === idx);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Populate pills for the selected index with some color
+  const pills = document.getElementById(`pills-${idx}`);
+  if (pills && !pills.children.length) {
+    pills.innerHTML = `
+      <div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--accent)">${idx.toUpperCase()}</div></div>
+      <div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div>
+      <div class="pill"><div class="pl">Spot</div><div class="pv" id="spot-${idx}" style="color:var(--call)">—</div></div>
+    `;
+  }
+  // Default to OI sub-tab
+  STABS.forEach(k => {
+    const sp = document.getElementById(`sp-${idx}-${k}`);
+    if (sp) sp.classList.remove('on');
+  });
+  document.getElementById(`sp-${idx}-oi`)?.classList.add('on');
 }
 
-/* \u2500\u2500 EMPTY STATE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-const EMPTY=`<div class="empty">
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-    <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
-  </svg>
-  <p>No data available yet.</p>
-</div>`;
-
-/* \u2500\u2500 CHART CARD HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-function chartHtml(idx, data, key){
-  const pf=PLOT_KEY[key]; if(!pf) return '';
-  const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
-
-  // Vol Surface: served as interactive iframe
-  if(key==='volsurf'){
-    const src=`data/${idx}/${fn}`;
-    return `<div class="gcard">
-      <div class="gcard-hdr">
-        <span class="gcard-title">${CHART_TITLE[key]}</span>
-        <span class="gcard-badge">${CHART_BADGE[key]}</span>
-        <a href="${src}" target="_blank" rel="noopener"
-           style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;
-                  color:var(--accent);text-decoration:none;border:1px solid var(--border);
-                  border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">\u2922 FULL SCREEN</a>
-      </div>
-      <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"></iframe>
+function switchStab(idx, key, btn) {
+  document.querySelectorAll(`#panel-${idx} .stab`).forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  STABS.forEach(k => {
+    const sp = document.getElementById(`sp-${idx}-${k}`);
+    if (sp) sp.classList.toggle('on', k === key);
+  });
+  // Populate with placeholder content if empty, and add some color
+  const sp = document.getElementById(`sp-${idx}-${key}`);
+  if (sp && !sp.querySelector('.gcard')) {
+    sp.innerHTML = `<div class="gcard">
+      <div class="gcard-hdr"><span class="gcard-title">${key.replace(/_/g,' ').toUpperCase()}</span><span class="gcard-badge">Demo</span></div>
+      <div style="padding:40px; text-align:center; color:var(--t3)">[Chart would appear here]</div>
     </div>`;
   }
-
-  const src=`data/${idx}/${fn}?_=${Date.now()}`;
-  const safeEmpty=EMPTY.replace(/\
-/g,'').replace(/'/g,'\\x27');
-  return `<div class="gcard">
-    <div class="gcard-hdr">
-      <span class="gcard-title">${CHART_TITLE[key]||key}</span>
-      <span class="gcard-badge">${CHART_BADGE[key]||''}</span>
-    </div>
-    <img src="${src}" alt="${CHART_TITLE[key]||key}"
-         onerror="this.closest('.gcard').outerHTML='${safeEmpty}'">
-  </div>`;
 }
 
-/* \u2500\u2500 ANALYSIS TAB HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-function analysisHtml(idx, data){
-  if(!data) return EMPTY;
-  const sc=data.composite_score||0;
-  const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-  const sup=(data.put_support_levels||[]).map(k=>f(k)).join(' \u00b7 ')||'\u2014';
-  const res=(data.call_resist_levels||[]).map(k=>f(k)).join(' \u00b7 ')||'\u2014';
-  const p3=(data.gex_pin_top3||[]).map((k,i)=>`#${i+1} ${f(k)}`).join(' \u00b7 ')||'\u2014';
-  return `
-  <div class="pills" style="padding-top:8px;margin-bottom:14px">
-    <div class="pill"><div class="pl">Engine</div><div class="pv" style="color:var(--accent)">Dealer Flow Analytics</div></div>
-    <div class="pill"><div class="pl">Generated</div><div class="pv" style="font-size:.75rem">${data.timestamp||'\u2014'}</div></div>
-  </div>
-  <div class="gcard">
-    <div class="gcard-hdr">
-      <span class="gcard-title">MARKET METRICS \u2014 ${idx.toUpperCase()}</span>
-      <span class="gcard-badge">DEALER FLOW + GREEK SYNTHESIS</span>
-    </div>
-    <div style="padding:22px">
-      <div class="ai-section">
-        <div class="ai-section-title">Composite Score &amp; Regime</div>
-        <div class="kv-grid">
-          <div class="kv-item"><div class="kv-lbl">COMPOSITE SCORE</div><div class="kv-val"><span class="score-pill ${scoreClass(sc)}">${sc>0?'+':''}${sc}</span></div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX REGIME</div><div class="kv-val" style="color:${gC}">${data.gex_regime||'\u2014'} GAMMA</div></div>
-          <div class="kv-item"><div class="kv-lbl">VOL REGIME</div><div class="kv-val" style="color:var(--t3)">${(data.vol_regime||'\u2014').replace(/_/g,' ').toUpperCase()}</div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX SPEED</div><div class="kv-val">${data.gex_speed!=null?`${Number(data.gex_speed)>0?'+':''}${Number(data.gex_speed).toFixed(4)} Cr/pt`:'\u2014'}</div></div>
-        </div>
-      </div>
-      <div class="ai-section">
-        <div class="ai-section-title">Key Levels &amp; Greeks</div>
-        <div class="kv-grid">
-          <div class="kv-item"><div class="kv-lbl">SPOT</div><div class="kv-val">${f(data.spot)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">SYNTHETIC FUTURES</div><div class="kv-val">${f(data.synthetic_futures,0)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">ATM IV</div><div class="kv-val" style="color:${(data.atm_iv||0)>20?'var(--neg)':(data.atm_iv||0)<12?'var(--accent)':'var(--t3)'}">${f(data.atm_iv,1)}%</div></div>
-          <div class="kv-item"><div class="kv-lbl">1\u03c3 IMPLIED RANGE</div><div class="kv-val" style="font-size:.75rem">${f(data.implied_lower)} \u2013 ${f(data.implied_upper)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">NET GEX</div><div class="kv-val" style="color:${(data.net_gex||0)<0?'var(--neg)':'var(--pos)'}">${(data.net_gex||0)>0?'+':''}${f(data.net_gex,0)} Cr</div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX PIN</div><div class="kv-val" style="color:var(--accent)">${f(data.peak_gex_k)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">GEX PIN TOP 3</div><div class="kv-val" style="font-size:.72rem">${p3}</div></div>
-          <div class="kv-item"><div class="kv-lbl">PUT SUPPORT</div><div class="kv-val" style="color:var(--pos);font-size:.75rem">${sup}</div></div>
-          <div class="kv-item"><div class="kv-lbl">CALL RESIST</div><div class="kv-val" style="color:var(--neg);font-size:.75rem">${res}</div></div>
-          <div class="kv-item"><div class="kv-lbl">ATM PCR</div><div class="kv-val" style="color:${(data.pcr_atm||1)<.7?'var(--neg)':(data.pcr_atm||1)>1.2?'var(--pos)':'var(--t3)'}">${f(data.pcr_atm,3)}</div></div>
-          <div class="kv-item"><div class="kv-lbl">RISK REVERSAL</div><div class="kv-val" style="color:${(data.risk_reversal||0)<-3?'var(--neg)':(data.risk_reversal||0)>1?'var(--pos)':'var(--t3)'}">${(data.risk_reversal||0)>0?'+':''}${f(data.risk_reversal,1)}%</div></div>
-          <div class="kv-item"><div class="kv-lbl">DEALER DELTA</div><div class="kv-val" style="color:${(data.net_dealer_delta_cr||0)>0?'var(--pos)':'var(--neg)'}">${(data.net_dealer_delta_cr||0)>0?'+':''}${f(data.net_dealer_delta_cr,1)} Cr</div></div>
-          <div class="kv-item"><div class="kv-lbl">PUT SKEW 5%</div><div class="kv-val">${(data.put_skew||0)>0?'+':''}${f(data.put_skew,1)}%</div></div>
-        </div>
-      </div>
-    </div>
-  </div>`;
+// Initialize nifty
+window.onload = () => {
+  switchIdx('nifty');
+};
+
+// Clock
+function tick() {
+  const now = new Date();
+  const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  const p = n => String(n).padStart(2, '0');
+  document.getElementById('tb-clock').textContent = `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
+  const h = ist.getHours(), m = ist.getMinutes(), d = ist.getDay();
+  const open = d >= 1 && d <= 5 && (h > 9 || (h === 9 && m >= 15)) && (h < 15 || (h === 15 && m <= 30));
+  const badge = document.getElementById('mkt-badge');
+  badge.textContent = open ? '● OPEN' : '● CLOSED';
+  badge.className = 'mkt-badge ' + (open ? 'mkt-open' : 'mkt-close');
 }
+setInterval(tick, 1000);
+tick();
 
-/* \u2500\u2500 RENDER INDEX \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-function renderIndex(idx, data){
-  // Update topbar spot price if not yet set
-  if(data){
-    const ev=document.getElementById(`tpv-${idx}`);
-    if(ev&&ev.textContent==='\u2014') ev.textContent=f(Math.round(data.spot||0));
-  }
-
-  // Pills
-  const pills=document.getElementById(`pills-${idx}`);
-  if(pills){
-    if(data){
-      const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-      pills.innerHTML=`
-        <div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div>
-        <div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div>
-        <div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'\u2014'}</div></div>
-        <div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'\u2014'}</div></div>
-        <div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'\u2014'}d</div></div>
-        <div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div>
-        <div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'\u2014'}</div></div>
-        <div class="pill"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">\u2014</div></div>`;
-      if(data.timestamp_iso){
-        const el=document.getElementById(`age-${idx}`);
-        if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
-      }
-    } else { pills.innerHTML=''; }
-  }
-
-  // Chart tabs
-  ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'].forEach(key=>{
-    const sp=document.getElementById(`sp-${idx}-${key}`);
-    if(!sp) return;
-    sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
-    sp.querySelectorAll('.gcard img').forEach(img=>{
-      img.addEventListener('click',()=>openLbx(img.src));
-    });
-  });
-
-  // Analysis
-  const spa=document.getElementById(`sp-${idx}-analysis`);
-  if(spa) spa.innerHTML=analysisHtml(idx,data);
+// Lightbox
+function openLbx(src) {
+  document.getElementById('lbx-img').src = src;
+  document.getElementById('lbx').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-
-/* \u2500\u2500 SWITCH INDEX TAB \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-async function switchIdx(idx){
-  INDICES.forEach(i=>{
-    document.getElementById(`tab-${i}`)?.classList.toggle('on',i===idx);
-    document.getElementById(`panel-${i}`)?.classList.toggle('on',i===idx);
-  });
-  window.scrollTo({top:0,behavior:'smooth'});
-  renderIndex(idx, await fetchData(idx));
+function closeLbx() {
+  document.getElementById('lbx').classList.remove('open');
+  document.getElementById('lbx-img').src = '';
+  document.body.style.overflow = '';
 }
-
-/* \u2500\u2500 SWITCH SUB-TAB \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-function switchStab(idx, key, btn){
-  document.getElementById(`panel-${idx}`)?.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
-  btn?.classList.add('on');
-  STABS.forEach(k=>document.getElementById(`sp-${idx}-${k}`)?.classList.toggle('on',k===key));
-}
-
-/* \u2500\u2500 LIGHTBOX \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-function openLbx(src){ document.getElementById('lbx-img').src=src; document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
-
-/* \u2500\u2500 INIT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-(async()=>{
-  renderIndex('nifty', await fetchData('nifty'));
-  for(const idx of ['banknifty','sensex','finnifty','midcpnifty'])
-    fetchData(idx).then(d=>renderIndex(idx,d));
-  updateTickers();
-  setInterval(updateTickers,60000);
-  setInterval(async()=>{
-    const active=INDICES.find(i=>document.getElementById(`panel-${i}`)?.classList.contains('on'))||'nifty';
-    delete cache[active];
-    renderIndex(active, await fetchData(active,true));
-  }, 5*60*1000);
-})();
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLbx(); });
 </script>
 </body>
 </html>
