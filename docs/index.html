@@ -1414,7 +1414,7 @@ function renderIndex(idx, data){
     if(!sp) return;
     sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
     sp.querySelectorAll('.gcard img').forEach(img=>{
-      img.addEventListener('click',()=>openLbx(img.src));
+      img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); });
     });
   });
 
