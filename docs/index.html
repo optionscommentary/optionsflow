@@ -1256,11 +1256,10 @@ async function fetchLive(idx){
   try{
     /* Yahoo Finance is CORS-blocked from browsers — route via allorigins proxy */
     const yfUrl=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`;
-    const proxyUrl=`https://api.allorigins.win/get?url=${encodeURIComponent(yfUrl)}`;
-    const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(8000)});
+    const proxyUrl=`https://corsproxy.io/?${encodeURIComponent(yfUrl)}`;
+    const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(5000)});
     if(!r.ok) return;
-    const wrapper=await r.json();
-    const d=JSON.parse(wrapper.contents||'{}');
+    const d=await r.json();
     const meta=d?.chart?.result?.[0]?.meta;
     if(!meta?.regularMarketPrice) return;
     const price=meta.regularMarketPrice;
@@ -1280,7 +1279,7 @@ async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive))
 async function fetchData(idx, force){
   if(!force && cache[idx] && Date.now()-cache[idx].ts<90000) return cache[idx].data;
   try{
-    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
+    const r=await fetch(`data/${idx}/latest.json?t=${Math.floor(Date.now()/300000)}`);
     if(!r.ok) throw 0;
     const d=await r.json();
     cache[idx]={data:d,ts:Date.now()};
@@ -1321,7 +1320,7 @@ function chartHtml(idx, data, key){
     </div>`;
   }
 
-  const src=`data/${idx}/${fn}?_=${Date.now()}`;
+  const src=`data/${idx}/${fn}?t=${Math.floor(Date.now()/1800000)}`;
   const safeEmpty=EMPTY.replace(/\n/g,'').replace(/'/g,'\\x27');
   return `<div class="gcard">
     <div class="gcard-hdr">
@@ -1341,7 +1340,7 @@ function analysisHtml(idx, data){
   if(panel && !panel._synLoaded){
     panel._synLoaded = true;
     panel.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading synopsis…</div>';
-    fetch('data/'+idx+'/synopsis.html?v='+Date.now())
+    fetch('data/'+idx+'/synopsis.html?t='+Math.floor(Date.now()/1800000))
       .then(function(r){ return r.ok ? r.text() : null; })
       .then(function(html){
         if(html && panel){
@@ -1447,9 +1446,10 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
 /* ── INIT ───────────────────────────────────────────── */
 (async()=>{
-  renderIndex('nifty', await fetchData('nifty'));
-  for(const idx of ['banknifty','sensex','finnifty','midcpnifty'])
-    fetchData(idx).then(d=>renderIndex(idx,d));
+  // Load all 5 indices in parallel
+  Promise.all(INDICES.map(i=>fetchData(i))).then(results=>{
+    INDICES.forEach((i,n)=>{ if(results[n]) renderIndex(i,results[n]); });
+  });
   updateTickers();
   setInterval(updateTickers, 60000);
   const _lastTs={};
