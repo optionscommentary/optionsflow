@@ -1331,9 +1331,7 @@ function chartHtml(idx, data, key){
       <span class="gcard-title">${CHART_TITLE[key]||key}</span>
       <span class="gcard-badge">${CHART_BADGE[key]||''}</span>
     </div>
-    <img src="${src}" alt="${CHART_TITLE[key]||key}"
-         style="min-height:200px"
-         onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\'empty\'><p>Plot not pushed yet — re-run GEXMA</p></div>')">
+    <img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px">
   </div>`;
 }
 
