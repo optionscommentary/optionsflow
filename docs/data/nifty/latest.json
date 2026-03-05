@@ -1,13 +1,13 @@
 {
-  "timestamp": "05 Mar 2026  18:55 IST",
-  "timestamp_iso": "2026-03-05T18:55:54.849583",
+  "timestamp": "05 Mar 2026  19:57 IST",
+  "timestamp_iso": "2026-03-05T19:57:10.246949",
   "index": "NIFTY",
   "expiry": "10-03-2026",
-  "tte_days": 3.4,
+  "tte_days": 3.3,
   "spot": 24765.9,
   "synthetic_futures": 24742.05,
-  "atm_iv": 18.35,
-  "net_gex": -3259.04,
+  "atm_iv": 18.48,
+  "net_gex": -3297.28,
   "peak_gex_k": 25000,
   "gex_pin_top3": [
     25000,
@@ -29,8 +29,8 @@
     25000
   ],
   "pcr_atm": 0.947,
-  "net_dealer_delta_cr": -0.23,
-  "gex_speed": 42.24897,
+  "net_dealer_delta_cr": -0.25,
+  "gex_speed": 42.186663,
   "implied_lower": 24726,
   "implied_upper": 24774,
   "risk_reversal": -1.0,
@@ -58,9 +58,7 @@
     "cex_exp": "plots/cex_exp.png",
     "otm_iv": "plots/otm_iv.png",
     "itm_vex": "plots/itm_vex.png",
-    "prob_gex": "plots/prob_gex_candles.png",
-    "prob_vex": "plots/prob_vex.png",
-    "prob_cex": "plots/prob_cex.png",
+    "prob": "plots/prob_positioning.png",
     "vol_surface": "vol_surface.html"
   }
 }
