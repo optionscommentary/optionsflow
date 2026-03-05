@@ -1311,7 +1311,7 @@ function chartHtml(idx, data, key){
       if(!fn) return EMPTY;
       const src='data/'+idx+'/'+fn+'?_='+Date.now();
       return '<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">'+(titles[k]||k)+'</span><span class="gcard-badge">'+(badges[k]||'')+'</span></div>'
-        +'<img src="'+src+'" alt="'+k+'" style="width:100%;display:block;border-radius:0 0 8px 8px" loading="lazy"></div>';
+        +'<img src="'+src+'" alt="'+k+'" style="width:100%;display:block;border-radius:0 0 8px 8px" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\"empty\"><p>Plot not available yet.<br>Run GEXMA to generate.</p></div>'"></div>';
     }).join('');
   }
   const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
@@ -1439,7 +1439,21 @@ function analysisHtml(idx, data){
   var ddCol=(data.net_dealer_delta_cr||0)>0?'var(--pos)':'var(--neg)';
   var speed=data.gex_speed!=null?(Number(data.gex_speed)>0?'+':'')+Number(data.gex_speed).toFixed(4):'—';
 
+  var straddle=data.straddle_pts||Math.round((data.implied_upper||0)-(data.spot||0));
+  var ivNorm=(data.atm_iv||0)<12?'LOW':(data.atm_iv||0)>22?'HIGH':'normal';
+
   return ''
+  +'<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:14px">'
+    +'<div style="font-size:.58rem;color:var(--t3);font-family:monospace;letter-spacing:.12em;margin-bottom:10px">MARKET INTELLIGENCE — '+idx.toUpperCase()+'<\/div>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px">'
+      +'<div><div style="font-size:.58rem;color:var(--t3);font-family:monospace">INDEX<\/div><div style="font-size:1rem;font-weight:700;color:var(--call)">'+idx.toUpperCase()+'<\/div><\/div>'
+      +'<div><div style="font-size:.58rem;color:var(--t3);font-family:monospace">SPOT<\/div><div style="font-size:1rem;font-weight:700;color:var(--t1)">'+f(data.spot)+'<\/div><\/div>'
+      +'<div><div style="font-size:.58rem;color:var(--t3);font-family:monospace">ATM IV<\/div><div style="font-size:1rem;font-weight:700;color:'+ivCol+'">'+f(data.atm_iv,1)+'%<\/div><div style="font-size:.65rem;color:var(--t3)">'+ivNorm+'<\/div><\/div>'
+      +'<div><div style="font-size:.58rem;color:var(--t3);font-family:monospace">EXPIRY<\/div><div style="font-size:.85rem;font-weight:600;color:var(--t1)">'+(data.expiry||'—')+'<\/div><div style="font-size:.65rem;color:var(--t3)">'+f(data.tte_days,1)+'d TTE<\/div><\/div>'
+      +'<div><div style="font-size:.58rem;color:var(--t3);font-family:monospace">1σ RANGE<\/div><div style="font-size:.8rem;font-weight:600;color:var(--t1)">'+f(data.implied_lower)+'–'+f(data.implied_upper)+'<\/div><div style="font-size:.65rem;color:var(--t3)">±'+f(straddle)+'pts \/ '+f((straddle/Math.max(data.spot||1,1)*100),1)+'%<\/div><\/div>'
+      +'<div><div style="font-size:.58rem;color:var(--t3);font-family:monospace">STRADDLE<\/div><div style="font-size:1rem;font-weight:700;color:var(--t1)">'+f(straddle)+' pts<\/div><\/div>'
+    +'<\/div>'
+  +'<\/div>'
   +'<div class="pills" style="padding-top:8px;margin-bottom:14px">'
     +'<div class="pill"><div class="pl">Engine<\/div><div class="pv" style="color:var(--accent)">Dealer Flow Analytics<\/div><\/div>'
     +'<div class="pill"><div class="pl">Generated<\/div><div class="pv" style="font-size:.75rem">'+(data.timestamp||'—')+'<\/div><\/div>'
