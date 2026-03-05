@@ -10,12 +10,12 @@
 <style>
 /* ----- DARK THEME (default) ----- */
 :root, [data-theme="dark"] {
-  --bg: #121212;
-  --surface: #1E1E1E;
-  --raised: #2C2C2C;
+  --bg:           #0D1520;
+  --surface:      #13202F;
+  --raised:       #192B3C;
   --hover: #383838;
   --input-bg: #1E1E1E;
-  --border: #AAAAAA;        /* light grey for dark bg */
+  --border:       #243749;
   --border-lit: #CCCCCC;
   --t1: #FFFFFF;
   --t2: #E0E0E0;
@@ -37,12 +37,12 @@
 
 /* ----- LIGHT THEME (soft grey background, darker specialty colors) ----- */
 [data-theme="light"] {
-  --bg: #E8E8E8;
-  --surface: #FFFFFF;
-  --raised: #F0F0F0;
+  --bg:           #ECF1F7;
+  --surface:      #FFFFFF;
+  --raised:       #E2EAF4;
   --hover: #E0E0E0;
   --input-bg: #FFFFFF;
-  --border: #333333;        /* dark grey for light bg */
+  --border:       #B8CCDE;
   --border-lit: #111111;
   --t1: #212121;
   --t2: #333333;
@@ -1187,7 +1187,7 @@ const PLOT_KEY = {
   skew:    'vol_skew',
   pcr:     'pcr_table',
   topgex:  'top_gamma',
-  prob:    ['prob_gex','prob_vex','prob_cex'],
+  prob:    'prob',
   volsurf: 'vol_surface',
 };
 const CHART_TITLE = {
@@ -1303,17 +1303,7 @@ const EMPTY=`<div class="empty">
 /* ── CHART CARD HTML ────────────────────────────────── */
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
-  if(Array.isArray(pf)){
-    const titles={prob_gex:'Probable GEX + 15-Min Candles',prob_vex:'Probable Vanna Exposure (VEX)',prob_cex:'Probable Charm Exposure (CEX)'};
-    const badges={prob_gex:'GEX · Candles',prob_vex:'VEX · Conviction-weighted',prob_cex:'CEX · Conviction-weighted'};
-    return pf.map(function(k){
-      var fn=data&&data.plots&&data.plots[k];
-      if(!fn) return EMPTY;
-      var src='data/'+idx+'/'+fn+'?v='+Date.now();
-      return '<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">'+titles[k]+'</span><span class="gcard-badge">'+badges[k]+'</span></div>'
-        +'<img src="'+src+'" alt="'+k+'" style="width:100%;display:block;border-radius:0 0 8px 8px" loading="lazy"></div>';
-    }).join('');
-  }
+
   const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
 
   if(key==='volsurf'){
