@@ -1220,6 +1220,7 @@ const YF = {
   midcpnifty:'NIFTY_MID_SELECT.NS'
 };
 const cache = {};
+const _dataCache = {}; // latest data per index for lazy tab render
 
 /* ── CLOCK ──────────────────────────────────────────── */
 function tick(){
@@ -1296,14 +1297,18 @@ const EMPTY=`<div class="empty">
   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
     <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
   </svg>
-  <p>No data available yet.<br>Analysis runs during market hours.</p>
+  <p>Chart not generated yet for this run.<br><span style="font-size:.75rem;color:var(--t3)">Run GEXMA to generate plots.</span></p>
 </div>`;
 
 /* ── CHART CARD HTML ────────────────────────────────── */
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
 
-  const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
+  const fn=data?.plots?.[pf];
+  if(!fn){
+    // plots key missing — data loaded but GEXMA version didn't write this plot yet
+    return `<div class="empty"><p style="font-size:.8rem">Chart not available.<br><span style="font-size:.72rem;color:var(--t3)">Re-run GEXMA to regenerate plots.</span></p></div>`;
+  }
 
   if(key==='volsurf'){
     const src=`data/${idx}/${fn}`;
@@ -1321,14 +1326,14 @@ function chartHtml(idx, data, key){
   }
 
   const src=`data/${idx}/${fn}?t=${Math.floor(Date.now()/1800000)}`;
-  const safeEmpty=EMPTY.replace(/\n/g,'').replace(/'/g,'\\x27');
   return `<div class="gcard">
     <div class="gcard-hdr">
       <span class="gcard-title">${CHART_TITLE[key]||key}</span>
       <span class="gcard-badge">${CHART_BADGE[key]||''}</span>
     </div>
     <img src="${src}" alt="${CHART_TITLE[key]||key}"
-         onerror="this.closest('.gcard').outerHTML='${safeEmpty}'">
+         style="min-height:200px"
+         onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\'empty\'><p>Plot not pushed yet — re-run GEXMA</p></div>')">
   </div>`;
 }
 
@@ -1409,13 +1414,21 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
 
+  // Store data for lazy rendering, only render the active tab now
+  if(data) _dataCache[idx] = data;
   ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'].forEach(key=>{
     const sp=document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
-    sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
-    sp.querySelectorAll('.gcard img').forEach(img=>{
-      img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); });
-    });
+    if(sp.classList.contains('on')){
+      // Active tab — render immediately
+      sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
+      sp.querySelectorAll('.gcard img').forEach(img=>{
+        img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); });
+      });
+    } else {
+      // Hidden tab — mark as stale so it renders when clicked
+      sp.dataset.stale = '1';
+    }
   });
 
   const spa=document.getElementById(`sp-${idx}-analysis`);
@@ -1437,6 +1450,21 @@ function switchStab(idx, key, btn){
   document.getElementById(`panel-${idx}`)?.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
   STABS.forEach(k=>document.getElementById(`sp-${idx}-${k}`)?.classList.toggle('on',k===key));
+  // Lazy render — only render now if not already rendered
+  const sp = document.getElementById(`sp-${idx}-${key}`);
+  if(sp && sp.dataset.stale === '1'){
+    sp.dataset.stale = '0';
+    const d = _dataCache[idx];
+    sp.innerHTML = d ? chartHtml(idx, d, key) : EMPTY;
+    sp.querySelectorAll('.gcard img').forEach(img=>{
+      img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); });
+    });
+    // synopsis tab
+    if(key==='analysis'){
+      const spa = document.getElementById(`sp-${idx}-analysis`);
+      if(spa) spa.innerHTML = analysisHtml(idx, d);
+    }
+  }
 }
 
 /* ── LIGHTBOX ───────────────────────────────────────── */
