@@ -1,13 +1,13 @@
 {
-  "timestamp": "05 Mar 2026  20:20 IST",
-  "timestamp_iso": "2026-03-05T20:20:46.636522",
+  "timestamp": "05 Mar 2026  23:42 IST",
+  "timestamp_iso": "2026-03-05T23:42:41.057781",
   "index": "BANKNIFTY",
   "expiry": "30-03-2026",
-  "tte_days": 17.1,
+  "tte_days": 17.0,
   "spot": 59055.85,
   "synthetic_futures": 59291.3,
-  "atm_iv": 16.04,
-  "net_gex": -217.74,
+  "atm_iv": 16.09,
+  "net_gex": -218.08,
   "peak_gex_k": 59000,
   "gex_pin_top3": [
     59000,
@@ -31,14 +31,14 @@
   ],
   "pcr_atm": 1.219,
   "net_dealer_delta_cr": -0.19,
-  "gex_speed": 1.015529,
+  "gex_speed": 1.013957,
   "implied_lower": 59065,
   "implied_upper": 59535,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "LOW",
-  "oi_flow_label": "MIXED / BALANCED FLOW",
+  "oi_flow_label": "INITIAL OI SNAPSHOT",
   "gex_tilt_label": "PUT-TILTED (1.5x)",
   "straddle_pts": 1944,
   "signals": {
@@ -60,6 +60,7 @@
     "otm_iv": "plots/otm_iv.png",
     "itm_vex": "plots/itm_vex.png",
     "prob": "plots/prob_positioning.png",
+    "candles_gex": "plots/candles_gex.png",
     "vol_surface": "vol_surface.html"
   }
 }
