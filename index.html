@@ -1187,7 +1187,7 @@ const PLOT_KEY = {
   skew:    'vol_skew',
   pcr:     'pcr_table',
   topgex:  'top_gamma',
-  prob:    'prob_gex',
+  prob:    ['prob_gex','prob_vex','prob_cex'],   // three separate files
   volsurf: 'vol_surface',
 };
 const CHART_TITLE = {
@@ -1254,9 +1254,13 @@ function scoreClass(sc){
 async function fetchLive(idx){
   const sym=YF[idx]; if(!sym) return;
   try{
-    const r=await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`);
+    /* Yahoo Finance is CORS-blocked from browsers — route via allorigins proxy */
+    const yfUrl=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`;
+    const proxyUrl=`https://api.allorigins.win/get?url=${encodeURIComponent(yfUrl)}`;
+    const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(8000)});
     if(!r.ok) return;
-    const d=await r.json();
+    const wrapper=await r.json();
+    const d=JSON.parse(wrapper.contents||'{}');
     const meta=d?.chart?.result?.[0]?.meta;
     if(!meta?.regularMarketPrice) return;
     const price=meta.regularMarketPrice;
@@ -1299,6 +1303,28 @@ const EMPTY=`<div class="empty">
 /* ── CHART CARD HTML ────────────────────────────────── */
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
+
+  // Probable tab: pf is an array → render three stacked image cards
+  if(Array.isArray(pf)){
+    const titles=['Probable GEX + 15-Min Candles','Probable Vanna Exposure (VEX)','Probable Charm Exposure (CEX)'];
+    const badges=['GEX · Inferred from OI flow · Candles','VEX · Conviction-weighted','CEX · Conviction-weighted'];
+    let html='';
+    pf.forEach((k,i)=>{
+      const fn=data?.plots?.[k]; if(!fn) return;
+      const src=`data/${idx}/${fn}?_=${Date.now()}`;
+      const safeEmpty=EMPTY.replace(/\n/g,'').replace(/'/g,'\\x27');
+      html+=`<div class="gcard" style="margin-bottom:16px">
+        <div class="gcard-hdr">
+          <span class="gcard-title">${titles[i]}</span>
+          <span class="gcard-badge">${badges[i]}</span>
+        </div>
+        <img src="${src}" alt="${titles[i]}" style="width:100%;display:block"
+             onerror="this.closest('.gcard').outerHTML='${safeEmpty}'">
+      </div>`;
+    });
+    return html||EMPTY;
+  }
+
   const fn=data?.plots?.[pf]; if(!fn) return EMPTY;
 
   if(key==='volsurf'){
@@ -1447,15 +1473,36 @@ function closeLbx(){ document.getElementById('lbx').classList.remove('open'); do
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
 /* ── INIT ───────────────────────────────────────────── */
+/* Track last-seen timestamp per index to avoid re-rendering unchanged data */
+const _lastTs = {};
+
+async function _pollUpdates(){
+  for(const idx of INDICES){
+    try{
+      const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
+      if(!r.ok) continue;
+      const d=await r.json();
+      const ts=d?.timestamp_iso||d?.timestamp||'';
+      if(ts && ts!==_lastTs[idx]){
+        // New data detected — update cache and re-render
+        _lastTs[idx]=ts;
+        cache[idx]={data:d,ts:Date.now()};
+        renderIndex(idx,d);
+      }
+    }catch{}
+  }
+}
+
 (async()=>{
   renderIndex('nifty', await fetchData('nifty'));
+  if((window._niftyData=cache['nifty']?.data)) _lastTs['nifty']=cache['nifty']?.data?.timestamp_iso||'';
   for(const idx of ['banknifty','sensex','finnifty','midcpnifty'])
-    fetchData(idx).then(d=>renderIndex(idx,d));
+    fetchData(idx).then(d=>{
+      if(d){ _lastTs[idx]=d.timestamp_iso||''; renderIndex(idx,d); }
+    });
   updateTickers();
-  setInterval(updateTickers, 60000);
-  setInterval(()=>{
-    INDICES.forEach(i=>fetchData(i,true).then(d=>{ if(d) renderIndex(i,d); }));
-  }, 90000);
+  setInterval(updateTickers, 60000);          // live price tickers every 60s
+  setInterval(_pollUpdates,  30000);           // 30s smart check — only re-render on new data
 })();
 </script>
 </body>
