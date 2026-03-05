@@ -1,51 +1,53 @@
 {
-  "timestamp": "05 Mar 2026  14:30 IST",
-  "timestamp_iso": "2026-03-05T14:30:51.922154",
+  "timestamp": "05 Mar 2026  19:58 IST",
+  "timestamp_iso": "2026-03-05T19:58:24.021728",
   "index": "SENSEX",
-  "expiry": "05-03-2026",
-  "tte_days": 0.1,
-  "spot": 79506.89,
-  "synthetic_futures": 79426.2,
-  "atm_iv": 16.26,
-  "net_gex": 41252.95,
-  "peak_gex_k": 79500,
+  "expiry": "12-03-2026",
+  "tte_days": 4.7,
+  "spot": 80015.9,
+  "synthetic_futures": 79987.3,
+  "atm_iv": 19.16,
+  "net_gex": -286.78,
+  "peak_gex_k": 80000,
   "gex_pin_top3": [
-    79500,
-    79500,
-    79600
+    80000,
+    80000,
+    79500
   ],
-  "gex_regime": "LONG",
-  "composite_score": 3,
-  "verdict": "MILD BULLISH",
+  "gex_regime": "SHORT",
+  "composite_score": -3,
+  "verdict": "MILD BEARISH",
   "put_support_levels": [
-    78800,
-    78900,
-    79000
-  ],
-  "call_resist_levels": [
+    79400,
+    79500,
     79600,
-    79700,
-    79800,
     80000
   ],
-  "pcr_atm": 0.938,
-  "net_dealer_delta_cr": 0.01,
-  "gex_speed": 534.215713,
-  "implied_lower": 79319,
-  "implied_upper": 79481,
+  "call_resist_levels": [
+    80100,
+    80200,
+    80300,
+    80500
+  ],
+  "pcr_atm": 0.953,
+  "net_dealer_delta_cr": -0.01,
+  "gex_speed": 0.764233,
+  "implied_lower": 79971,
+  "implied_upper": 80029,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "MEDIUM",
-  "oi_flow_label": "PUT WRITERS DOMINANT",
-  "gex_tilt_label": "BALANCED \u2014 slightly CALL-leaning (1.19x)",
+  "oi_flow_label": "INITIAL OI SNAPSHOT",
+  "gex_tilt_label": "PUT-TILTED (2.3x)",
+  "straddle_pts": 1695,
   "signals": {
-    "gex_oi": 2,
-    "oi_flow": 1,
+    "gex_oi": 0,
+    "oi_flow": 0,
     "pcr": 0,
     "vex": -1,
-    "skew": 2,
-    "fxiv": -1
+    "skew": -1,
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
@@ -57,9 +59,7 @@
     "cex_exp": "plots/cex_exp.png",
     "otm_iv": "plots/otm_iv.png",
     "itm_vex": "plots/itm_vex.png",
-    "prob_gex": "plots/prob_gex_candles.png",
-    "prob_vex": "plots/prob_vex.png",
-    "prob_cex": "plots/prob_cex.png",
+    "prob": "plots/prob_positioning.png",
     "vol_surface": "vol_surface.html"
   }
 }
