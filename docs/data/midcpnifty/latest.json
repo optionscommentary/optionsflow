@@ -1,0 +1,64 @@
+{
+  "timestamp": "05 Mar 2026  19:59 IST",
+  "timestamp_iso": "2026-03-05T19:59:30.832540",
+  "index": "MIDCPNIFTY",
+  "expiry": "30-03-2026",
+  "tte_days": 17.1,
+  "spot": 13175.0,
+  "synthetic_futures": 13276.15,
+  "atm_iv": 22.66,
+  "net_gex": -50.7,
+  "peak_gex_k": 13500,
+  "gex_pin_top3": [
+    13500,
+    13500,
+    13000
+  ],
+  "gex_regime": "SHORT",
+  "composite_score": -1,
+  "verdict": "NEUTRAL / RANGE",
+  "put_support_levels": [
+    13125,
+    13150,
+    13175
+  ],
+  "call_resist_levels": [
+    13175,
+    13200,
+    13225,
+    13300
+  ],
+  "pcr_atm": 1.13,
+  "net_dealer_delta_cr": -0.05,
+  "gex_speed": 0.281364,
+  "implied_lower": 13174,
+  "implied_upper": 13376,
+  "risk_reversal": -1.0,
+  "put_skew": 0.5,
+  "vol_regime": "normal_vol",
+  "conviction": "LOW",
+  "oi_flow_label": "INITIAL OI SNAPSHOT",
+  "gex_tilt_label": "PUT-TILTED (3.4x)",
+  "straddle_pts": 652,
+  "signals": {
+    "gex_oi": 0,
+    "oi_flow": 0,
+    "pcr": 1,
+    "vex": -1,
+    "skew": -1,
+    "fxiv": 0
+  },
+  "plots": {
+    "gamma_exp": "plots/gamma_exposure.png",
+    "oi_gex_combined": "plots/oi_gex_combined.png",
+    "vol_skew": "plots/vol_skew.png",
+    "pcr_table": "plots/pcr_table.png",
+    "top_gamma": "plots/top_gamma.png",
+    "vanna_exp": "plots/vanna_exp.png",
+    "cex_exp": "plots/cex_exp.png",
+    "otm_iv": "plots/otm_iv.png",
+    "itm_vex": "plots/itm_vex.png",
+    "prob": "plots/prob_positioning.png",
+    "vol_surface": "vol_surface.html"
+  }
+}
