@@ -1392,6 +1392,19 @@ function _synFallback(idx, data){
 }
 
 /* ── RENDER INDEX ───────────────────────────────────── */
+
+/* ── FETCH DATA ─────────────────────────────────────── */
+async function fetchData(idx, force){
+  if(!force && cache[idx] && Date.now()-cache[idx].ts<30000) return cache[idx].data;
+  try{
+    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
+    if(!r.ok) return cache[idx]?.data||null;
+    const d=await r.json();
+    cache[idx]={data:d,ts:Date.now()};
+    return d;
+  }catch{ return cache[idx]?.data||null; }
+}
+
 function renderIndex(idx, data){
   if(data){
     const ev=document.getElementById(`tpv-${idx}`);
