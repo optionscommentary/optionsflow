@@ -1344,7 +1344,7 @@ function chartHtml(idx, data, key){
     </div>`;
   }
 
-  const src=`data/${idx}/${fn}?t=${Math.floor(Date.now()/1800000)}`;
+  const src=`data/${idx}/${fn}?t=${(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12)||Math.floor(Date.now()/1800000)}`;
   return `<div class="gcard">
     <div class="gcard-hdr">
       <span class="gcard-title">${CHART_TITLE[key]||key}</span>
@@ -1362,7 +1362,7 @@ function analysisHtml(idx, data){
   if(panel && !panel._synLoaded){
     panel._synLoaded = true;
     panel.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading synopsis…</div>';
-    fetch('data/'+idx+'/synopsis.html?t='+Math.floor(Date.now()/1800000))
+    fetch('data/'+idx+'/synopsis.html?t='+(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12))
       .then(function(r){ return r.ok ? r.text() : null; })
       .then(function(html){
         if(html && panel){
