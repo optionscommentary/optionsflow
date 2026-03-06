@@ -1,6 +1,6 @@
 {
-  "timestamp": "06 Mar 2026  11:31 IST",
-  "timestamp_iso": "2026-03-06T11:31:36.411771",
+  "timestamp": "06 Mar 2026  11:33 IST",
+  "timestamp_iso": "2026-03-06T11:33:12.663220",
   "index": "MIDCPNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 16.7,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 13253.95,
-  "atm_iv": 21.25,
-  "net_gex": -102.99,
+  "atm_iv": 21.14,
+  "net_gex": -100.6,
   "peak_gex_k": 13000,
   "gex_pin_top3": [
     13000,
@@ -18,8 +18,8 @@
     13200
   ],
   "gex_regime": "SHORT",
-  "composite_score": 5,
-  "verdict": "BULLISH",
+  "composite_score": -3,
+  "verdict": "MILD BEARISH",
   "put_support_levels": [
     13150
   ],
@@ -29,25 +29,25 @@
     13150,
     13300
   ],
-  "pcr_atm": 1.249,
+  "pcr_atm": 1.233,
   "net_dealer_delta_cr": -0.06,
-  "gex_speed": 0.144916,
+  "gex_speed": 0.143691,
   "implied_lower": 12971,
   "implied_upper": 13529,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "MEDIUM",
-  "oi_flow_label": "CALL BUYERS DOMINANT",
-  "gex_tilt_label": "PUT-TILTED (7.0x)",
-  "straddle_pts": 671,
+  "oi_flow_label": "CALL WRITERS DOMINANT",
+  "gex_tilt_label": "PUT-TILTED (6.4x)",
+  "straddle_pts": 668,
   "signals": {
-    "gex_oi": 1,
-    "oi_flow": 2,
+    "gex_oi": 0,
+    "oi_flow": -1,
     "pcr": 1,
     "vex": -1,
     "skew": 0,
-    "fxiv": 2
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
