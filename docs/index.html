@@ -1262,12 +1262,24 @@ function scoreClass(sc){
 async function fetchLive(idx){
   const sym=YF[idx]; if(!sym) return;
   try{
-    /* Yahoo Finance is CORS-blocked from browsers — route via allorigins proxy */
+    // Try multiple proxies for reliability
     const yfUrl=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`;
-    const proxyUrl=`https://corsproxy.io/?${encodeURIComponent(yfUrl)}`;
-    const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(5000)});
-    if(!r.ok) return;
-    const d=await r.json();
+    const proxies=[
+      `https://api.allorigins.win/get?url=${encodeURIComponent(yfUrl)}`,
+      `https://corsproxy.io/?${encodeURIComponent(yfUrl)}`,
+    ];
+    let d=null;
+    for(const proxyUrl of proxies){
+      try{
+        const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(6000)});
+        if(!r.ok) continue;
+        const raw=await r.json();
+        // allorigins wraps in {contents:...}, corsproxy returns directly
+        const parsed = raw.contents ? JSON.parse(raw.contents) : raw;
+        if(parsed?.chart?.result?.[0]?.meta?.regularMarketPrice){ d=parsed; break; }
+      }catch{}
+    }
+    if(!d) return;
     const meta=d?.chart?.result?.[0]?.meta;
     if(!meta?.regularMarketPrice) return;
     const price=meta.regularMarketPrice;
@@ -1287,7 +1299,7 @@ async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive))
 async function fetchData(idx, force){
   if(!force && cache[idx] && Date.now()-cache[idx].ts<90000) return cache[idx].data;
   try{
-    const r=await fetch(`data/${idx}/latest.json?t=${Math.floor(Date.now()/300000)}`);
+    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
     if(!r.ok) throw 0;
     const d=await r.json();
     cache[idx]={data:d,ts:Date.now()};
