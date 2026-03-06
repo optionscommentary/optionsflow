@@ -1258,58 +1258,45 @@ function scoreClass(sc){
   if(sc!==0) return 'sp-neu'; return 'sp-flat';
 }
 
-/* ── LIVE TICKERS ───────────────────────────────────── */
+/* ── LIVE TICKERS — Yahoo Finance via allorigins proxy ── */
 async function fetchLive(idx){
   const sym=YF[idx]; if(!sym) return;
   try{
-    // Try multiple proxies for reliability
     const yfUrl=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d`;
-    const proxies=[
-      `https://api.allorigins.win/get?url=${encodeURIComponent(yfUrl)}`,
-      `https://corsproxy.io/?${encodeURIComponent(yfUrl)}`,
-    ];
-    let d=null;
-    for(const proxyUrl of proxies){
-      try{
-        const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(6000)});
-        if(!r.ok) continue;
-        const raw=await r.json();
-        // allorigins wraps in {contents:...}, corsproxy returns directly
-        const parsed = raw.contents ? JSON.parse(raw.contents) : raw;
-        if(parsed?.chart?.result?.[0]?.meta?.regularMarketPrice){ d=parsed; break; }
-      }catch{}
-    }
-    if(!d) return;
+    const proxyUrl=`https://api.allorigins.win/get?url=${encodeURIComponent(yfUrl)}`;
+    const r=await fetch(proxyUrl,{signal:AbortSignal.timeout(8000)});
+    if(!r.ok) throw new Error('proxy fail');
+    const wrapper=await r.json();
+    const d=JSON.parse(wrapper.contents||'{}');
     const meta=d?.chart?.result?.[0]?.meta;
-    if(!meta?.regularMarketPrice) return;
+    if(!meta?.regularMarketPrice) throw new Error('no price');
     const price=meta.regularMarketPrice;
     const prev=meta.chartPreviousClose||meta.previousClose||price;
     const chg=price-prev, pct=(chg/prev)*100;
     const sign=chg>=0?'+':'';
+    const arrow=chg>0?'▲':chg<0?'▼':'';
     const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
     const ev=document.getElementById(`tpv-${idx}`);
     const ec=document.getElementById(`tpc-${idx}`);
     if(ev) ev.textContent=f(Math.round(price));
-    if(ec) ec.innerHTML=`<span style="color:${col}">${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
-  }catch{}
+    if(ec) ec.innerHTML=`<span style="color:${col}">${arrow} ${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+  }catch{
+    // Fallback: use spot from latest.json
+    const d=_dataCache[idx];
+    if(!d) return;
+    const ev=document.getElementById(`tpv-${idx}`);
+    const ec=document.getElementById(`tpc-${idx}`);
+    if(ev&&d.spot) ev.textContent=f(Math.round(d.spot));
+    if(ec&&d.spot_chg!=null){
+      const chg=d.spot_chg,pct=d.spot_pct||0;
+      const sign=chg>=0?'+':'';
+      const arrow=chg>0?'▲':chg<0?'▼':'';
+      const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
+      ec.innerHTML=`<span style="color:${col}">${arrow} ${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+    }
+  }
 }
 async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive)); }
-
-/* ── FETCH DATA (from GitHub Pages data/) ───────────── */
-async function fetchData(idx, force){
-  if(!force && cache[idx] && Date.now()-cache[idx].ts<90000) return cache[idx].data;
-  try{
-    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
-    if(!r.ok) throw 0;
-    const d=await r.json();
-    cache[idx]={data:d,ts:Date.now()};
-    const tab=document.getElementById(`tab-${idx}`);
-    if(tab&&!tab.querySelector('.tab-dot')){
-      const dot=document.createElement('span'); dot.className='tab-dot'; tab.appendChild(dot);
-    }
-    return d;
-  }catch{ return cache[idx]?.data||null; }
-}
 
 /* ── EMPTY STATE ────────────────────────────────────── */
 const EMPTY=`<div class="empty">
