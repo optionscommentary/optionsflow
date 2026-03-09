@@ -919,22 +919,17 @@ body {
   #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
   .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
 
-  /* Vol surface mobile */
-  .volsurf-hdr { padding: 6px 10px !important; }
-  .volsurf-hdr .gcard-title { font-size: 0.65rem !important; }
-  .vol-surface-wrap {
-    width: 100%;
-    overflow: hidden;
-    padding-left: 18px;
-    box-sizing: border-box;
-  }
+  /* Vol surface mobile — square, full width, no header */
+  .vol-surface-card { border: none !important; box-shadow: none !important; background: transparent !important; }
+  .vol-surface-wrap { width: 100%; overflow: hidden; }
   .vol-surface-frame {
     width: 100% !important;
-    height: 62vw !important;
-    min-height: 220px;
+    height: 100vw !important;
+    min-height: 320px;
     margin: 0 !important;
     transform: none !important;
     display: block;
+    border-radius: var(--card-radius);
   }
   /* Sub tabs */
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
@@ -1448,14 +1443,7 @@ function chartHtml(idx, data, key){
 
   if(key==='volsurf'){
     const src=`data/${idx}/${fn}`;
-    return `<div class="gcard">
-      <div class="gcard-hdr volsurf-hdr">
-        <span class="gcard-title">${CHART_TITLE[key]}</span>
-        <a href="${src}" target="_blank" rel="noopener"
-           style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;
-                  color:var(--accent);text-decoration:none;border:1px solid var(--border);
-                  border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a>
-      </div>
+    return `<div class="gcard vol-surface-card">
       <div class="vol-surface-wrap">
         <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"></iframe>
       </div>
