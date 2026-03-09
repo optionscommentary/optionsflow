@@ -1632,8 +1632,12 @@ function renderIndex(idx, data){
     const sp=document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
     if(sp.classList.contains('on')){
-      // Don't reload volsurf iframe if already rendered — causes disruptive reload
-      if(key==='volsurf' && sp.querySelector('iframe')) return;
+      // Only reload volsurf if the filename actually changed (new GEXMA run)
+      if(key==='volsurf' && sp.querySelector('iframe')){
+        const newFile = data?.plots?.vol_surface;
+        const curSrc  = sp.querySelector('iframe').getAttribute('src')||'';
+        if(newFile && curSrc.endsWith(newFile)) return;
+      }
       // Active tab — render immediately
       sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
       sp.querySelectorAll('.gcard img').forEach(img=>{
