@@ -439,7 +439,7 @@ body {
   top: var(--topbar);
   z-index: 800;
   margin: 0 -24px;
-  padding: 0 24px;
+  padding: 0 0 0 24px;
   overflow: hidden;
 }
 .tabs-scroll {
@@ -447,6 +447,7 @@ body {
   flex: 1;
   overflow-x: auto;
   scrollbar-width: none;
+  min-width: 0;
 }
 .tabs-scroll::-webkit-scrollbar { display: none; }
 .tab {
@@ -635,7 +636,8 @@ body {
 }
 .vol-surface-frame {
   width: 100%;
-  height: min(85vh, 820px);
+  height: calc(100vh - var(--topbar) - 100px);
+  min-height: 500px;
   border: none;
   background: var(--bg);
   display: block;
@@ -846,7 +848,7 @@ body {
 
 /* Tabs right bar — theme + clock + status pinned to right of tabs row */
 .tabs-right-bar {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 8px;
   padding: 0 12px;
@@ -886,19 +888,18 @@ body {
   .tb-right { display: none; }
   #theme-btn2 { display: none !important; }
 
-  /* Tabs bar — tabs scroll, right bar stays fixed */
+  /* Tabs bar — tabs scroll, right bar pinned right */
   .tabs-bar { margin: 0 -10px; padding: 0 0 0 10px; overflow: hidden; }
-  .tabs-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; min-width: 0; }
   .tabs-scroll::-webkit-scrollbar { display: none; }
   .tab { padding: 10px 12px; font-size: 0.7rem; letter-spacing: 0.05em; flex-shrink: 0; }
-  .tabs-right-bar { padding: 0 6px; gap: 5px; }
-  .tabs-right-bar .mkt-badge { font-size: 0.56rem !important; padding: 2px 5px !important; white-space: nowrap; }
-  #tabs-clock { font-size: 0.58rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
-  .tabs-right-bar .theme-btn { padding: 3px 7px; font-size: 0.7rem; }
+  .tabs-right-bar { padding: 0 6px; gap: 4px; flex-shrink: 0; }
+  .tabs-right-bar .mkt-badge { font-size: 0.54rem !important; padding: 2px 4px !important; white-space: nowrap; }
+  #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
+  .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
 
-  /* Vol surface — full width, good height on mobile */
-  .vol-surface-frame { height: 60vh; min-height: 320px; }
-
+  /* Vol surface — fills screen */
+  .vol-surface-frame { height: calc(100vh - var(--topbar) - 80px); min-height: 340px; }
   /* Sub tabs */
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
