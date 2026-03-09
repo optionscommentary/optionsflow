@@ -912,20 +912,23 @@ body {
   #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
   .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
 
-  /* Vol surface mobile — scale down entire iframe content to fit */
+  /* Vol surface mobile */
+  .volsurf-hdr { padding: 6px 10px !important; }
+  .volsurf-hdr .gcard-title { font-size: 0.65rem !important; }
   .vol-surface-wrap {
     width: 100%;
     overflow: hidden;
     position: relative;
+    height: 72vw;
   }
   .vol-surface-frame {
-    height: 80vw;
-    min-height: 260px;
-    margin: 0 !important;
+    position: absolute;
+    top: 0; left: 0;
     width: 133% !important;
+    height: 133% !important;
     transform: scale(0.75);
     transform-origin: top left;
-    margin-top: -8% !important;
+    margin: 0 !important;
   }
   /* Sub tabs */
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
@@ -1342,7 +1345,7 @@ const CHART_BADGE = {
   pcr:     'Blue=Calls · Orange=Puts',
   topgex:  'Abs GEX · ATM Highlighted',
   prob:    'GEX + Candles · PCR + OI Synthesised',
-  volsurf: 'Plotly · 3D Interactive',
+  volsurf: '',
 };
 const YF = {
   nifty:'^NSEI', banknifty:'^NSEBANK',
@@ -1440,9 +1443,8 @@ function chartHtml(idx, data, key){
   if(key==='volsurf'){
     const src=`data/${idx}/${fn}`;
     return `<div class="gcard">
-      <div class="gcard-hdr">
+      <div class="gcard-hdr volsurf-hdr">
         <span class="gcard-title">${CHART_TITLE[key]}</span>
-        <span class="gcard-badge">${CHART_BADGE[key]}</span>
         <a href="${src}" target="_blank" rel="noopener"
            style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;
                   color:var(--accent);text-decoration:none;border:1px solid var(--border);
