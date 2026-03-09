@@ -855,20 +855,24 @@ body {
   .cs-lbl { display: none; }
 
   /* Top ticker bar */
-  /* Topbar — fix quotes visibility on mobile */
+  /* Topbar — 3 quotes visible, theme btn shown, compact */
   #topbar { padding: 0 6px; height: auto; min-height: 52px; overflow: hidden; }
-  .tb-brand { font-size: 0.85rem; padding-right: 8px; gap: 5px; }
+  .tb-brand { font-size: 0.8rem; padding-right: 8px; gap: 5px; flex-shrink: 0; }
   .tb-brand .tb-dot { width: 5px; height: 5px; }
-  .tb-pills { overflow-x: auto; overflow-y: hidden; flex: 1; flex-shrink: 1; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tb-pills { overflow-x: auto; overflow-y: hidden; flex: 1; min-width: 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .tb-pills::-webkit-scrollbar { display: none; }
-  .tb-pill { padding: 4px 8px; flex-shrink: 0; border-right: 1px solid var(--border); }
-  .tb-pill .lbl { font-size: 0.55rem; }
+  .tb-pill { padding: 4px 9px; flex-shrink: 0; min-width: 68px; }
+  .tb-pill .lbl { font-size: 0.52rem; }
   .tb-pill .val { font-size: 0.82rem; }
-  .tb-pill .chg { font-size: 0.55rem; min-height: 11px; }
+  .tb-pill .chg { font-size: 0.52rem; min-height: 10px; }
   .tb-pills .tb-pill:nth-child(n+4) { display: flex; }
-  .tb-right { gap: 5px; padding-left: 5px; flex-shrink: 0; font-size: 0.65rem; }
-  .mkt-badge { font-size: 0.55rem !important; padding: 2px 5px !important; }
-  #tb-clock { font-size: 0.6rem; }
+  /* tb-right: hide clock, show compact market badge + theme btn */
+  .tb-right { gap: 4px; padding-left: 4px; flex-shrink: 0; }
+  #tb-clock { display: none; }
+  .mkt-badge { font-size: 0 !important; padding: 4px !important; width: 10px; height: 10px; border-radius: 50% !important; }
+  .mkt-open { background: var(--pos) !important; border-color: var(--pos) !important; }
+  .mkt-close { background: var(--t4) !important; border-color: var(--t4) !important; }
+  #theme-btn2 { display: flex !important; padding: 4px 8px; font-size: 0.75rem; }
 
   /* Index tabs */
   .tabs-bar {
@@ -916,7 +920,7 @@ body {
   /* Footer — stacked and centered on mobile */
   .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
   .foot-brand { margin-left: 0; text-align: center; }
-  .footer-links { justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .footer-links { justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
   .disc { font-size: 0.63rem; line-height: 1.7; text-align: left; }
 
   /* Social icons row shown only on mobile inside footer */
@@ -984,6 +988,7 @@ body {
   <div class="tb-right">
     <span class="mkt-badge mkt-close" id="mkt-badge">● CLOSED</span>
     <span id="tb-clock">—</span>
+    <button class="theme-btn" id="theme-btn2" onclick="toggleTheme()" style="display:none">🌙</button>
   </div>
 </header>
 
@@ -1261,6 +1266,8 @@ function toggleTheme(){
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
   document.getElementById('theme-btn').textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
+  const b2 = document.getElementById('theme-btn2');
+  if(b2) b2.textContent = nxt==='dark' ? '☀' : '🌙';
 }
 
 /* ── CONFIG ─────────────────────────────────────────── */
