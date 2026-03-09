@@ -836,6 +836,17 @@ body {
 }
 .mobile-social { display: none; }
 
+/* Tabs right bar — theme + clock + status pinned to right of tabs row */
+.tabs-right-bar {
+  margin-left: auto;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border);
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -851,58 +862,42 @@ body {
 @media (max-width: 760px) {
   /* Layout */
   #main { padding: 10px; }
-  .contact-strip { padding: 8px 10px; gap: 6px; }
-  .cs-lbl { display: none; }
+  .contact-strip { display: none; }
 
-  /* Top ticker bar */
-  /* Topbar — 3 quotes visible, theme btn shown, compact */
+  /* Topbar — quotes only, hide tb-right entirely */
   #topbar { padding: 0 6px; height: auto; min-height: 52px; overflow: hidden; }
   .tb-brand { font-size: 0.8rem; padding-right: 8px; gap: 5px; flex-shrink: 0; }
   .tb-brand .tb-dot { width: 5px; height: 5px; }
   .tb-pills { overflow-x: auto; overflow-y: hidden; flex: 1; min-width: 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .tb-pills::-webkit-scrollbar { display: none; }
-  .tb-pill { padding: 4px 9px; flex-shrink: 0; min-width: 68px; }
+  .tb-pill { padding: 4px 9px; flex-shrink: 0; min-width: 72px; }
   .tb-pill .lbl { font-size: 0.52rem; }
   .tb-pill .val { font-size: 0.82rem; }
   .tb-pill .chg { font-size: 0.52rem; min-height: 10px; }
   .tb-pills .tb-pill:nth-child(n+4) { display: flex; }
-  /* tb-right: hide clock, show compact market badge + theme btn */
-  .tb-right { gap: 4px; padding-left: 4px; flex-shrink: 0; }
-  #tb-clock { display: none; }
-  .mkt-badge { font-size: 0 !important; padding: 4px !important; width: 10px; height: 10px; border-radius: 50% !important; }
-  .mkt-open { background: var(--pos) !important; border-color: var(--pos) !important; }
-  .mkt-close { background: var(--t4) !important; border-color: var(--t4) !important; }
-  #theme-btn2 { display: flex !important; padding: 4px 8px; font-size: 0.75rem; }
+  .tb-right { display: none; }
+  #theme-btn2 { display: none !important; }
 
-  /* Index tabs */
-  .tabs-bar {
-    overflow-x: auto;
-    margin: 0 -10px;
-    padding: 0 10px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
+  /* Tabs bar — scrollable tabs + status/clock/theme pinned right */
+  .tabs-bar { overflow-x: auto; margin: 0 -10px; padding: 0 0 0 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none; flex-wrap: nowrap; }
   .tabs-bar::-webkit-scrollbar { display: none; }
-  .tab { padding: 10px 14px; font-size: 0.72rem; letter-spacing: 0.06em; }
+  .tab { padding: 10px 14px; font-size: 0.72rem; letter-spacing: 0.06em; flex-shrink: 0; }
+  .tabs-right-bar { display: flex !important; padding: 0 8px; gap: 5px; flex-shrink: 0; }
+  .tabs-right-bar .mkt-badge { font-size: 0.58rem !important; padding: 2px 5px !important; white-space: nowrap; }
+  #tabs-clock { font-size: 0.6rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
+  .tabs-right-bar .theme-btn { padding: 3px 7px; font-size: 0.72rem; }
 
   /* Sub tabs */
-  .sub-tabs {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    margin: 0 -10px;
-    padding: 0 10px;
-  }
+  .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 7px 10px; font-size: 0.68rem; }
 
-  /* KV grid: 2 columns on mobile */
+  /* KV grid: 2 columns */
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
   .kv-lbl { font-size: 0.55rem; }
   .kv-val { font-size: 0.76rem; }
 
-  /* Synopsis grid: stack to 1 column */
+  /* Synopsis */
   .syn-grid { grid-template-columns: 1fr !important; }
   .syn-header { grid-template-columns: repeat(2, 1fr) !important; }
   .syn-fullwidth { grid-column: 1 !important; }
@@ -911,22 +906,20 @@ body {
   .syn-pill { padding: 10px 12px; }
   .syn-pill-val { font-size: 1.1rem; }
 
-  /* Images — fill width */
+  /* Images fill width */
   .stab-panel img { width: 100% !important; height: auto !important; max-width: 100%; }
 
-  /* Contact strip — hidden on mobile, social icons in footer instead */
-  .contact-strip { display: none; }
-
-  /* Footer — stacked and centered on mobile */
-  .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  /* Footer — fully centered */
+  .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; }
+  #footer-right { margin-left: 0 !important; text-align: center !important; width: 100%; }
   .foot-brand { margin-left: 0; text-align: center; }
-  .footer-links { justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
-  .disc { font-size: 0.63rem; line-height: 1.7; text-align: left; }
+  .footer-links { justify-content: center !important; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+  .disc { font-size: 0.63rem; line-height: 1.7; }
 
-  /* Social icons row shown only on mobile inside footer */
-  .mobile-social { display: flex !important; justify-content: center; gap: 16px; flex-wrap: wrap; padding: 8px 0; border-top: 1px solid var(--border); width: 100%; }
-  .mobile-social a { color: var(--t3); display: flex; align-items: center; gap: 4px; font-size: 0.7rem; font-family: 'IBM Plex Mono', monospace; text-decoration: none; }
-  .mobile-social svg { width: 18px; height: 18px; flex-shrink: 0; }
+  /* Mobile social in footer */
+  .mobile-social { display: flex !important; justify-content: center; gap: 14px; flex-wrap: wrap; padding: 8px 0; border-top: 1px solid var(--border); width: 100%; }
+  .mobile-social a { color: var(--t3); display: flex; align-items: center; gap: 4px; font-size: 0.68rem; font-family: "IBM Plex Mono",monospace; text-decoration: none; }
+  .mobile-social svg { width: 16px; height: 16px; flex-shrink: 0; }
 
   /* Modals */
   .modal-box { width: 95% !important; padding: 20px !important; }
@@ -1001,6 +994,11 @@ body {
     <button class="tab" id="tab-sensex" onclick="switchIdx('sensex')">SENSEX</button>
     <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty')">FINNIFTY</button>
     <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty')">MIDCAP</button>
+    <div class="tabs-right-bar">
+      <span class="mkt-badge mkt-close" id="mkt-badge2"></span>
+      <span id="tabs-clock">—</span>
+      <button class="theme-btn" id="theme-btn3" onclick="toggleTheme()">🌙</button>
+    </div>
   </div>
 
   <!-- NIFTY Panel -->
@@ -1177,7 +1175,7 @@ body {
   <div class="disc">
     ⚠ <strong>Disclaimer:</strong> All views, signals and scores are generated by an automated rule-based system applied to publicly available NSE options data — not human judgment or investment advice. For informational and educational purposes only. Options trading involves substantial risk of loss. The operator is <strong>not SEBI-registered</strong>. Consult a SEBI-registered advisor before making any financial decisions. Past outputs do not guarantee future results. By accessing this platform you agree the operator bears no liability for any losses arising from use of this information.
   </div>
-  <div style="margin-left:auto;text-align:right">
+  <div id="footer-right" style="margin-left:auto;text-align:right">
     <div class="foot-brand">
       OPTIONS<em>FLOW</em><br>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW · GEX ANALYTICS</span>
@@ -1268,6 +1266,8 @@ function toggleTheme(){
   document.getElementById('theme-btn').textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
   const b2 = document.getElementById('theme-btn2');
   if(b2) b2.textContent = nxt==='dark' ? '☀' : '🌙';
+  const b3 = document.getElementById('theme-btn3');
+  if(b3) b3.textContent = nxt==='dark' ? '☀' : '🌙';
 }
 
 /* ── CONFIG ─────────────────────────────────────────── */
@@ -1323,13 +1323,16 @@ const _dataCache = {}; // latest data per index for lazy tab render
 function tick(){
   const ist = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
   const p = n=>String(n).padStart(2,'0');
-  document.getElementById('tb-clock').textContent =
-    `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
+  const timeStr = `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
+  document.getElementById('tb-clock').textContent = timeStr;
+  const tc = document.getElementById('tabs-clock'); if(tc) tc.textContent = timeStr;
   const h=ist.getHours(),m=ist.getMinutes(),d=ist.getDay();
   const open = d>=1&&d<=5 && (h>9||(h===9&&m>=15)) && (h<15||(h===15&&m<=30));
   const b = document.getElementById('mkt-badge');
   b.textContent = open?'● OPEN':'● CLOSED';
   b.className = 'mkt-badge '+(open?'mkt-open':'mkt-close');
+  const b2 = document.getElementById('mkt-badge2');
+  if(b2){ b2.textContent = open?'● OPEN':'● CLOSED'; b2.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
 }
 setInterval(tick,1000); tick();
 
