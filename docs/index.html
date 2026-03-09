@@ -848,27 +848,73 @@ body {
 }
 
 @media (max-width: 760px) {
+  /* Layout */
+  #main { padding: 10px; }
+  .contact-strip { padding: 8px 10px; gap: 6px; }
+  .cs-lbl { display: none; }
+
+  /* Top ticker bar */
+  .topbar { padding: 0 8px; height: auto; min-height: 48px; flex-wrap: nowrap; overflow-x: auto; }
+  .tb-pills { overflow-x: auto; flex-shrink: 1; }
+  .tb-pill { padding: 0 10px; }
+  .tb-pill .lbl { font-size: 0.62rem; }
+  .tb-pill .val { font-size: 0.88rem; }
+  .tb-pill .chg { font-size: 0.6rem; }
+  .tb-pills .tb-pill:nth-child(n+4) { display: none; }
+  .tb-right { gap: 8px; padding-left: 8px; }
+
+  /* Index tabs */
   .tabs-bar {
     overflow-x: auto;
-    margin: 0 -14px;
-    padding: 0 14px;
+    margin: 0 -10px;
+    padding: 0 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+  .tab { padding: 10px 14px; font-size: 0.72rem; letter-spacing: 0.06em; }
+
+  /* Sub tabs */
   .sub-tabs {
     overflow-x: auto;
     flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -10px;
+    padding: 0 10px;
   }
-  #main {
-    padding: 14px;
-  }
-  .contact-strip {
-    padding: 8px 14px;
-  }
-  .tb-pills .tb-pill:nth-child(n+4) {
-    display: none;
-  }
-  .kv-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .sub-tabs::-webkit-scrollbar { display: none; }
+  .stab { padding: 7px 10px; font-size: 0.68rem; }
+
+  /* KV grid: 2 columns on mobile */
+  .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+  .kv-lbl { font-size: 0.55rem; }
+  .kv-val { font-size: 0.76rem; }
+
+  /* Synopsis grid: stack to 1 column */
+  .syn-grid { grid-template-columns: 1fr !important; }
+  .syn-header { grid-template-columns: repeat(2, 1fr) !important; }
+  .syn-fullwidth { grid-column: 1 !important; }
+  .syn-view-box { padding: 12px 14px; }
+  .syn-card { padding: 12px 14px; }
+  .syn-pill { padding: 10px 12px; }
+  .syn-pill-val { font-size: 1.1rem; }
+
+  /* Images — fill width */
+  .stab-panel img { width: 100% !important; height: auto !important; max-width: 100%; }
+
+  /* Footer */
+  .footer { padding: 12px 10px; flex-direction: column; gap: 10px; }
+  .foot-brand { margin-left: 0; text-align: left; }
+  .footer-links { justify-content: flex-start; gap: 12px; }
+  .disc { font-size: 0.65rem; line-height: 1.7; }
+
+  /* Contact strip — email hidden on small screens */
+  .cs-link span { display: none; }
+  .cs-link svg { width: 20px; height: 20px; }
+
+  /* Modals */
+  .modal-box { width: 95% !important; padding: 20px !important; }
 }
 </style>
 <!-- Google Analytics -->
