@@ -992,6 +992,10 @@ body {
     margin: 0 !important;
     transform: none !important;
     display: block;
+    touch-action: none;
+  }
+  .vol-surface-wrap {
+    touch-action: pan-x;
   }
   /* Sub tabs */
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
@@ -1365,8 +1369,10 @@ function toggleTheme(){
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
   document.getElementById('theme-btn').textContent = nxt==='dark' ? '🌙 Dark' : '☀ Light';
-  const b3 = document.getElementById('theme-btn3');
-  if(b3) b3.textContent = nxt==='dark' ? '🌙' : '☀';
+  ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(i){
+    const b = document.getElementById('theme-btn3-'+i);
+    if(b) b.textContent = nxt==='dark' ? '🌙' : '☀';
+  });
 }
 
 /* ── CONFIG ─────────────────────────────────────────── */
@@ -1423,18 +1429,20 @@ function tick(){
   const ist = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
   const p = n=>String(n).padStart(2,'0');
   const timeStr = `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
-  document.getElementById('tb-clock').textContent = timeStr;
-  const tc = document.getElementById('tabs-clock'); if(tc) tc.textContent = timeStr;
-  const pc = document.getElementById('pills-clock'); if(pc) pc.textContent = timeStr;
   const h=ist.getHours(),m=ist.getMinutes(),d=ist.getDay();
   const open = d>=1&&d<=5 && (h>9||(h===9&&m>=15)) && (h<15||(h===15&&m<=30));
+  document.getElementById('tb-clock').textContent = timeStr;
+  const tc = document.getElementById('tabs-clock'); if(tc) tc.textContent = timeStr;
   const b = document.getElementById('mkt-badge');
-  b.textContent = open?'● OPEN':'● CLOSED';
-  b.className = 'mkt-badge '+(open?'mkt-open':'mkt-close');
+  if(b){ b.textContent = open?'● OPEN':'● CLOSED'; b.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
   const b2 = document.getElementById('mkt-badge2');
   if(b2){ b2.textContent = open?'● OPEN':'● CLOSED'; b2.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
-  const b3 = document.getElementById('mkt-badge3');
-  if(b3){ b3.textContent = open?'● OPEN':'● CLOSED'; b3.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
+  // Sync all per-index pill status pills
+  ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(i){
+    const pic = document.getElementById('pills-clock-'+i); if(pic) pic.textContent = timeStr;
+    const pib = document.getElementById('mkt-badge3-'+i);
+    if(pib){ pib.textContent = open?'● OPEN':'● CLOSED'; pib.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
+  });
 }
 setInterval(tick,1000); tick();
 
@@ -1610,7 +1618,7 @@ function renderIndex(idx, data){
         <div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div>
         <div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'—'}</div></div>
         <div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>
-        <div class="mobile-status-pill" style="display:none;align-items:center;gap:5px;padding:6px 10px;background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0"><span class="mkt-badge mkt-close" id="mkt-badge3" style="font-size:0.52rem!important;padding:2px 4px!important;white-space:nowrap"></span><span id="pills-clock" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--accent);white-space:nowrap">—</span><button class="theme-btn" id="theme-btn3" onclick="toggleTheme()" style="padding:2px 6px;font-size:.65rem;border-radius:4px;flex-shrink:0">🌙</button></div>`;
+        <div class="mobile-status-pill" style="display:none;align-items:center;gap:5px;padding:6px 10px;background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0"><span class="mkt-badge mkt-close" id="mkt-badge3-${idx}" style="font-size:0.52rem!important;padding:2px 4px!important;white-space:nowrap"></span><span id="pills-clock-${idx}" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--accent);white-space:nowrap">—</span><button class="theme-btn" id="theme-btn3-${idx}" onclick="toggleTheme()" style="padding:2px 6px;font-size:.65rem;border-radius:4px;flex-shrink:0">🌙</button></div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
