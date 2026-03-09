@@ -893,17 +893,19 @@ body {
   .tabs-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; min-width: 0; }
   .tabs-scroll::-webkit-scrollbar { display: none; }
   .tab { padding: 10px 12px; font-size: 0.7rem; letter-spacing: 0.05em; flex-shrink: 0; }
-  .tabs-right-bar { display: flex !important; padding: 0 6px; gap: 4px; flex-shrink: 0; }
+  .tabs-right-bar { display: none !important; }
+  .mobile-status-pill { display: flex !important; }
   .tabs-right-bar .mkt-badge { font-size: 0.54rem !important; padding: 2px 4px !important; white-space: nowrap; }
   #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
   .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
 
-  /* Vol surface mobile — scale down to fit screen */
+  /* Vol surface mobile — shift right to show full plot */
   .vol-surface-frame {
     height: 55vh;
     min-height: 280px;
-    transform-origin: top left;
     width: 100% !important;
+    margin-left: 5%;
+    width: 95% !important;
   }
   /* Sub tabs */
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
@@ -1011,11 +1013,6 @@ body {
       <button class="tab" id="tab-sensex" onclick="switchIdx('sensex')">SENSEX</button>
       <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty')">FINNIFTY</button>
       <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty')">MIDCAP</button>
-    </div>
-    <div class="tabs-right-bar">
-      <span class="mkt-badge mkt-close" id="mkt-badge2"></span>
-      <span id="tabs-clock">—</span>
-      <button class="theme-btn" id="theme-btn3" onclick="toggleTheme()">🌙</button>
     </div>
   </div>
 
@@ -1342,6 +1339,7 @@ function tick(){
   const timeStr = `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
   document.getElementById('tb-clock').textContent = timeStr;
   const tc = document.getElementById('tabs-clock'); if(tc) tc.textContent = timeStr;
+  const pc = document.getElementById('pills-clock'); if(pc) pc.textContent = timeStr;
   const h=ist.getHours(),m=ist.getMinutes(),d=ist.getDay();
   const open = d>=1&&d<=5 && (h>9||(h===9&&m>=15)) && (h<15||(h===15&&m<=30));
   const b = document.getElementById('mkt-badge');
@@ -1349,6 +1347,8 @@ function tick(){
   b.className = 'mkt-badge '+(open?'mkt-open':'mkt-close');
   const b2 = document.getElementById('mkt-badge2');
   if(b2){ b2.textContent = open?'● OPEN':'● CLOSED'; b2.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
+  const b3 = document.getElementById('mkt-badge3');
+  if(b3){ b3.textContent = open?'● OPEN':'● CLOSED'; b3.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
 }
 setInterval(tick,1000); tick();
 
@@ -1524,7 +1524,12 @@ function renderIndex(idx, data){
         <div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div>
         <div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div>
         <div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'—'}</div></div>
-        <div class="pill"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
+        <div class="pill"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>
+        <div class="pill mobile-status-pill" style="display:none;margin-left:auto;gap:8px;align-items:center;border:none;background:none">
+          <span class="mkt-badge mkt-close" id="mkt-badge3"></span>
+          <span id="pills-clock" style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--accent)">—</span>
+          <button class="theme-btn" id="theme-btn3" onclick="toggleTheme()" style="padding:2px 7px;font-size:.7rem">🌙</button>
+        </div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
