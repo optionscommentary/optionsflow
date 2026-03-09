@@ -500,6 +500,13 @@ body {
   flex-wrap: wrap;
   padding-top: 16px;
 }
+.pills-last-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
 .pills-row {
   display: flex;
   flex-wrap: nowrap;
@@ -912,7 +919,7 @@ body {
   #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
   .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
 
-  /* Vol surface mobile */
+  /* Vol surface mobile — native size, no scaling, no clipping */
   .volsurf-hdr { padding: 6px 10px !important; }
   .volsurf-hdr .gcard-title { font-size: 0.65rem !important; }
   .vol-surface-wrap {
@@ -920,12 +927,12 @@ body {
     overflow: hidden;
   }
   .vol-surface-frame {
-    width: 133% !important;
-    height: 75vw !important;
-    min-height: 260px;
-    margin: -10% 0 0 0 !important;
-    transform: scale(0.75);
-    transform-origin: top left;
+    width: 100% !important;
+    height: 90vw !important;
+    min-height: 280px;
+    margin: 0 !important;
+    transform: none !important;
+    display: block;
   }
   /* Sub tabs */
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -10px; padding: 0 10px; }
@@ -1543,7 +1550,10 @@ function renderIndex(idx, data){
         <div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div>
         <div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div>
         <div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'—'}</div></div>
-        <div class="pill"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div><div class="mobile-status-pill" style="display:none;align-items:center;gap:6px;margin-left:auto;padding:8px 10px;background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0"><span class="mkt-badge mkt-close" id="mkt-badge3" style="font-size:0.55rem!important;padding:2px 5px!important"></span><span id="pills-clock" style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent)">—</span><button class="theme-btn" id="theme-btn3" onclick="toggleTheme()" style="padding:2px 6px;font-size:.68rem;border-radius:4px">🌙</button></div>`;
+        <div style="display:flex;align-items:stretch;gap:8px;width:100%;flex-wrap:nowrap">
+          <div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>
+          <div class="mobile-status-pill" style="display:none;align-items:center;gap:6px;margin-left:auto;padding:6px 10px;background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0"><span class="mkt-badge mkt-close" id="mkt-badge3" style="font-size:0.52rem!important;padding:2px 4px!important;white-space:nowrap"></span><span id="pills-clock" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--accent);white-space:nowrap">—</span><button class="theme-btn" id="theme-btn3" onclick="toggleTheme()" style="padding:2px 6px;font-size:.65rem;border-radius:4px;flex-shrink:0">🌙</button></div>
+        </div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
