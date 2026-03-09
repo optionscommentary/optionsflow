@@ -48,7 +48,7 @@
   </div>
   <div class="syn-pill">
     <div class="syn-pill-lbl">ATM IV</div>
-    <div class="syn-pill-val">37.5%</div>
+    <div class="syn-pill-val">38.1%</div>
     <div class="syn-pill-sub">↑ elevated</div>
   </div>
   <div class="syn-pill">
@@ -102,7 +102,7 @@
         <div><span style="font-size:1.0rem;color:var(--t4)">VELOCITY</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">FAST</span></div>
         <div><span style="font-size:1.0rem;color:var(--t4)">GEX REGIME</span><br><span style="font-size:.9rem;font-weight:700;color:var(--neg)">SHORT γ</span></div>
         <div><span style="font-size:1.0rem;color:var(--t4)">GEX PIN</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">24,000</span></div>
-        <div><span style="font-size:1.0rem;color:var(--t4)">GEX/PT</span><br><span style="font-size:.9rem;font-weight:700;color:var(--t2)">+64.2757</span></div>
+        <div><span style="font-size:1.0rem;color:var(--t4)">GEX/PT</span><br><span style="font-size:.9rem;font-weight:700;color:var(--t2)">+64.5846</span></div>
       </div>
     </div>
     <!-- Signal distribution mini-donut -->
@@ -121,8 +121,8 @@
     <!-- Put/Call OI donut -->
     <div style="flex-shrink:0;text-align:center">
       <div style="font-size:.92rem;color:var(--t4);margin-bottom:4px;text-transform:uppercase">OI TILT</div>
-      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="var(--t3)" stroke-width="12"/><text x="40" y="44" text-anchor="middle" font-size="9" fill="var(--t2)" font-family="monospace">EVEN</text></svg>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:3px">BALANCED</div>
+      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="var(--call)" stroke-width="12" stroke-dasharray="0.0 175.9" stroke-dashoffset="44" stroke-linecap="round"/><circle cx="40" cy="40" r="28" fill="none" stroke="var(--put)" stroke-width="12" stroke-dasharray="175.9 175.9" stroke-dashoffset="44.0" stroke-linecap="round"/><text x="40" y="44" text-anchor="middle" font-size="9" font-weight="600" fill="var(--t2)" font-family="monospace">1.3x</text></svg>
+      <div style="font-size:.82rem;color:var(--put);margin-top:3px">PUT-TILTED</div>
     </div>
   </div>
   <!-- Last iteration row -->
@@ -136,17 +136,17 @@
   <div class="syn-card">
     <div class="syn-card-title" style="display:flex;justify-content:space-between;align-items:center">
       <span>Signals</span>
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--t2);font-weight:700">MIXED — 2 bullish, 1 bearish, 4 neutral</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--put);font-weight:700">SPLIT — 2 bullish vs 2 bearish, 3 neutral</span>
     </div>
     <!-- SVG horizontal bar chart: each signal gets a bar, centered on 0, max ±3 -->
     <!-- SVG horizontal bar chart: each signal gets a bar, centered on 0, max +-3 -->
     <svg width="100%" height="260" viewBox="0 0 380 260" style="overflow:visible">
-      <g transform="translate(0,8)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">GEX/OI</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><text x="188" y="20" font-size="11" fill="var(--t4)" font-family="monospace">0</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">TRANSITIONING</text></g><g transform="translate(0,48)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">OI FLOW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="33.3" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="222" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">PUT WRITERS DOMINANT</text></g><g transform="translate(0,88)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">PCR</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="66.7" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="256" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+2</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">ATM 1.40 / OVR 0.82</text></g><g transform="translate(0,128)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">VEX</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score -1</text></g><g transform="translate(0,168)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">SKEW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><text x="188" y="20" font-size="11" fill="var(--t4)" font-family="monospace">0</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">put +19.4% / call +8.5%</text></g><g transform="translate(0,208)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">FXIV</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><text x="188" y="20" font-size="11" fill="var(--t4)" font-family="monospace">0</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score +0</text></g>
+      <g transform="translate(0,8)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">GEX/OI</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><text x="188" y="20" font-size="11" fill="var(--t4)" font-family="monospace">0</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">TRANSITIONING</text></g><g transform="translate(0,48)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">OI FLOW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="33.3" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="222" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">PUT WRITERS DOMINANT</text></g><g transform="translate(0,88)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">PCR</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="66.7" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="256" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+2</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">ATM 1.39 / OVR 0.82</text></g><g transform="translate(0,128)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">VEX</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score -1</text></g><g transform="translate(0,168)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">SKEW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><text x="188" y="20" font-size="11" fill="var(--t4)" font-family="monospace">0</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">put +19.7% / call +8.6%</text></g><g transform="translate(0,208)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">FXIV</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><text x="188" y="20" font-size="11" fill="var(--t4)" font-family="monospace">0</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score +0</text></g>
       <!-- GEX TILT structural label -->
       <g transform="translate(0,248)">
         <text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">GEX TILT</text>
         <line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/>
-        <text x="188" y="20" font-size="11" fill="var(--t2)" font-family="monospace" font-weight="700">BALANCED — slightly PUT-leanin</text>
+        <text x="188" y="20" font-size="11" fill="var(--put)" font-family="monospace" font-weight="700">PUT-TILTED (1.3x)</text>
       </g>
       <!-- axis labels: BEAR | 0 | BULL -->
       <text x="90" y="306" text-anchor="start" font-size="9" fill="var(--neg)" font-family="monospace">BEAR</text>
@@ -168,22 +168,22 @@
   <!-- GAMMA / DEALER -->
   <div class="syn-card">
     <div class="syn-card-title">Gamma &amp; Dealer</div>
-    <div class="syn-row"><span class="syn-row-lbl">Net GEX</span><span class="syn-row-val" style="color:var(--neg)">-2,357.9 Cr</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">GEX/pt</span><span class="syn-row-val">+64.2757</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Top-3 GEX conc.</span><span class="syn-row-val">33% — MODERATE</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Net GEX</span><span class="syn-row-val" style="color:var(--neg)">-2,791.4 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX/pt</span><span class="syn-row-val">+64.5846</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Top-3 GEX conc.</span><span class="syn-row-val">34% — MODERATE</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Pin prob.</span><span class="syn-row-val">MED @ 24,000</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 76407.7 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 77370.5 Cr</span></div>
     <div class="syn-row"><span class="syn-row-lbl">OI Flow</span><span class="syn-row-val">PUT WRITERS DOMINANT</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--t2)">BALANCED — slightly PUT-leaning (0.78x)</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--put)">PUT-TILTED (1.3x)</span></div>
   </div>
 
   <!-- VOLATILITY -->
   <div class="syn-card">
     <div class="syn-card-title">Volatility</div>
-    <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">37.5%</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">-10.9%</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">5% OTM Put</span><span class="syn-row-val" style="color:var(--put)">+19.4% vs ATM</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">5% OTM Call</span><span class="syn-row-val" style="color:var(--call)">+8.5% vs ATM</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">38.1%</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">-11.0%</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">5% OTM Put</span><span class="syn-row-val" style="color:var(--put)">+19.7% vs ATM</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">5% OTM Call</span><span class="syn-row-val" style="color:var(--call)">+8.6% vs ATM</span></div>
     <div class="syn-row"><span class="syn-row-lbl">RR Regime</span><span class="syn-row-val">PUT SKEW</span></div>
     <div class="syn-row"><span class="syn-row-lbl">VRP</span><span class="syn-row-val" style="color:var(--t2)">insufficient history</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Synth Fut</span><span class="syn-row-val">24,016 (-0.05%)</span></div>
@@ -198,13 +198,13 @@
 <div class="ai-section">
 <div class="ai-section-title">MULTI-EXPIRY IV TERM STRUCTURE</div>
 <div class="ai-kv">
-<div class="ai-kv-item"><div class="ai-kv-label">10-03-2026  (1d)</div><div class="ai-kv-val">IV 37.5%  |  Put skew +19.4%  |  Call skew +8.5%</div></div><div class="ai-kv-item"><div class="ai-kv-label">17-03-2026  (8d)</div><div class="ai-kv-val">IV 29.2%  |  Put skew +8.6%  |  Call skew -5.7%</div></div><div class="ai-kv-item"><div class="ai-kv-label">30-03-2026  (21d)</div><div class="ai-kv-val">IV 25.7%  |  Put skew +nan%  |  Call skew -5.4%</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">IV STRUCTURE</div><div class="ai-kv-val" style="color:var(--put)">BACKWARDATION  (-11.8%  10-03-2026→30-03-2026)</div></div>
-<div class="ai-kv-item"><div class="ai-kv-label">CALENDAR SPREAD</div><div class="ai-kv-val" style="color:var(--neg)">CAUTION — backwardation 11.8%</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">10-03-2026  (1d)</div><div class="ai-kv-val">IV 38.1%  |  Put skew +19.7%  |  Call skew +8.6%</div></div><div class="ai-kv-item"><div class="ai-kv-label">17-03-2026  (8d)</div><div class="ai-kv-val">IV 29.2%  |  Put skew +8.7%  |  Call skew -5.7%</div></div><div class="ai-kv-item"><div class="ai-kv-label">24-03-2026  (15d)</div><div class="ai-kv-val">IV 43.4%  |  Put skew +nan%  |  Call skew -21.8%</div></div><div class="ai-kv-item"><div class="ai-kv-label">30-03-2026  (21d)</div><div class="ai-kv-val">IV 25.7%  |  Put skew +nan%  |  Call skew -5.4%</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">IV STRUCTURE</div><div class="ai-kv-val" style="color:var(--put)">BACKWARDATION  (-12.4%  10-03-2026→30-03-2026)</div></div>
+<div class="ai-kv-item"><div class="ai-kv-label">CALENDAR SPREAD</div><div class="ai-kv-val" style="color:var(--neg)">BACKWARDATION 12.4%</div></div>
 </div>
 <div class="ai-body">
-<b>IV Term Structure:</b> Near IV 37.5% (10-03-2026, 1d) ABOVE far IV 25.7% (30-03-2026, 21d) — backwardation (-11.8%). Near-term event premium or panic. Expect IV crush in front month once the event clears. With only 1d to near expiry, this crush could happen same-day.<br><br>
-<b>Skew Term Structure:</b> Skew consistent: near +19.4% vs far +nan%. No event-driven distortion — standard risk premium at all tenors.
+<b>IV Term Structure:</b> Near IV 38.1% (10-03-2026, 1d) ABOVE far IV 25.7% (30-03-2026, 21d) — backwardation (-12.4%). Near-term event premium or panic. Expect IV crush in front month once the event clears. With only 1d to near expiry, this crush could happen same-day.<br><br>
+<b>Skew Term Structure:</b> Skew consistent: near +19.7% vs far +nan%. No event-driven distortion — standard risk premium at all tenors.
 </div>
 </div>
 
@@ -216,10 +216,10 @@
 
 
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:var(--t4);margin-top:6px;text-align:center">
-Generated: 09 Mar 2026 17:01:25 IST | OPTIONS FLOW — SYNOPSIS | Expiry: 10-03-2026
+Generated: 09 Mar 2026 17:43:51 IST | OPTIONS FLOW — SYNOPSIS | Expiry: 10-03-2026
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t4);margin-top:3px;padding:5px 8px;border:1px solid var(--border);border-radius:4px;opacity:.6">
-🤖 ML: [ML — 586 runs | 0 resolved | 500 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 586 runs recorded. Outcomes resolve at session end (375 min after prediction).
+🤖 ML: [ML — 595 runs | 0 resolved | 500 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 595 runs recorded. Outcomes resolve at session end (375 min after prediction).
 </div>
 
 </div>
