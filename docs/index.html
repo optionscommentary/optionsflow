@@ -854,14 +854,15 @@ body {
   .cs-lbl { display: none; }
 
   /* Top ticker bar */
-  .topbar { padding: 0 8px; height: auto; min-height: 48px; flex-wrap: nowrap; overflow-x: auto; }
-  .tb-pills { overflow-x: auto; flex-shrink: 1; }
-  .tb-pill { padding: 0 10px; }
-  .tb-pill .lbl { font-size: 0.62rem; }
-  .tb-pill .val { font-size: 0.88rem; }
-  .tb-pill .chg { font-size: 0.6rem; }
-  .tb-pills .tb-pill:nth-child(n+4) { display: none; }
-  .tb-right { gap: 8px; padding-left: 8px; }
+  #topbar { padding: 0 8px; height: auto; min-height: 52px; }
+  .tb-pills { overflow-x: auto; flex-shrink: 1; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tb-pills::-webkit-scrollbar { display: none; }
+  .tb-pill { padding: 6px 10px; flex-shrink: 0; }
+  .tb-pill .lbl { font-size: 0.6rem; }
+  .tb-pill .val { font-size: 0.85rem; }
+  .tb-pill .chg { font-size: 0.58rem; }
+  .tb-pills .tb-pill:nth-child(n+4) { display: flex; }
+  .tb-right { gap: 6px; padding-left: 6px; flex-shrink: 0; }
 
   /* Index tabs */
   .tabs-bar {
