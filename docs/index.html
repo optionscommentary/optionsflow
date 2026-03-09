@@ -919,17 +919,19 @@ body {
   #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
   .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
 
-  /* Vol surface mobile — native size, no scaling, no clipping */
+  /* Vol surface mobile */
   .volsurf-hdr { padding: 6px 10px !important; }
   .volsurf-hdr .gcard-title { font-size: 0.65rem !important; }
   .vol-surface-wrap {
     width: 100%;
     overflow: hidden;
+    padding-left: 18px;
+    box-sizing: border-box;
   }
   .vol-surface-frame {
     width: 100% !important;
-    height: 90vw !important;
-    min-height: 280px;
+    height: 62vw !important;
+    min-height: 220px;
     margin: 0 !important;
     transform: none !important;
     display: block;
