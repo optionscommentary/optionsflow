@@ -1,16 +1,16 @@
 {
-  "timestamp": "10 Mar 2026  13:09 IST",
-  "timestamp_iso": "2026-03-10T13:09:01.978377",
+  "timestamp": "10 Mar 2026  13:14 IST",
+  "timestamp_iso": "2026-03-10T13:14:25.716046",
   "index": "NIFTY",
   "expiry": "10-03-2026",
   "tte_days": 0.2,
-  "spot": 24207.35,
-  "spot_prev": 24207.35,
+  "spot": 24203.0,
+  "spot_prev": 24203.0,
   "spot_chg": 0.0,
   "spot_pct": 0.0,
-  "synthetic_futures": 24219.5,
-  "atm_iv": 16.29,
-  "net_gex": 44065.33,
+  "synthetic_futures": 24216.53,
+  "atm_iv": 16.27,
+  "net_gex": 42487.17,
   "peak_gex_k": 24200,
   "gex_pin_top3": [
     24200,
@@ -18,7 +18,7 @@
     24150
   ],
   "gex_regime": "LONG",
-  "composite_score": -1,
+  "composite_score": 0,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     23900,
@@ -30,17 +30,17 @@
     24300,
     24350
   ],
-  "pcr_atm": 1.067,
-  "net_dealer_delta_cr": 0.23,
-  "gex_speed": 903.741507,
-  "implied_lower": 24188,
-  "implied_upper": 24212,
+  "pcr_atm": 1.022,
+  "net_dealer_delta_cr": 0.46,
+  "gex_speed": 942.994715,
+  "implied_lower": 24186,
+  "implied_upper": 24214,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "LOW",
   "oi_flow_label": "MIXED / BALANCED FLOW",
-  "gex_tilt_label": "CALL-TILTED (1.5x)",
+  "gex_tilt_label": "CALL-TILTED (1.4x)",
   "straddle_pts": 100,
   "signals": {
     "gex_oi": 0,
@@ -48,7 +48,7 @@
     "pcr": 0,
     "vex": -1,
     "skew": 0,
-    "fxiv": 0
+    "fxiv": 1
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
