@@ -44,11 +44,11 @@
   </div>
   <div class="syn-pill">
     <div class="syn-pill-lbl">Spot</div>
-    <div class="syn-pill-val">26,521</div>
+    <div class="syn-pill-val">26,536</div>
   </div>
   <div class="syn-pill">
     <div class="syn-pill-lbl">ATM IV</div>
-    <div class="syn-pill-val">21.6%</div>
+    <div class="syn-pill-val">21.2%</div>
     <div class="syn-pill-sub">↑ elevated</div>
   </div>
   <div class="syn-pill">
@@ -58,12 +58,12 @@
   </div>
   <div class="syn-pill">
     <div class="syn-pill-lbl">1σ Range</div>
-    <div class="syn-pill-val" style="font-size:.72rem">25,529–27,771</div>
-    <div class="syn-pill-sub">±1121pts / 4.2%</div>
+    <div class="syn-pill-val" style="font-size:.72rem">25,655–27,745</div>
+    <div class="syn-pill-sub">±1045pts / 3.9%</div>
   </div>
   <div class="syn-pill">
     <div class="syn-pill-lbl">Straddle</div>
-    <div class="syn-pill-val">1121pts</div>
+    <div class="syn-pill-val">1045pts</div>
     <div class="syn-pill-sub">CHEAP vs parity — long-vol edge</div>
   </div>
 </div>
@@ -77,17 +77,17 @@
         <!-- Background arc -->
         <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="var(--border)" stroke-width="10" stroke-linecap="round"/>
         <!-- Score arc: from neutral top to score position -->
-        <path d="M 80 20 A 65 65 0 0 0 69.8 20.8" fill="none" stroke="var(--neg)" stroke-width="10" stroke-linecap="round"/>
+        <path d="M 80 20 A 65 65 0 0 1 90.2 20.8" fill="none" stroke="var(--pos)" stroke-width="10" stroke-linecap="round"/>
         <!-- Needle: pre-computed from norm_score -->
         <line x1="80" y1="85"
-          x2="71.4" y2="30.7"
+          x2="88.6" y2="30.7"
           stroke="var(--t1)" stroke-width="2.5" stroke-linecap="round"/>
         <circle cx="80" cy="85" r="5" fill="var(--t1)"/>
         <!-- Labels -->
         <text x="8"  y="90" font-size="9" fill="var(--t4)" font-family="monospace">-10</text>
         <text x="75" y="16" font-size="9" fill="var(--t4)" font-family="monospace">0</text>
         <text x="140" y="90" font-size="9" fill="var(--t4)" font-family="monospace">+10</text>
-        <text x="80" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="var(--t2)" font-family="monospace">-1</text>
+        <text x="80" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="var(--t2)" font-family="monospace">+1</text>
       </svg>
     </div>
     <!-- View + key stats -->
@@ -102,7 +102,7 @@
         <div><span style="font-size:1.0rem;color:var(--t4)">VELOCITY</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">MODERATE</span></div>
         <div><span style="font-size:1.0rem;color:var(--t4)">GEX REGIME</span><br><span style="font-size:.9rem;font-weight:700;color:var(--pos)">LONG γ</span></div>
         <div><span style="font-size:1.0rem;color:var(--t4)">GEX PIN</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">26,500</span></div>
-        <div><span style="font-size:1.0rem;color:var(--t4)">GEX/PT</span><br><span style="font-size:.9rem;font-weight:700;color:var(--t2)">+0.0330</span></div>
+        <div><span style="font-size:1.0rem;color:var(--t4)">GEX/PT</span><br><span style="font-size:.9rem;font-weight:700;color:var(--t2)">+0.0343</span></div>
       </div>
     </div>
     <!-- Signal distribution mini-donut -->
@@ -126,7 +126,7 @@
     </div>
   </div>
   <!-- Last iteration row -->
-  <div class="syn-iter">▸ vs last iteration: spot -0.0% (26,528→26,521) · score ++3 (-4→-1) · MILD BEARISH→NEUTRAL / RANGE</div>
+  <div class="syn-iter">▸ vs last iteration: spot +0.1% (26,521→26,536) · score ++3 (-1→+2) · view: NEUTRAL / RANGE</div>
 </div>
 
 <!-- ── TWO-COLUMN GRID ────────────────────────────── -->
@@ -141,7 +141,7 @@
     <!-- SVG horizontal bar chart: each signal gets a bar, centered on 0, max ±3 -->
     <!-- SVG horizontal bar chart: each signal gets a bar, centered on 0, max +-3 -->
     <svg width="100%" height="260" viewBox="0 0 380 260" style="overflow:visible">
-      <g transform="translate(0,8)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">GEX/OI</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="33.3" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="222" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">LAYERED: STRUCTURAL LONG</text></g><g transform="translate(0,48)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">OI FLOW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="66.7" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="256" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+2</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">CALL BUYERS DOMINANT</text></g><g transform="translate(0,88)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">PCR</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">ATM 1.71 / OVR 0.92</text></g><g transform="translate(0,128)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">VEX</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score -1</text></g><g transform="translate(0,168)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">SKEW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">put +5.4% / call -2.2%</text></g><g transform="translate(0,208)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">FXIV</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="33.3" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="222" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score +1</text></g>
+      <g transform="translate(0,8)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">GEX/OI</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="66.7" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="256" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+2</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">NET LONG GAMMA</text></g><g transform="translate(0,48)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">OI FLOW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">CALL WRITERS DOMINANT</text></g><g transform="translate(0,88)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">PCR</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="66.7" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="256" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+2</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">ATM 1.47 / OVR 0.92</text></g><g transform="translate(0,128)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">VEX</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score -1</text></g><g transform="translate(0,168)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">SKEW</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="151.7" y="9" width="33.3" height="14" rx="3" fill="var(--neg)" opacity="0.85"/><text x="148" y="20" text-anchor="end" font-size="11" fill="var(--neg)" font-family="monospace" font-weight="700">-1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">put +5.2% / call -1.8%</text></g><g transform="translate(0,208)"><text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">FXIV</text><line x1="90" y1="4" x2="90" y2="30" stroke="var(--border)" stroke-width="0.5"/><line x1="185" y1="4" x2="185" y2="30" stroke="var(--border)" stroke-width="0.8"/><rect x="185" y="9" width="33.3" height="14" rx="3" fill="var(--pos)" opacity="0.85"/><text x="222" y="20" font-size="11" fill="var(--pos)" font-family="monospace" font-weight="700">+1</text><text x="295" y="17" font-size="10" fill="var(--t4)" font-family="monospace">score +1</text></g>
       <!-- GEX TILT structural label -->
       <g transform="translate(0,248)">
         <text x="86" y="17" text-anchor="end" font-size="12" fill="var(--t2)" font-family="monospace" font-weight="600">GEX TILT</text>
@@ -157,37 +157,37 @@
   <!-- KEY LEVELS — SVG price ladder -->
   <div class="syn-card">
     <div class="syn-card-title">Key Levels</div>
-    <svg width="100%" height="500" viewBox="0 0 560 500" style="font-family:IBM Plex Mono,monospace;overflow:visible"><rect x="165" y="52" width="160" height="395" fill="var(--accent)" opacity="0.06" rx="3"/><line x1="163" y1="10" x2="163" y2="490" stroke="var(--border)" stroke-width="1" opacity="0.35"/><line x1="145" y1="52" x2="325" y2="52" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="7,4"/><rect x="0" y="34" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="49" text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600">1σ UPPER</text><rect x="330" y="34" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="49" font-size="14" fill="var(--accent)" font-weight="600">27,771</text><line x1="145" y1="206" x2="325" y2="206" stroke="var(--call)" stroke-width="3.0"/><rect x="0" y="188" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="203" text-anchor="end" font-size="14" fill="var(--call)" font-weight="700">CALL WALL</text><rect x="330" y="188" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="203" font-size="14" fill="var(--call)" font-weight="700">26,900</text><line x1="139" y1="272" x2="325" y2="272" stroke="var(--spot)" stroke-width="3.5"/><circle cx="157" cy="272" r="7" fill="var(--spot)"/><line x1="80" y1="272" x2="80" y2="247" stroke="var(--spot)" stroke-width="0.7" opacity="0.4" stroke-dasharray="2,2"/><rect x="0" y="232" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="247" text-anchor="end" font-size="16" fill="var(--spot)" font-weight="800">SPOT</text><rect x="330" y="232" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="247" font-size="16" fill="var(--spot)" font-weight="800">26,521</text><line x1="145" y1="276" x2="325" y2="276" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="5,3"/><rect x="0" y="256" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="271" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="500">GEX PIN</text><rect x="330" y="256" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="271" font-size="13" fill="var(--accent)" font-weight="500">26,500</text><line x1="145" y1="276" x2="325" y2="276" stroke="var(--put)" stroke-width="3.0"/><line x1="80" y1="276" x2="80" y2="295" stroke="var(--put)" stroke-width="0.7" opacity="0.4" stroke-dasharray="2,2"/><rect x="0" y="280" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="295" text-anchor="end" font-size="14" fill="var(--put)" font-weight="700">PUT FLOOR</text><rect x="330" y="280" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="295" font-size="14" fill="var(--put)" font-weight="700">26,500</text><line x1="145" y1="447" x2="325" y2="447" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="7,4"/><rect x="0" y="429" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="444" text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600">1σ LOWER</text><rect x="330" y="429" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="444" font-size="14" fill="var(--accent)" font-weight="600">25,529</text></svg>
+    <svg width="100%" height="500" viewBox="0 0 560 500" style="font-family:IBM Plex Mono,monospace;overflow:visible"><rect x="165" y="55" width="160" height="389" fill="var(--accent)" opacity="0.06" rx="3"/><line x1="163" y1="10" x2="163" y2="490" stroke="var(--border)" stroke-width="1" opacity="0.35"/><line x1="145" y1="55" x2="325" y2="55" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="7,4"/><rect x="0" y="37" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="52" text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600">1σ UPPER</text><rect x="330" y="37" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="52" font-size="14" fill="var(--accent)" font-weight="600">27,745</text><line x1="145" y1="194" x2="325" y2="194" stroke="var(--call)" stroke-width="3.0"/><rect x="0" y="176" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="191" text-anchor="end" font-size="14" fill="var(--call)" font-weight="700">CALL WALL</text><rect x="330" y="176" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="191" font-size="14" fill="var(--call)" font-weight="700">27,000</text><line x1="139" y1="280" x2="325" y2="280" stroke="var(--spot)" stroke-width="3.5"/><circle cx="157" cy="280" r="7" fill="var(--spot)"/><line x1="80" y1="280" x2="80" y2="257" stroke="var(--spot)" stroke-width="0.7" opacity="0.4" stroke-dasharray="2,2"/><rect x="0" y="242" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="257" text-anchor="end" font-size="16" fill="var(--spot)" font-weight="800">SPOT</text><rect x="330" y="242" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="257" font-size="16" fill="var(--spot)" font-weight="800">26,536</text><line x1="145" y1="287" x2="325" y2="287" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="5,3"/><rect x="0" y="266" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="281" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="500">GEX PIN</text><rect x="330" y="266" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="281" font-size="13" fill="var(--accent)" font-weight="500">26,500</text><line x1="145" y1="287" x2="325" y2="287" stroke="var(--put)" stroke-width="3.0"/><line x1="80" y1="287" x2="80" y2="305" stroke="var(--put)" stroke-width="0.7" opacity="0.4" stroke-dasharray="2,2"/><rect x="0" y="290" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="305" text-anchor="end" font-size="14" fill="var(--put)" font-weight="700">PUT FLOOR</text><rect x="330" y="290" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="305" font-size="14" fill="var(--put)" font-weight="700">26,500</text><line x1="145" y1="444" x2="325" y2="444" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="7,4"/><rect x="0" y="426" width="157" height="20" fill="var(--bg)" opacity="0.88"/><text x="155" y="441" text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600">1σ LOWER</text><rect x="330" y="426" width="140" height="20" fill="var(--bg)" opacity="0.88"/><text x="332" y="441" font-size="14" fill="var(--accent)" font-weight="600">25,655</text></svg>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
-      <div class="syn-row"><span class="syn-row-lbl">Zero Gamma</span><span class="syn-row-val">27,469</span></div>
-      <div class="syn-row"><span class="syn-row-lbl">GEX Zone</span><span class="syn-row-val">26,300–27,000</span></div>
-      <div class="syn-row"><span class="syn-row-lbl">Call Gravity</span><span class="syn-row-val">26,783</span></div>
-      <div class="syn-row"><span class="syn-row-lbl">Put Gravity</span><span class="syn-row-val">26,482</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Zero Gamma</span><span class="syn-row-val">27,572</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX Zone</span><span class="syn-row-val">26,400–27,000</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Call Gravity</span><span class="syn-row-val">26,911</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Put Gravity</span><span class="syn-row-val">26,484</span></div>
     </div>
   </div>
   <!-- GAMMA / DEALER -->
   <div class="syn-card">
     <div class="syn-card-title">Gamma &amp; Dealer</div>
-    <div class="syn-row"><span class="syn-row-lbl">Net GEX</span><span class="syn-row-val" style="color:var(--pos)">+4.3 Cr</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">GEX/pt</span><span class="syn-row-val">+0.0330</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Net GEX</span><span class="syn-row-val" style="color:var(--pos)">+3.7 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX/pt</span><span class="syn-row-val">+0.0343</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Top-3 GEX conc.</span><span class="syn-row-val">40% — MODERATE</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Pin prob.</span><span class="syn-row-val">MED @ 26,500</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 446.5 Cr</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">OI Flow</span><span class="syn-row-val">CALL BUYERS DOMINANT</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--t2)">BALANCED — slightly CALL-leaning (1.24x)</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 411.1 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">OI Flow</span><span class="syn-row-val">CALL WRITERS DOMINANT</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--t2)">BALANCED — slightly CALL-leaning (1.21x)</span></div>
   </div>
 
   <!-- VOLATILITY -->
   <div class="syn-card">
     <div class="syn-card-title">Volatility</div>
-    <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">21.6%</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">-7.6%</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">5% OTM Put</span><span class="syn-row-val" style="color:var(--put)">+5.4% vs ATM</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">5% OTM Call</span><span class="syn-row-val" style="color:var(--call)">-2.2% vs ATM</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">21.2%</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">-7.1%</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">5% OTM Put</span><span class="syn-row-val" style="color:var(--put)">+5.2% vs ATM</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">5% OTM Call</span><span class="syn-row-val" style="color:var(--call)">-1.8% vs ATM</span></div>
     <div class="syn-row"><span class="syn-row-lbl">RR Regime</span><span class="syn-row-val">PUT SKEW</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">VRP</span><span class="syn-row-val" style="color:var(--neg)">-3.0% premium</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Synth Fut</span><span class="syn-row-val">26,648 (+0.48%)</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Straddle</span><span class="syn-row-val">1121 pts</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">VRP</span><span class="syn-row-val" style="color:var(--neg)">-3.4% premium</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Synth Fut</span><span class="syn-row-val">26,678 (+0.53%)</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Straddle</span><span class="syn-row-val">1045 pts</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Tail Asymmetry</span><span class="syn-row-val">PUT ↓</span></div>
   </div>
 
@@ -203,10 +203,10 @@
 
 
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:var(--t4);margin-top:6px;text-align:center">
-Generated: 10 Mar 2026 15:05:11 IST | OPTIONS FLOW — SYNOPSIS | Expiry: 30-03-2026
+Generated: 10 Mar 2026 15:10:30 IST | OPTIONS FLOW — SYNOPSIS | Expiry: 30-03-2026
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t4);margin-top:3px;padding:5px 8px;border:1px solid var(--border);border-radius:4px;opacity:.6">
-🤖 ML: [ML — 931 runs | 0 resolved | 500 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 931 runs recorded. Outcomes resolve at session end (375 min after prediction).
+🤖 ML: [ML — 936 runs | 0 resolved | 500 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 936 runs recorded. Outcomes resolve at session end (375 min after prediction).
 </div>
 
 </div>
