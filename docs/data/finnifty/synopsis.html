@@ -13,7 +13,7 @@
 .syn-row:last-child{border-bottom:none}
 .syn-row-lbl{font-size:1.05rem;color:var(--t3)}
 .syn-row-val{font-size:1.12rem;font-weight:600;font-family:'IBM Plex Mono',monospace;color:var(--t1)}
-.syn-view-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:16px}
+.syn-view-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px}
 .syn-view-title{font-size:1.05rem;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);margin-bottom:12px;font-weight:700}
 .syn-sig-row{display:grid;grid-template-columns:2fr 2fr 90px 60px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)}
 .syn-sig-row:last-child{border-bottom:none}
@@ -68,46 +68,62 @@
   </div>
 </div>
 
-<!-- ── COMPOSITE SCORE + GAUGE ────────────────────────── -->
+<!-- ── SCORE DASHBOARD ─────────────────────────────────── -->
 <div class="syn-view-box">
-  <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-    <!-- SVG Gauge -->
-    <div style="flex-shrink:0">
-      <svg width="160" height="90" viewBox="0 0 160 90">
-        <!-- Background arc -->
+  <div style="display:flex;align-items:stretch;gap:0;flex-wrap:wrap">
+
+    <!-- ① GAUGE — composite score meter -->
+    <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 18px 8px 12px;border-right:1px solid var(--border)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:6px">COMPOSITE SCORE</div>
+      <svg width="150" height="86" viewBox="0 0 160 90">
         <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="var(--border)" stroke-width="10" stroke-linecap="round"/>
-        <!-- Score arc: from neutral top to score position -->
         <path d="M 80 20 A 65 65 0 0 0 69.8 20.8" fill="none" stroke="var(--neg)" stroke-width="10" stroke-linecap="round"/>
-        <!-- Needle: pre-computed from norm_score -->
-        <line x1="80" y1="85"
-          x2="71.4" y2="30.7"
-          stroke="var(--t1)" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="80" y1="85" x2="71.4" y2="30.7" stroke="var(--t1)" stroke-width="2.5" stroke-linecap="round"/>
         <circle cx="80" cy="85" r="5" fill="var(--t1)"/>
-        <!-- Labels -->
-        <text x="8"  y="90" font-size="9" fill="var(--t4)" font-family="monospace">-10</text>
-        <text x="75" y="16" font-size="9" fill="var(--t4)" font-family="monospace">0</text>
+        <text x="8"   y="90" font-size="9" fill="var(--t4)" font-family="monospace">-10</text>
+        <text x="75"  y="16" font-size="9" fill="var(--t4)" font-family="monospace">0</text>
         <text x="140" y="90" font-size="9" fill="var(--t4)" font-family="monospace">+10</text>
-        <text x="80" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="var(--t2)" font-family="monospace">-1</text>
+        <text x="80"  y="70" text-anchor="middle" font-size="18" font-weight="800" fill="var(--t2)" font-family="monospace">-1</text>
       </svg>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--t3);margin-top:2px">MIXED</div>
     </div>
-    <!-- Composite score + structural anchors -->
-    <div style="flex:1;min-width:160px">
-      <div style="font-size:1.0rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t4);margin-bottom:6px">COMPOSITE SCORE</div>
-      <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:800;color:var(--t2)">-1<span style="font-size:.8rem;color:var(--t4)">/10</span></div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--t3);padding:3px 10px;border:1px solid var(--border);border-radius:5px">MIXED — 1 bullish, 2 bearish, 4 neutral</div>
-      </div>
-      <div style="margin-top:4px;display:flex;gap:16px;flex-wrap:wrap">
-        <div><span style="font-size:1.0rem;color:var(--t4)">CONVICTION</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">LOW</span></div>
-        <div><span style="font-size:1.0rem;color:var(--t4)">VELOCITY</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">MODERATE</span></div>
-        <div><span style="font-size:1.0rem;color:var(--t4)">GEX REGIME</span><br><span style="font-size:.9rem;font-weight:700;color:var(--pos)">LONG γ</span></div>
-        <div><span style="font-size:1.0rem;color:var(--t4)">GEX PIN</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--t2)">27,000</span></div>
-        <div><span style="font-size:1.0rem;color:var(--t4)">GEX/PT</span><br><span style="font-size:.9rem;font-weight:700;color:var(--t2)">+0.0379</span></div>
-      </div>
+
+    <!-- ② STRUCTURE column -->
+    <div style="flex:1;min-width:145px;padding:10px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);padding-bottom:7px;border-bottom:1px solid var(--border);margin-bottom:7px">Structure</div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX Regime</span><span class="syn-row-val" style="color:var(--pos)">LONG γ</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX Pin</span><span class="syn-row-val">27,000</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX Zone</span><span class="syn-row-val">25,500 – 27,000</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX / pt</span><span class="syn-row-val">+0.0379</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Zero Gamma</span><span class="syn-row-val" style="font-size:.68rem">28,373</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Move Type</span><span class="syn-row-val">MODERATE</span></div>
     </div>
-    <!-- Signal distribution mini-donut -->
-    <div style="flex-shrink:0;text-align:center;margin-right:4px">
-      <div style="font-size:.92rem;color:var(--t4);margin-bottom:4px;text-transform:uppercase">SIGNALS</div>
+
+    <!-- ③ FLOW column -->
+    <div style="flex:1;min-width:145px;padding:10px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);padding-bottom:7px;border-bottom:1px solid var(--border);margin-bottom:7px">Flow &amp; Positioning</div>
+      <div class="syn-row"><span class="syn-row-lbl">OI Flow</span><span class="syn-row-val" style="font-size:.68rem">INITIAL OI SNAPSHOT</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">PCR ATM</span><span class="syn-row-val">3.56</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">PCR Overall</span><span class="syn-row-val">0.92</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Dealer Delta</span><span class="syn-row-val">SHORT ▼ 313.9 Cr</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--t2);font-size:.68rem">BALANCED — slightly CALL</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Net GEX</span><span class="syn-row-val" style="color:var(--pos)">+0.4 Cr</span></div>
+    </div>
+
+    <!-- ④ VOLATILITY column -->
+    <div style="flex:1;min-width:145px;padding:10px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);padding-bottom:7px;border-bottom:1px solid var(--border);margin-bottom:7px">Volatility</div>
+      <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">20.9%</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">+0.8%</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">1σ Range</span><span class="syn-row-val" style="font-size:.68rem">25,598 – 26,302</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Straddle</span><span class="syn-row-val">352 pts</span></div>
+      <div class="syn-row"><span class="syn-row-lbl">Synth Fut</span><span class="syn-row-val">25,973 <span style="color:var(--t4)">(+0.20%)</span></span></div>
+      <div class="syn-row"><span class="syn-row-lbl">VRP</span><span class="syn-row-val" style="color:var(--neg)">3.8% DISCOUNT</span></div>
+    </div>
+
+    <!-- ⑤ SIGNAL DONUT -->
+    <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 14px;border-right:1px solid var(--border)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:6px">Signals</div>
       <svg width="80" height="80" viewBox="0 0 80 80">
           <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="12"/>
           <circle cx="40" cy="40" r="28" fill="none" stroke="var(--pos)" stroke-width="12" stroke-dasharray="29.3 175.9" stroke-dashoffset="44" stroke-linecap="butt" opacity="0.85"/>
@@ -115,17 +131,18 @@
           <text x="40" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="var(--pos)" font-family="monospace">1</text>
           <text x="40" y="50" text-anchor="middle" font-size="11" fill="var(--neg)" font-family="monospace">2</text>
         </svg>
-      <div style="font-size:.88rem;color:var(--t3);margin-top:3px">1B · 2Br · 3N</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--t3);margin-top:4px;text-align:center">1↑ · 2↓ · 3→</div>
     </div>
 
-    <!-- Put/Call OI donut -->
-    <div style="flex-shrink:0;text-align:center">
-      <div style="font-size:.92rem;color:var(--t4);margin-bottom:4px;text-transform:uppercase">OI TILT</div>
+    <!-- ⑥ OI TILT DONUT -->
+    <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:6px">OI Tilt</div>
       <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="var(--t3)" stroke-width="12"/><text x="40" y="44" text-anchor="middle" font-size="9" fill="var(--t2)" font-family="monospace">EVEN</text></svg>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:3px">BALANCED</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--t2);margin-top:4px;text-align:center">BALANCED</div>
     </div>
+
   </div>
-  <!-- Last iteration row -->
+  <!-- Iteration delta strip -->
   
 </div>
 
@@ -172,9 +189,9 @@
     <div class="syn-row"><span class="syn-row-lbl">GEX/pt</span><span class="syn-row-val">+0.0379</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Top-3 GEX conc.</span><span class="syn-row-val">24% — LOW — TREND BIAS</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Pin prob.</span><span class="syn-row-val">LOW @ 27,000</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 313.8 Cr</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">Dealer delta</span><span class="syn-row-val">SHORT ▼ 313.9 Cr</span></div>
     <div class="syn-row"><span class="syn-row-lbl">OI Flow</span><span class="syn-row-val">INITIAL OI SNAPSHOT</span></div>
-    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--t2)">BALANCED — slightly CALL-leaning (1.05x)</span></div>
+    <div class="syn-row"><span class="syn-row-lbl">GEX Tilt</span><span class="syn-row-val" style="color:var(--t2)">BALANCED — slightly CALL-leaning (1.04x)</span></div>
   </div>
 
   <!-- VOLATILITY -->
@@ -182,23 +199,24 @@
     <div class="syn-card-title">Volatility</div>
     <div class="syn-row"><span class="syn-row-lbl">ATM IV</span><span class="syn-row-val">20.9%</span></div>
     <div class="syn-row"><span class="syn-row-lbl">Risk Reversal</span><span class="syn-row-val">+0.8%</span></div>
-    <!-- OTM Skew table: 1–5% both sides vs ATM -->
-    <div style="margin:6px 0 2px 0;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--t4);text-transform:uppercase">OTM Skew vs ATM IV (20.9%)</div>
+    <!-- OTM Skew table: 1–5% · PUT K | Put IV | Put Δ | RR | Call Δ | Call IV | CALL K -->
+    <div style="margin:6px 0 2px 0;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--t4);text-transform:uppercase">OTM Skew  ·  ATM IV 20.9%  ·  Δ = option delta  ·  RR = call IV − put IV</div>
     <div style="overflow-x:auto">
     <table style="width:100%;border-collapse:collapse;font-size:.78rem">
       <thead>
-        <tr style="color:var(--t4);font-size:.68rem">
-          <th style="text-align:center;padding:2px 4px;font-weight:500">%</th>
+        <tr style="color:var(--t4);font-size:.65rem">
+          <th style="text-align:center;padding:2px 4px;font-weight:500">OTM</th>
           <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--put)">PUT K</th>
           <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--put)">IV%</th>
-          <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--put)">±ATM</th>
-          <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--call)">CALL K</th>
+          <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--t3)">Δ</th>
+          <th style="text-align:center;padding:2px 6px;font-weight:600;color:var(--t2)">RR</th>
+          <th style="text-align:left;padding:2px 4px;font-weight:500;color:var(--t3)">Δ</th>
           <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--call)">IV%</th>
-          <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--call)">±ATM</th>
+          <th style="text-align:right;padding:2px 4px;font-weight:500;color:var(--call)">CALL K</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">1%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25,650</td><td style="text-align:right;padding:2px 4px;color:var(--put)">20.9</td><td style="text-align:right;padding:2px 4px;color:var(--neg)">0.0</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,200</td><td style="text-align:right;padding:2px 4px;color:var(--call)">23.9</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+3.0</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">2%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25,400</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25.4</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+4.47</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,450</td><td style="text-align:right;padding:2px 4px;color:var(--call)">23.6</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+2.71</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">3%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25,150</td><td style="text-align:right;padding:2px 4px;color:var(--put)">20.9</td><td style="text-align:right;padding:2px 4px;color:var(--neg)">0.0</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,700</td><td style="text-align:right;padding:2px 4px;color:var(--call)">22.5</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+1.59</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">4%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">24,900</td><td style="text-align:right;padding:2px 4px;color:var(--put)">30.0</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+9.12</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,950</td><td style="text-align:right;padding:2px 4px;color:var(--call)">21.9</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+1.03</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">5%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">24,600</td><td style="text-align:right;padding:2px 4px;color:var(--put)">20.9</td><td style="text-align:right;padding:2px 4px;color:var(--neg)">0.0</td><td style="text-align:right;padding:2px 4px;color:var(--call)">27,200</td><td style="text-align:right;padding:2px 4px;color:var(--call)">21.7</td><td style="text-align:right;padding:2px 4px;color:var(--pos)">+0.84</td></tr>
+        <tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">1%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25,650</td><td style="text-align:right;padding:2px 4px;color:var(--put)">20.9</td><td style="text-align:right;padding:2px 4px;color:var(--t3)">Δ36</td><td style="text-align:center;padding:2px 6px;font-weight:700;color:var(--pos)">+3.0%</td><td style="text-align:left;padding:2px 4px;color:var(--t3)">Δ43</td><td style="text-align:right;padding:2px 4px;color:var(--call)">23.9</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,200</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">2%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25,400</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25.4</td><td style="text-align:right;padding:2px 4px;color:var(--t3)">Δ30</td><td style="text-align:center;padding:2px 6px;font-weight:700;color:var(--put)">-1.8%</td><td style="text-align:left;padding:2px 4px;color:var(--t3)">Δ35</td><td style="text-align:right;padding:2px 4px;color:var(--call)">23.6</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,450</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">3%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">25,150</td><td style="text-align:right;padding:2px 4px;color:var(--put)">20.9</td><td style="text-align:right;padding:2px 4px;color:var(--t3)">Δ19</td><td style="text-align:center;padding:2px 6px;font-weight:700;color:var(--pos)">+1.6%</td><td style="text-align:left;padding:2px 4px;color:var(--t3)">Δ26</td><td style="text-align:right;padding:2px 4px;color:var(--call)">22.5</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,700</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">4%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">24,900</td><td style="text-align:right;padding:2px 4px;color:var(--put)">30.0</td><td style="text-align:right;padding:2px 4px;color:var(--t3)">Δ21</td><td style="text-align:center;padding:2px 6px;font-weight:700;color:var(--neg)">-8.1%</td><td style="text-align:left;padding:2px 4px;color:var(--t3)">Δ18</td><td style="text-align:right;padding:2px 4px;color:var(--call)">21.9</td><td style="text-align:right;padding:2px 4px;color:var(--call)">26,950</td></tr><tr style="border-top:1px solid var(--border)"><td style="text-align:center;padding:2px 4px;color:var(--t4)">5%</td><td style="text-align:right;padding:2px 4px;color:var(--put)">24,600</td><td style="text-align:right;padding:2px 4px;color:var(--put)">20.9</td><td style="text-align:right;padding:2px 4px;color:var(--t3)">Δ7</td><td style="text-align:center;padding:2px 6px;font-weight:700;color:var(--t3)">+0.8%</td><td style="text-align:left;padding:2px 4px;color:var(--t3)">Δ13</td><td style="text-align:right;padding:2px 4px;color:var(--call)">21.8</td><td style="text-align:right;padding:2px 4px;color:var(--call)">27,200</td></tr>
       </tbody>
     </table>
     </div>
@@ -221,10 +239,10 @@
 
 
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:var(--t4);margin-top:6px;text-align:center">
-Generated: 11 Mar 2026 22:39:42 IST | OPTIONS FLOW — SYNOPSIS | Expiry: 30-03-2026
+Generated: 11 Mar 2026 23:27:58 IST | OPTIONS FLOW — SYNOPSIS | Expiry: 30-03-2026
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--t4);margin-top:3px;padding:5px 8px;border:1px solid var(--border);border-radius:4px;opacity:.6">
-🤖 ML: [ML — 1258 runs | 0 resolved | 500 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 1258 runs recorded. Outcomes resolve at session end (375 min after prediction).
+🤖 ML: [ML — 1263 runs | 0 resolved | 500 pending session-end] Dominant: gex_oi (w=1.00)  Suppressed: gex_oi (w=1.00)  Learning active — 1263 runs recorded. Outcomes resolve at session end (375 min after prediction).
 </div>
 
 </div>
