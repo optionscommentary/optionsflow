@@ -177,7 +177,7 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <a class="blog-card" onclick="showArticle('a4');return false" href="#">
       <div class="blog-card-tag">Volatility · 7 min read</div>
       <h2>Reading the Volatility Skew: What OTM Puts and Calls Are Really Saying</h2>
-      <p>The implied volatility of an option changes with strike price, and that shape tells a story. Here's how to read the skew table and what different patterns mean.</p>
+      <p>The implied volatility smile tells a story about fear, positioning and probability. Here's how to read the delta-based skew table — with strike delta, Risk Reversal and IV side by side — and what different patterns mean.</p>
       <div class="blog-card-read">Read →</div>
     </a>
     <a class="blog-card" onclick="showArticle('a5');return false" href="#">
@@ -345,40 +345,56 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>In a textbook Black-Scholes world, options at different strikes but the same expiry would all trade at the same implied volatility. In the real world, they never do. The pattern of how IV varies across strikes — the <strong>volatility skew</strong> — is one of the richest sources of market intelligence available. It reflects everything from structural hedging demand to market fear to positioning crowding.</p>
 
     <h2>The Skew Table: What You're Looking At</h2>
-    <p>The skew table on this dashboard shows implied volatility at 1%, 2%, 3%, 4% and 5% OTM for both puts (below spot) and calls (above spot), compared to ATM IV. The "Δ ATM" column tells you directly how much richer or cheaper each wing is relative to the at-the-money option.</p>
+    <p>The skew table on this dashboard is organised symmetrically around ATM. Each row corresponds to one OTM distance level — 1% through 5% away from current spot. The columns are: the put strike and its IV, the option <strong>delta</strong> at that strike, the <strong>Risk Reversal (RR)</strong> for that level, then the call delta, call IV, and call strike. The RR sits in the centre of each row so you can read the put/call asymmetry instantly.</p>
 
     <table class="skew-tbl">
-      <thead><tr><th>OTM%</th><th>PUT Strike</th><th>Put IV</th><th>Δ ATM</th><th>CALL Strike</th><th>Call IV</th><th>Δ ATM</th></tr></thead>
+      <thead>
+        <tr>
+          <th>OTM%</th>
+          <th style="color:var(--put)">PUT Strike</th>
+          <th style="color:var(--put)">Put IV</th>
+          <th style="color:var(--put)">Put Δ</th>
+          <th style="text-align:center">RR</th>
+          <th style="color:var(--call)">Call Δ</th>
+          <th style="color:var(--call)">Call IV</th>
+          <th style="color:var(--call)">CALL Strike</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td>1%</td><td>23,750</td><td>15.2%</td><td>+0.3%</td><td>24,250</td><td>14.6%</td><td>−0.3%</td></tr>
-        <tr><td>2%</td><td>23,500</td><td>16.1%</td><td>+1.2%</td><td>24,500</td><td>13.9%</td><td>−1.0%</td></tr>
-        <tr><td>3%</td><td>23,250</td><td>17.5%</td><td>+2.6%</td><td>24,750</td><td>13.1%</td><td>−1.8%</td></tr>
-        <tr><td>4%</td><td>23,000</td><td>18.8%</td><td>+3.9%</td><td>25,000</td><td>12.5%</td><td>−2.4%</td></tr>
-        <tr><td>5%</td><td>22,750</td><td>20.2%</td><td>+5.3%</td><td>25,250</td><td>11.8%</td><td>−3.1%</td></tr>
+        <tr><td>1%</td><td>23,750</td><td>15.2%</td><td>Δ43</td><td style="text-align:center;color:var(--put)">−0.6%</td><td>Δ42</td><td>14.6%</td><td>24,250</td></tr>
+        <tr><td>2%</td><td>23,500</td><td>16.1%</td><td>Δ36</td><td style="text-align:center;color:var(--put)">−2.2%</td><td>Δ34</td><td>13.9%</td><td>24,500</td></tr>
+        <tr><td>3%</td><td>23,250</td><td>17.5%</td><td>Δ28</td><td style="text-align:center;color:var(--put)">−4.4%</td><td>Δ26</td><td>13.1%</td><td>24,750</td></tr>
+        <tr><td>4%</td><td>23,000</td><td>18.8%</td><td>Δ21</td><td style="text-align:center;color:var(--put)">−6.3%</td><td>Δ19</td><td>12.5%</td><td>25,000</td></tr>
+        <tr><td>5%</td><td>22,750</td><td>20.2%</td><td>Δ15</td><td style="text-align:center;color:var(--put)">−8.4%</td><td>Δ14</td><td>11.8%</td><td>25,250</td></tr>
       </tbody>
     </table>
 
-    <p>In this example, OTM puts are progressively richer than ATM — their IV rises sharply as you go further OTM. OTM calls are progressively cheaper. This is the classic <strong>negative skew</strong> pattern seen in most equity index options markets, including Indian indices.</p>
+    <p>This is what a normal, healthy equity skew looks like. OTM puts carry higher IV than equidistant OTM calls at every level. The RR column confirms this: it is negative throughout, widening as you go further OTM — the market pays more for downside protection the further away the strike is.</p>
 
-    <h2>Why Puts Are Almost Always More Expensive Than Calls</h2>
-    <p>There are two structural reasons for this, and they compound each other.</p>
-    <p>First, institutional investors — mutual funds, insurers, large proprietary desks — hold large long equity positions that they need to protect against sudden crashes. They are natural, persistent buyers of downside puts. This structural demand keeps put IV elevated relative to what pure probability would justify.</p>
-    <p>Second, memories of sharp one-directional crashes (and the actual statistical evidence of fat-tailed downside returns in equities) mean the market assigns a higher probability to large down moves than a normal distribution would suggest. This "crash risk premium" is priced into OTM puts directly.</p>
-
-    <h2>The Risk Reversal</h2>
-    <p>The <strong>Risk Reversal (RR)</strong> is simply the difference between OTM call IV and OTM put IV. In most equity markets, this is negative — puts are more expensive. A more negative RR means more fear of downside. A less negative (or positive) RR means the market is more afraid of missing a rally than of suffering a crash — unusual, but it does happen in strong bull phases, short squeezes, or ahead of major positive catalysts.</p>
+    <h2>Why Delta Matters Here</h2>
+    <p>Delta is the option market's own probability estimate: a Δ28 put has roughly a 28% chance of expiring in the money. It also tells you how aggressively the market maker must hedge. A Δ28 put requires the market maker to short 28 shares of underlying per 100 options to stay neutral. When you see the put delta <em>significantly higher</em> than the call delta at the same OTM distance, it means put IV is elevated — the market is pricing more probability into the downside strike than the symmetric upside equivalent. This asymmetry is the skew made visible in probability terms, not just in IV percentage points.</p>
     <div class="highlight-box">
-      <strong>Interpretation:</strong> RR = −3% to −5% is normal for Indian indices. RR tighter than −2% suggests unusual complacency. RR wider than −6% suggests elevated fear or institutional hedging surge. A positive RR (calls more expensive than puts) is a genuine structural signal of upside squeeze demand.
+      <strong>Key read:</strong> If Put Δ and Call Δ are close at 3% OTM (say Δ28 vs Δ26), skew is modest. If Put Δ is Δ35 while Call Δ is Δ22 at the same distance, the market is massively mispricing downside probability versus upside — fear is elevated, and put buyers are paying a significant premium.
     </div>
 
-    <h2>Volatility Risk Premium (VRP)</h2>
-    <p>The VRP measures the difference between <em>implied</em> volatility and <em>realised</em> volatility over a comparable period. When implied vol is higher than what the market actually delivered, the VRP is positive — option sellers earned a "premium" for taking on risk that didn't fully materialise. When realised vol exceeds implied vol, the VRP is negative — option buyers received value (a "discount" to true risk).</p>
-    <p><strong>Premium (positive VRP):</strong> IV is elevated relative to recent realised vol. This is the normal state — option sellers consistently collect a risk premium. However, a very high premium can also indicate that the market is overpaying for protection, which is a mean-reversion signal for IV sellers.</p>
-    <p><strong>Discount (negative VRP):</strong> Realised vol is running above what was implied. This suggests IV was too low — the market under-priced the risk that actually occurred. Negative VRP periods are often associated with trending, volatile markets where directional option buyers fare well.</p>
+    <h2>The Risk Reversal (RR) Column</h2>
+    <p>The Risk Reversal at each level is simply <strong>Put IV − Call IV</strong> at that OTM distance. In most equity index markets it is negative — puts are more expensive. A more negative RR means more fear of downside. A less negative or positive RR means the market is pricing upside risk — unusual, but it happens in strong bull phases or into positive catalysts.</p>
+    <p>Reading the RR <em>across levels</em> is as important as any single number. A RR that widens sharply from 1% to 3% (say −0.5% at 1% OTM to −4.5% at 3% OTM) means the smile is steep — the market is aggressively buying tail protection. A flat RR across all five levels means the smile is compressed — there is no particular fear of larger moves, and premium sellers may have a structural edge across all strikes.</p>
+    <div class="highlight-box">
+      <strong>Interpretation:</strong> RR of −3% to −5% at the 3–5% OTM level is normal for Indian indices. Tighter than −2% suggests complacency. Wider than −7% suggests institutional hedging surge or genuine fear. A positive RR (calls more expensive than puts at any level) is a structural signal of upside squeeze demand — rare, but significant.
+    </div>
 
-    <h2>What the OTM IV Curve Shape Tells You</h2>
-    <p>Beyond the single 5% comparison, the shape of the skew across 1-5% OTM reveals important market structure. A <strong>steep put wing</strong> (IV rising sharply with each 1% step OTM) suggests panic hedging — someone is buying protection aggressively and pushing up wing prices. A <strong>flat put wing</strong> suggests complacency or heavy writing at those strikes, which dampens the bid.</p>
-    <p>On the call side, a flat or slightly falling call wing is normal. If call IVs start <em>rising</em> with strike (rare in Indian equities) it suggests squeeze demand — someone is buying upside aggressively, a potential early indicator of a directional breakout attempt.</p>
+    <h2>What the OTM Curve Shape Tells You</h2>
+    <p>Beyond individual RR numbers, the <em>shape</em> of the skew across the five levels contains structural information. A <strong>steep put wing</strong> — RR widening sharply row by row — suggests panic hedging, someone buying protection aggressively and pushing up wing prices. A <strong>flat put wing</strong> — RR barely changing as you go further OTM — suggests heavy writing at those strikes dampening the bid, often a sign of a range-bound, premium-selling regime.</p>
+    <p>On the call side, a flat or gently falling call wing is normal. If call IVs <em>rise</em> with strike (rare in Indian equities), the call delta at far strikes will be higher than expected — a squeeze-demand signal, potential early indicator of a directional breakout attempt with options buyers aggressively accumulating upside.</p>
+
+    <h2>Why Puts Are Almost Always More Expensive Than Calls</h2>
+    <p>There are two structural reasons for this. First, institutional investors — mutual funds, insurers, large proprietary desks — hold large long equity positions that they persistently hedge with downside puts. This structural buying keeps put IV elevated above what pure probability would justify. Second, the actual statistical evidence of fat-tailed downside returns in equities means the market assigns a higher probability to large down moves than a normal distribution suggests. This crash risk premium is priced into OTM puts directly, and it shows in both the IV column and the delta asymmetry.</p>
+
+    <h2>Volatility Risk Premium (VRP)</h2>
+    <p>The VRP measures the difference between <em>implied</em> volatility and <em>realised</em> volatility over a comparable period. When implied vol is higher than what the market actually delivered, the VRP is positive — option sellers earned a premium for risk that didn't fully materialise. When realised vol exceeds implied vol, the VRP is negative — option buyers received value.</p>
+    <p><strong>Premium (positive VRP):</strong> IV is elevated relative to recent realised vol. The normal state — option sellers consistently collect a risk premium. A very high premium can indicate the market is overpaying for protection, a mean-reversion signal for IV sellers.</p>
+    <p><strong>Discount (negative VRP):</strong> Realised vol is running above what was implied. The market under-priced the risk that occurred. Negative VRP periods are often associated with trending, volatile markets where directional option buyers fare well.</p>
 
     <h2>The Synthetic Futures Premium</h2>
     <p>The synthetic futures price is derived from put-call parity: it equals spot plus (call price − put price) for the same strike. In a fairly priced market it should be close to the futures price. Large divergences between synthetic futures and actual spot can indicate funding stress, dividend mispricing, or significant gamma imbalances. We use synthetic futures throughout the analysis as a more reliable reference point for ATM than spot price alone, because it reflects the actual forward price implied by the options market.</p>
@@ -430,7 +446,7 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>Both are most relevant in the 2-5 days before expiry. Outside of that window, their flows are smaller and less likely to dominate price action.</p>
 
     <h2>Step 6: Read the Volatility Skew Table</h2>
-    <p>The <strong>OTM skew table</strong> in the Synopsis shows IVs at 1%, 2%, 3%, 4% and 5% OTM for both calls and puts, versus ATM IV. Check the Δ ATM column. A steep positive slope on puts means fear is rising — investors are paying up for protection. A flat or narrowing slope means complacency or heavy writing. On calls, rising Δ ATM (rare) suggests squeeze demand or directional buying pressure.</p>
+    <p>The <strong>OTM skew table</strong> in the Synopsis shows, for each 1–5% OTM level: the put strike and its IV, the option <strong>delta</strong> at that strike, the <strong>Risk Reversal (RR)</strong> — put IV minus call IV — and the mirror call data. The RR column sits in the centre so you can read put/call asymmetry at a glance. A widening negative RR as you move further OTM means the market is pricing tail fear progressively — steep downside hedging demand. A flat or narrowing RR means the smile is compressed and premium sellers may have a structural edge across strikes. Delta at each level tells you the market's implied probability of reaching that strike — a Δ28 put at 3% OTM is pricing roughly a 28% chance of a 3% down move by expiry, which you can compare directly against your own expectation.</p>
 
     <h2>Step 7: Use the PCR and Top GEX Tables as Confirmation</h2>
     <p>The <strong>Put-Call Ratio (PCR)</strong> table shows the ratio of put OI to call OI across different strike ranges. PCR above 1.0 means more puts outstanding than calls — typically a bullish signal (more put writing/hedging, which implies structural support below). PCR below 1.0 means more calls — can be neutral or slightly bearish depending on context. The near-ATM PCR is most meaningful for short-term direction.</p>
