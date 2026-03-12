@@ -1513,7 +1513,9 @@ function chartHtml(idx, data, key){
   }
 
   if(key==='volsurf'){
-    const src=`data/${idx}/${fn}`;
+    // Use timestamp from data, or current time as fallback
+    const ts = data?.timestamp_iso ? new Date(data.timestamp_iso).getTime() : Date.now();
+    const src = `data/${idx}/${fn}?t=${ts}`;
     return `<div class="gcard vol-surface-card">
       <div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)">
         <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">Implied Volatility Surface</span>
