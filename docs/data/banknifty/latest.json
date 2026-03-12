@@ -1,16 +1,16 @@
 {
-  "timestamp": "12 Mar 2026  14:33 IST",
-  "timestamp_iso": "2026-03-12T14:33:32.166506",
+  "timestamp": "12 Mar 2026  14:38 IST",
+  "timestamp_iso": "2026-03-12T14:38:06.809644",
   "index": "BANKNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 12.5,
-  "spot": 55298.5,
-  "spot_prev": 55298.5,
+  "spot": 55318.85,
+  "spot_prev": 55318.85,
   "spot_chg": 0.0,
   "spot_pct": 0.0,
-  "synthetic_futures": 55617.75,
-  "atm_iv": 22.83,
-  "net_gex": 45.53,
+  "synthetic_futures": 55572.7,
+  "atm_iv": 23.53,
+  "net_gex": 37.05,
   "peak_gex_k": 56000,
   "gex_pin_top3": [
     56000,
@@ -18,7 +18,7 @@
     55000
   ],
   "gex_regime": "LONG",
-  "composite_score": 0,
+  "composite_score": -2,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     55000,
@@ -26,30 +26,30 @@
     55200
   ],
   "call_resist_levels": [
-    55300,
     55400,
     55500,
+    55600,
     56000
   ],
-  "pcr_atm": 1.095,
-  "net_dealer_delta_cr": -0.16,
-  "gex_speed": 0.807706,
-  "implied_lower": 55281,
-  "implied_upper": 55919,
+  "pcr_atm": 1.088,
+  "net_dealer_delta_cr": -0.25,
+  "gex_speed": 0.849533,
+  "implied_lower": 55346,
+  "implied_upper": 55854,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "LOW",
   "oi_flow_label": "CALL BUYERS DOMINANT",
-  "gex_tilt_label": "BALANCED \u2014 slightly CALL-leaning (1.07x)",
-  "straddle_pts": 2294,
+  "gex_tilt_label": "BALANCED \u2014 slightly CALL-leaning (1.06x)",
+  "straddle_pts": 2286,
   "signals": {
     "gex_oi": 1,
     "oi_flow": 2,
     "pcr": -1,
     "vex": -1,
     "skew": 0,
-    "fxiv": -1
+    "fxiv": -2
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
