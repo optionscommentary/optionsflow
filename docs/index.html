@@ -10,7 +10,7 @@
 <meta name="author" content="Options Flow Dashboard">
 <meta property="og:title" content="Options Flow Dashboard — NIFTY GEX & Dealer Analytics">
 <meta property="og:description" content="Free real-time GEX, Vanna, Charm and dealer flow analytics for NIFTY, BankNIFTY, Sensex, FinNIFTY and MidCap.">
-<meta property="og:url" content="https://optionscommentary.github.io/optionsflow">
+<meta property="og:url" content="https://optionsflow.in">
 <meta property="og:type" content="website">
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1034,6 +1034,127 @@ body {
   /* Modals */
   .modal-box { width: 95% !important; padding: 20px !important; }
 }
+/* ── MENTORSHIP SECTION ── */
+.mentorship-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 48px 24px;
+}
+.mentorship-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.mentorship-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pos);
+  margin-bottom: 10px;
+}
+.mentorship-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--t1);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.mentorship-sub {
+  color: var(--t3);
+  font-size: 0.9rem;
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.mentorship-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.m-card {
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+.m-card:hover { border-color: var(--accent); }
+.m-card-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+.m-card-badge.intro { background: rgba(129,201,149,.12); color: var(--pos); border: 1px solid rgba(129,201,149,.25); }
+.m-card-badge.prog  { background: rgba(100,181,246,.12); color: var(--accent); border: 1px solid rgba(100,181,246,.25); }
+.m-card-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--t1);
+  line-height: 1;
+}
+.m-card-price span {
+  font-size: 0.75rem;
+  color: var(--t3);
+  font-weight: 400;
+  margin-left: 4px;
+}
+.m-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--t1);
+  line-height: 1.35;
+}
+.m-card p {
+  font-size: 0.83rem;
+  color: var(--t3);
+  line-height: 1.6;
+  flex: 1;
+}
+.m-card ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.m-card ul li {
+  font-size: 0.8rem;
+  color: var(--t2);
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.m-card ul li::before { content: '✓'; color: var(--pos); flex-shrink: 0; font-weight: 700; }
+.m-cta {
+  display: block;
+  text-align: center;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  margin-top: 4px;
+}
+.m-cta.intro { background: var(--pos); color: #0D1520; }
+.m-cta.prog  { background: var(--accent); color: #0D1520; }
+.m-cta:hover { opacity: 0.85; }
+@media (max-width: 760px) {
+  .mentorship-section { padding: 32px 14px; }
+  .mentorship-title { font-size: 1.3rem; }
+}
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
@@ -1053,9 +1174,9 @@ body {
     <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     WhatsApp
   </a>
-  <a class="cs-link" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
+  <a class="cs-link" href="/cdn-cgi/l/email-protection#8be7eeeaf9e5ffe4eeeaf9e5edf9e4e6f8ffe4e8e0e6eaf9e0eeffcbece6eae2e7a5e8e4e6" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    learntoearnfromstockmarket@gmail.com
+    <span class="__cf_email__" data-cfemail="ddb1b8bcafb3a9b2b8bcafb3bbafb2b0aea9b2beb6b0bcafb6b8a99dbab0bcb4b1f3beb2b0">[email&#160;protected]</span>
   </a>
   <a class="cs-link" href="https://x.com/stock_right" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -1089,6 +1210,8 @@ body {
   <div class="tb-right">
     <span class="mkt-badge mkt-close" id="mkt-badge">● CLOSED</span>
     <span id="tb-clock">—</span>
+    <a href="blogs.html" class="theme-btn" style="text-decoration:none">📚 Learn</a>
+    <a href="#mentorship" class="theme-btn" style="text-decoration:none;background:rgba(100,181,246,.12);border-color:var(--accent);color:var(--accent)" onclick="document.getElementById('mentorship').scrollIntoView({behavior:'smooth'});return false">🎓 Mentorship</a>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
   </div>
 </header>
@@ -1252,6 +1375,51 @@ body {
   </div>
 </div>
 
+<!-- ── MENTORSHIP SECTION ── -->
+<div class="mentorship-section" id="mentorship">
+  <div class="mentorship-inner">
+    <div class="mentorship-tag">🎓 Live Training with the Analyst</div>
+    <div class="mentorship-title">Learn Options Flow Analysis Directly with Me</div>
+    <p class="mentorship-sub">Every chart and number on this dashboard has a purpose. I built this platform over hundreds of hours of research into dealer mechanics, GEX and volatility structure. These sessions are for traders who want to understand the logic behind the data — not just how to read it, but how to think with it.</p>
+    <div class="mentorship-cards">
+
+      <!-- Card 1 — Introductory Session -->
+      <div class="m-card">
+        <span class="m-card-badge intro">Introductory Session</span>
+        <div class="m-card-price">₹999 <span>/ 2-hour live session</span></div>
+        <h3>Dashboard Deep-Dive: One Session to Understand Everything</h3>
+        <p>A focused 2-hour live Google Meet session. We work through the dashboard together on a real market day — covering every chart, every indicator, and how to form a pre-market structural view using GEX, VEX, PCR and the volatility skew.</p>
+        <ul>
+          <li>Live Google Meet — screen shared, real data</li>
+          <li>Full dashboard walkthrough (GEX, VEX, ZGL, PCR, Skew)</li>
+          <li>Q&A — no question is off limits</li>
+          <li>Session recording shared afterwards</li>
+          <li>Ideal for traders new to flow analysis</li>
+        </ul>
+        <a class="m-cta intro" href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener">Book Introductory Session →</a>
+      </div>
+
+      <!-- Card 2 — Analyst Mentorship Programme -->
+      <div class="m-card">
+        <span class="m-card-badge prog">Analyst Mentorship Programme</span>
+        <div class="m-card-price">₹10,000 <span>/ 10 sessions · 2 hrs each</span></div>
+        <h3>20 Hours of Structured Training with Live Market Application</h3>
+        <p>A complete structured programme across 10 dedicated live sessions. Each session builds on the previous one — from foundational options mechanics to advanced dealer flow interpretation, real trade structuring and expiry analysis. Designed for traders who want to develop a genuine, systematic edge.</p>
+        <ul>
+          <li>10 × 2-hour live Google Meet sessions</li>
+          <li>Structured curriculum — beginner to advanced</li>
+          <li>Live market analysis every session</li>
+          <li>Real trade setups using this dashboard</li>
+          <li>All session recordings provided</li>
+          <li>Direct access via WhatsApp between sessions</li>
+        </ul>
+        <a class="m-cta prog" href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme%20%E2%82%B910%2C000" target="_blank" rel="noopener">Enquire About the Programme →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- Footer -->
 <div class="footer">
   <!-- Mobile social icons (hidden on desktop) -->
@@ -1260,7 +1428,7 @@ body {
       <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       WhatsApp
     </a>
-    <a href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
+    <a href="/cdn-cgi/l/email-protection#6e020b0f1c001a010b0f1c00081c01031d1a010d05030f1c050b1a2e09030f0702400d0103" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
       Email
     </a>
@@ -1317,9 +1485,9 @@ body {
         WhatsApp
       </a>
       <!-- Email -->
-      <a href="mailto:learntoearnfromstockmarket@gmail.com" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
+      <a href="/cdn-cgi/l/email-protection#48242d293a263c272d293a262e3a27253b3c272b2325293a232d3c082f25292124662b2725" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        learntoearnfromstockmarket@gmail.com
+        <span class="__cf_email__" data-cfemail="a6cac3c7d4c8d2c9c3c7d4c8c0d4c9cbd5d2c9c5cdcbc7d4cdc3d2e6c1cbc7cfca88c5c9cb">[email&#160;protected]</span>
       </a>
       <!-- X / Twitter -->
       <a href="https://x.com/stock_right" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
@@ -1356,7 +1524,7 @@ body {
   <span id="lbx-x" onclick="closeLbx()">✕</span>
   <img id="lbx-img" src="" alt="zoom">
 </div>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── THEME ──────────────────────────────────────────── */
 (function(){
   const t = localStorage.getItem('oc-theme') || 'dark';
@@ -1696,23 +1864,4 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 /* ── INIT ───────────────────────────────────────────── */
 (async()=>{
   // Load all 5 indices in parallel
-  Promise.all(INDICES.map(i=>fetchData(i))).then(results=>{
-    INDICES.forEach((i,n)=>{ if(results[n]) renderIndex(i,results[n]); });
-  });
-  updateTickers();
-  setInterval(updateTickers, 60000);
-  const _lastTs={};
-  setInterval(function(){
-    INDICES.forEach(function(i){
-      fetchData(i,true).then(function(d){
-        if(d&&d.timestamp_iso&&d.timestamp_iso!==_lastTs[i]){
-          _lastTs[i]=d.timestamp_iso;
-          renderIndex(i,d);
-        }
-      });
-    });
-  }, 30000);
-})();
-</script>
-</body>
-</html>
+  Promise.all
