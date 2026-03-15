@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About — OptionsFlow</title>
+<meta name="description" content="About OptionsFlow — an independent NSE options analytics platform computing GEX, Vanna, Charm and dealer positioning for Indian index traders.">
+<link rel="canonical" href="https://optionsflow.in/about.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{
+  --bg:#0D1520;--surface:#13202F;--raised:#192B3C;--border:#243749;
+  --t1:#FFFFFF;--t2:#E0E0E0;--t3:#A0A0A0;--t4:#606878;
+  --accent:#64B5F6;--pos:#81C995;--neg:#F28B82;--put:#F9AB64;
+}
+[data-theme="light"]{
+  --bg:#ECF1F7;--surface:#FFFFFF;--raised:#E2EAF4;--border:#B8CCDE;
+  --t1:#212121;--t2:#333333;--t3:#666666;--t4:#999999;
+  --accent:#1976D2;--pos:#0B8A5C;--neg:#C52B2B;--put:#D45A0A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t2);min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+#topbar{position:sticky;top:0;z-index:900;height:52px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;box-shadow:0 2px 16px rgba(0,0,0,.25)}
+.tb-brand{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--t1);letter-spacing:.04em;text-decoration:none;padding-right:20px;border-right:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+.tb-brand em{color:var(--accent);font-style:normal}
+.tb-nav{display:flex;gap:8px;align-items:center;margin-left:auto}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.06em;color:var(--t2);text-decoration:none;transition:all .18s;white-space:nowrap;font-weight:600;cursor:pointer}
+.nav-btn:hover{color:var(--t1);border-color:var(--accent)}
+button.nav-btn{background:var(--raised)}
+
+/* HERO */
+.page-hero{
+  background:linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  border-bottom:1px solid var(--border);
+  padding:56px 24px 48px;
+  position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:'OPTIONS FLOW';
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:'Syne',sans-serif;font-size:6rem;font-weight:800;
+  color:var(--border);letter-spacing:.04em;opacity:.3;
+  pointer-events:none;white-space:nowrap;
+}
+.page-hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
+.page-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.page-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+.page-hero h1{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:2.2rem;color:var(--t1);line-height:1.15;
+  margin-bottom:16px;
+}
+.page-hero h1 em{color:var(--accent);font-style:normal}
+.page-hero-lead{
+  color:var(--t2);font-size:.95rem;line-height:1.8;
+  max-width:580px;
+}
+
+/* CONTENT */
+.content-wrap{max-width:860px;margin:0 auto;padding:56px 24px 80px;flex:1}
+
+/* WHAT SECTION */
+.what-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;margin-bottom:56px;
+}
+@media(max-width:640px){.what-grid{grid-template-columns:1fr}}
+
+.what-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+  transition:border-color .2s;
+}
+.what-card:hover{border-color:var(--accent)}
+.what-card-icon{
+  font-family:'IBM Plex Mono',monospace;font-size:1.4rem;
+  margin-bottom:12px;
+}
+.what-card h3{
+  font-size:.95rem;font-weight:700;color:var(--t1);
+  margin-bottom:8px;
+}
+.what-card p{font-size:.82rem;color:var(--t3);line-height:1.65}
+
+/* STORY SECTION */
+.story-section{margin-bottom:56px}
+.section-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;
+}
+.section-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:1.3rem;color:var(--t1);
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.story-section p{
+  color:var(--t2);font-size:.9rem;line-height:1.85;
+  margin-bottom:16px;
+}
+.story-section p:last-child{margin-bottom:0}
+
+/* METRICS */
+.metrics-row{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;margin:28px 0;
+}
+.metric{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:10px;padding:16px;text-align:center;
+}
+.metric-val{
+  font-family:'IBM Plex Mono',monospace;font-size:1.6rem;
+  font-weight:700;color:var(--accent);line-height:1;margin-bottom:6px;
+}
+.metric-label{font-size:.72rem;color:var(--t3);line-height:1.4}
+
+/* INDICES */
+.indices-row{
+  display:flex;flex-wrap:wrap;gap:8px;margin:20px 0;
+}
+.index-chip{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+  font-weight:700;padding:6px 12px;border-radius:6px;
+  background:rgba(100,181,246,.1);color:var(--accent);
+  border:1px solid rgba(100,181,246,.2);
+}
+
+/* METHODOLOGY */
+.method-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.method-list li{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 16px;background:var(--surface);
+  border:1px solid var(--border);border-radius:8px;
+  font-size:.85rem;color:var(--t2);line-height:1.6;
+}
+.method-list li .m-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  font-weight:700;color:var(--accent);letter-spacing:.08em;
+  text-transform:uppercase;flex-shrink:0;min-width:80px;
+  margin-top:1px;
+}
+
+/* DISCLAIMER BOX */
+.disclaimer{
+  background:rgba(242,139,130,.06);
+  border:1px solid rgba(242,139,130,.2);
+  border-radius:10px;padding:20px 24px;
+  margin-bottom:40px;
+}
+.disclaimer-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neg);margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.disclaimer p{
+  font-size:.83rem;color:var(--t2);line-height:1.75;
+  margin-bottom:8px;
+}
+.disclaimer p:last-child{margin-bottom:0}
+
+/* CONNECT */
+.connect-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+}
+.connect-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:14px;
+  text-decoration:none;transition:border-color .2s;
+}
+.connect-card:hover{border-color:var(--accent)}
+.connect-card svg{flex-shrink:0}
+.connect-card-text h4{font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:2px}
+.connect-card-text p{font-size:.72rem;color:var(--t3)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);background:var(--surface);padding:20px 24px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--t4)}
+.footer a{color:var(--accent);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .page-hero h1{font-size:1.6rem}
+  .page-hero::before{font-size:3rem}
+  .content-wrap{padding:36px 16px 60px}
+}
+
+/* ── MOBILE NAV STRIP ── */
+.mobile-nav-strip{display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 10px;gap:8px;flex-wrap:wrap}
+.mobile-nav-strip a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;color:var(--t2);text-decoration:none;transition:all .15s}
+.mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
+.mobile-nav-strip a.hl{background:rgba(100,181,246,.12);border-color:var(--accent);color:var(--accent)}
+@media(max-width:760px){.mobile-nav-strip{display:flex}}
+</style>
+</head>
+<body>
+
+<nav id="topbar">
+  <a class="tb-brand" href="index.html">OPTIONS<em>FLOW</em></a>
+  <div class="tb-nav">
+    <a href="index.html" class="nav-btn">📊 Dashboard</a>
+    <a href="blogs.html" class="nav-btn">📚 Learn</a>
+    <a href="mentorship.html" class="nav-btn">🎓 Mentorship</a>
+    <button class="nav-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
+  </div>
+</nav>
+<div class="mobile-nav-strip"><a href="index.html">📊 Dashboard</a><a href="blogs.html">📚 Learn</a><a href="mentorship.html">🎓 Mentorship</a></div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-tag">About</div>
+    <h1>Independent Options Analytics<br>for <em>Indian Index Traders</em></h1>
+    <p class="page-hero-lead">OptionsFlow is a free, independent platform that decodes the structural forces driving Nifty, BankNifty and other NSE indices — using the same dealer flow mechanics that professional options desks analyse every day.</p>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- WHAT WE COMPUTE -->
+  <div class="what-grid">
+    <div class="what-card">
+      <div class="what-card-icon" style="color:var(--accent)">γ</div>
+      <h3>Gamma Exposure (GEX)</h3>
+      <p>Measures how much buying or selling market makers are forced to do per 1% move in the index. The single most important structural force in modern options markets.</p>
+    </div>
+    <div class="what-card">
+      <div class="what-card-icon" style="color:var(--put)">ν</div>
+      <h3>Vanna Exposure (VEX)</h3>
+      <p>Tracks how dealer delta hedges shift when implied volatility changes. Explains systematic flows that appear random to price-chart traders.</p>
+    </div>
+    <div class="what-card">
+      <div class="what-card-icon" style="color:var(--pos)">Δ</div>
+      <h3>Charm Exposure (CEX)</h3>
+      <p>Measures how delta hedges decay with time. Responsible for the persistent directional pressure seen in the final days of every expiry cycle.</p>
+    </div>
+    <div class="what-card">
+      <div class="what-card-icon" style="color:var(--neg)">◈</div>
+      <h3>Dealer Positioning</h3>
+      <p>Estimates whether market makers are long or short gamma at each strike — strike by strike — using OI change, IV direction and moneyness signals.</p>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div class="story-section">
+    <div class="section-label">Background</div>
+    <div class="section-title">Why This Platform Exists</div>
+    <p>The Indian F&O market is one of the most active options markets in the world by volume — yet the structural analytics that professional desks use to navigate it are almost entirely absent from the retail and independent trader's toolkit. Charts, indicators and price-action techniques dominate the conversation. Dealer mechanics, gamma exposure and volatility structure rarely do.</p>
+    <p>OptionsFlow was built to change that. The entire platform — the Python analytics engine, the data pipeline, the dashboard — was built from scratch to bring institutional-grade structural analysis to anyone trading Nifty, BankNifty and other NSE indices. The goal is simple: give independent traders the same structural picture that market makers and large desks see.</p>
+    <p>All data is derived from publicly available NSE option chain data and standard Black-Scholes pricing. The analysis is systematic, rule-based and updated regularly throughout the trading day.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="story-section">
+    <div class="section-label">Coverage</div>
+    <div class="section-title">What the Dashboard Covers</div>
+    <div class="indices-row">
+      <span class="index-chip">NIFTY 50</span>
+      <span class="index-chip">BANKNIFTY</span>
+      <span class="index-chip">SENSEX</span>
+      <span class="index-chip">FINNIFTY</span>
+      <span class="index-chip">MIDCAP NIFTY</span>
+    </div>
+    <div class="metrics-row">
+      <div class="metric"><div class="metric-val">5</div><div class="metric-label">Indices covered</div></div>
+      <div class="metric"><div class="metric-val">11</div><div class="metric-label">Chart types per index</div></div>
+      <div class="metric"><div class="metric-val">4</div><div class="metric-label">Dealer scenarios modelled</div></div>
+      <div class="metric"><div class="metric-val">Free</div><div class="metric-label">Always, no login needed</div></div>
+    </div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="story-section">
+    <div class="section-label">How It Works</div>
+    <div class="section-title">The Methodology</div>
+    <p>Every output on the dashboard is generated by a systematic, rule-based Python engine applied to live NSE option chain data. No manual analysis. No editorial opinion. Pure structural mechanics.</p>
+    <ul class="method-list">
+      <li><span class="m-label">Data Source</span>Publicly available NSE option chain feeds, updated throughout the trading session.</li>
+      <li><span class="m-label">GEX Engine</span>Black-Scholes gamma computed for all strikes across all expiries. Aggregated by dealer posture assumption across four scenarios.</li>
+      <li><span class="m-label">Prob. GEX</span>Strike-by-strike dealer positioning estimated using five signals: IV direction, OI change, moneyness, ATM proximity and recency weighting.</li>
+      <li><span class="m-label">VEX / CEX</span>Vanna and charm computed per strike, aggregated across the estimated dealer book. Most meaningful in the final 5 days before expiry.</li>
+      <li><span class="m-label">Vol Surface</span>Full implied volatility surface across strikes and expiries, plotted as an interactive 3D chart.</li>
+    </ul>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="disclaimer-title">⚠ Important Disclaimer</div>
+    <p>OptionsFlow is an <strong>independent, educational platform</strong>. We are <strong>not registered with SEBI</strong> and do not provide investment or trading advice of any kind.</p>
+    <p>All outputs — GEX, VEX, CEX, dealer positioning estimates, PCR, skew data and Synopsis — are generated by an automated rule-based system applied to publicly available NSE data. They describe structural market conditions and are intended for informational and educational purposes only. No directional view or recommendation is expressed or implied.</p>
+    <p>Options trading involves <strong>substantial risk of loss</strong>. Past structural readings do not guarantee future results. Always consult a SEBI-registered investment advisor before making financial decisions.</p>
+  </div>
+
+  <!-- CONNECT -->
+  <div class="story-section">
+    <div class="section-label">Get in Touch</div>
+    <div class="section-title">Connect With Us</div>
+    <div class="connect-grid">
+      <a class="connect-card" href="https://wa.me/919677446082" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <div class="connect-card-text"><h4>WhatsApp</h4><p>+91 96774 46082</p></div>
+      </a>
+      <a class="connect-card" href="mailto:learntoearnfromstockmarket@gmail.com">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <div class="connect-card-text"><h4>Email</h4><p>learntoearnfromstockmarket@gmail.com</p></div>
+      </a>
+      <a class="connect-card" href="https://x.com/stock_right" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <div class="connect-card-text"><h4>Twitter / X</h4><p>@stock_right</p></div>
+      </a>
+      <a class="connect-card" href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        <div class="connect-card-text"><h4>Telegram</h4><p>Options Flow Channel</p></div>
+      </a>
+      <a class="connect-card" href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
+        <div class="connect-card-text"><h4>Threads</h4><p>@optionscommentary</p></div>
+      </a>
+      <a class="connect-card" href="mentorship.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        <div class="connect-card-text"><h4>Mentorship</h4><p>1-on-1 sessions available</p></div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 OptionsFlow · Not SEBI Registered · Educational purposes only &nbsp;|&nbsp;
+  <a href="index.html">Dashboard</a> &nbsp;|&nbsp;
+  <a href="privacy.html">Privacy Policy</a>
+</div>
+
+<script>
+(function(){
+  const t=localStorage.getItem('oc-theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  const b=document.getElementById('theme-btn');
+  if(b) b.textContent=t==='dark'?'☀ Light':'🌙 Dark';
+})();
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme')||'dark';
+  const nxt=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',nxt);
+  localStorage.setItem('oc-theme',nxt);
+  document.getElementById('theme-btn').textContent=nxt==='dark'?'🌙 Dark':'☀ Light';
+}
+</script>
+</body>
+</html>
