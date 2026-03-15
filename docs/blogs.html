@@ -213,6 +213,13 @@ table.skew-tbl tr:last-child td{border-bottom:none}
   text-align:center;font-size:.78rem;color:var(--t4)
 }
 .blog-footer a{color:var(--accent);text-decoration:none}
+
+/* ── MOBILE NAV STRIP ── */
+.mobile-nav-strip{display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 10px;gap:8px;flex-wrap:wrap}
+.mobile-nav-strip a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;color:var(--t2);text-decoration:none;transition:all .15s}
+.mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
+.mobile-nav-strip a.hl{background:rgba(100,181,246,.12);border-color:var(--accent);color:var(--accent)}
+@media(max-width:760px){.mobile-nav-strip{display:flex}}
 </style>
 </head>
 <body>
@@ -225,6 +232,7 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <button class="btn-theme" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
   </div>
 </nav>
+<div class="mobile-nav-strip"><a href="index.html">📊 Dashboard</a><a href="blogs.html" class="hl">📚 Learn</a><a href="mentorship.html">🎓 Mentorship</a></div>
 
 <!-- INDEX VIEW -->
 <div id="blog-index">
