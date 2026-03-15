@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mentorship — OptionsFlow</title>
+<meta name="description" content="Learn options flow analysis directly with the OptionsFlow analyst. One-on-one sessions covering GEX, VEX, PCR, dealer positioning and live market structure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{
+  --bg:#0D1520;--surface:#13202F;--raised:#192B3C;--border:#243749;
+  --t1:#FFFFFF;--t2:#E0E0E0;--t3:#A0A0A0;--t4:#808080;
+  --pos:#81C995;--neg:#F28B82;--accent:#64B5F6;--put:#F9AB64;
+}
+[data-theme="light"]{
+  --bg:#ECF1F7;--surface:#FFFFFF;--raised:#E2EAF4;--border:#B8CCDE;
+  --t1:#212121;--t2:#333333;--t3:#666666;--t4:#999999;
+  --pos:#0B8A5C;--neg:#C52B2B;--accent:#1976D2;--put:#D45A0A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t2);min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+#topbar{position:sticky;top:0;z-index:900;height:52px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;box-shadow:0 2px 16px rgba(0,0,0,.25)}
+.tb-brand{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--t1);letter-spacing:.04em;text-decoration:none;padding-right:20px;border-right:1px solid var(--border);white-space:nowrap}
+.tb-brand em{color:var(--accent);font-style:normal}
+.tb-nav{display:flex;gap:8px;align-items:center;margin-left:auto}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.06em;color:var(--t2);text-decoration:none;transition:all .18s;white-space:nowrap;font-weight:600;cursor:pointer}
+.nav-btn:hover{color:var(--t1);border-color:var(--accent)}
+.nav-btn.active{background:rgba(100,181,246,.12);border-color:var(--accent);color:var(--accent)}
+button.nav-btn{background:var(--raised)}
+
+/* HERO */
+.hero{max-width:860px;margin:0 auto;padding:56px 24px 40px;text-align:center}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--pos);margin-bottom:14px}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:var(--t1);line-height:1.2;margin-bottom:16px}
+.hero p{color:var(--t3);font-size:.95rem;line-height:1.75;max-width:620px;margin:0 auto}
+
+/* CARDS */
+.cards-wrap{max-width:900px;margin:0 auto;padding:0 24px 60px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:stretch}
+@media(max-width:720px){.cards-wrap{grid-template-columns:1fr}}
+
+.m-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s;height:100%}
+.m-card:hover{border-color:var(--accent)}
+.m-card-badge{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border-radius:4px;display:inline-block;width:fit-content;font-weight:700}
+.m-card-badge.intro{background:rgba(129,201,149,.12);color:var(--pos);border:1px solid rgba(129,201,149,.3)}
+.m-card-badge.prog{background:rgba(100,181,246,.12);color:var(--accent);border:1px solid rgba(100,181,246,.3)}
+.m-card-price{font-family:'IBM Plex Mono',monospace;font-size:1.7rem;font-weight:700;color:var(--t1);line-height:1}
+.m-card-price span{font-size:.72rem;color:var(--t3);font-weight:400;margin-left:6px}
+.m-card h2{font-size:1.05rem;font-weight:700;color:var(--t1);line-height:1.35}
+.m-card-desc{font-size:.85rem;color:var(--t3);line-height:1.7;flex:1}
+.m-card ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;margin-top:auto;padding-top:16px}
+.m-card ul li{font-size:.82rem;color:var(--t2);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.m-card ul li::before{content:'✓';color:var(--pos);flex-shrink:0;font-weight:700;margin-top:1px}
+.m-cta{display:flex;text-align:center;padding:13px 20px;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:opacity .2s;margin-top:16px;align-items:center;justify-content:center;gap:8px}
+.m-cta.intro{background:var(--pos);color:#0D1520}
+.m-cta.prog{background:var(--accent);color:#0D1520}
+.m-cta:hover{opacity:.85}
+
+/* HOW IT WORKS */
+.hiw-wrap{max-width:860px;margin:0 auto;padding:0 24px 60px}
+.section-tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--t1);margin-bottom:24px}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.step-num{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:8px;opacity:.5}
+.step h4{font-size:.9rem;font-weight:700;color:var(--t1);margin-bottom:6px}
+.step p{font-size:.78rem;color:var(--t3);line-height:1.6}
+
+/* FAQ */
+.faq-wrap{max-width:860px;margin:0 auto;padding:0 24px 60px}
+.faq-item{border-bottom:1px solid var(--border);padding:18px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:.9rem;font-weight:700;color:var(--t1);margin-bottom:8px}
+.faq-a{font-size:.83rem;color:var(--t3);line-height:1.7}
+
+/* FOOTER */
+.footer{margin-top:auto;border-top:1px solid var(--border);background:var(--surface);padding:16px 24px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--t4)}
+.footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem}
+  .cards-wrap{padding:0 14px 40px}
+  .m-card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="topbar">
+  <a class="tb-brand" href="index.html">OPTIONS<em>FLOW</em></a>
+  <div class="tb-nav">
+    <a href="index.html" class="nav-btn">📊 Dashboard</a>
+    <a href="blogs.html" class="nav-btn">📚 Learn</a>
+    <a href="mentorship.html" class="nav-btn active">🎓 Mentorship</a>
+    <button class="nav-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">One-on-One with the Analyst</div>
+  <h1>Understand Options Flow the Way Professionals Do</h1>
+  <p>I built OptionsFlow from scratch to decode how market makers hedge their books. These sessions are for traders who want to go beyond the charts and understand the mechanics driving price — GEX, VEX, dealer positioning, expiry structure and how to read all of it in real time.</p>
+</div>
+
+<!-- CARDS -->
+<div class="cards-wrap">
+
+  <!-- Card 1 -->
+  <div class="m-card">
+    <span class="m-card-badge intro">Trial Session</span>
+    <div class="m-card-price">₹999 <span>/ 2 hours</span></div>
+    <h2>One Session to See If This Approach Works for You</h2>
+    <p class="m-card-desc">A focused 2-hour session over WhatsApp or Google Meet where we go through the dashboard together — what each chart means, how to read the current structure, and how to build a pre-market view using GEX, VEX and PCR.</p>
+    <ul>
+      <li>Full walkthrough of your live dashboard (GEX, VEX, ZGL, PCR, Skew)</li>
+      <li>I explain the current market structure in real context</li>
+      <li>All your questions answered — nothing is off limits</li>
+      <li>Coordinate timing and further queries over WhatsApp</li>
+      <li>Good starting point before committing to the full programme</li>
+      <li>No preparation needed — just show up with your questions</li>
+    </ul>
+    <a class="m-cta intro"
+       href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Trial%20Session%20on%20OptionsFlow.%20Please%20share%20available%20slots."
+       target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Book Trial Session on WhatsApp
+    </a>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="m-card">
+    <span class="m-card-badge prog">Analyst Programme</span>
+    <div class="m-card-price">₹10,000 <span>/ 10 sessions · 2 hrs each</span></div>
+    <h2>20 Hours of Structured Learning with the Analyst</h2>
+    <p class="m-card-desc">A structured programme across 10 dedicated sessions. We start from the ground up — options mechanics, open interest, delta and gamma — and build all the way to reading live dealer flow, interpreting GEX regimes and structuring trades around expiry dynamics. Ongoing access between sessions over WhatsApp.</p>
+    <ul>
+      <li>10 sessions × 2 hours each — your pace, your schedule</li>
+      <li>Structured from basics to advanced dealer flow analysis</li>
+      <li>Each session is grounded in real charts and current market context</li>
+      <li>Real trade structuring — condors, straddles, directional setups</li>
+      <li>WhatsApp access between sessions for follow-up questions</li>
+      <li>Progress at your own pace — no fixed batch schedule</li>
+    </ul>
+    <a class="m-cta prog"
+       href="https://wa.me/919677446082?text=Hi%2C%20I%20am%20interested%20in%20the%20%E2%82%B910%2C000%20Analyst%20Programme%20on%20OptionsFlow.%20Please%20share%20details%20and%20how%20to%20get%20started."
+       target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enquire on WhatsApp
+    </a>
+  </div>
+
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="hiw-wrap">
+  <div class="section-tag">Process</div>
+  <div class="section-title">How It Works</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Message on WhatsApp</h4>
+      <p>Click any button above — a message is pre-written and ready to send. Just hit send and we'll go from there.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>We Agree on Timing</h4>
+      <p>We figure out a slot that works for both of us. No fixed schedule — completely flexible around your availability.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Session Happens</h4>
+      <p>We go through the dashboard together in real market context. You ask, I explain. Completely two-way.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Follow Up Anytime</h4>
+      <p>Questions after the session? WhatsApp works. You're not left to figure it out alone after we're done.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-wrap">
+  <div class="section-tag">FAQ</div>
+  <div class="section-title">Common Questions</div>
+
+  <div class="faq-item">
+    <div class="faq-q">Who is this for?</div>
+    <div class="faq-a">Traders who are already active in NSE F&amp;O — options buyers, sellers, or anyone who wants to understand what the market structure is saying before they put on a trade. You don't need to be advanced. The trial session is specifically designed for people who are new to flow analysis.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Do I need to know options basics before joining?</div>
+    <div class="faq-a">For the Analyst Programme — no. We start from the basics and build up. For the trial session, it helps to have traded options before, but it's not required. Just tell me your current level when you message and we'll calibrate accordingly.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I pay?</div>
+    <div class="faq-a">Payment details are shared over WhatsApp once we confirm a slot. UPI accepted.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Are the 10 sessions of the Analyst Programme fixed in time?</div>
+    <div class="faq-a">No. Each session is scheduled separately based on your availability. There's no batch, no fixed calendar. You can space them out weekly or take them faster — entirely up to you.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is this SEBI registered advice?</div>
+    <div class="faq-a">No. These are educational sessions focused on understanding market structure and flow analytics. No investment recommendations are made. All analysis is for educational and informational purposes only.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Educational sessions — not SEBI registered investment advice &nbsp;|&nbsp;
+  <a href="index.html">← Back to Dashboard</a>
+</div>
+
+<script>
+(function(){
+  const t = localStorage.getItem('oc-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  const b = document.getElementById('theme-btn');
+  if(b) b.textContent = t==='dark' ? '☀ Light' : '🌙 Dark';
+})();
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+  const nxt = cur==='dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', nxt);
+  localStorage.setItem('oc-theme', nxt);
+  document.getElementById('theme-btn').textContent = nxt==='dark' ? '🌙 Dark' : '☀ Light';
+}
+</script>
+</body>
+</html>
