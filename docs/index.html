@@ -279,6 +279,36 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .modal-box { width: 95% !important; padding: 20px !important; }
 }
 
+
+/* ── MOBILE NAV STRIP ── */
+.mobile-nav-strip {
+  display: none;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mobile-nav-strip a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--t2);
+  text-decoration: none;
+  transition: all .15s;
+}
+.mobile-nav-strip a:hover { color: var(--t1); border-color: var(--accent); }
+.mobile-nav-strip a.active { background: rgba(100,181,246,.12); border-color: var(--accent); color: var(--accent); }
+@media (max-width: 760px) {
+  .mobile-nav-strip { display: flex; }
+}
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
@@ -339,6 +369,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
   </div>
 </header>
+
+<!-- Mobile Nav Strip -->
+<div class="mobile-nav-strip">
+  <a href="blogs.html">📚 Learn</a>
+  <a href="mentorship.html" class="active">🎓 Mentorship</a>
+  <a href="about.html">About</a>
+  <a href="privacy.html">Privacy</a>
+</div>
 
 <!-- Main -->
 <div id="main">
@@ -532,9 +570,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW · GEX ANALYTICS</span>
     </div>
     <div class="footer-links">
-      <a href="#about" onclick="document.getElementById('modal-about').style.display='flex';return false" class="footer-link">About Us</a>
-      <a href="#contact" onclick="document.getElementById('modal-contact').style.display='flex';return false" class="footer-link">Contact Us</a>
-      <a href="#privacy" onclick="document.getElementById('modal-privacy').style.display='flex';return false" class="footer-link">Privacy Policy</a>
+      <a href="about.html" class="footer-link">About Us</a>
+      <a href="about.html" class="footer-link">Contact Us</a>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
     </div>
   </div>
 </div>
