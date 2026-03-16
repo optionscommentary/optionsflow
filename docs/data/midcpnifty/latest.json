@@ -1,6 +1,6 @@
 {
-  "timestamp": "16 Mar 2026  20:25 IST",
-  "timestamp_iso": "2026-03-16T20:25:00.114037",
+  "timestamp": "16 Mar 2026  20:46 IST",
+  "timestamp_iso": "2026-03-16T20:46:46.613415",
   "index": "MIDCPNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 9.5,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 12605.95,
-  "atm_iv": 31.68,
-  "net_gex": -5.96,
+  "atm_iv": 31.7,
+  "net_gex": -20.69,
   "peak_gex_k": 13000,
   "gex_pin_top3": [
     13000,
@@ -33,7 +33,7 @@
   ],
   "pcr_atm": 1.388,
   "net_dealer_delta_cr": -0.16,
-  "gex_speed": 0.337894,
+  "gex_speed": 0.337881,
   "implied_lower": 11823,
   "implied_upper": 13377,
   "risk_reversal": -1.0,
@@ -41,7 +41,7 @@
   "vol_regime": "normal_vol",
   "conviction": "LOW",
   "oi_flow_label": "INITIAL OI SNAPSHOT",
-  "gex_tilt_label": "PUT-TILTED (1.6x)",
+  "gex_tilt_label": "PUT-TILTED (2.1x)",
   "straddle_pts": 617,
   "signals": {
     "gex_oi": 0,
