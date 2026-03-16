@@ -614,7 +614,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   const t = localStorage.getItem('oc-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', t);
   const b = document.getElementById('theme-btn');
-  if(b) b.textContent = t==='dark' ? '☀ Light' : '🌙 Dark';
+  if(b) b.textContent = t==='dark' ? '🌙 Dark' : '☀ Light';
 })();
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
