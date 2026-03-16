@@ -979,14 +979,14 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 (function(){
   const t = localStorage.getItem('oc-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', t);
-  document.getElementById('theme-btn').textContent = t==='dark' ? '☀ Light' : '🌙 Dark';
+  document.getElementById('theme-btn').textContent = t==='dark' ? '🌙 Dark' : '☀ Light';
 })();
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
   const nxt = cur==='dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
-  document.getElementById('theme-btn').textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
+  document.getElementById('theme-btn').textContent = nxt==='dark' ? '🌙 Dark' : '☀ Light';
 }
 function showArticle(id){
   document.getElementById('blog-index').style.display = 'none';
