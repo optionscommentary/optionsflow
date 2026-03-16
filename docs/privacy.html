@@ -180,6 +180,25 @@ button.nav-btn{background:var(--raised)}
   .page-hero h1{font-size:1.5rem}
   .content-wrap{padding:32px 16px 60px}
 }
+
+/* ── MOBILE NAV ── */
+.mobile-nav-strip{display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 10px;gap:8px;flex-wrap:wrap}
+.mobile-nav-strip a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;color:var(--t2);text-decoration:none;transition:all .15s}
+.mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
+@media(max-width:760px){.mobile-nav-strip{display:flex}}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:600px){
+  #topbar{padding:0 12px}
+  .tb-nav{gap:4px}
+  .nav-btn{padding:4px 8px;font-size:.62rem}
+  .page-hero{padding:32px 16px 28px}
+  .page-hero h1{font-size:1.5rem}
+  .content-wrap{padding:28px 16px 60px}
+  .toc{padding:14px 16px}
+  .policy-section ul li{flex-direction:column;gap:4px}
+  .contact-card{flex-direction:column;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -193,6 +212,7 @@ button.nav-btn{background:var(--raised)}
     <button class="nav-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
   </div>
 </nav>
+<div class="mobile-nav-strip"><a href="index.html">📊 Dashboard</a><a href="blogs.html">📚 Learn</a><a href="mentorship.html">🎓 Mentorship</a></div>
 
 <div class="page-hero">
   <div class="page-hero-inner">
@@ -282,7 +302,7 @@ button.nav-btn{background:var(--raised)}
       <li><strong style="color:var(--t1);margin-right:6px">Cloudflare Workers:</strong> Used to fetch live index price data (Nifty, BankNifty etc.) for the dashboard topbar. No personal data is transmitted.</li>
       <li><strong style="color:var(--t1);margin-right:6px">Google Fonts:</strong> Used for typography. Google may log font requests — see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--accent)">Google's Privacy Policy</a>.</li>
       <li><strong style="color:var(--t1);margin-right:6px">WhatsApp:</strong> Used for mentorship enquiries and bookings. Any conversation on WhatsApp is subject to <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener" style="color:var(--accent)">WhatsApp's Privacy Policy</a>.</li>
-      <li><strong style="color:var(--t1);margin-right:6px">Cloudflare Pages:</strong> This website is hosted on Cloudflare Pages. Cloudflare may collect standard server logs. See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" style="color:var(--accent)">Cloudflare's Privacy Policy</a>.</li>
+      <li><strong style="color:var(--t1);margin-right:6px">Netlify:</strong> This website is hosted on Cloudflare Pages. Cloudflare may collect standard server logs. See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" style="color:var(--accent)">Cloudflare's Privacy Policy</a>.</li>
     </ul>
   </div>
 
