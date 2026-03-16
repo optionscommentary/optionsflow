@@ -1,6 +1,6 @@
 {
-  "timestamp": "16 Mar 2026  19:32 IST",
-  "timestamp_iso": "2026-03-16T19:32:56.458257",
+  "timestamp": "16 Mar 2026  20:21 IST",
+  "timestamp_iso": "2026-03-16T20:21:01.770237",
   "index": "NIFTY",
   "expiry": "17-03-2026",
   "tte_days": 0.6,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 23349.75,
-  "atm_iv": 28.66,
-  "net_gex": 1170.85,
+  "atm_iv": 29.26,
+  "net_gex": 1196.74,
   "peak_gex_k": 23600,
   "gex_pin_top3": [
     23600,
@@ -18,8 +18,8 @@
     23400
   ],
   "gex_regime": "LONG",
-  "composite_score": 2,
-  "verdict": "NEUTRAL / RANGE",
+  "composite_score": 3,
+  "verdict": "MILD BULLISH",
   "put_support_levels": [
     23050,
     23100,
@@ -33,23 +33,23 @@
   ],
   "pcr_atm": 1.023,
   "net_dealer_delta_cr": -0.62,
-  "gex_speed": 82.923046,
+  "gex_speed": 82.771325,
   "implied_lower": 23291,
   "implied_upper": 23409,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
-  "conviction": "LOW",
-  "oi_flow_label": "CALL BUYERS DOMINANT",
-  "gex_tilt_label": "CALL-TILTED (1.7x)",
+  "conviction": "MEDIUM",
+  "oi_flow_label": "INITIAL OI SNAPSHOT",
+  "gex_tilt_label": "CALL-TILTED (1.8x)",
   "straddle_pts": 283,
   "signals": {
-    "gex_oi": 1,
-    "oi_flow": 2,
+    "gex_oi": 2,
+    "oi_flow": 0,
     "pcr": 0,
     "vex": 1,
     "skew": 0,
-    "fxiv": -2
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
