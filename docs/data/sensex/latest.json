@@ -1,6 +1,6 @@
 {
-  "timestamp": "17 Mar 2026  22:46 IST",
-  "timestamp_iso": "2026-03-17T22:46:47.572863",
+  "timestamp": "18 Mar 2026  00:25 IST",
+  "timestamp_iso": "2026-03-18T00:25:18.370354",
   "index": "SENSEX",
   "expiry": "19-03-2026",
   "tte_days": 2.0,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 76049.18,
-  "atm_iv": 24.33,
-  "net_gex": -941.97,
+  "atm_iv": 31.7,
+  "net_gex": -86.81,
   "peak_gex_k": 76000,
   "gex_pin_top3": [
     76000,
@@ -18,8 +18,8 @@
     75500
   ],
   "gex_regime": "SHORT",
-  "composite_score": 1,
-  "verdict": "MILD BULLISH",
+  "composite_score": 0,
+  "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     75400,
     75500,
@@ -33,16 +33,16 @@
     76500
   ],
   "pcr_atm": 0.888,
-  "net_dealer_delta_cr": 0.02,
-  "gex_speed": 9.863803,
+  "net_dealer_delta_cr": 0.01,
+  "gex_speed": 9.861345,
   "implied_lower": 75978,
   "implied_upper": 76022,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
-  "conviction": "MEDIUM",
+  "conviction": "LOW",
   "oi_flow_label": "MIXED / BALANCED FLOW",
-  "gex_tilt_label": "PUT-TILTED (2.3x)",
+  "gex_tilt_label": "PUT-TILTED (2.4x)",
   "straddle_pts": 1007,
   "signals": {
     "gex_oi": 0,
