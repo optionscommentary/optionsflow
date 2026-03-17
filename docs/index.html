@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="WhqbYyqNK1mlNTzxh61NwhHpiHpoNAPlUrrStmTFq88" />
 <title>Options Flow Dashboard</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="/fevicon.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/fevicon.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/fevicon.io/favicon-16x16.png">
+<link rel="manifest" href="/fevicon.io/site.webmanifest">
+<link rel="shortcut icon" href="/fevicon.io/favicon.ico">
+
 <meta name="description" content="Free NIFTY, BankNIFTY & Sensex options flow dashboard — Gamma Exposure (GEX), Vanna, Charm, dealer positioning and implied volatility analytics for Indian options traders.">
 <meta name="keywords" content="NIFTY GEX, BankNIFTY gamma exposure, options flow India, dealer positioning NSE, vanna exposure, charm exposure, implied volatility, options analytics India, GEX dashboard">
 <meta name="author" content="Options Flow Dashboard">
@@ -286,7 +293,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
 @media(max-width:760px){.mobile-nav-strip{display:flex}}
 </style>
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -297,7 +303,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
 <body>
 
-<!-- Contact Strip -->
 <div class="contact-strip">
   <span class="cs-lbl">Connect</span>
   <a class="cs-link" href="https://wa.me/919677446082" target="_blank" rel="noopener">
@@ -323,7 +328,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <div style="margin-left:auto"></div>
 </div>
 
-<!-- Topbar -->
 <header id="topbar">
   <div class="tb-brand"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></div>
   <div class="tb-pills">
@@ -346,15 +350,12 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </header>
 
-<!-- Mobile Nav Strip -->
 <div class="mobile-nav-strip">
   <a href="blogs.html">📚 Learn</a>
   <a href="mentorship.html">🎓 Mentorship</a>
 </div>
 
-<!-- Main -->
 <div id="main">
-  <!-- Index tabs row -->
   <div class="tabs-bar">
     <div class="tabs-scroll">
       <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty')">NIFTY</button>
@@ -365,7 +366,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
   </div>
 
-  <!-- NIFTY Panel -->
   <div id="panel-nifty" class="idx-panel on">
     <div id="pills-nifty" class="pills"></div>
     <div class="sub-tabs">
@@ -394,7 +394,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-nifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- BANKNIFTY Panel -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
     <div class="sub-tabs">
@@ -423,7 +422,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-banknifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- SENSEX Panel -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
     <div class="sub-tabs">
@@ -452,7 +450,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-sensex-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- FINNIFTY Panel -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
     <div class="sub-tabs">
@@ -481,7 +478,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-finnifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- MIDCPNIFTY Panel -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
     <div class="sub-tabs">
@@ -511,7 +507,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </div>
 
-<!-- Footer -->
 <div class="footer">
   <div class="mobile-social" style="display:none">
     <a href="https://wa.me/919677446082" target="_blank" rel="noopener">
@@ -551,7 +546,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </div>
 
-<!-- Modals -->
 <div id="modal-about" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:520px;width:90%;position:relative">
     <button onclick="this.closest('#modal-about').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
@@ -603,7 +597,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </div>
 
-<!-- Lightbox -->
 <div id="lbx" onclick="closeLbx()">
   <span id="lbx-x" onclick="closeLbx()">✕</span>
   <img id="lbx-img" src="" alt="zoom">
