@@ -7,11 +7,11 @@
 <meta name="google-site-verification" content="WhqbYyqNK1mlNTzxh61NwhHpiHpoNAPlUrrStmTFq88" />
 <title>Options Flow Dashboard</title>
 
-<link rel="apple-touch-icon" sizes="180x180" href="/fevicon.io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/fevicon.io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/fevicon.io/favicon-16x16.png">
-<link rel="manifest" href="/fevicon.io/site.webmanifest">
-<link rel="shortcut icon" href="/fevicon.io/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.io/favicon-16x16.png">
+<link rel="manifest" href="/favicon.io/site.webmanifest">
+<link rel="shortcut icon" href="/favicon.io/favicon.ico">
 
 <meta name="description" content="Free NIFTY, BankNIFTY & Sensex options flow dashboard — Gamma Exposure (GEX), Vanna, Charm, dealer positioning and implied volatility analytics for Indian options traders.">
 <meta name="keywords" content="NIFTY GEX, BankNIFTY gamma exposure, options flow India, dealer positioning NSE, vanna exposure, charm exposure, implied volatility, options analytics India, GEX dashboard">
@@ -702,7 +702,7 @@ async function fetchLive(idx){
     const r=await fetch(`${WORKER_URL}/quotes?index=${idx}`,{signal:AbortSignal.timeout(8000)});
     if(!r.ok) throw new Error();
     const d=await r.json();
-    if(!d.ok||!d.price) throw new Error();
+    if(!d.ok||d.price) throw new Error();
     applyPrice(d.price, d.prev||d.price);
     return;
   }catch{}
