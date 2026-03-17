@@ -1,6 +1,6 @@
 {
-  "timestamp": "17 Mar 2026  22:23 IST",
-  "timestamp_iso": "2026-03-17T22:23:39.911113",
+  "timestamp": "17 Mar 2026  22:31 IST",
+  "timestamp_iso": "2026-03-17T22:31:49.669822",
   "index": "NIFTY",
   "expiry": "24-03-2026",
   "tte_days": 5.0,
@@ -33,7 +33,7 @@
   ],
   "pcr_atm": 1.024,
   "net_dealer_delta_cr": -0.17,
-  "gex_speed": 13.356592,
+  "gex_speed": 13.356514,
   "implied_lower": 23585,
   "implied_upper": 23615,
   "risk_reversal": -1.0,
