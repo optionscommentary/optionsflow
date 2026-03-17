@@ -1,16 +1,16 @@
 {
-  "timestamp": "17 Mar 2026  15:15 IST",
-  "timestamp_iso": "2026-03-17T15:15:16.511605",
+  "timestamp": "17 Mar 2026  15:21 IST",
+  "timestamp_iso": "2026-03-17T15:21:08.013029",
   "index": "MIDCPNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 9.0,
-  "spot": 12743.45,
-  "spot_prev": 12743.45,
+  "spot": 12733.1,
+  "spot_prev": 12733.1,
   "spot_chg": 0.0,
   "spot_pct": 0.0,
-  "synthetic_futures": 12755.55,
-  "atm_iv": 26.77,
-  "net_gex": -5.81,
+  "synthetic_futures": 12749.35,
+  "atm_iv": 26.5,
+  "net_gex": -6.57,
   "peak_gex_k": 13000,
   "gex_pin_top3": [
     13000,
@@ -18,7 +18,7 @@
     12500
   ],
   "gex_regime": "SHORT",
-  "composite_score": 1,
+  "composite_score": 0,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     12600,
@@ -31,11 +31,11 @@
     12775,
     12800
   ],
-  "pcr_atm": 1.021,
+  "pcr_atm": 1.022,
   "net_dealer_delta_cr": -0.13,
-  "gex_speed": 0.518007,
-  "implied_lower": 12738,
-  "implied_upper": 12762,
+  "gex_speed": 0.503244,
+  "implied_lower": 12734,
+  "implied_upper": 12766,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
@@ -49,7 +49,7 @@
     "pcr": 0,
     "vex": -1,
     "skew": 0,
-    "fxiv": 0
+    "fxiv": -1
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
