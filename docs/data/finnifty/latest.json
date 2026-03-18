@@ -1,6 +1,6 @@
 {
-  "timestamp": "18 Mar 2026  15:51 IST",
-  "timestamp_iso": "2026-03-18T15:51:29.735482",
+  "timestamp": "18 Mar 2026  16:02 IST",
+  "timestamp_iso": "2026-03-18T16:02:34.049433",
   "index": "FINNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 7.0,
@@ -10,7 +10,7 @@
   "spot_pct": 0.0,
   "synthetic_futures": 25937.62,
   "atm_iv": 19.52,
-  "net_gex": 23.41,
+  "net_gex": 22.68,
   "peak_gex_k": 25500,
   "gex_pin_top3": [
     25500,
@@ -18,7 +18,7 @@
     26000
   ],
   "gex_regime": "LONG",
-  "composite_score": -1,
+  "composite_score": 0,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     25650,
@@ -41,7 +41,7 @@
   "vol_regime": "normal_vol",
   "conviction": "LOW",
   "oi_flow_label": "MIXED / BALANCED FLOW",
-  "gex_tilt_label": "CALL-TILTED (1.8x)",
+  "gex_tilt_label": "CALL-TILTED (1.7x)",
   "straddle_pts": 740,
   "signals": {
     "gex_oi": 2,
