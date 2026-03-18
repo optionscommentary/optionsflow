@@ -1,6 +1,6 @@
 {
-  "timestamp": "18 Mar 2026  16:01 IST",
-  "timestamp_iso": "2026-03-18T16:01:27.182976",
+  "timestamp": "18 Mar 2026  17:19 IST",
+  "timestamp_iso": "2026-03-18T17:19:32.533116",
   "index": "SENSEX",
   "expiry": "19-03-2026",
   "tte_days": 1.0,
@@ -10,7 +10,7 @@
   "spot_pct": 0.0,
   "synthetic_futures": 76644.05,
   "atm_iv": 20.27,
-  "net_gex": 2910.98,
+  "net_gex": 2826.97,
   "peak_gex_k": 77000,
   "gex_pin_top3": [
     77000,
