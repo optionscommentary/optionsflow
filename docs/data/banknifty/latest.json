@@ -1,6 +1,6 @@
 {
-  "timestamp": "18 Mar 2026  15:49 IST",
-  "timestamp_iso": "2026-03-18T15:49:13.667344",
+  "timestamp": "18 Mar 2026  16:00 IST",
+  "timestamp_iso": "2026-03-18T16:00:17.729715",
   "index": "BANKNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 7.0,
@@ -10,7 +10,7 @@
   "spot_pct": 0.0,
   "synthetic_futures": 55418.25,
   "atm_iv": 19.45,
-  "net_gex": -25.8,
+  "net_gex": -26.37,
   "peak_gex_k": 56000,
   "gex_pin_top3": [
     56000,
@@ -18,7 +18,7 @@
     55000
   ],
   "gex_regime": "SHORT",
-  "composite_score": -1,
+  "composite_score": -2,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     54800,
@@ -40,16 +40,16 @@
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "LOW",
-  "oi_flow_label": "CALL BUYERS DOMINANT",
+  "oi_flow_label": "MIXED / BALANCED FLOW",
   "gex_tilt_label": "BALANCED \u2014 slightly PUT-leaning (0.98x)",
   "straddle_pts": 1555,
   "signals": {
-    "gex_oi": 1,
-    "oi_flow": 2,
+    "gex_oi": 0,
+    "oi_flow": 0,
     "pcr": -1,
     "vex": -1,
     "skew": -1,
-    "fxiv": -2
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
