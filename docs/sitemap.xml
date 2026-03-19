@@ -6,27 +6,27 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://optionsflow.in/blogs.html</loc>
+    <loc>https://optionsflow.in/blogs</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://optionsflow.in/mentorship.html</loc>
+    <loc>https://optionsflow.in/mentorship</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://optionsflow.in/about.html</loc>
+    <loc>https://optionsflow.in/about</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://optionsflow.in/contact.html</loc>
+    <loc>https://optionsflow.in/contact</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://optionsflow.in/privacy.html</loc>
+    <loc>https://optionsflow.in/privacy</loc>
     <priority>0.6</priority>
     <changefreq>yearly</changefreq>
   </url>
