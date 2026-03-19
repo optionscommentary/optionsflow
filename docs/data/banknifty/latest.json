@@ -1,6 +1,6 @@
 {
-  "timestamp": "19 Mar 2026  19:05 IST",
-  "timestamp_iso": "2026-03-19T19:05:06.373658",
+  "timestamp": "19 Mar 2026  19:30 IST",
+  "timestamp_iso": "2026-03-19T19:30:33.345499",
   "index": "BANKNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 6.0,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 53745.55,
-  "atm_iv": 26.23,
-  "net_gex": -705.24,
+  "atm_iv": 26.25,
+  "net_gex": -705.38,
   "peak_gex_k": 55000,
   "gex_pin_top3": [
     55000,
@@ -33,7 +33,7 @@
   ],
   "pcr_atm": 1.576,
   "net_dealer_delta_cr": -0.18,
-  "gex_speed": 0.926767,
+  "gex_speed": 0.926532,
   "implied_lower": 53405,
   "implied_upper": 53995,
   "risk_reversal": -1.0,
