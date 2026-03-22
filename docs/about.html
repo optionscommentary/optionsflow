@@ -251,6 +251,11 @@ button.nav-btn{background:var(--raised)}
       <h3>Dealer Positioning</h3>
       <p>Estimates whether market makers are long or short gamma at each strike — strike by strike — using OI change, IV direction and moneyness signals.</p>
     </div>
+    <div class="what-card">
+      <div class="what-card-icon" style="color:#4DD0E1">⬡</div>
+      <h3>Volume Flow Analytics</h3>
+      <p>Session volume, Volume/OI Ratio (VOR) per strike, Volume PCR vs OI PCR divergence, hottest strike detection and wall quality tagging — separating fresh conviction from stale legacy positions.</p>
+    </div>
   </div>
 
   <!-- STORY -->
@@ -275,7 +280,7 @@ button.nav-btn{background:var(--raised)}
     </div>
     <div class="metrics-row">
       <div class="metric"><div class="metric-val">5</div><div class="metric-label">Indices covered</div></div>
-      <div class="metric"><div class="metric-val">11</div><div class="metric-label">Chart types per index</div></div>
+      <div class="metric"><div class="metric-val">14</div><div class="metric-label">Chart types per index</div></div>
       <div class="metric"><div class="metric-val">4</div><div class="metric-label">Dealer scenarios modelled</div></div>
       <div class="metric"><div class="metric-val">Free</div><div class="metric-label">Always, no login needed</div></div>
     </div>
@@ -292,6 +297,7 @@ button.nav-btn{background:var(--raised)}
       <li><span class="m-label">Prob. GEX</span>Strike-by-strike dealer positioning estimated using five signals: IV direction, OI change, moneyness, ATM proximity and recency weighting.</li>
       <li><span class="m-label">VEX / CEX</span>Vanna and charm computed per strike, aggregated across the estimated dealer book. Most meaningful in the final 5 days before expiry.</li>
       <li><span class="m-label">Vol Surface</span>Full implied volatility surface across strikes and expiries, plotted as an interactive 3D chart.</li>
+      <li><span class="m-label">Volume Flow</span>Session call/put volume per strike, Volume/OI Ratio (VOR) conviction scoring, Volume PCR vs OI PCR divergence, and hottest strike identification. Active vs stale structural level tagging.</li>
     </ul>
   </div>
 
