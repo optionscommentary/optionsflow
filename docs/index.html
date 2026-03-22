@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="WhqbYyqNK1mlNTzxh61NwhHpiHpoNAPlUrrStmTFq88" />
 <title>Options Flow Dashboard</title>
-<meta name="description" content="Free NIFTY, BankNIFTY & Sensex options flow dashboard — Gamma Exposure (GEX), Vanna, Charm, dealer positioning and implied volatility analytics for Indian options traders.">
-<meta name="keywords" content="NIFTY GEX, BankNIFTY gamma exposure, options flow India, dealer positioning NSE, vanna exposure, charm exposure, implied volatility, options analytics India, GEX dashboard">
+<meta name="description" content="Free NIFTY, BankNIFTY & Sensex options flow dashboard — Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow analytics and implied volatility for Indian options traders.">
+<meta name="keywords" content="NIFTY GEX, BankNIFTY gamma exposure, options flow India, dealer positioning NSE, vanna exposure, charm exposure, implied volatility, options analytics India, GEX dashboard, volume PCR, VOR options, options volume analysis">
 <meta name="author" content="Options Flow Dashboard">
 <meta property="og:title" content="Options Flow Dashboard — NIFTY GEX & Dealer Analytics">
 <meta property="og:description" content="Free real-time GEX, Vanna, Charm and dealer flow analytics for NIFTY, BankNIFTY, Sensex, FinNIFTY and MidCap.">
@@ -159,14 +159,42 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 3px; font-weight: 700; }
 .pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--t1); }
 
-.sub-tabs { display: flex; flex-wrap: wrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow: hidden; }
-.stab { padding: 10px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; background: transparent; color: var(--t3); cursor: pointer; border-right: 1px solid var(--border); border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; flex-shrink: 0; }
+.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow-x: auto; overflow-y: visible; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sub-tabs::-webkit-scrollbar { height: 3px; }
+.sub-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.stab {
+  padding: 7px 14px;
+  min-height: 52px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  color: var(--t3);
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 150px;
+}
 .stab:last-child { border-right: none; }
 .stab:hover { background: var(--hover); color: var(--t2); }
 .stab.on { background: var(--raised); color: var(--accent); border-bottom-color: var(--accent); }
 .stab-prob { color: var(--prob-color) !important; }
 .stab-volsurf { color: var(--volsurf-color) !important; }
 .stab-synopsis { color: var(--synopsis-color) !important; }
+.stab-vol { color: #4DD0E1 !important; }
+[data-theme="light"] .stab-vol { color: #00695C !important; }
 .stab-panel { display: none; padding: 16px 0 0; }
 .stab-panel.on { display: block; }
 
@@ -376,11 +404,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">CEX</button>
       <button class="stab" data-key="itmvex" onclick="switchStab('nifty','itmvex',this)">ITM VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">Top GEX</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('nifty','prob',this)">Probable Positioning</button>
-      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-nifty-oi" class="stab-panel on"></div>
@@ -405,11 +433,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">CEX</button>
       <button class="stab" data-key="itmvex" onclick="switchStab('banknifty','itmvex',this)">ITM VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">Top GEX</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('banknifty','prob',this)">Probable Positioning</button>
-      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-banknifty-oi" class="stab-panel on"></div>
@@ -434,11 +462,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">CEX</button>
       <button class="stab" data-key="itmvex" onclick="switchStab('sensex','itmvex',this)">ITM VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">Top GEX</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('sensex','prob',this)">Probable Positioning</button>
-      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-sensex-oi" class="stab-panel on"></div>
@@ -463,11 +491,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">CEX</button>
       <button class="stab" data-key="itmvex" onclick="switchStab('finnifty','itmvex',this)">ITM VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">Top GEX</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('finnifty','prob',this)">Probable Positioning</button>
-      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-finnifty-oi" class="stab-panel on"></div>
@@ -492,11 +520,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">CEX</button>
       <button class="stab" data-key="itmvex" onclick="switchStab('midcpnifty','itmvex',this)">ITM VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Vol Skew</button>
+      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">Top GEX</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">Probable Positioning</button>
-      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">Vol Surface</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
     <div id="sp-midcpnifty-oi" class="stab-panel on"></div>
@@ -632,7 +660,7 @@ function toggleTheme(){
 
 /* ── CONFIG ─────────────────────────────────────────── */
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS   = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];
+const STABS   = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];  // removed volprofile, volratio, volpcr
 const PLOT_KEY = {
   oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',
   itmvex:'itm_vex', skew:'vol_skew', pcr:'pcr_table', topgex:'top_gamma',
@@ -642,14 +670,16 @@ const CHART_TITLE = {
   oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',
   vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',
   itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',
-  pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes',
-  prob:'Probable Positioning Analysis', volsurf:'Implied Volatility Surface',
+  pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',
+  prob:'Probable Positioning Analysis',
+  volsurf:'Implied Volatility Surface',
 };
 const CHART_BADGE = {
   oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',
   cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',
-  pcr:'Blue=Calls · Orange=Puts', topgex:'Abs GEX · ATM Highlighted',
-  prob:'GEX + Candles · PCR + OI Synthesised', volsurf:'',
+  pcr:'OI PCR + Volume PCR', topgex:'Abs GEX · Volume · VOR',
+  prob:'GEX + Candles · PCR + OI Synthesised',
+  volsurf:'',
 };
 const YF = {
   nifty:'^NSEI', banknifty:'^NSEBANK', sensex:'^BSESN',
@@ -746,7 +776,7 @@ function chartHtml(idx, data, key){
                   border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a>
       </div>
       <div class="vol-surface-wrap">
-        <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Vol Surface"></iframe>
+        <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Volatility Surface"></iframe>
       </div>
     </div>`;
   }
@@ -798,6 +828,9 @@ function _synFallback(idx, data){
     +'<div class="kv-item"><div class="kv-lbl">SPOT<\/div><div class="kv-val">'+f(data.spot)+'<\/div><\/div>'
     +'<div class="kv-item"><div class="kv-lbl">PUT SUPPORT<\/div><div class="kv-val" style="color:var(--pos);font-size:.75rem">'+sup+'<\/div><\/div>'
     +'<div class="kv-item"><div class="kv-lbl">CALL RESIST<\/div><div class="kv-val" style="color:var(--neg);font-size:.75rem">'+res+'<\/div><\/div>'
+    +(data.vol_pcr_session!=null?'<div class="kv-item"><div class="kv-lbl">VOL PCR<\/div><div class="kv-val" style="color:'+(data.vol_pcr_session>1?'var(--put)':'var(--call)')+'">'+f(data.vol_pcr_session,2)+'<\/div><\/div>':'')
+    +(data.vol_confirmation?'<div class="kv-item"><div class="kv-lbl">VOL CONFIRM<\/div><div class="kv-val" style="color:'+(data.vol_confirmation==='HIGH'?'var(--pos)':data.vol_confirmation==='LOW'?'var(--neg)':'var(--t3)')+'">'+data.vol_confirmation+'<\/div><\/div>':'')
+    +(data.hottest_strike?'<div class="kv-item"><div class="kv-lbl">HOT STRIKE<\/div><div class="kv-val" style="color:var(--accent)">'+f(data.hottest_strike)+'<\/div><\/div>':'')
     +'<\/div><\/div><\/div>';
 }
 
@@ -839,7 +872,9 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'].forEach(key=>{
+  // Render only the remaining keys
+  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'];
+  activeKeys.forEach(key=>{
     const sp=document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
     if(sp.classList.contains('on')){
@@ -897,22 +932,11 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
 /* ── INIT ── */
 (async()=>{
-  Promise.all(INDICES.map(i=>fetchData(i))).then(results=>{
-    INDICES.forEach((i,n)=>{ if(results[n]) renderIndex(i,results[n]); });
-  });
-  updateTickers();
-  setInterval(updateTickers, 60000);
-  const _lastTs={};
-  setInterval(function(){
-    INDICES.forEach(function(i){
-      fetchData(i,true).then(function(d){
-        if(d&&d.timestamp_iso&&d.timestamp_iso!==_lastTs[i]){
-          _lastTs[i]=d.timestamp_iso;
-          renderIndex(i,d);
-        }
-      });
-    });
-  }, 30000);
+  Promise.all(INDICES.map(idx=>fetchData(idx))).then(()=>{
+    switchIdx('nifty');
+    updateTickers();
+    setInterval(updateTickers,30000);
+  }).catch(e=>console.warn('Init fetch error',e));
 })();
 </script>
 </body>
