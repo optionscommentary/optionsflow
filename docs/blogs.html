@@ -250,8 +250,6 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>Everything I've learned about GEX, dealer positioning, Vanna, Charm and reading the NSE options market structure — written in plain language. Start from Article 1 if you're new, or jump to wherever you need.</p>
   </div>
 
-  <!-- COURSE BANNER -->
-
   <!-- LEVEL 0 — BEGINNER -->
   <div class="level-label">Level 0 — Start Here · Complete Beginner</div>
   <div class="blog-index-grid">
@@ -390,12 +388,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div><!-- /blog-index -->
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b1 — Calls Puts Basics -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b1" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Beginner · Article 1 of 15 · 5 min read</div>
+  <div class="article-tag">Beginner · Article 1 of 19 · 5 min read</div>
   <h1 class="article-title">Calls, Puts and How NSE Options Actually Work</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Foundations</span><span>5 min read</span></div>
   <div class="article-body">
@@ -432,12 +428,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b2 — Open Interest -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b2" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Beginner · Article 2 of 15 · 5 min read</div>
+  <div class="article-tag">Beginner · Article 2 of 19 · 5 min read</div>
   <h1 class="article-title">Open Interest: The Number Everyone Watches But Few Understand</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Foundations</span><span>5 min read</span></div>
   <div class="article-body">
@@ -471,12 +465,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b3 — Delta and Gamma -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b3" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Beginner · Article 3 of 15 · 6 min read</div>
+  <div class="article-tag">Beginner · Article 3 of 19 · 6 min read</div>
   <h1 class="article-title">Delta and Gamma Without the Maths — What They Actually Mean</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>The Greeks</span><span>6 min read</span></div>
   <div class="article-body">
@@ -510,12 +502,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE a1 — GEX (existing, preserved) -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-a1" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Foundations · Article 4 of 15 · 8 min read</div>
+  <div class="article-tag">Foundations · Article 4 of 19 · 8 min read</div>
   <h1 class="article-title">What Is Gamma Exposure (GEX) and Why Every Trader Should Know It</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Foundations</span><span>8 min read</span></div>
   <div class="article-body">
@@ -554,32 +544,19 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- ARTICLE a2 — Dealer Positioning (existing, preserved) -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ARTICLE a2 — Dealer Positioning Decoded (cleaned) -->
 <div id="art-a2" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Deep Dive · Article 5 of 15 · 7 min read</div>
+  <div class="article-tag">Deep Dive · Article 5 of 19 · 7 min read</div>
   <h1 class="article-title">Dealer Positioning Decoded: How Probable GEX Is Calculated</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Dealer Flow</span><span>7 min read</span></div>
   <div class="article-body">
     <p>The four GEX scenario charts give a range of possibilities for dealer positioning. But they all assume the same posture applies uniformly to every single strike on the chain. That assumption is too crude. In practice, a market maker might be long gamma at the 24,000 strike (because large institutional writers sold calls there) but short gamma at the 23,500 strike (because retail traders bought protective puts aggressively). The <strong>Probable GEX chart</strong> attempts to resolve this strike-by-strike.</p>
     <h2>The Core Question</h2>
     <p>When OI increases at a particular strike, the critical question is: <em>Who opened that position?</em> A writer selling calls to collect premium has the opposite P&L profile from a buyer purchasing calls for protection or direction. Crucially, from the market-maker perspective, these two transactions result in opposite gamma positions — one makes the dealer long gamma at that strike, the other makes them short.</p>
-    <h2>The Five Signals We Use</h2>
-    <h3>1. IV Direction (Primary Signal)</h3>
-    <p>When a large institutional writer sells options, they are adding supply to the options market. Supply pushes prices down. Because options are priced in terms of implied volatility, more selling means IV falls or stays flat. When buyers are dominant, demand pushes IV up. So: <strong>OI rising + IV flat or falling = writers</strong>. <strong>OI rising + IV rising = buyers</strong>.</p>
-    <h3>2. GEX/OI Proportionality</h3>
-    <p>Writers tend to sell near-the-money options where gamma is highest. Buyers tend to buy cheap OTM options where gamma per rupee of premium is lower.</p>
-    <h3>3. Strike Moneyness × Market Direction</h3>
-    <p>Context matters. OTM call OI rising while the market is also rising is consistent with call writers following the market up. The analysis uses the synthetic futures price as the best available estimate of market direction between snapshots.</p>
-    <h3>4. Proximity to ATM</h3>
-    <p>ATM strikes carry more informational weight. A large OI change at the ATM strike has a bigger impact on dealer gamma than the same OI change deep OTM.</p>
-    <h3>5. Recency Weighting</h3>
-    <p>Not all historical snapshots are equally relevant. The most recent OI changes reflect the freshest positioning. Each OI snapshot is weighted exponentially — the most recent gets full weight, and each prior snapshot receives 85% of the previous one's weight.</p>
-    <h2>Signed Delta Accumulation: The Key Idea</h2>
-    <p>Rather than labelling an entire strike as "dealer long" or "dealer short," the analysis tracks each OI increment individually and signs it based on the evidence at the time it was added.</p>
-    <div class="highlight-box"><strong>Example:</strong> Over the course of a session, 2,000 lots of writer activity accumulate at the 24,000 call (dealer long gamma). Then in the last 30 minutes, 500 lots of buyer activity appear. Net: 1,500 lots dealer-long equivalent. The whole strike does not get relabelled just because some buyers arrived late.</div>
+    <h2>Signals Used in the Analysis</h2>
+    <p>The analysis uses a combination of IV changes, OI changes, GEX proportionality, market context, and recency weighting to infer dealer positioning. More recent OI changes carry more weight, and the context of the price move (whether the market is rising or falling) helps distinguish writers from buyers.</p>
+    <div class="highlight-box"><strong>Example:</strong> When OI rises at a strike and implied volatility falls, it's more consistent with writers (supply) than buyers (demand). Over time, these signals are aggregated into a cumulative ledger of dealer gamma at each strike.</div>
     <h2>What the Chart Shows You</h2>
     <p><strong>Positive (blue) bars</strong>: Dealer is estimated to be long gamma at this strike. Market-maker hedging will dampen moves in either direction away from this level.</p>
     <p><strong>Negative (orange) bars</strong>: Dealer is estimated to be short gamma at this strike. Moves through this level may be amplified.</p>
@@ -593,12 +570,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE a3 — Vanna Charm (existing, preserved) -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-a3" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Greeks · Article 6 of 15 · 6 min read</div>
+  <div class="article-tag">Greeks · Article 6 of 19 · 6 min read</div>
   <h1 class="article-title">Vanna and Charm: The Greeks That Move Markets at Expiry</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Second-Order Greeks</span><span>6 min read</span></div>
   <div class="article-body">
@@ -614,8 +589,6 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>This is why you frequently see persistent selling pressure in OTM call strikes through Thursday and Friday of expiry week, even when Nifty isn't moving dramatically. It is charm unwind — market makers mechanically reducing their delta hedges as time value bleeds out.</p>
     <h2>Charm Exposure (CEX) — What the Chart Shows</h2>
     <p>The CEX chart aggregates charm across all positions in the estimated dealer book. A net positive charm number means the aggregate dealer book will need to <em>reduce long delta hedges</em> as time passes — effectively selling pressure from charm. CEX tends to be most meaningful in the 2-5 days before expiry.</p>
-    <h2>The ITM VEX Chart</h2>
-    <p>The ITM Vanna Exposure chart tracks the net vanna from options that are already in the money. This chart is particularly useful for understanding what happens to dealer hedges if the market makes a large, sustained directional move that brings a batch of OTM strikes into the money.</p>
     <h2>Why This Matters for Your Trading</h2>
     <p>Vanna and charm flows do not respond to news or sentiment. They are purely mechanical, time-and-vol-driven. Understanding the direction and magnitude of these flows gives you a structural edge: you know roughly where the systematic selling or buying will come from before it happens.</p>
   </div>
@@ -627,12 +600,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b4 — PCR -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b4" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Indicator · Article 7 of 15 · 5 min read</div>
+  <div class="article-tag">Indicator · Article 7 of 19 · 5 min read</div>
   <h1 class="article-title">Put-Call Ratio (PCR): What It Actually Tells You About Nifty Direction</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Flow Indicators</span><span>5 min read</span></div>
   <div class="article-body">
@@ -663,12 +634,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b5 — Call Wall Put Wall -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b5" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Structure · Article 8 of 15 · 6 min read</div>
+  <div class="article-tag">Structure · Article 8 of 19 · 6 min read</div>
   <h1 class="article-title">Call Wall & Put Wall: Options-Based Support and Resistance That Actually Works</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Market Structure</span><span>6 min read</span></div>
   <div class="article-body">
@@ -698,12 +667,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b6 — Zero Gamma Line -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b6" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Key Level · Article 9 of 15 · 5 min read</div>
+  <div class="article-tag">Key Level · Article 9 of 19 · 5 min read</div>
   <h1 class="article-title">Zero Gamma Line: The Most Important Level on the Entire Chart</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Market Structure</span><span>5 min read</span></div>
   <div class="article-body">
@@ -718,9 +685,6 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>Above the ZGL: dealers are long gamma, they buy dips and sell rips. Every move is gently countered. The market gravitates toward ranges, and sharp moves get absorbed quickly. This is comfortable territory for range-bound traders.</p>
     <p>Below the ZGL: dealers are short gamma, they sell dips and buy rips. Every move gets amplified. A 50-point fall can cascade to 200 points not because of news, but because of the mechanical hedging feedback loop. This is where market conditions become genuinely dangerous for option sellers and delta-neutral strategies.</p>
 
-    <h2>ZGL vs GEX Pin — Different Things</h2>
-    <p>People sometimes confuse the ZGL with the GEX Pin. They're not the same. The GEX Pin is the strike with maximum absolute gamma — the magnetic centre. The ZGL is the level where aggregate gamma changes sign. You can have the Pin at 24,000 and the ZGL at 23,600. In that case, above 23,600 you're in a stable long-gamma environment gravitating toward 24,000. Below 23,600 you're in amplifying short-gamma territory regardless of the pin.</p>
-
     <div class="highlight-box">
       <strong>How I use it:</strong> I check the ZGL before the market opens every day. If Nifty is well above it, I'm thinking range-bound, premium-selling, iron condor territory. If we're near the ZGL or below it, I'm thinking protective, directional, long-gamma strategies. The ZGL is the single number that tells me what kind of market I'm walking into.
     </div>
@@ -733,12 +697,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE a4 — Vol Skew (existing, preserved) -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-a4" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Volatility · Article 10 of 15 · 7 min read</div>
+  <div class="article-tag">Volatility · Article 10 of 19 · 7 min read</div>
   <h1 class="article-title">Reading the Volatility Skew: What OTM Puts and Calls Are Really Saying</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Volatility</span><span>7 min read</span></div>
   <div class="article-body">
@@ -776,12 +738,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b7 — Vol Surface -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b7" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Volatility · Article 11 of 15 · 5 min read</div>
+  <div class="article-tag">Volatility · Article 11 of 19 · 5 min read</div>
   <h1 class="article-title">The Vol Surface Explained: What That 3D Chart Is Actually Showing You</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Advanced Volatility</span><span>5 min read</span></div>
   <div class="article-body">
@@ -812,12 +772,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b8 — India VIX -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b8" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Volatility · Article 12 of 15 · 6 min read</div>
+  <div class="article-tag">Volatility · Article 12 of 19 · 6 min read</div>
   <h1 class="article-title">India VIX: How Fear Connects to Your Dashboard Data</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Volatility Context</span><span>6 min read</span></div>
   <div class="article-body">
@@ -847,12 +805,10 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b9 — Weekly vs Monthly -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b9" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag">Expiry · Article 13 of 15 · 6 min read</div>
+  <div class="article-tag">Expiry · Article 13 of 19 · 6 min read</div>
   <h1 class="article-title">Weekly vs Monthly Expiry: How GEX Behaviour Changes Across Cycles</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Expiry Dynamics</span><span>6 min read</span></div>
   <div class="article-body">
@@ -882,13 +838,124 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- ARTICLE a5 — Dashboard Walkthrough (existing, preserved) -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ARTICLE v1 — Why Volume Matters (cleaned) -->
+<div id="art-v1" class="article-wrap">
+  <button class="article-back" onclick="showIndex()">← All Articles</button>
+  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 14 of 19 · 6 min read</div>
+  <h1 class="article-title">Why Volume Matters in Options: OI Tells You What, Volume Tells You When</h1>
+  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>6 min read</span></div>
+  <div class="article-body">
+    <p>If you've spent any time reading the articles on this dashboard, you know we rely heavily on Open Interest — the count of live contracts at every strike. OI is the backbone of GEX, PCR, Vanna, Charm, and the Probable Positioning engine. But there's always been a blind spot: OI tells you the accumulated structure. It doesn't tell you whether anyone is paying attention to it today.</p>
+    <p>That's exactly what volume fills in. And with volume now integrated into every layer of this dashboard — the charts, the positioning engine, the Synopsis, the PCR table — it's worth spending time understanding what it actually tells you and, just as importantly, what it doesn't.</p>
 
-<!-- ═══════════════════════════════════════════════ -->
+    <h2>The Core Difference</h2>
+    <p><strong>Open Interest</strong> is a running tally of all contracts that haven't been closed or expired. When a call writer sells a 24,000 strike call and a buyer holds it overnight, that's one unit of OI. If that position stays in place for three weeks, it shows up in OI every single day — even on days where absolutely no one touches that strike. OI is a photograph of the entire history of positioning. It's structural.</p>
+    <p><strong>Volume</strong> counts every contract that changes hands during the day. If 50,000 contracts at the 23,500 put trade on a given day, that's 50,000 in volume — regardless of whether those are new positions being opened (OI rises), old positions being closed (OI falls), or a combination where buyers and sellers both reverse (OI unchanged). Volume is a movie of today's activity. It's tactical.</p>
+
+    <h2>Why This Matters for GEX and Structural Levels</h2>
+    <p>Here's the problem our previous dashboard had. Suppose the 24,200 call has 8 lakh in OI. That's a significant call wall. The GEX at that strike is large. The Probable Positioning engine sees it. The Synopsis flags it as resistance. But what if no one has traded that strike in 3 days? What if it's a massive position written by a single institution 2 weeks ago and everyone else has moved on? The structure is still there — but it's undefended. A stale wall is much easier to break through than a freshly defended one.</p>
+    <p>Conversely, suppose a strike with modest OI starts attracting huge volume intraday. That is the market's current focal point. Participants are paying attention to it right now. That freshness changes everything about how you interpret the level.</p>
+
+    <h2>Volume vs OI: Four Key Scenarios</h2>
+    <p><strong>OI rising + Volume high:</strong> New positions being built actively. This is the highest-conviction scenario — fresh directional intent, not a roll. Our dashboard marks these strikes with HIGH conviction in the Probable Positioning engine.</p>
+    <p><strong>OI rising + Volume low:</strong> OI increased but barely any contracts traded. This typically indicates a roll from one strike to another where one leg has low volume — the net OI change is real, but directional conviction is weaker. The engine applies reduced weight to such signals.</p>
+    <p><strong>OI flat + Volume high:</strong> Lots of trading, no net change. This is pure intraday churn — buyers and sellers are evenly matched, or the same participants are opening and closing positions within the session. The strike is active but not structurally significant.</p>
+    <p><strong>OI falling + Volume high:</strong> Aggressive unwinding. Participants are exiting. This is the most bearish signal for a support or resistance level — not just drifting lower, but actively being abandoned.</p>
+
+    <h2>How Volume Is Now Used on This Dashboard</h2>
+    <p>Starting with this update, volume is integrated across the entire analysis stack. The <strong>VOR</strong> (Volume/OI Ratio) shows which strikes are being actively traded relative to their accumulated OI. The <strong>PCR table</strong> includes Vol PCR rows alongside the OI PCR rows so you can see the divergence between today's flow and accumulated structure at a glance. The <strong>Top GEX + Vol table</strong> shows today's volume and VOR for every top-gamma strike. And the <strong>Synopsis</strong> includes a dedicated Volume Flow section with hottest strike, total volumes, wall quality flags, and the Vol PCR divergence note.</p>
+
+    <div class="highlight-box">
+      <strong>The rule of thumb:</strong> Before acting on any structural level flagged by GEX or OI — whether a call wall, a put floor, or a GEX pin — check the VOR for that strike. VOR above 0.3 means it's being actively defended today. VOR below 0.05 means it's legacy OI that hasn't been touched this session. A stale wall is a weak wall.
+    </div>
+  </div>
+  <div class="article-course-cta">
+    <p>Want to apply volume flow analysis with the analyst in live sessions? See the <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
+    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
+    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
+  </div>
+</div>
+
+
+<!-- ARTICLE v2 — VOR Explained (updated: bars → text, clarify Top GEX + Vol table) -->
+<div id="art-v2" class="article-wrap">
+  <button class="article-back" onclick="showIndex()">← All Articles</button>
+  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 15 of 19 · 6 min read</div>
+  <h1 class="article-title">The Volume/OI Ratio (VOR): Identifying Active vs Stale Positions</h1>
+  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>6 min read</span></div>
+  <div class="article-body">
+    <p>The Volume/OI Ratio — VOR — is the simplest volume metric on this dashboard and arguably the most useful. It's defined as:</p>
+    <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">
+      VOR = Today's Volume at Strike / Open Interest at Strike
+    </div>
+    <p>A VOR of 1.0 means the entire OI position at that strike has turned over once today. A VOR of 2.0 means it's turned over twice — very aggressive activity. A VOR of 0.02 means barely 2% of the OI was touched, which typically signals that the position is sitting there from a prior session with nobody paying attention to it today.</p>
+
+    <h2>Reading VOR in the Dashboard</h2>
+    <p>VOR is surfaced in two places on the dashboard. First, the <strong>Top GEX + Vol</strong> table shows the VOR for each of the top six gamma strikes — this is the fastest way to check whether your key structural levels are active or stale. Second, the Synopsis <strong>Volume Flow panel</strong> shows the average VOR across all active strikes as the Conviction reading (HIGH / MODERATE / LOW). In the <strong>Top GEX + Vol</strong> table, the VOR values are coloured as follows:</p>
+    <p><strong>Green text (VOR > 0.3):</strong> This strike is highly active today. Positions are being built, rolled, or exited with real conviction. If this is your call wall or put floor, it is actively defended — treat the level as a high-confidence structural boundary.</p>
+    <p><strong>Red text (VOR < 0.05):</strong> Stale. The OI is sitting there from a previous session and hasn't been touched meaningfully today. If this is your call wall or put floor, be cautious — the level may give way more easily than the raw OI number suggests.</p>
+    <p><strong>Neutral text (0.05–0.3):</strong> Moderate activity — the position is being maintained but not aggressively refreshed. Treat the structural level at face value.</p>
+
+    <h2>VOR and the Probable Positioning Engine</h2>
+    <p>The VOR is used as a conviction filter in the Probable Positioning engine. High VOR reinforces the signal — meaning the observed OI change is more likely to reflect genuine fresh positioning. Low VOR reduces the weight of the signal, as it may reflect a mechanical roll or low-conviction activity. This helps ensure that the flow labels and conviction tags you see in the Synopsis accurately reflect today's market focus.</p>
+
+    <h2>VOR and Wall Quality</h2>
+    <p>The Synopsis now shows a quality tag next to the call wall and put floor levels:</p>
+    <p><strong>ACTIVE [VOR X.XX — being defended today]:</strong> The wall is refreshed with real trading activity. This is the highest-reliability structural level.</p>
+    <p><strong>STALE [VOR X.XX — not refreshed this session]:</strong> The OI is there but nobody is transacting at this strike today. A motivated seller or buyer can push through it without triggering the mechanical dealer hedging flows that make walls meaningful.</p>
+    <p><strong>MODERATE [VOR X.XX]:</strong> Some activity, not aggressive. Standard reliability.</p>
+
+    <h2>Practical Usage</h2>
+    <p>The most practical use of VOR is as a filter before fading a structural level. If Nifty is approaching the 24,000 call wall and you're thinking about buying a put or entering a short strangle, check the VOR of the 24,000 call. If it's 0.02 — stale — the wall may not hold. If it's 0.45 — active — the wall is being actively reinforced and is more likely to provide real resistance.</p>
+
+    <div class="highlight-box">
+      <strong>Key threshold:</strong> VOR above 0.3 = treat the structural level with full confidence. VOR below 0.05 = apply a scepticism discount, especially if you're positioning against it. VOR between 0.05 and 0.3 = standard analysis applies, no adjustment needed.
+    </div>
+  </div>
+  <div class="article-course-cta">
+    <p>Learn to apply VOR analysis in live markets with the analyst. See the <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
+    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
+    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
+  </div>
+</div>
+
+
+<!-- ARTICLE v4 — Hottest Strike -->
+<div id="art-v4" class="article-wrap">
+  <button class="article-back" onclick="showIndex()">← All Articles</button>
+  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 16 of 19 · 5 min read</div>
+  <h1 class="article-title">The Hottest Strike: Why the Highest-Volume Strike Matters More Than the Highest OI</h1>
+  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>5 min read</span></div>
+  <div class="article-body">
+    <p>Every analysis run now shows a <strong>Hottest Strike</strong> in the Synopsis — the single strike with the highest combined call and put volume during the current session. It sounds simple. But its implications for reading market intent are significant, and it's often the most actionable single number in the Volume Flow section.</p>
+
+    <h2>Why the Highest OI Strike Is Not the Market's Focus</h2>
+    <p>The max OI strike — often the GEX Pin — represents where the most contracts are outstanding. But outstanding doesn't mean active. Institutional portfolios can hold large OI at a strike for weeks simply because they wrote options at the start of the expiry cycle and haven't touched them since. The strike is structurally important (because dealers are still hedging it), but it's not where today's trading mind is focused.</p>
+    <p>The Hottest Strike tells you where participants are making decisions right now. It's the strike that market makers are quoting tightest spreads on, where large institutional orders are routing, and where the options market's current attention is concentrated. In an active session, the Hottest Strike is often telling you something important about what traders expect to happen in the next few hours.</p>
+
+    <h2>Four Patterns to Watch</h2>
+    <p><strong>Hottest Strike = GEX Pin:</strong> Participants are trading heavily around the exact level the dealer gamma model says should attract price. This is a self-reinforcing setup — the mechanical magnet and the market's attention coincide. Range-bound behaviour near this level is most likely.</p>
+    <p><strong>Hottest Strike above spot, on call side:</strong> Traders are actively buying or selling upside calls — either speculative buying (bullish) or heavy writing (capping). Check whether the VOR at that strike is high (position being built) or if OI is flat (just churn).</p>
+    <p><strong>Hottest Strike below spot, on put side:</strong> Active put activity below spot. This could be protective hedging by institutions, speculative bearish positioning, or defensive put writing at support. Context from the PCR divergence note will clarify which.</p>
+    <p><strong>Hottest Strike far from spot in either direction:</strong> When the hottest strike is deep OTM, it often signals a directional bet — someone is buying far OTM options expecting a large move. This is the options market pricing in a non-consensus event. Pay attention to IV at that strike — if it's elevated relative to the surface, there's informed flow.</p>
+
+    <h2>Hottest Strike vs Put Wall / Call Wall</h2>
+    <p>The most interesting scenario is when the Hottest Strike differs from both the Put Wall and the Call Wall. Suppose the Put Wall is at 23,000 (max put OI below spot) but the Hottest Strike is 23,200 puts. This means traders are actively buying puts 200 points above the structural floor — they're not comfortable relying on the existing wall and are building a new line of defence closer to current price. That's a warning sign for downside pressure.</p>
+    <p>Conversely, suppose the Call Wall is at 24,500 but the Hottest Strike is 24,000 calls. Traders are concentrating their call activity at a level lower than the structural ceiling — possibly because they expect a rally to 24,000 but not beyond, or because they're writing calls there to harvest premium. Either interpretation is more nuanced and more current than what the raw OI picture says.</p>
+
+    <div class="highlight-box">
+      <strong>Daily habit:</strong> Each morning before the market opens, check three numbers in the Synopsis Volume Flow section: the Hottest Strike from the prior session, the Vol PCR, and whether the Call Wall and Put Floor are flagged as ACTIVE or STALE. These three items take 30 seconds to read and give you the most current picture of where participant attention is focused entering the new session.
+    </div>
+  </div>
+  <div class="article-course-cta">
+    <p>Learn to integrate Hottest Strike analysis with the GEX framework. <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
+    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
+    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
+  </div>
+</div>
+
+
 <!-- ARTICLE syn — Reading the Synopsis -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-syn" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
   <div class="article-tag">User Guide · Article 17 of 19 · 7 min read</div>
@@ -940,6 +1007,9 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
   </div>
 </div>
+
+
+<!-- ARTICLE a5 — Dashboard Walkthrough (existing, preserved) -->
 <div id="art-a5" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
   <div class="article-tag">User Guide · Article 18 of 19 · 10 min read</div>
@@ -963,23 +1033,20 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <h2>Step 5: VEX and CEX — Flow Timing Near Expiry</h2>
     <p>The <strong>VEX</strong> tab shows Vanna Exposure — IV-driven mechanical flows. The <strong>CEX</strong> tab shows Charm Exposure — time-driven flows. Both matter most in the 2–5 days before expiry. Positive VEX means IV compression forces dealers to sell the underlying. Positive CEX means time decay forces dealers to unwind call hedges. Check both before entering any overnight position in the last week of the expiry cycle.</p>
 
-    <h2>Step 6: ITM VEX — The Historical Vanna Timeline</h2>
-    <p>The <strong>ITM VEX</strong> tab tracks in-the-money Vanna exposure and synthetic futures over time. It's a longitudinal view of how dealer vanna risk has evolved intraday. Use it to spot regime changes in vanna pressure — a sharp reversal in the ITM VEX line often precedes a change in the market's intraday directional tendency.</p>
-
-    <h2>Step 7: Volatility Skew — Reading the Options Market's Fear Level</h2>
+    <h2>Step 6: Volatility Skew — Reading the Options Market's Fear Level</h2>
     <p>The <strong>Vol Skew</strong> tab has two charts. The full-chain chart shows OI and IV across all strikes. The OTM chart zooms into the 1–5% out-of-the-money zone. Both charts now use the <strong>same OI scale</strong> so you can compare concentrations directly. The OTM skew table in the Synopsis shows the delta-based risk reversal at each OTM level — this is the most concise single measure of whether put demand (fear) or call demand (greed) is elevated relative to the vol surface.</p>
 
-    <h2>Step 8: PCR Table — Confirming the Structural Bias</h2>
+    <h2>Step 7: PCR Table — Confirming the Structural Bias</h2>
     <p>The <strong>PCR</strong> tab shows six rows: four OI-based PCR readings at different strike windows (3, 6, 10 strikes ± ATM, and all strikes), plus two Volume PCR rows (near-ATM and all strikes) shown in purple. If OI PCR and Volume PCR agree, today's flow confirms the structural positioning. If they diverge significantly, read the divergence note in the Synopsis Volume Flow section for the interpretation — this is often the most actionable signal on the entire dashboard.</p>
 
-    <h2>Step 9: Top GEX + Vol — The Six Most Important Strikes</h2>
+    <h2>Step 8: Top GEX + Vol — The Six Most Important Strikes</h2>
     <p>The <strong>Top GEX + Vol</strong> tab shows the six strikes with the highest absolute GEX, ranked. For each strike: the absolute GEX value in crores, today's combined volume, and the VOR. A green VOR (&gt; 0.3 relative threshold) means the strike is being actively reinforced today. A red VOR means it's stale — the GEX mechanical effect is still real, but the conviction behind the position may have faded. Use this table to decide which walls and floors to trust before any mean-reversion trade.</p>
 
-    <h2>Step 10: Vol Surface — The Complete IV Picture</h2>
+    <h2>Step 9: Vol Surface — The Complete IV Picture</h2>
     <p>The <strong>Volatility Surface</strong> tab is a 3D interactive chart showing implied volatility across every strike and expiry simultaneously. It's the most complete picture of where IV is expensive, cheap, or distorted. Use it to spot calendar spread opportunities, unusual smile shapes, and forward volatility pricing. See Article 11 for a full walkthrough.</p>
 
     <h2>Putting It Together: The Pre-Market Sequence</h2>
-    <p>The most efficient pre-market routine runs in this order: Synopsis → Probable Positioning → PCR table → Top GEX + Vol → Vol Skew. That five-step sequence covers all the structural, flow, and volatility inputs you need for a pre-market view. The remaining tabs (GEX scenarios, VEX, CEX, ITM VEX, Vol Surface) add depth when you need to go further on a specific question.</p>
+    <p>The most efficient pre-market routine runs in this order: Synopsis → Probable Positioning → PCR table → Top GEX + Vol → Vol Skew. That five-step sequence covers all the structural, flow, and volatility inputs you need for a pre-market view. The remaining tabs (GEX scenarios, VEX, CEX, Vol Surface) add depth when you need to go further on a specific question.</p>
 
     <div class="highlight-box">
       <strong>One rule:</strong> Never enter a structural trade until the Synopsis, Probable Positioning, and PCR all point in the same direction. When they agree, the edge is real. When they conflict, wait for clarity — the market is in a transitional state and the structural forces are genuinely unresolved.
@@ -996,16 +1063,14 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ARTICLE b10 — Real Trade Setup -->
-<!-- ═══════════════════════════════════════════════ -->
 <div id="art-b10" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
   <div class="article-tag">Live Example · Article 19 of 19 · 8 min read</div>
   <h1 class="article-title">A Real Trade Setup: GEX + PCR + VEX Working Together</h1>
   <div class="article-meta"><span>OptionsFlow</span><span>Applied Analysis</span><span>8 min read</span></div>
   <div class="article-body">
-    <p>Everything we've covered across the previous 14 articles has been building toward this. Reading individual indicators is one thing. Synthesising them into an actual pre-market view — and then a trade idea — is a different skill. Let me walk you through how I do it with a real example from a recent Nifty session.</p>
+    <p>Everything we've covered across the previous 18 articles has been building toward this. Reading individual indicators is one thing. Synthesising them into an actual pre-market view — and then a trade idea — is a different skill. Let me walk you through how I do it with a real example from a recent Nifty session.</p>
 
     <p><em>Note: This is a worked example for educational purposes only. It is not investment advice. I am not SEBI registered.</em></p>
 
@@ -1048,135 +1113,6 @@ table.skew-tbl tr:last-child td{border-bottom:none}
   </div>
   <div class="article-course-cta">
     <p>Want to do exactly this kind of analysis with the analyst? See the <a href="mentorship.html" class="inline-link">Mentorship page</a> for details.</p>
-    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
-    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
-  </div>
-</div>
-
-
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- ARTICLE v1 — Why Volume Matters -->
-<!-- ═══════════════════════════════════════════════ -->
-<div id="art-v1" class="article-wrap">
-  <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 12 of 19 · 6 min read</div>
-  <h1 class="article-title">Why Volume Matters in Options: OI Tells You What, Volume Tells You When</h1>
-  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>6 min read</span></div>
-  <div class="article-body">
-    <p>If you've spent any time reading the articles on this dashboard, you know we rely heavily on Open Interest — the count of live contracts at every strike. OI is the backbone of GEX, PCR, Vanna, Charm, and the Probable Positioning engine. But there's always been a blind spot: OI tells you the accumulated structure. It doesn't tell you whether anyone is paying attention to it today.</p>
-    <p>That's exactly what volume fills in. And with volume now integrated into every layer of this dashboard — the charts, the positioning engine, the Synopsis, the PCR table — it's worth spending time understanding what it actually tells you and, just as importantly, what it doesn't.</p>
-
-    <h2>The Core Difference</h2>
-    <p><strong>Open Interest</strong> is a running tally of all contracts that haven't been closed or expired. When a call writer sells a 24,000 strike call and a buyer holds it overnight, that's one unit of OI. If that position stays in place for three weeks, it shows up in OI every single day — even on days where absolutely no one touches that strike. OI is a photograph of the entire history of positioning. It's structural.</p>
-    <p><strong>Volume</strong> counts every contract that changes hands during the day. If 50,000 contracts at the 23,500 put trade on a given day, that's 50,000 in volume — regardless of whether those are new positions being opened (OI rises), old positions being closed (OI falls), or a combination where buyers and sellers both reverse (OI unchanged). Volume is a movie of today's activity. It's tactical.</p>
-
-    <h2>Why This Matters for GEX and Structural Levels</h2>
-    <p>Here's the problem our previous dashboard had. Suppose the 24,200 call has 8 lakh in OI. That's a significant call wall. The GEX at that strike is large. The Probable Positioning engine sees it. The Synopsis flags it as resistance. But what if no one has traded that strike in 3 days? What if it's a massive position written by a single institution 2 weeks ago and everyone else has moved on? The structure is still there — but it's undefended. A stale wall is much easier to break through than a freshly defended one.</p>
-    <p>Conversely, suppose a strike with modest OI starts attracting huge volume intraday. That is the market's current focal point. Participants are paying attention to it right now. That freshness changes everything about how you interpret the level.</p>
-
-    <h2>Volume vs OI: Four Key Scenarios</h2>
-    <p><strong>OI rising + Volume high:</strong> New positions being built actively. This is the highest-conviction scenario — fresh directional intent, not a roll. Our dashboard marks these strikes with HIGH conviction in the Probable Positioning engine.</p>
-    <p><strong>OI rising + Volume low:</strong> OI increased but barely any contracts traded. This typically indicates a roll from one strike to another where one leg has low volume — the net OI change is real, but directional conviction is weaker. Our engine applies a 0.5× weight multiplier here.</p>
-    <p><strong>OI flat + Volume high:</strong> Lots of trading, no net change. This is pure intraday churn — buyers and sellers are evenly matched, or the same participants are opening and closing positions within the session. The strike is active but not structurally significant.</p>
-    <p><strong>OI falling + Volume high:</strong> Aggressive unwinding. Participants are exiting. This is the most bearish signal for a support or resistance level — not just drifting lower, but actively being abandoned.</p>
-
-    <h2>How Volume Is Now Used on This Dashboard</h2>
-    <p>Starting with this update, volume is integrated across the entire analysis stack. The <strong>VOR</strong> (Volume/OI Ratio) shows which strikes are being actively traded relative to their accumulated OI. The <strong>PCR table</strong> includes Vol PCR rows alongside the OI PCR rows so you can see the divergence between today's flow and accumulated structure at a glance. The <strong>Top GEX + Vol table</strong> shows today's volume and VOR for every top-gamma strike. And the <strong>Synopsis</strong> includes a dedicated Volume Flow section with hottest strike, total volumes, wall quality flags, and the Vol PCR divergence note.</p>
-
-    <div class="highlight-box">
-      <strong>The rule of thumb:</strong> Before acting on any structural level flagged by GEX or OI — whether a call wall, a put floor, or a GEX pin — check the VOR for that strike. VOR above 0.3 means it's being actively defended today. VOR below 0.05 means it's legacy OI that hasn't been touched this session. A stale wall is a weak wall.
-    </div>
-  </div>
-  <div class="article-course-cta">
-    <p>Want to apply volume flow analysis with the analyst in live sessions? See the <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
-    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
-    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- ARTICLE v2 — VOR Explained -->
-<!-- ═══════════════════════════════════════════════ -->
-<div id="art-v2" class="article-wrap">
-  <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 13 of 19 · 6 min read</div>
-  <h1 class="article-title">The Volume/OI Ratio (VOR): Identifying Active vs Stale Positions</h1>
-  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>6 min read</span></div>
-  <div class="article-body">
-    <p>The Volume/OI Ratio — VOR — is the simplest volume metric on this dashboard and arguably the most useful. It's defined as:</p>
-    <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">
-      VOR = Today's Volume at Strike / Open Interest at Strike
-    </div>
-    <p>A VOR of 1.0 means the entire OI position at that strike has turned over once today. A VOR of 2.0 means it's turned over twice — very aggressive activity. A VOR of 0.02 means barely 2% of the OI was touched, which typically signals that the position is sitting there from a prior session with nobody paying attention to it today.</p>
-
-    <h2>Reading VOR in the Dashboard</h2>
-    <p>VOR is surfaced in two places on the dashboard. First, the <strong>Top GEX + Vol</strong> table shows the VOR for each of the top six gamma strikes — this is the fastest way to check whether your key structural levels are active or stale. Second, the Synopsis <strong>Volume Flow panel</strong> shows the average VOR across all active strikes as the Conviction reading (HIGH / MODERATE / LOW). The colouring logic is:</p>
-    <p><strong>Green bars (VOR &gt; 0.3):</strong> This strike is highly active today. Positions are being built, rolled, or exited with real conviction. If this is your call wall or put floor, it is actively defended — treat the level as a high-confidence structural boundary.</p>
-    <p><strong>Red bars (VOR &lt; 0.05):</strong> Stale. The OI is sitting there from a previous session and hasn't been touched meaningfully today. If this is your call wall or put floor, be cautious — the level may give way more easily than the raw OI number suggests.</p>
-    <p><strong>Default colour bars (0.05–0.3):</strong> Moderate activity — the position is being maintained but not aggressively refreshed. Treat the structural level at face value.</p>
-
-    <h2>VOR and the Probable Positioning Engine</h2>
-    <p>Before this update, the Probable Positioning engine weighted every OI change equally: the signal weight was purely <code>min(|OI change| / OI, 1.0)</code>. Now the engine applies a VOR multiplier on top of that weight:</p>
-    <p><strong>VOR &gt; 0.3 → weight × 1.5:</strong> High volume confirms the OI change is genuine fresh positioning, not a mechanical roll. The signal gets amplified.</p>
-    <p><strong>VOR 0.05–0.3 → weight × 1.0:</strong> Neutral — standard weight applies.</p>
-    <p><strong>VOR &lt; 0.05 (and VOR &gt; 0) → weight × 0.5:</strong> Thin volume. The OI change may reflect a cross-expiry roll or basket rebalancing rather than new directional intent. The signal is halved.</p>
-    <p>The result is that the flow labels — CALL BUYERS DOMINANT, PUT WRITERS DOMINANT, etc. — now carry a conviction suffix: <strong>[HIGH CONVICTION]</strong>, <strong>[MODERATE CONVICTION]</strong>, or <strong>[LOW CONVICTION — LOW VOLUME]</strong>. You can see this directly in the Synopsis Flow column.</p>
-
-    <h2>VOR and Wall Quality</h2>
-    <p>The Synopsis now shows a quality tag next to the call wall and put floor levels:</p>
-    <p><strong>ACTIVE [VOR X.XX — being defended today]:</strong> The wall is refreshed with real trading activity. This is the highest-reliability structural level.</p>
-    <p><strong>STALE [VOR X.XX — not refreshed this session]:</strong> The OI is there but nobody is transacting at this strike today. A motivated seller or buyer can push through it without triggering the mechanical dealer hedging flows that make walls meaningful.</p>
-    <p><strong>MODERATE [VOR X.XX]:</strong> Some activity, not aggressive. Standard reliability.</p>
-
-    <h2>Practical Usage</h2>
-    <p>The most practical use of VOR is as a filter before fading a structural level. If Nifty is approaching the 24,000 call wall and you're thinking about buying a put or entering a short strangle, check the VOR of the 24,000 call. If it's 0.02 — stale — the wall may not hold. If it's 0.45 — active — the wall is being actively reinforced and is more likely to provide real resistance.</p>
-
-    <div class="highlight-box">
-      <strong>Key threshold:</strong> VOR above 0.3 = treat the structural level with full confidence. VOR below 0.05 = apply a scepticism discount, especially if you're positioning against it. VOR between 0.05 and 0.3 = standard analysis applies, no adjustment needed.
-    </div>
-  </div>
-  <div class="article-course-cta">
-    <p>Learn to apply VOR analysis in live markets with the analyst. See the <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
-    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
-    <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- ARTICLE v4 — Hottest Strike -->
-<!-- ═══════════════════════════════════════════════ -->
-<div id="art-v4" class="article-wrap">
-  <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 18 of 20 · 5 min read</div>
-  <h1 class="article-title">The Hottest Strike: Why the Highest-Volume Strike Matters More Than the Highest OI</h1>
-  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>5 min read</span></div>
-  <div class="article-body">
-    <p>Every analysis run now shows a <strong>Hottest Strike</strong> in the Synopsis — the single strike with the highest combined call and put volume during the current session. It sounds simple. But its implications for reading market intent are significant, and it's often the most actionable single number in the Volume Flow section.</p>
-
-    <h2>Why the Highest OI Strike Is Not the Market's Focus</h2>
-    <p>The max OI strike — often the GEX Pin — represents where the most contracts are outstanding. But outstanding doesn't mean active. Institutional portfolios can hold large OI at a strike for weeks simply because they wrote options at the start of the expiry cycle and haven't touched them since. The strike is structurally important (because dealers are still hedging it), but it's not where today's trading mind is focused.</p>
-    <p>The Hottest Strike tells you where participants are making decisions right now. It's the strike that market makers are quoting tightest spreads on, where large institutional orders are routing, and where the options market's current attention is concentrated. In an active session, the Hottest Strike is often telling you something important about what traders expect to happen in the next few hours.</p>
-
-    <h2>Four Patterns to Watch</h2>
-    <p><strong>Hottest Strike = GEX Pin:</strong> Participants are trading heavily around the exact level the dealer gamma model says should attract price. This is a self-reinforcing setup — the mechanical magnet and the market's attention coincide. Range-bound behaviour near this level is most likely.</p>
-    <p><strong>Hottest Strike above spot, on call side:</strong> Traders are actively buying or selling upside calls — either speculative buying (bullish) or heavy writing (capping). Check whether the VOR at that strike is high (position being built) or if OI is flat (just churn).</p>
-    <p><strong>Hottest Strike below spot, on put side:</strong> Active put activity below spot. This could be protective hedging by institutions, speculative bearish positioning, or defensive put writing at support. Context from the PCR divergence note will clarify which.</p>
-    <p><strong>Hottest Strike far from spot in either direction:</strong> When the hottest strike is deep OTM, it often signals a directional bet — someone is buying far OTM options expecting a large move. This is the options market pricing in a non-consensus event. Pay attention to IV at that strike — if it's elevated relative to the surface, there's informed flow.</p>
-
-    <h2>Hottest Strike vs Put Wall / Call Wall</h2>
-    <p>The most interesting scenario is when the Hottest Strike differs from both the Put Wall and the Call Wall. Suppose the Put Wall is at 23,000 (max put OI below spot) but the Hottest Strike is 23,200 puts. This means traders are actively buying puts 200 points above the structural floor — they're not comfortable relying on the existing wall and are building a new line of defence closer to current price. That's a warning sign for downside pressure.</p>
-    <p>Conversely, suppose the Call Wall is at 24,500 but the Hottest Strike is 24,000 calls. Traders are concentrating their call activity at a level lower than the structural ceiling — possibly because they expect a rally to 24,000 but not beyond, or because they're writing calls there to harvest premium. Either interpretation is more nuanced and more current than what the raw OI picture says.</p>
-
-    <div class="highlight-box">
-      <strong>Daily habit:</strong> Each morning before the market opens, check three numbers in the Synopsis Volume Flow section: the Hottest Strike from the prior session, the Vol PCR, and whether the Call Wall and Put Floor are flagged as ACTIVE or STALE. These three items take 30 seconds to read and give you the most current picture of where participant attention is focused entering the new session.
-    </div>
-  </div>
-  <div class="article-course-cta">
-    <p>Learn to integrate Hottest Strike analysis with the GEX framework. <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
     <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
     <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
   </div>
