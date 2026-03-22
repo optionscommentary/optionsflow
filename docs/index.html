@@ -930,14 +930,29 @@ function openLbx(src){ document.getElementById('lbx-img').src=src; document.getE
 function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
-/* ── INIT ── */
-(async()=>{
-  Promise.all(INDICES.map(idx=>fetchData(idx))).then(()=>{
-    switchIdx('nifty');
-    updateTickers();
-    setInterval(updateTickers,30000);
-  }).catch(e=>console.warn('Init fetch error',e));
-})();
+/* ── AUTO-UPDATE LOGIC (poll every 30 seconds, refresh only when data changes) ── */
+const _lastTs = {};
+
+// Initial load: fetch all indices once and render
+Promise.all(INDICES.map(i => fetchData(i))).then(results => {
+  INDICES.forEach((i, n) => { if(results[n]) renderIndex(i, results[n]); });
+});
+
+// Start live tickers (every 30 seconds)
+updateTickers();
+setInterval(updateTickers, 30000);
+
+// Background polling for new analysis (every 30 seconds)
+setInterval(function() {
+  INDICES.forEach(function(idx) {
+    fetchData(idx, true).then(function(d) {
+      if(d && d.timestamp_iso && d.timestamp_iso !== _lastTs[idx]) {
+        _lastTs[idx] = d.timestamp_iso;
+        renderIndex(idx, d);
+      }
+    });
+  });
+}, 30000);
 </script>
 </body>
 </html>
