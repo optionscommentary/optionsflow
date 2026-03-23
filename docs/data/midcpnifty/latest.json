@@ -1,16 +1,16 @@
 {
-  "timestamp": "23 Mar 2026  13:07 IST",
-  "timestamp_iso": "2026-03-23T13:07:21.131253",
+  "timestamp": "23 Mar 2026  13:13 IST",
+  "timestamp_iso": "2026-03-23T13:13:16.601389",
   "index": "MIDCPNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 5.0,
-  "spot": 12155.75,
-  "spot_prev": 12155.75,
+  "spot": 12145.6,
+  "spot_prev": 12145.6,
   "spot_chg": 0.0,
   "spot_pct": 0.0,
-  "synthetic_futures": 12135.5,
-  "atm_iv": 44.11,
-  "net_gex": 40.46,
+  "synthetic_futures": 12124.15,
+  "atm_iv": 44.69,
+  "net_gex": 39.68,
   "peak_gex_k": 12500,
   "gex_pin_top3": [
     12500,
@@ -18,7 +18,7 @@
     12000
   ],
   "gex_regime": "LONG",
-  "composite_score": -2,
+  "composite_score": -1,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     11975,
@@ -26,15 +26,15 @@
     12025
   ],
   "call_resist_levels": [
+    12150,
     12175,
-    12200,
-    12225
+    12200
   ],
-  "pcr_atm": 2.718,
-  "net_dealer_delta_cr": -0.29,
-  "gex_speed": 0.370361,
-  "implied_lower": 12105,
-  "implied_upper": 12145,
+  "pcr_atm": 2.74,
+  "net_dealer_delta_cr": -0.3,
+  "gex_speed": 0.374026,
+  "implied_lower": 12104,
+  "implied_upper": 12146,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
@@ -42,21 +42,21 @@
   "oi_flow_label": "PUT WRITERS DOMINANT [HIGH CONVICTION]",
   "gex_tilt_label": "CALL-TILTED (2.1x)",
   "straddle_pts": 0,
-  "vol_pcr_session": 3.739,
+  "vol_pcr_session": 3.654,
   "vol_confirmation": "HIGH",
   "hottest_strike": 12125,
   "hottest_strike_vol": 0,
-  "call_wall_quality": "ACTIVE [VOR 7.52 \u2014 being defended today]",
-  "put_floor_quality": "ACTIVE FLOOR [VOR 2.88 \u2014 writers maintaining it]",
-  "total_call_vol": 1247640,
-  "total_put_vol": 4664520,
+  "call_wall_quality": "ACTIVE [VOR 7.57 \u2014 being defended today]",
+  "put_floor_quality": "ACTIVE FLOOR [VOR 2.97 \u2014 writers maintaining it]",
+  "total_call_vol": 1314960,
+  "total_put_vol": 4804440,
   "signals": {
     "gex_oi": 2,
     "oi_flow": 1,
     "pcr": -1,
     "vex": -1,
     "skew": -1,
-    "fxiv": 2
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
