@@ -1,6 +1,6 @@
 {
-  "timestamp": "25 Mar 2026  07:08 IST",
-  "timestamp_iso": "2026-03-25T07:08:37.379359",
+  "timestamp": "25 Mar 2026  07:50 IST",
+  "timestamp_iso": "2026-03-25T07:50:37.091822",
   "index": "NIFTY",
   "expiry": "30-03-2026",
   "tte_days": 3.0,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 22982.83,
-  "atm_iv": 29.82,
-  "net_gex": -511.76,
+  "atm_iv": 29.9,
+  "net_gex": -606.77,
   "peak_gex_k": 23000,
   "gex_pin_top3": [
     23000,
@@ -18,7 +18,7 @@
     23500
   ],
   "gex_regime": "SHORT",
-  "composite_score": -2,
+  "composite_score": -1,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     22700,
@@ -30,9 +30,9 @@
     23000,
     23050
   ],
-  "pcr_atm": 0.939,
-  "net_dealer_delta_cr": -0.71,
-  "gex_speed": 9.11557,
+  "pcr_atm": 1.073,
+  "net_dealer_delta_cr": -1.0,
+  "gex_speed": 9.56473,
   "implied_lower": 22930,
   "implied_upper": 23070,
   "risk_reversal": -1.0,
@@ -45,16 +45,16 @@
   "vol_pcr_session": 0.698,
   "vol_confirmation": "HIGH",
   "hottest_strike": 23000,
-  "hottest_strike_vol": 0,
-  "call_wall_quality": "ACTIVE [VOR 8.05 \u2014 being defended today]",
-  "put_floor_quality": "ACTIVE FLOOR [VOR 9.93 \u2014 writers maintaining it]",
+  "hottest_strike_vol": 63904165,
+  "call_wall_quality": "ACTIVE [VOR 5.96 \u2014 being defended today]",
+  "put_floor_quality": "ACTIVE FLOOR [VOR 8.63 \u2014 writers maintaining it]",
   "total_call_vol": 155151750,
   "total_put_vol": 108316845,
   "signals": {
     "gex_oi": 0,
     "oi_flow": 0,
     "pcr": 0,
-    "vex": -1,
+    "vex": 0,
     "skew": -1,
     "fxiv": 0
   },
