@@ -880,64 +880,57 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 <!-- ARTICLE v2 — VOR Explained (updated: bars → text, clarify Top GEX + Vol table) -->
 <div id="art-v2" class="article-wrap">
   <button class="article-back" onclick="showIndex()">← All Articles</button>
-  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 15 of 19 · 7 min read</div>
-  <h1 class="article-title">VOR, ΔVol/ΔOI, and Signed VOR: Three Lenses for Reading Options Flow</h1>
-  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>7 min read</span></div>
+  <div class="article-tag" style="color:#4DD0E1">Volume Analytics · Article 15 of 19 · 6 min read</div>
+  <h1 class="article-title">VOR and ΔVol/ΔOI: Two Lenses for Reading Options Flow</h1>
+  <div class="article-meta"><span>OptionsFlow</span><span>Volume Flow</span><span>6 min read</span></div>
   <div class="article-body">
-    <p>Volume analysis in options is not one metric — it's three distinct questions asked in sequence. Each one tells you something different, and together they give you a complete picture of whether the market's structural levels are alive, stale, building, or collapsing.</p>
+    <p>Volume analysis in options comes down to two distinct questions asked in sequence. Each tells you something different, and together they give you a complete picture of whether the market's structural levels are alive, stale, building, or collapsing.</p>
 
     <h2>Lens 1: VOR — Is This Strike Active Today?</h2>
-    <p>The Volume/OI Ratio measures how much of a strike's accumulated open interest has been traded in the current session:</p>
+    <p>The Volume/OI Ratio measures how much of a strike's accumulated open interest has been traded during the current session:</p>
     <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">
       VOR = Today's Volume at Strike ÷ Open Interest at Strike
     </div>
-    <p>A VOR of 0.30 means 30% of the outstanding OI changed hands today. A VOR of 0.02 means barely 2% was touched — the position is sitting there from a prior session and nobody is paying attention to it right now.</p>
-    <p>VOR is the fastest staleness check for a structural level. Before fading any call wall or put floor, check its VOR in the Top GEX + Vol table. Green (VOR > 0.3) means the level is being actively traded and is more likely to hold. Red (VOR < 0.05) means it's legacy OI — no one is defending it today, and it breaks more easily than the raw OI number implies.</p>
-    <p><strong>The limitation of VOR:</strong> It tells you <em>how much</em> activity is happening at a strike, but not <em>which direction</em> that activity is going. High volume could be aggressive new writing (bullish for support) or aggressive closing (bearish — the floor is being abandoned). VOR alone cannot distinguish between these two.</p>
+    <p>A VOR of 0.30 means 30% of the outstanding OI changed hands today. A VOR of 0.02 means barely 2% was touched — the position is sitting there from a prior session and nobody is paying attention right now.</p>
+    <p>VOR is the fastest staleness check for a structural level. Before fading any call wall or put floor, check its VOR in the Top GEX + Vol table. Green (VOR > 0.3) means the level is being actively traded and is more likely to hold. Red (VOR < 0.05) means it's legacy OI — no one is defending it today and it breaks more easily than the raw OI number implies.</p>
+    <p><strong>The limitation of VOR:</strong> It tells you how much activity is happening at a strike, but not which direction. High volume could be aggressive new writing (bullish for support) or aggressive closing (bearish — the floor is being abandoned). VOR alone cannot distinguish between these two.</p>
 
     <h2>Lens 2: ΔVol/ΔOI — Is the Activity Building or Unwinding?</h2>
-    <p>This is where the real-time flow intelligence lives. Instead of looking at volume and OI in absolute terms, we compare <em>changes</em> between the current iteration and the previous one:</p>
-    <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">
-      ΔVol/ΔOI = (Volume this iteration − Volume last iteration) ÷ (OI this iteration − OI last iteration)
+    <p>This is where the real-time flow intelligence lives. Instead of looking at volume and OI in absolute terms, we compare changes between the current iteration and the previous one:</p>
+    <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.85rem">
+      ΔVol = Volume this snapshot − Volume last snapshot<br>
+      ΔOI  = OI this snapshot − OI last snapshot<br>
+      Ratio = ΔVol ÷ |ΔOI| × sign(ΔOI)
     </div>
-    <p>This ratio captures the relationship between incremental volume activity and incremental positioning change — the two things that actually tell you what participants are doing <em>right now</em>, not what they did a week ago.</p>
+    <p>ΔVol is always ≥ 0 within a session because volume only accumulates — it never decreases intraday. ΔOI can be positive (new positions opening) or negative (positions closing). The ratio tells you how many volume contracts were traded per net position changed — a high ratio means the strike is very active relative to how much the OI actually moved.</p>
 
-    <h3>Reading the ratio</h3>
-    <ul>
-      <li><strong>ΔVol positive, ΔOI positive → BUILDING:</strong> More contracts are being opened and volume is also increasing. Fresh directional intent. This is the highest-conviction signal — new positions are being written or bought with genuine participation.</li>
-      <li><strong>ΔVol positive, ΔOI negative → UNWINDING:</strong> Volume is rising but OI is falling. Participants are exiting — closing old positions with increasing urgency. A put floor with this pattern is being actively abandoned.</li>
-      <li><strong>ΔVol positive, ΔOI near zero → CHURN:</strong> High volume but no net positioning change. Buyers and sellers are evenly matched intraday. The strike is the market's current focal point but neither side is gaining structural control. Watch for ΔOI to break out of zero to determine who wins.</li>
-      <li><strong>ΔVol negative, ΔOI near zero → STALE:</strong> Volume is declining and OI is flat. Nobody is paying attention to this strike. The structural level is there mechanically (GEX is still computed from it) but has lost human conviction.</li>
-    </ul>
+    <h3>Reading the four patterns</h3>
+    <table class="skew-tbl">
+      <thead><tr><th>ΔVol</th><th>ΔOI</th><th>Status</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>&gt; 0</td><td>&gt; 0</td><td><strong>BUILDING</strong></td><td>New positions opening with volume confirmation. Highest conviction — fresh directional intent.</td></tr>
+        <tr><td>&gt; 0</td><td>&lt; 0</td><td><strong>UNWINDING</strong></td><td>Positions being closed with increasing urgency. A put floor with this pattern is being actively abandoned.</td></tr>
+        <tr><td>&gt; 0</td><td>≈ 0</td><td><strong>CHURN</strong></td><td>High volume but no net positioning change. Buyers and sellers are evenly matched — the strike is active but neither side is winning structurally yet.</td></tr>
+        <tr><td>= 0</td><td>any</td><td><strong>STALE</strong></td><td>No new volume this interval. The OI is legacy — sitting from a prior snapshot with no fresh activity.</td></tr>
+      </tbody>
+    </table>
 
     <div class="highlight-box">
-      <strong>Key insight:</strong> ΔVol/ΔOI is only meaningful between snapshots taken within the same session. Because volume resets to zero at the start of each trading day, comparing volume across sessions gives you a momentum signal, not a positioning signal. The dashboard computes this ratio between consecutive intraday runs — not between yesterday and today.
+      <strong>Key insight:</strong> ΔVol/ΔOI is only meaningful between snapshots within the same session. Because volume resets to zero at the start of each trading day, comparing volume across sessions is a momentum signal, not a positioning signal. The dashboard computes this ratio between consecutive intraday runs only.
     </div>
 
-    <h2>Lens 3: Signed VOR — Which Direction Is the Conviction?</h2>
-    <p>Signed VOR combines VOR's activity intensity with ΔOI's direction into a single number:</p>
-    <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">
-      Signed VOR (sVOR) = sign(ΔOI) × VOR
-    </div>
-    <p>The sign of ΔOI (+1 if OI grew, −1 if OI fell) is multiplied by the standard VOR. This produces a directional conviction metric:</p>
-    <ul>
-      <li><strong>sVOR > +0.15:</strong> OI is building and the strike is being actively traded. This is genuine fresh positioning — a wall is being constructed with volume backing it.</li>
-      <li><strong>sVOR < −0.10:</strong> OI is falling and the strike is being actively traded. This is active dismantling — a wall or floor is being closed out with real participation.</li>
-      <li><strong>sVOR near 0 with high VOR:</strong> High churn — lots of activity but OI not moving. Two-sided flow with no winner yet.</li>
-      <li><strong>sVOR near 0 with low VOR:</strong> Stale legacy position. No one is paying attention.</li>
-    </ul>
-
-    <h2>How These Three Lenses Appear in the Dashboard</h2>
+    <h2>How These Two Lenses Appear in the Dashboard</h2>
     <p>The <strong>Top GEX + Vol table</strong> shows VOR (Lens 1) for the six highest-gamma strikes — use this for a quick staleness check on your key walls and floors.</p>
-    <p>The <strong>Volume Flow panel in the Synopsis</strong> shows all three lenses together. The ΔVol/ΔOI table covers ATM ±10 strikes, with a column for each side's ratio, signed VOR, and a status label (BUILDING / UNWINDING / CHURN / STALE). Below the table, a generated narrative synthesises the dominant patterns — which strikes are building, which are unwinding, whether the net flow is bullish or bearish.</p>
-    <p>The <strong>Call Wall and Put Floor quality tags</strong> in the summary pills now use signed VOR instead of plain VOR, so a wall flagged as ACTIVELY BUILDING means OI is growing <em>and</em> volume is confirming it — a materially stronger signal than just a high VOR alone.</p>
+    <p>The <strong>Volume Flow panel in the Synopsis</strong> combines both lenses in a single table covering ATM ±10 strikes. Each side (calls and puts) shows: raw ΔVol, raw ΔOI, the Ratio, the full-session VOR, and the STATUS label. The STATUS is derived directly from the sign combination of ΔVol and ΔOI — no derived metrics, just the raw numbers interpreted plainly.</p>
+    <p>Below the table, a generated narrative identifies the dominant patterns: which strikes are building, which are unwinding, whether the overall flow is bearish rotation, bullish rotation, or range compression.</p>
+    <p>The <strong>Call Wall and Put Floor quality tags</strong> use VOR for the overall session activity level, plus ΔOI direction from the latest snapshot to flag whether the level is ACTIVELY BUILDING (OI growing with volume), UNWINDING (OI falling with volume), CHURN (high volume but OI flat), or STALE (barely any activity).</p>
 
     <div class="highlight-box">
-      <strong>The three-lens sequence:</strong> VOR tells you <em>if</em> anyone is there. ΔVol/ΔOI tells you <em>what</em> they're doing. Signed VOR tells you <em>how confidently</em> they're doing it. Read them in that order — starting with whether the level is even active, then understanding the direction, then gauging the conviction behind that direction.
+      <strong>The two-lens sequence:</strong> VOR tells you <em>if</em> anyone is there today. ΔVol/ΔOI tells you <em>what</em> they're doing right now. Read them in that order — first check whether the level is even active, then understand the direction of that activity.
     </div>
   </div>
   <div class="article-course-cta">
-    <p>Learn to apply VOR, ΔVol/ΔOI and signed VOR analysis in live markets. See the <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
+    <p>Learn to apply VOR and ΔVol/ΔOI analysis in live markets. See the <a href="mentorship.html" class="inline-link">Mentorship page</a>.</p>
     <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Introductory%20Session" target="_blank" rel="noopener" style="margin-right:10px">₹999 Intro Session →</a>
     <a href="https://wa.me/919677446082?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Analyst%20Mentorship%20Programme" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Full Programme →</a>
   </div>
@@ -1018,17 +1011,18 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 
     <h3>Layer 1 — Summary Pills</h3>
     <p>Seven compact metrics across the top: <strong>Vol PCR</strong> (session-level put/call volume ratio, compared to OI PCR in the sub-label), <strong>Conviction + avg VOR</strong> (how actively the market is trading relative to accumulated OI — HIGH/MODERATE/LOW), <strong>Hottest Strike</strong> (the single strike with the most combined call + put volume this session — where attention is actually focused, which is often different from the GEX pin), <strong>Total Call Vol</strong> and <strong>Total Put Vol</strong>, and the <strong>Call Wall</strong> and <strong>Put Floor</strong> with their updated quality tags.</p>
-    <p>The wall and floor quality tags now use <strong>Signed VOR</strong> rather than plain VOR. ACTIVELY BUILDING means OI is growing at that strike and volume is confirming it — the wall is being freshly reinforced. UNWINDING means OI is falling with volume — the level is being actively abandoned. CHURN means high volume but flat OI — two-sided activity without a winner yet. STALE means barely any volume — legacy OI with no human conviction behind it today.</p>
+    <p>The wall and floor quality tags combine VOR (whole-session activity level) with ΔOI direction from the latest snapshot. ACTIVELY BUILDING means OI is growing at that strike and volume is confirming it — the wall is being freshly reinforced. UNWINDING means OI is falling with volume — the level is being actively abandoned. CHURN means high volume but flat OI — two-sided activity without a winner yet. STALE means barely any volume — legacy OI with no human conviction behind it today.</p>
 
     <h3>Layer 2 — ΔVol/ΔOI Flow Table (ATM ±10 Strikes)</h3>
-    <p>This table is the core of the new volume flow framework. It covers the 21 strikes nearest to ATM and shows, for each strike and each side (calls and puts):</p>
+    <p>This table is the core of the volume flow framework. It covers the 21 strikes nearest to ATM and shows, for each side (calls and puts), five columns:</p>
     <ul>
-      <li><strong>ΔVol/ΔOI ratio:</strong> The change in volume divided by the change in OI between the last two snapshots. Positive = OI and volume both grew (building). Negative = OI fell while volume rose (unwinding). Blank (—) = OI didn't change meaningfully, so the ratio is undefined — this is a churn or stale strike.</li>
-      <li><strong>Signed VOR (sVOR):</strong> sign(ΔOI) × VOR. Positive means OI is growing and the strike is active. Negative means OI is falling and the strike is active. Values near zero with high VOR = churn. Values near zero with low VOR = stale.</li>
-      <li><strong>Status label:</strong> BUILDING (OI and vol both rising), UNWINDING (OI falling, vol rising), CHURN (vol high, OI flat), ROLLING IN/OUT (OI moved but vol didn't follow), or STALE (no meaningful activity).</li>
+      <li><strong>ΔVol:</strong> Volume added since the last snapshot. Always ≥0 within a session because volume only accumulates intraday. Shows how much fresh activity happened at this strike between the last two runs.</li>
+      <li><strong>ΔOI:</strong> Net change in open interest since the last snapshot. Positive = new positions were opened. Negative = positions were closed. This is the directional signal.</li>
+      <li><strong>Ratio (ΔVol÷|ΔOI|):</strong> How many contracts were traded per net position changed. A high ratio means the strike is very active relative to the structural change happening — lots of two-way flow per net contract moved. A low ratio means OI moved cleanly with minimal churn.</li>
+      <li><strong>VOR:</strong> Full session Volume/OI. Tells you how active the strike is relative to its total accumulated size — the staleness check.</li>
+      <li><strong>STATUS:</strong> BUILDING (ΔVol>0 and ΔOI>0), UNWINDING (ΔVol>0 and ΔOI&lt;0), CHURN (ΔVol>0 but ΔOI≈0), or STALE (no new volume).</li>
     </ul>
-    <p>The table is colour-coded: green for building and positive ratios, red for unwinding and negative, orange for churn, and grey for stale. The ATM row is highlighted in blue. This is the one table that tells you, strike by strike, whether the structural scaffolding is being reinforced or dismantled in real time.</p>
-
+    <p>The table is colour-coded: green for building and positive values, red for unwinding and negative, orange for churn, grey for stale. The ATM row is highlighted in blue.</p>
     <h3>Layer 3 — Flow Narrative</h3>
     <p>Below the table, a generated paragraph synthesises the dominant patterns across all 21 strikes into plain language. It identifies where call writing is building, where put floors are being abandoned, whether the overall flow is bearish rotation, bullish rotation, or range compression, and flags when churn is dominant at key strikes. This replaces the previous single-line Vol PCR divergence note with a full situational assessment.</p>
     <p>The Vol PCR divergence note (comparing session Vol PCR to OI PCR) still appears below the narrative when the divergence is meaningful — it remains useful as a cross-check between the structural picture and today's transacted flow.</p>
