@@ -1,6 +1,6 @@
 {
-  "timestamp": "25 Mar 2026  23:34 IST",
-  "timestamp_iso": "2026-03-25T23:34:06.674212",
+  "timestamp": "26 Mar 2026  07:35 IST",
+  "timestamp_iso": "2026-03-26T07:35:19.215748",
   "index": "BANKNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 2.0,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 53746.43,
-  "atm_iv": 29.27,
-  "net_gex": -209.96,
+  "atm_iv": 30.37,
+  "net_gex": -216.29,
   "peak_gex_k": 54000,
   "gex_pin_top3": [
     54000,
@@ -21,10 +21,10 @@
   "composite_score": 0,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
-    53100,
-    53200,
-    53300,
-    53500
+    52700,
+    52800,
+    52900,
+    53000
   ],
   "call_resist_levels": [
     53700,
@@ -33,8 +33,8 @@
     54000
   ],
   "pcr_atm": 0.959,
-  "net_dealer_delta_cr": -0.23,
-  "gex_speed": 1.39376,
+  "net_dealer_delta_cr": -0.16,
+  "gex_speed": 1.411051,
   "implied_lower": 53628,
   "implied_upper": 53772,
   "risk_reversal": -1.0,
@@ -44,14 +44,14 @@
   "oi_flow_label": "MIXED / BALANCED FLOW [HIGH CONVICTION]",
   "gex_tilt_label": "BALANCED \u2014 slightly PUT-leaning (0.90x)",
   "straddle_pts": 1420,
-  "vol_pcr_session": 0.775,
+  "vol_pcr_session": 0.767,
   "vol_confirmation": "HIGH",
   "hottest_strike": 54000,
   "hottest_strike_vol": 11801970,
   "call_wall_quality": "CHURN [VOR 12.82 \u2014 heavy volume, OI flat]",
-  "put_floor_quality": "CHURN [VOR 10.97 \u2014 heavy volume, OI flat]",
-  "total_call_vol": 25507650,
-  "total_put_vol": 19769280,
+  "put_floor_quality": "CHURN [VOR 8.26 \u2014 heavy volume, OI flat]",
+  "total_call_vol": 33812490,
+  "total_put_vol": 25929660,
   "signals": {
     "gex_oi": 0,
     "oi_flow": 0,
