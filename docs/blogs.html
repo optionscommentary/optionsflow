@@ -887,13 +887,14 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>Volume analysis in options comes down to two distinct questions asked in sequence. Each tells you something different, and together they give you a complete picture of whether the market's structural levels are alive, stale, building, or collapsing.</p>
 
     <h2>Lens 1: VOR — Is This Strike Active Today?</h2>
-    <p>The Volume/OI Ratio measures how much of a strike's accumulated open interest has been traded during the current session:</p>
+    <p>The Volume/OI Ratio measures how much of a strike's accumulated open interest has been traded during the current session. Crucially, calls and puts must be measured separately — their OI structures are independent and mixing them gives a meaningless blended number:</p>
     <div class="highlight-box" style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">
-      VOR = Today's Volume at Strike ÷ Open Interest at Strike
+      Call VOR = Today's Call Volume at Strike ÷ Call OI at Strike<br>
+      Put VOR  = Today's Put Volume at Strike ÷ Put OI at Strike
     </div>
-    <p>A VOR of 0.30 means 30% of the outstanding OI changed hands today. A VOR of 0.02 means barely 2% was touched — the position is sitting there from a prior session and nobody is paying attention right now.</p>
-    <p>VOR is the fastest staleness check for a structural level. Before fading any call wall or put floor, check its VOR in the Top GEX + Vol table. Green (VOR > 0.3) means the level is being actively traded and is more likely to hold. Red (VOR < 0.05) means it's legacy OI — no one is defending it today and it breaks more easily than the raw OI number implies.</p>
-    <p><strong>The limitation of VOR:</strong> It tells you how much activity is happening at a strike, but not which direction. High volume could be aggressive new writing (bullish for support) or aggressive closing (bearish — the floor is being abandoned). VOR alone cannot distinguish between these two.</p>
+    <p>A Call VOR of 0.30 means 30% of the outstanding call OI at that strike changed hands today. A Put VOR of 0.02 means barely 2% of the put OI was touched — the put side is sitting there from a prior session with nobody paying attention right now, even if the call side is very active.</p>
+    <p>This separation matters significantly in practice. A call wall strike (high call OI) may show high Call VOR (calls being actively written or rolled) but low Put VOR (put side is stale legacy). Treating those as a single blended VOR would overstate how defended the level is. The Top GEX + Vol table shows Call VOR and Put VOR as separate columns so you can see each side independently.</p>
+    <p>Green VOR (&gt; 0.3) means that side is being actively traded and is more likely to hold as a structural level. Red VOR (&lt; 0.05) means it's legacy OI — no one is defending it today and it breaks more easily than the raw OI number implies. Before fading a call wall, check the Call VOR. Before relying on a put floor, check the Put VOR.</p>
 
     <h2>Lens 2: ΔVol/ΔOI — Is the Activity Building or Unwinding?</h2>
     <p>This is where the real-time flow intelligence lives. Instead of looking at volume and OI in absolute terms, we compare changes between the current iteration and the previous one:</p>
@@ -920,13 +921,13 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     </div>
 
     <h2>How These Two Lenses Appear in the Dashboard</h2>
-    <p>The <strong>Top GEX + Vol table</strong> shows Call VOR and Put VOR separately for the six highest-gamma strikes — use this for a quick staleness check on your key walls and floors. Showing both sides separately is important: a call wall with high Call VOR but low Put VOR means call writers are active but put writers are not — the strike's resistance quality is asymmetric.</p>
+    <p>The <strong>Top GEX + Vol table</strong> shows Call Vol, Put Vol, Call VOR, and Put VOR as separate columns for the six highest-gamma strikes. Having call and put volumes and VORs separate lets you see exactly which side is active — a call wall with high Call VOR but low Put VOR is a different structural situation from one where both sides are being actively traded.</p>
     <p>The <strong>Volume Flow panel in the Synopsis</strong> combines both lenses in a single table covering ATM ±10 strikes. Each side (calls and puts) shows: raw ΔVol, raw ΔOI, the Ratio, the full-session VOR, and the STATUS label. The STATUS is derived directly from the sign combination of ΔVol and ΔOI — no derived metrics, just the raw numbers interpreted plainly.</p>
     <p>Below the table, a generated narrative identifies the dominant patterns: which strikes are building, which are unwinding, whether the overall flow is bearish rotation, bullish rotation, or range compression.</p>
     <p>The <strong>Call Wall and Put Floor quality tags</strong> use VOR for the overall session activity level, plus ΔOI direction from the latest snapshot to flag whether the level is ACTIVELY BUILDING (OI growing with volume), UNWINDING (OI falling with volume), CHURN (high volume but OI flat), or STALE (barely any activity).</p>
 
     <div class="highlight-box">
-      <strong>The two-lens sequence:</strong> VOR tells you <em>if</em> anyone is there today. ΔVol/ΔOI tells you <em>what</em> they're doing right now. Read them in that order — first check whether the level is even active, then understand the direction of that activity.
+      <strong>The two-lens sequence:</strong> Call VOR and Put VOR tell you <em>if</em> each side is active today. ΔVol/ΔOI tells you <em>what</em> they're doing right now. Read them in that order — first check whether the relevant side (call side for resistance, put side for support) is even active, then understand the direction of that activity.
     </div>
   </div>
   <div class="article-course-cta">
