@@ -1,16 +1,16 @@
 {
-  "timestamp": "27 Mar 2026  11:21 IST",
-  "timestamp_iso": "2026-03-27T11:21:10.822249",
+  "timestamp": "27 Mar 2026  11:26 IST",
+  "timestamp_iso": "2026-03-27T11:26:20.233715",
   "index": "NIFTY",
   "expiry": "30-03-2026",
   "tte_days": 2.0,
-  "spot": 22956.65,
-  "spot_prev": 22956.65,
+  "spot": 22946.75,
+  "spot_prev": 22946.75,
   "spot_chg": 0.0,
   "spot_pct": 0.0,
-  "synthetic_futures": 22971.78,
-  "atm_iv": 27.81,
-  "net_gex": -1708.03,
+  "synthetic_futures": 22957.47,
+  "atm_iv": 27.98,
+  "net_gex": -1690.17,
   "peak_gex_k": 23000,
   "gex_pin_top3": [
     23000,
@@ -18,7 +18,7 @@
     23100
   ],
   "gex_regime": "SHORT",
-  "composite_score": 2,
+  "composite_score": 1,
   "verdict": "NEUTRAL / RANGE",
   "put_support_levels": [
     22450,
@@ -26,15 +26,15 @@
     22550
   ],
   "call_resist_levels": [
+    22950,
     23000,
-    23050,
-    23100
+    23050
   ],
-  "pcr_atm": 1.372,
-  "net_dealer_delta_cr": -2.09,
-  "gex_speed": 38.83375,
-  "implied_lower": 22935,
-  "implied_upper": 22965,
+  "pcr_atm": 1.272,
+  "net_dealer_delta_cr": -2.47,
+  "gex_speed": 38.576718,
+  "implied_lower": 22939,
+  "implied_upper": 22961,
   "risk_reversal": -1.0,
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
@@ -45,18 +45,18 @@
   "vol_pcr_session": 1.696,
   "vol_confirmation": "HIGH",
   "hottest_strike": 23000,
-  "hottest_strike_vol": 213106140,
-  "call_wall_quality": "ACTIVELY UNWINDING [VOR 7.49, \u0394OI -127,870]",
-  "put_floor_quality": "ACTIVELY BUILDING [VOR 7.70, \u0394OI +78,975]",
-  "total_call_vol": 416779025,
-  "total_put_vol": 706768400,
+  "hottest_strike_vol": 219932310,
+  "call_wall_quality": "STRONGLY BUILDING [VOR 7.35, \u0394OI +565,015]",
+  "put_floor_quality": "ACTIVELY UNWINDING [VOR 8.00, \u0394OI -90,935]",
+  "total_call_vol": 429382590,
+  "total_put_vol": 728326300,
   "signals": {
     "gex_oi": 0,
     "oi_flow": 0,
     "pcr": 2,
     "vex": 1,
     "skew": -1,
-    "fxiv": 0
+    "fxiv": -2
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
