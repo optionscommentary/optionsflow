@@ -1,6 +1,6 @@
 {
-  "timestamp": "27 Mar 2026  18:29 IST",
-  "timestamp_iso": "2026-03-27T18:29:18.589057",
+  "timestamp": "28 Mar 2026  18:42 IST",
+  "timestamp_iso": "2026-03-28T18:42:37.961341",
   "index": "FINNIFTY",
   "expiry": "30-03-2026",
   "tte_days": 1.0,
@@ -9,8 +9,8 @@
   "spot_chg": 0.0,
   "spot_pct": 0.0,
   "synthetic_futures": 24347.22,
-  "atm_iv": 28.52,
-  "net_gex": 16.62,
+  "atm_iv": 35.5,
+  "net_gex": 16.85,
   "peak_gex_k": 24500,
   "gex_pin_top3": [
     24500,
@@ -32,8 +32,8 @@
     24500
   ],
   "pcr_atm": 1.083,
-  "net_dealer_delta_cr": -0.02,
-  "gex_speed": 0.209161,
+  "net_dealer_delta_cr": -0.04,
+  "gex_speed": 0.206877,
   "implied_lower": 24324,
   "implied_upper": 24376,
   "risk_reversal": -1.0,
@@ -57,7 +57,7 @@
     "pcr": 0,
     "vex": -1,
     "skew": 0,
-    "fxiv": 2
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
