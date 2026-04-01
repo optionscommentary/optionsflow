@@ -5,10 +5,10 @@
 <link rel="canonical" href="https://optionsflow.in">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="WhqbYyqNK1mlNTzxh61NwhHpiHpoNAPlUrrStmTFq88" />
-<title>Options Flow Dashboard</title>
-<meta name="description" content="Free NIFTY, BankNIFTY & Sensex options flow dashboard — Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow analytics and implied volatility for Indian options traders.">
-<meta name="keywords" content="NIFTY GEX, BankNIFTY gamma exposure, options flow India, dealer positioning NSE, vanna exposure, charm exposure, implied volatility, options analytics India, GEX dashboard, volume PCR, VOR options, options volume analysis">
-<meta name="author" content="Options Flow Dashboard">
+<title>Options Flow Dashboard — Free NIFTY, BankNIFTY, Sensex, FinNIFTY & Midcap GEX Analytics</title>
+<meta name="description" content="Free real-time NIFTY, BankNIFTY, Sensex, FinNIFTY and Midcap options flow dashboard with Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow, PCR and volatility surface. Built for serious Indian options traders.">
+<meta name="keywords" content="NIFTY GEX, BankNIFTY gamma exposure, options flow India, dealer positioning NSE, vanna exposure, charm exposure, implied volatility, options analytics India, GEX dashboard">
+<meta name="author" content="OptionsFlow Analyst">
 <meta property="og:title" content="Options Flow Dashboard — NIFTY GEX & Dealer Analytics">
 <meta property="og:description" content="Free real-time GEX, Vanna, Charm and dealer flow analytics for NIFTY, BankNIFTY, Sensex, FinNIFTY and MidCap.">
 <meta property="og:url" content="https://optionsflow.in">
@@ -17,7 +17,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-/* ----- DARK THEME (default) ----- */
 :root, [data-theme="dark"] {
   --bg:           #0D1520;
   --surface:      #13202F;
@@ -66,11 +65,7 @@
   --synopsis-color: #E65100;
 }
 [data-theme="light"] #topbar,
-[data-theme="light"] .tabs-bar {
-  background: #FFFFFF;
-  border-color: var(--border);
-  box-shadow: 0 1px 6px rgba(0,30,60,.07);
-}
+[data-theme="light"] .tabs-bar { background: #FFFFFF; border-color: var(--border); box-shadow: 0 1px 6px rgba(0,30,60,.07); }
 [data-theme="light"] .gcard { box-shadow: 0 1px 8px rgba(0,30,60,.10); border-color: var(--border); }
 [data-theme="light"] .gcard:hover { box-shadow: 0 3px 16px rgba(0,30,60,.16); border-color: var(--border-lit); }
 [data-theme="light"] .gcard-hdr { background: var(--raised); border-color: var(--border); }
@@ -152,8 +147,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .idx-panel.on { display: block; }
 
 .pills { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 16px; }
-.pills-last-row { display: flex; flex-wrap: nowrap; align-items: stretch; gap: 8px; width: 100%; }
-.pills-row { display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; width: 100%; }
 .pill { background: var(--raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; transition: background 0.15s; }
 .pill:hover { background: var(--hover); }
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 3px; font-weight: 700; }
@@ -244,8 +237,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .footer-links { margin-top: 10px; display: flex; gap: 20px; justify-content: flex-end; flex-wrap: wrap; }
 .footer-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: var(--t2); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.15s; cursor: pointer; font-weight: 600; }
 .footer-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.mobile-social { display: none; }
-.tabs-right-bar { display: none; align-items: center; gap: 8px; padding: 0 12px; flex-shrink: 0; border-left: 1px solid var(--border); background: var(--surface); }
 
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -265,37 +256,15 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .tb-pill .chg { font-size: 0.52rem; min-height: 10px; }
   .tb-pills .tb-pill:nth-child(n+4) { display: flex; }
   .tb-right { display: none; }
-  #theme-btn2 { display: none !important; }
   .tabs-bar { margin: 0 -10px; padding: 0; display: flex; overflow: hidden; }
   .tabs-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; min-width: 0; }
   .tabs-scroll::-webkit-scrollbar { display: none; }
   .tab { padding: 10px 12px; font-size: 0.7rem; letter-spacing: 0.05em; flex-shrink: 0; }
-  .tabs-right-bar { display: none !important; }
-  .mobile-status-pill { display: flex !important; }
-  .tabs-right-bar .mkt-badge { font-size: 0.54rem !important; padding: 2px 4px !important; white-space: nowrap; }
-  #tabs-clock { font-size: 0.54rem; color: var(--accent); font-family: "IBM Plex Mono",monospace; white-space: nowrap; }
-  .tabs-right-bar .theme-btn { padding: 2px 6px; font-size: 0.68rem; }
-  .vol-surface-card { border: 1px solid var(--border) !important; }
-  .vol-surface-wrap { width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--accent) var(--raised); padding-bottom: 6px; }
-  .vol-surface-wrap::-webkit-scrollbar { height: 5px; }
-  .vol-surface-wrap::-webkit-scrollbar-track { background: var(--raised); border-radius: 3px; }
-  .vol-surface-wrap::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
   .vol-surface-frame { width: 680px !important; height: 480px !important; min-width: 680px; margin: 0 !important; transform: none !important; display: block; touch-action: none; }
-  .vol-surface-wrap { touch-action: pan-x; }
   .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 12px -10px 0; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 7px 10px; font-size: 0.68rem; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
-  .kv-lbl { font-size: 0.55rem; }
-  .kv-val { font-size: 0.76rem; }
-  .syn-grid { grid-template-columns: 1fr !important; }
-  .syn-header { grid-template-columns: repeat(2, 1fr) !important; }
-  .syn-fullwidth { grid-column: 1 !important; }
-  .syn-view-box { padding: 12px 14px; }
-  .syn-card { padding: 12px 14px; }
-  .syn-pill { padding: 10px 12px; }
-  .syn-pill-val { font-size: 1.1rem; }
-  .stab-panel img { width: 100% !important; height: auto !important; max-width: 100%; }
   .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; }
   #footer-right { margin-left: 0 !important; text-align: center !important; width: 100%; }
   .foot-brand { margin-left: 0; text-align: center; }
@@ -304,17 +273,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .mobile-social { display: flex !important; justify-content: center; gap: 14px; flex-wrap: wrap; padding: 8px 0; border-top: 1px solid var(--border); width: 100%; }
   .mobile-social a { color: var(--t3); display: flex; align-items: center; gap: 4px; font-size: 0.68rem; font-family: "IBM Plex Mono",monospace; text-decoration: none; }
   .mobile-social svg { width: 16px; height: 16px; flex-shrink: 0; }
-  .modal-box { width: 95% !important; padding: 20px !important; }
 }
-
-
-/* ── MOBILE NAV STRIP ── */
 .mobile-nav-strip{display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 10px;gap:8px;flex-wrap:wrap}
 .mobile-nav-strip a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;color:var(--t2);text-decoration:none;transition:all .15s}
 .mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
 @media(max-width:760px){.mobile-nav-strip{display:flex}}
 </style>
-<!-- Google Analytics -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -322,48 +287,27 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   gtag('js', new Date());
   gtag('config', 'G-TVCKEZ01PR');
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6989849027997654"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6989849027997654" crossorigin="anonymous"></script>
+</head>
 
 <body>
 
-<!-- Contact Strip -->
 <div class="contact-strip">
   <span class="cs-lbl">Connect</span>
-  <a class="cs-link" href="https://wa.me/919677446082" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    WhatsApp
-  </a>
-  <a class="cs-link" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    learntoearnfromstockmarket@gmail.com
-  </a>
-  <a class="cs-link" href="https://x.com/stock_right" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-    @stock_right
-  </a>
-  <a class="cs-link" href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener">
-    <svg viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
-    @optionscommentary
-  </a>
-  <a class="cs-link" href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-    Telegram
-  </a>
+  <a class="cs-link" href="https://wa.me/919677446082" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a>
+  <a class="cs-link" href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> learntoearnfromstockmarket@gmail.com</a>
+  <a class="cs-link" href="https://x.com/stock_right" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> @stock_right</a>
+  <a class="cs-link" href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener"><svg viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg> @optionscommentary</a>
+  <a class="cs-link" href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
   <div style="margin-left:auto"></div>
 </div>
 
-<!-- Topbar -->
 <header id="topbar">
   <div class="tb-brand"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></div>
   <div class="tb-pills">
     <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">—</span><div class="chg" id="tpc-nifty"></div></div>
     <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">—</span><div class="chg" id="tpc-banknifty"></div></div>
-    <div class="tb-pill">
-      <span class="lbl">SENSEX <span style="font-size:0.75rem; font-weight:600; color:var(--t3); margin-left:2px;">~15m</span></span>
-      <span class="val" id="tpv-sensex">—</span>
-      <div class="chg" id="tpc-sensex"></div>
-    </div>
+    <div class="tb-pill"><span class="lbl">SENSEX <span style="font-size:0.75rem; font-weight:600; color:var(--t3); margin-left:2px;">~15m</span></span><span class="val" id="tpv-sensex">—</span><div class="chg" id="tpc-sensex"></div></div>
     <div class="tb-pill"><span class="lbl">FINNIFTY</span><span class="val" id="tpv-finnifty">—</span><div class="chg" id="tpc-finnifty"></div></div>
     <div class="tb-pill"><span class="lbl">MIDCAP</span><span class="val" id="tpv-midcpnifty">—</span><div class="chg" id="tpc-midcpnifty"></div></div>
   </div>
@@ -376,15 +320,65 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </header>
 
-<!-- Mobile Nav Strip -->
 <div class="mobile-nav-strip">
   <a href="blogs.html">📚 Learn</a>
   <a href="mentorship.html">🎓 Mentorship</a>
 </div>
 
-<!-- Main -->
 <div id="main">
-  <!-- Index tabs row -->
+
+  <div style="max-width:1080px;margin:0 auto 32px;padding:0 24px;">
+    <h1 style="font-family:'Syne',sans-serif;font-size:2.1rem;line-height:1.2;color:var(--t1);margin-bottom:16px;">
+      Free Real-Time Options Flow Dashboard — NIFTY, BankNIFTY, Sensex, FinNIFTY &amp; Midcap
+    </h1>
+    <p style="font-size:1.05rem;line-height:1.65;color:var(--t2);max-width:720px;">
+      Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow analytics, volatility skew and implied volatility surface — all updated live from NSE option chain data for all major indices. 
+      Designed for serious Indian options traders who want to understand the <strong>structural forces</strong> behind price movement.
+    </p>
+
+    <div style="margin:24px 0;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+      <div class="pill" style="background:var(--raised);border:1px solid var(--border);padding:12px 20px;">
+        <div class="pl">Last Updated</div>
+        <div class="pv" id="last-run-home" style="font-size:1.05rem;color:var(--accent);">—</div>
+      </div>
+      <div class="pill" style="background:var(--raised);border:1px solid var(--border);padding:12px 20px;">
+        <div class="pl">Expiry</div>
+        <div class="pv" id="expiry-home" style="font-size:1.05rem;">—</div>
+      </div>
+      <!-- AdSense unit -->
+      <div style="flex:1;min-width:280px;margin-left:auto;">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6989849027997654"
+             crossorigin="anonymous"></script>
+        <!-- OptionsFlow Ads -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6989849027997654"
+             data-ad-slot="1934970798"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:32px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <strong>Structural Edge</strong><br>Know exactly where dealer gamma is concentrated and how it affects price.
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <strong>Volume Flow Clarity</strong><br>VOR, hottest strike, and Volume PCR divergence — see what’s active today.
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <strong>Free Educational Resources</strong><br>19 in-depth articles on GEX, dealer mechanics, Vanna, Charm and more.
+      </div>
+    </div>
+
+    <p style="margin-top:32px;font-size:0.95rem;color:var(--t3);">
+      New to options flow? Start with our <a href="blogs.html" style="color:var(--accent);text-decoration:underline;">free Learn section</a> — 19 plain-English articles written to help you read the dashboard effectively.
+    </p>
+  </div>
+
   <div class="tabs-bar">
     <div class="tabs-scroll">
       <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty')">NIFTY</button>
@@ -395,7 +389,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
   </div>
 
-  <!-- NIFTY Panel -->
   <div id="panel-nifty" class="idx-panel on">
     <div id="pills-nifty" class="pills"></div>
     <div class="sub-tabs">
@@ -424,7 +417,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-nifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- BANKNIFTY Panel -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
     <div class="sub-tabs">
@@ -453,7 +445,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-banknifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- SENSEX Panel -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
     <div class="sub-tabs">
@@ -482,7 +473,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-sensex-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- FINNIFTY Panel -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
     <div class="sub-tabs">
@@ -511,7 +501,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="sp-finnifty-analysis" class="stab-panel"></div>
   </div>
 
-  <!-- MIDCPNIFTY Panel -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
     <div class="sub-tabs">
@@ -541,30 +530,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </div>
 
-<!-- Footer -->
 <div class="footer">
-  <div class="mobile-social" style="display:none">
-    <a href="https://wa.me/919677446082" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp
-    </a>
-    <a href="mailto:learntoearnfromstockmarket@gmail.com" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      Email
-    </a>
-    <a href="https://x.com/stock_right" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      Twitter
-    </a>
-    <a href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-      Telegram
-    </a>
-    <a href="https://www.threads.net/@optionscommentary" target="_blank" rel="noopener">
-      <svg viewBox="0 0 192 192" fill="currentColor" width="18" height="18"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
-      Threads
-    </a>
-  </div>
   <div class="disc">
     ⚠ <strong>Disclaimer:</strong> All scores, signals and structural data are generated by an automated rule-based system applied to publicly available NSE options data. This dashboard presents options market structure — gamma exposure, open interest positioning, volatility and flow data — for informational and educational purposes only. No directional views or investment recommendations are expressed or implied. Options trading involves substantial risk of loss. The operator is <strong>not SEBI-registered</strong>. Consult a SEBI-registered advisor before making any financial decisions. Past outputs do not guarantee future results. By accessing this platform you agree the operator bears no liability for any losses arising from use of this information.
   </div>
@@ -581,65 +547,12 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 </div>
 
-<!-- Modals -->
-<div id="modal-about" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:520px;width:90%;position:relative">
-    <button onclick="this.closest('#modal-about').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">About Us</div>
-    <div style="font-size:.88rem;color:var(--t2);line-height:1.8">
-      <strong style="color:var(--t1)">OptionsFlow</strong> is an independent options analytics platform focused on Nifty, BankNifty, Sensex, FinNifty and MidcapNifty.
-      <br><br>We compute <strong style="color:var(--t1)">Gamma Exposure (GEX)</strong>, Vanna, Charm and dealer positioning from NSE option chain data.
-      <br><br>This is an educational tool. Not SEBI registered.
-    </div>
-  </div>
-</div>
-<div id="modal-contact" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:480px;width:90%;position:relative">
-    <button onclick="this.closest('#modal-contact').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:18px">Contact OptionsFlow</div>
-    <div style="display:flex;flex-direction:column;gap:16px;">
-      <a href="https://wa.me/919677446082" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp
-      </a>
-      <a href="mailto:learntoearnfromstockmarket@gmail.com" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        learntoearnfromstockmarket@gmail.com
-      </a>
-      <a href="https://x.com/stock_right" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        @stock_right
-      </a>
-      <a href="https://www.threads.net/@optionscommentary" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
-        <svg width="20" height="20" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.05l13.561 9.325c5.723-8.664 14.623-10.52 21.553-10.52h.23c8.326.052 14.605 2.47 18.667 7.19 2.916 3.398 4.872 8.137 5.838 14.157-7.261-1.233-15.138-1.61-23.582-1.13-23.714 1.366-38.937 15.201-37.976 34.44.482 9.76 5.14 18.188 13.117 23.745 6.71 4.74 15.362 7.053 24.347 6.568 11.857-.658 21.158-5.164 27.648-13.395 4.995-6.374 8.15-14.627 9.576-25.062 5.748 3.387 9.993 7.96 12.346 13.568 3.833 9.077 4.057 23.986-7.916 35.952-10.456 10.448-23.02 14.88-41.942 15.013-21.061-.152-36.967-6.918-47.273-20.11C23.87 117.99 18.945 99.84 18.77 77.06c.175-22.78 5.1-40.93 14.635-53.958C43.71 10.046 59.615 3.28 80.676 3.128c21.212.152 37.462 6.949 48.304 20.204 5.338 6.533 9.37 14.89 12.005 24.857l15.432-4.166c-3.073-11.376-7.95-21.247-14.582-29.48C128.147 5.447 108.011-1.08 80.727 0h-.087C53.414.087 33.108 6.675 19.2 19.655 6.813 31.155.213 48.047.013 69.838L0 77.06l.013 7.222c.2 21.79 6.8 38.683 19.187 50.183 13.908 12.98 34.214 19.568 61.428 19.655h.086c24.218-.087 41.37-6.485 55.315-20.424 18.17-18.158 17.603-40.93 11.617-54.9-4.32-10.203-12.77-18.458-25.11-23.808z"/></svg>
-        @optionscommentary
-      </a>
-      <a href="https://t.me/+gq_ztbgIbrY3MzVl" target="_blank" style="display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;padding:10px;border:1px solid var(--border);border-radius:8px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        Telegram Channel
-      </a>
-    </div>
-  </div>
-</div>
-<div id="modal-privacy" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:540px;width:90%;max-height:80vh;overflow-y:auto;position:relative">
-    <button onclick="this.closest('#modal-privacy').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1">×</button>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Privacy Policy</div>
-    <div style="font-size:.82rem;color:var(--t2);line-height:2">
-      <strong>Data Collection</strong><br>We do not collect personal information. This site does not use tracking cookies or analytics beyond basic server logs.<br><br>
-      <strong>Option Chain Data</strong><br>All option chain data is sourced from publicly available NSE feeds. We do not store user data or trade history.<br><br>
-      <strong>No Investment Advice</strong><br>All content is for educational and informational purposes only. We are not SEBI registered.
-    </div>
-  </div>
-</div>
-
-<!-- Lightbox -->
 <div id="lbx" onclick="closeLbx()">
   <span id="lbx-x" onclick="closeLbx()">✕</span>
   <img id="lbx-img" src="" alt="zoom">
 </div>
+
 <script>
-/* ── THEME ──────────────────────────────────────────── */
 (function(){
   const t = localStorage.getItem('oc-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', t);
@@ -652,43 +565,14 @@ function toggleTheme(){
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
   document.getElementById('theme-btn').textContent = nxt==='dark' ? '🌙 Dark' : '☀ Light';
-  ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(i){
-    const b = document.getElementById('theme-btn3-'+i);
-    if(b) b.textContent = nxt==='dark' ? '🌙' : '☀';
-  });
 }
-
-/* ── CONFIG ─────────────────────────────────────────── */
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS   = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];  // removed volprofile, volratio, volpcr
-const PLOT_KEY = {
-  oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',
-  itmvex:'itm_vex', skew:'vol_skew', pcr:'pcr_table', topgex:'top_gamma',
-  prob:'prob', volsurf:'vol_surface',
-};
-const CHART_TITLE = {
-  oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',
-  vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',
-  itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',
-  pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',
-  prob:'Probable Positioning Analysis',
-  volsurf:'Implied Volatility Surface',
-};
-const CHART_BADGE = {
-  oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',
-  cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',
-  pcr:'OI PCR + Volume PCR', topgex:'Abs GEX · Volume · VOR',
-  prob:'GEX + Candles · PCR + OI Synthesised',
-  volsurf:'',
-};
-const YF = {
-  nifty:'^NSEI', banknifty:'^NSEBANK', sensex:'^BSESN',
-  finnifty:'NIFTY_FIN_SERVICE.NS', midcpnifty:'NIFTY_MID_SELECT.NS'
-};
+const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis'];
+const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcr:'pcr_table', topgex:'top_gamma',prob:'prob', volsurf:'vol_surface'};
+const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',prob:'Probable Positioning Analysis',volsurf:'Implied Volatility Surface'};
+const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcr:'OI PCR + Volume PCR', topgex:'Abs GEX · Volume · VOR',prob:'GEX + Candles · PCR + OI Synthesised',volsurf:''};
 const cache = {};
 const _dataCache = {};
-
-/* ── CLOCK ──────────────────────────────────────────── */
 function tick(){
   const ist = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
   const p = n=>String(n).padStart(2,'0');
@@ -696,20 +580,10 @@ function tick(){
   const h=ist.getHours(),m=ist.getMinutes(),d=ist.getDay();
   const open = d>=1&&d<=5 && (h>9||(h===9&&m>=15)) && (h<15||(h===15&&m<=30));
   document.getElementById('tb-clock').textContent = timeStr;
-  const tc = document.getElementById('tabs-clock'); if(tc) tc.textContent = timeStr;
   const b = document.getElementById('mkt-badge');
   if(b){ b.textContent = open?'● OPEN':'● CLOSED'; b.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
-  const b2 = document.getElementById('mkt-badge2');
-  if(b2){ b2.textContent = open?'● OPEN':'● CLOSED'; b2.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
-  ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(i){
-    const pic = document.getElementById('pills-clock-'+i); if(pic) pic.textContent = timeStr;
-    const pib = document.getElementById('mkt-badge3-'+i);
-    if(pib){ pib.textContent = open?'● OPEN':'● CLOSED'; pib.className='mkt-badge '+(open?'mkt-open':'mkt-close'); }
-  });
 }
 setInterval(tick,1000); tick();
-
-/* ── HELPERS ────────────────────────────────────────── */
 const f = (v,d=0)=> typeof v==='number'?v.toLocaleString('en-IN',{maximumFractionDigits:d}):(v||'—');
 function ago(iso){
   if(!iso) return '';
@@ -723,8 +597,6 @@ function scoreClass(sc){
   if(sc>=4) return 'sp-pos'; if(sc<=-4) return 'sp-neg';
   if(sc!==0) return 'sp-neu'; return 'sp-flat';
 }
-
-/* ── LIVE TICKERS ── */
 const WORKER_URL = 'https://optionsflow-quotes.learntoearnfromstockmarket.workers.dev';
 async function fetchLive(idx){
   function applyPrice(price, prev){
@@ -743,23 +615,13 @@ async function fetchLive(idx){
     const d=await r.json();
     if(!d.ok||!d.price) throw new Error();
     applyPrice(d.price, d.prev||d.price);
-    return;
-  }catch{}
-  const d=_dataCache[idx];
-  if(!d?.spot) return;
-  applyPrice(d.spot, d.spot-(d.spot_chg||0));
+  }catch{
+    const d=_dataCache[idx];
+    if(d?.spot) applyPrice(d.spot, d.spot-(d.spot_chg||0));
+  }
 }
 async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive)); }
-
-/* ── EMPTY STATE ── */
-const EMPTY=`<div class="empty">
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-    <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
-  </svg>
-  <p>Chart not generated yet for this run.<br><span style="font-size:.75rem;color:var(--t3)">Run GEXMA to generate plots.</span></p>
-</div>`;
-
-/* ── CHART CARD HTML ── */
+const EMPTY=`<div class="empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg><p>Chart not generated yet for this run.<br><span style="font-size:.75rem;color:var(--t3)">Run GEXMA to generate plots.</span></p></div>`;
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf];
@@ -767,30 +629,11 @@ function chartHtml(idx, data, key){
   if(key==='volsurf'){
     const ts = data?.timestamp_iso ? new Date(data.timestamp_iso).getTime() : Date.now();
     const src = `data/${idx}/${fn}?t=${ts}`;
-    return `<div class="gcard vol-surface-card">
-      <div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)">
-        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">Implied Volatility Surface</span>
-        <a href="${src}" target="_blank" rel="noopener"
-           style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;
-                  color:var(--accent);text-decoration:none;border:1px solid var(--border);
-                  border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a>
-      </div>
-      <div class="vol-surface-wrap">
-        <iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Volatility Surface"></iframe>
-      </div>
-    </div>`;
+    return `<div class="gcard vol-surface-card"><div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)"><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">Implied Volatility Surface</span><a href="${src}" target="_blank" rel="noopener" style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a></div><div class="vol-surface-wrap"><iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Volatility Surface"></iframe></div></div>`;
   }
   const src=`data/${idx}/${fn}?t=${(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12)||Math.floor(Date.now()/1800000)}`;
-  return `<div class="gcard">
-    <div class="gcard-hdr">
-      <span class="gcard-title">${CHART_TITLE[key]||key}</span>
-      <span class="gcard-badge">${CHART_BADGE[key]||''}</span>
-    </div>
-    <img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:crisp-edges">
-  </div>`;
+  return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div><img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:crisp-edges"></div>`;
 }
-
-/* ── SYNOPSIS ── */
 function analysisHtml(idx, data){
   if(!data) return EMPTY;
   var panel = document.getElementById('sp-'+idx+'-analysis');
@@ -799,12 +642,9 @@ function analysisHtml(idx, data){
     panel._synTs = tsKey;
     panel.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading synopsis…</div>';
     fetch('data/'+idx+'/synopsis.html?t='+tsKey)
-      .then(function(r){ return r.ok ? r.text() : null; })
-      .then(function(html){
-        if(html && panel) panel.innerHTML = html;
-        else if(panel) panel.innerHTML = _synFallback(idx, data);
-      })
-      .catch(function(){ if(panel) panel.innerHTML = _synFallback(idx, data); });
+      .then(r=>r.ok ? r.text() : null)
+      .then(html=>{ if(html && panel) panel.innerHTML = html; else if(panel) panel.innerHTML = _synFallback(idx, data); })
+      .catch(()=>{ if(panel) panel.innerHTML = _synFallback(idx, data); });
   }
   return panel ? panel.innerHTML : '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading…</div>';
 }
@@ -812,29 +652,27 @@ function _synFallback(idx, data){
   if(!data) return EMPTY;
   var sc=data.composite_score||0;
   var gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-  var sup=(data.put_support_levels||[]).map(function(k){return f(k);}).join(' · ')||'—';
-  var res=(data.call_resist_levels||[]).map(function(k){return f(k);}).join(' · ')||'—';
-  return '<div class="pills" style="padding-top:8px;margin-bottom:14px">'
-    +'<div class="pill"><div class="pl">Engine<\/div><div class="pv" style="color:var(--accent)">Dealer Flow Analytics<\/div><\/div>'
-    +'<div class="pill"><div class="pl">Generated<\/div><div class="pv" style="font-size:.75rem">'+(data.timestamp||'—')+'<\/div><\/div>'
-    +'<div class="pill"><div class="pl">Expiry<\/div><div class="pv">'+(data.expiry||'—')+'<\/div><\/div>'
-    +'<\/div>'
-    +'<div class="gcard"><div style="padding:22px">'
-    +'<div class="kv-grid">'
-    +'<div class="kv-item"><div class="kv-lbl">COMPOSITE SCORE<\/div><div class="kv-val"><span class="score-pill '+scoreClass(sc)+'">'+(sc>0?'+':'')+sc+'<\/span><\/div><\/div>'
-    +'<div class="kv-item"><div class="kv-lbl">NET GEX<\/div><div class="kv-val" style="color:'+gC+'">'+(data.net_gex>0?'+':'')+f(data.net_gex,0)+' Cr<\/div><\/div>'
-    +'<div class="kv-item"><div class="kv-lbl">GEX PIN<\/div><div class="kv-val" style="color:var(--accent)">'+f(data.peak_gex_k)+'<\/div><\/div>'
-    +'<div class="kv-item"><div class="kv-lbl">ATM IV<\/div><div class="kv-val">'+f(data.atm_iv,1)+'%<\/div><\/div>'
-    +'<div class="kv-item"><div class="kv-lbl">SPOT<\/div><div class="kv-val">'+f(data.spot)+'<\/div><\/div>'
-    +'<div class="kv-item"><div class="kv-lbl">PUT SUPPORT<\/div><div class="kv-val" style="color:var(--pos);font-size:.75rem">'+sup+'<\/div><\/div>'
-    +'<div class="kv-item"><div class="kv-lbl">CALL RESIST<\/div><div class="kv-val" style="color:var(--neg);font-size:.75rem">'+res+'<\/div><\/div>'
-    +(data.vol_pcr_session!=null?'<div class="kv-item"><div class="kv-lbl">VOL PCR<\/div><div class="kv-val" style="color:'+(data.vol_pcr_session>1?'var(--put)':'var(--call)')+'">'+f(data.vol_pcr_session,2)+'<\/div><\/div>':'')
-    +(data.vol_confirmation?'<div class="kv-item"><div class="kv-lbl">VOL CONFIRM<\/div><div class="kv-val" style="color:'+(data.vol_confirmation==='HIGH'?'var(--pos)':data.vol_confirmation==='LOW'?'var(--neg)':'var(--t3)')+'">'+data.vol_confirmation+'<\/div><\/div>':'')
-    +(data.hottest_strike?'<div class="kv-item"><div class="kv-lbl">HOT STRIKE<\/div><div class="kv-val" style="color:var(--accent)">'+f(data.hottest_strike)+'<\/div><\/div>':'')
-    +'<\/div><\/div><\/div>';
+  var sup=(data.put_support_levels||[]).map(k=>f(k)).join(' · ')||'—';
+  var res=(data.call_resist_levels||[]).map(k=>f(k)).join(' · ')||'—';
+  return '<div class="pills" style="padding-top:8px;margin-bottom:14px">'+
+    '<div class="pill"><div class="pl">Engine</div><div class="pv" style="color:var(--accent)">Dealer Flow Analytics</div></div>'+
+    '<div class="pill"><div class="pl">Generated</div><div class="pv" style="font-size:.75rem">'+(data.timestamp||'—')+'</div></div>'+
+    '<div class="pill"><div class="pl">Expiry</div><div class="pv">'+(data.expiry||'—')+'</div></div>'+
+    '</div>'+
+    '<div class="gcard"><div style="padding:22px">'+
+    '<div class="kv-grid">'+
+    '<div class="kv-item"><div class="kv-lbl">COMPOSITE SCORE</div><div class="kv-val"><span class="score-pill '+scoreClass(sc)+'">'+(sc>0?'+':'')+sc+'</span></div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">NET GEX</div><div class="kv-val" style="color:'+gC+'">'+(data.net_gex>0?'+':'')+f(data.net_gex,0)+' Cr</div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">GEX PIN</div><div class="kv-val" style="color:var(--accent)">'+f(data.peak_gex_k)+'</div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">ATM IV</div><div class="kv-val">'+f(data.atm_iv,1)+'%</div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">SPOT</div><div class="kv-val">'+f(data.spot)+'</div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">PUT SUPPORT</div><div class="kv-val" style="color:var(--pos);font-size:.75rem">'+sup+'</div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">CALL RESIST</div><div class="kv-val" style="color:var(--neg);font-size:.75rem">'+res+'</div></div>'+
+    (data.vol_pcr_session!=null?'<div class="kv-item"><div class="kv-lbl">VOL PCR</div><div class="kv-val" style="color:'+(data.vol_pcr_session>1?'var(--put)':'var(--call)')+'">'+f(data.vol_pcr_session,2)+'</div></div>':'')+
+    (data.vol_confirmation?'<div class="kv-item"><div class="kv-lbl">VOL CONFIRM</div><div class="kv-val" style="color:'+(data.vol_confirmation==='HIGH'?'var(--pos)':data.vol_confirmation==='LOW'?'var(--neg)':'var(--t3)')+'">'+data.vol_confirmation+'</div></div>':'')+
+    (data.hottest_strike?'<div class="kv-item"><div class="kv-lbl">HOT STRIKE</div><div class="kv-val" style="color:var(--accent)">'+f(data.hottest_strike)+'</div></div>':'')+
+    '</div></div></div>';
 }
-
-/* ── FETCH DATA ── */
 async function fetchData(idx, force){
   if(!force && cache[idx] && Date.now()-cache[idx].ts<30000) return cache[idx].data;
   try{
@@ -845,7 +683,6 @@ async function fetchData(idx, force){
     return d;
   }catch{ return cache[idx]?.data||null; }
 }
-
 function renderIndex(idx, data){
   if(data){
     const ev=document.getElementById(`tpv-${idx}`);
@@ -855,16 +692,7 @@ function renderIndex(idx, data){
   if(pills){
     if(data){
       const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-      pills.innerHTML=`
-        <div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div>
-        <div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div>
-        <div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div>
-        <div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div>
-        <div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div>
-        <div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div>
-        <div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'—'}</div></div>
-        <div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>
-        <div class="mobile-status-pill" style="display:none;align-items:center;gap:5px;padding:6px 10px;background:var(--raised);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0"><span class="mkt-badge mkt-close" id="mkt-badge3-${idx}" style="font-size:0.52rem!important;padding:2px 4px!important;white-space:nowrap"></span><span id="pills-clock-${idx}" style="font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--accent);white-space:nowrap">—</span><button class="theme-btn" id="theme-btn3-${idx}" onclick="toggleTheme()" style="padding:2px 6px;font-size:.65rem;border-radius:4px;flex-shrink:0">🌙</button></div>`;
+      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'—'}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
@@ -872,21 +700,13 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  // Render only the remaining keys
   const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'];
   activeKeys.forEach(key=>{
     const sp=document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
     if(sp.classList.contains('on')){
-      if(key==='volsurf' && sp.querySelector('iframe')){
-        const newFile = data?.plots?.vol_surface;
-        const curSrc  = sp.querySelector('iframe').getAttribute('src')||'';
-        if(newFile && curSrc.endsWith(newFile)) return;
-      }
       sp.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
-      sp.querySelectorAll('.gcard img').forEach(img=>{
-        img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); });
-      });
+      sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
     } else {
       sp.dataset.stale = '1';
     }
@@ -894,8 +714,6 @@ function renderIndex(idx, data){
   const spa=document.getElementById(`sp-${idx}-analysis`);
   if(spa) spa.innerHTML=analysisHtml(idx,data);
 }
-
-/* ── SWITCH INDEX TAB ── */
 async function switchIdx(idx){
   INDICES.forEach(i=>{
     document.getElementById(`tab-${i}`)?.classList.toggle('on',i===idx);
@@ -904,8 +722,6 @@ async function switchIdx(idx){
   window.scrollTo({top:0,behavior:'smooth'});
   renderIndex(idx, await fetchData(idx));
 }
-
-/* ── SWITCH SUB-TAB ── */
 function switchStab(idx, key, btn){
   document.getElementById(`panel-${idx}`)?.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
@@ -915,34 +731,22 @@ function switchStab(idx, key, btn){
     sp.dataset.stale = '0';
     const d = _dataCache[idx];
     sp.innerHTML = d ? chartHtml(idx, d, key) : EMPTY;
-    sp.querySelectorAll('.gcard img').forEach(img=>{
-      img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); });
-    });
+    sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
     if(key==='analysis'){
       const spa = document.getElementById(`sp-${idx}-analysis`);
       if(spa) spa.innerHTML = analysisHtml(idx, d);
     }
   }
 }
-
-/* ── LIGHTBOX ── */
 function openLbx(src){ document.getElementById('lbx-img').src=src; document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
-
-/* ── AUTO-UPDATE LOGIC (poll every 30 seconds, refresh only when data changes) ── */
 const _lastTs = {};
-
-// Initial load: fetch all indices once and render
 Promise.all(INDICES.map(i => fetchData(i))).then(results => {
   INDICES.forEach((i, n) => { if(results[n]) renderIndex(i, results[n]); });
 });
-
-// Start live tickers (every 30 seconds)
 updateTickers();
 setInterval(updateTickers, 30000);
-
-// Background polling for new analysis (every 30 seconds)
 setInterval(function() {
   INDICES.forEach(function(idx) {
     fetchData(idx, true).then(function(d) {
@@ -953,6 +757,16 @@ setInterval(function() {
     });
   });
 }, 30000);
+async function populateHomePills() {
+  try {
+    const r = await fetch('data/nifty/latest.json?_=' + Date.now());
+    if(!r.ok) return;
+    const d = await r.json();
+    if(d.timestamp) document.getElementById('last-run-home').textContent = d.timestamp;
+    if(d.expiry) document.getElementById('expiry-home').textContent = d.expiry;
+  } catch(e){}
+}
+populateHomePills();
 </script>
 </body>
 </html>
