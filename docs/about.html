@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>About — OptionsFlow</title>
-<meta name="description" content="About OptionsFlow — an independent NSE options analytics platform computing GEX, Vanna, Charm and dealer positioning for Indian index traders.">
+<meta name="description" content="About OptionsFlow — an independent NSE and BSE options analytics platform computing GEX, Vanna, Charm and dealer positioning for Indian index traders.">
 <link rel="canonical" href="https://optionsflow.in/about">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -223,11 +223,20 @@ button.nav-btn{background:var(--raised)}
   <div class="page-hero-inner">
     <div class="page-tag">About</div>
     <h1>Independent Options Analytics<br>for <em>Indian Index Traders</em></h1>
-    <p class="page-hero-lead">OptionsFlow is a free, independent platform that decodes the structural forces driving Nifty, BankNifty and other NSE indices — using the same dealer flow mechanics that professional options desks analyse every day.</p>
+    <p class="page-hero-lead">OptionsFlow is a free, independent platform that decodes the structural forces driving Nifty, BankNifty, Sensex and other NSE &amp; BSE indices — using the same dealer flow mechanics that professional options desks analyse every day.</p>
   </div>
 </div>
 
 <div class="content-wrap">
+
+  <!-- E-E-A-T AUTHOR BOX -->
+  <div style="background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:40px;display:flex;gap:20px;align-items:center;">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:1px;color:var(--accent);">CREATED BY</div>
+      <strong style="font-size:1.15rem;color:var(--t1);">OptionsFlow Analyst</strong><br>
+      <span style="color:var(--t3);">Independent options trader and developer focused on making advanced dealer flow analytics transparent and accessible to retail traders in India. Built this platform from the ground up using publicly available NSE and BSE data.</span>
+    </div>
+  </div>
 
   <!-- WHAT WE COMPUTE -->
   <div class="what-grid">
@@ -263,8 +272,8 @@ button.nav-btn{background:var(--raised)}
     <div class="section-label">Background</div>
     <div class="section-title">Why This Platform Exists</div>
     <p>The Indian F&O market is one of the most active options markets in the world by volume — yet the structural analytics that professional desks use to navigate it are almost entirely absent from the retail and independent trader's toolkit. Charts, indicators and price-action techniques dominate the conversation. Dealer mechanics, gamma exposure and volatility structure rarely do.</p>
-    <p>OptionsFlow was built to change that. The entire platform — the Python analytics engine, the data pipeline, the dashboard — was built from scratch to bring institutional-grade structural analysis to anyone trading Nifty, BankNifty and other NSE indices. The goal is simple: give independent traders the same structural picture that market makers and large desks see.</p>
-    <p>All data is derived from publicly available NSE option chain data and standard Black-Scholes pricing. The analysis is systematic, rule-based and updated regularly throughout the trading day.</p>
+    <p>OptionsFlow was built to change that. The entire platform — the Python analytics engine, the data pipeline, the dashboard — was built from scratch to bring institutional-grade structural analysis to anyone trading Nifty, BankNifty, Sensex and other NSE &amp; BSE indices. The goal is simple: give independent traders the same structural picture that market makers and large desks see.</p>
+    <p>All data is derived from publicly available NSE and BSE option chain data and standard Black-Scholes pricing. The analysis is systematic, rule-based and updated regularly throughout the trading day.</p>
   </div>
 
   <!-- METRICS -->
@@ -279,10 +288,10 @@ button.nav-btn{background:var(--raised)}
       <span class="index-chip">MIDCAP NIFTY</span>
     </div>
     <div class="metrics-row">
-      <div class="metric"><div class="metric-val">5</div><div class="metric-label">Indices covered</div></div>
-      <div class="metric"><div class="metric-val">14</div><div class="metric-label">Chart types per index</div></div>
-      <div class="metric"><div class="metric-val">4</div><div class="metric-label">Dealer scenarios modelled</div></div>
-      <div class="metric"><div class="metric-val">Free</div><div class="metric-label">Always, no login needed</div></div>
+      <div class="metric"><div class="metric-val">Real-time</div><div class="metric-label">Live data from NSE &amp; BSE</div></div>
+      <div class="metric"><div class="metric-val">Structural</div><div class="metric-label">GEX, Vanna &amp; Charm</div></div>
+      <div class="metric"><div class="metric-val">Volume Flow</div><div class="metric-label">VOR, PCR divergence &amp; hottest strikes</div></div>
+      <div class="metric"><div class="metric-val">No login</div><div class="metric-label">Instant access</div></div>
     </div>
   </div>
 
@@ -290,9 +299,9 @@ button.nav-btn{background:var(--raised)}
   <div class="story-section">
     <div class="section-label">How It Works</div>
     <div class="section-title">The Methodology</div>
-    <p>Every output on the dashboard is generated by a systematic, rule-based Python engine applied to live NSE option chain data. No manual analysis. No editorial opinion. Pure structural mechanics.</p>
+    <p>Every output on the dashboard is generated by a systematic, rule-based Python engine applied to live NSE and BSE option chain data. No manual analysis. No editorial opinion. Pure structural mechanics.</p>
     <ul class="method-list">
-      <li><span class="m-label">Data Source</span>Publicly available NSE option chain feeds, updated throughout the trading session.</li>
+      <li><span class="m-label">Data Source</span>Publicly available NSE and BSE option chain feeds, updated throughout the trading session.</li>
       <li><span class="m-label">GEX Engine</span>Black-Scholes gamma computed for all strikes across all expiries. Aggregated by dealer posture assumption across four scenarios.</li>
       <li><span class="m-label">Prob. GEX</span>Strike-by-strike dealer positioning estimated using five signals: IV direction, OI change, moneyness, ATM proximity and recency weighting.</li>
       <li><span class="m-label">VEX / CEX</span>Vanna and charm computed per strike, aggregated across the estimated dealer book. Most meaningful in the final 5 days before expiry.</li>
@@ -305,10 +314,9 @@ button.nav-btn{background:var(--raised)}
   <div class="disclaimer">
     <div class="disclaimer-title">⚠ Important Disclaimer</div>
     <p>OptionsFlow is an <strong>independent, educational platform</strong>. We are <strong>not registered with SEBI</strong> and do not provide investment or trading advice of any kind.</p>
-    <p>All outputs — GEX, VEX, CEX, dealer positioning estimates, PCR, skew data and Synopsis — are generated by an automated rule-based system applied to publicly available NSE data. They describe structural market conditions and are intended for informational and educational purposes only. No directional view or recommendation is expressed or implied.</p>
+    <p>All outputs — GEX, VEX, CEX, dealer positioning estimates, PCR, skew data and Synopsis — are generated by an automated rule-based system applied to publicly available NSE and BSE data. They describe structural market conditions and are intended for informational and educational purposes only. No directional view or recommendation is expressed or implied.</p>
     <p>Options trading involves <strong>substantial risk of loss</strong>. Past structural readings do not guarantee future results. Always consult a SEBI-registered investment advisor before making financial decisions.</p>
   </div>
-
 
 </div>
 
