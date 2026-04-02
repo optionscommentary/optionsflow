@@ -767,6 +767,7 @@ async function populateHomePills() {
   } catch(e){}
 }
 populateHomePills();
+setInterval(populateHomePills, 30000);
 </script>
 </body>
 </html>
