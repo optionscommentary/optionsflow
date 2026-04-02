@@ -337,16 +337,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </p>
 
     <div style="margin:24px 0;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
-      <div class="pill" style="background:var(--raised);border:1px solid var(--border);padding:12px 20px;">
-        <div class="pl">Last Updated</div>
-        <div class="pv" id="last-run-home" style="font-size:1.05rem;color:var(--accent);">—</div>
-      </div>
-      <div class="pill" style="background:var(--raised);border:1px solid var(--border);padding:12px 20px;">
-        <div class="pl">Expiry</div>
-        <div class="pv" id="expiry-home" style="font-size:1.05rem;">—</div>
-      </div>
       <!-- AdSense unit -->
-      <div style="flex:1;min-width:280px;margin-left:auto;">
+      <div style="flex:1;min-width:280px;">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6989849027997654"
              crossorigin="anonymous"></script>
         <!-- OptionsFlow Ads -->
@@ -757,17 +749,6 @@ setInterval(function() {
     });
   });
 }, 30000);
-async function populateHomePills() {
-  try {
-    const r = await fetch('data/nifty/latest.json?_=' + Date.now());
-    if(!r.ok) return;
-    const d = await r.json();
-    if(d.timestamp) document.getElementById('last-run-home').textContent = d.timestamp;
-    if(d.expiry) document.getElementById('expiry-home').textContent = d.expiry;
-  } catch(e){}
-}
-populateHomePills();
-setInterval(populateHomePills, 30000);
 </script>
 </body>
 </html>
