@@ -390,7 +390,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
   </div>
 
-  <!-- NIFTY PANEL -->
+  <!-- ==================== NIFTY PANEL ==================== -->
   <div id="panel-nifty" class="idx-panel on">
     <div id="pills-nifty" class="pills"></div>
     <div class="sub-tabs">
@@ -408,119 +408,108 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
     <div id="sp-nifty-oi" class="stab-panel on">
       <div class="edu-box">
-        <h3>📊 Understanding the GEX OI Monitor</h3>
+        <h3>📊 Understanding the GEX OI Monitor (NIFTY)</h3>
         <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
         <p>In this chart, you will see two types of bars: <strong>call OI</strong> (typically shown in blue or green) and <strong>put OI</strong> (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
         <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
         <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
       </div>
-      <div id="oi-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-gex" class="stab-panel">
       <div class="edu-box">
-        <h3>γ Gamma Exposure (GEX) – The Most Important Structural Force</h3>
+        <h3>γ Gamma Exposure (GEX) – The Most Important Structural Force (NIFTY)</h3>
         <p>Gamma Exposure measures the total amount of delta‑hedging that market makers must perform for a 1% move in the underlying index. It is expressed in crores of rupees and tells you whether dealers are <strong>long gamma</strong> (stabilising) or <strong>short gamma</strong> (amplifying). This chart shows four different dealer‑positioning scenarios because the actual dealer posture is not directly observable – but the range of possibilities gives you a complete picture.</p>
         <p><strong>Long gamma (positive GEX):</strong> Dealers have sold puts and bought calls, or a combination that leaves them net long gamma. In this regime, dealers buy when the market falls (to hedge their short puts) and sell when the market rises (to hedge their long calls). This creates a mean‑reverting, range‑bound environment. Volatility tends to compress. Premium selling strategies (iron condors, short strangles) work well.</p>
         <p><strong>Short gamma (negative GEX):</strong> Dealers have sold calls and bought puts, or are otherwise net short gamma. Here, dealers sell when the market falls and buy when the market rises – exactly the opposite of stabilising behaviour. This amplifies trends and increases volatility. Long options strategies and directional trades have a structural tailwind.</p>
         <p><strong>How to read the GEX chart:</strong> The x‑axis shows strike prices. The y‑axis shows GEX in crores. Positive bars (above zero) mean dealers are long gamma at that strike – price is magnetically attracted to that level. Negative bars (below zero) mean dealers are short gamma – price tends to move quickly away from that level. The <strong>GEX Pin</strong> is the strike with the highest absolute GEX; it acts as a gravitational centre. The <strong>Zero Gamma Line (ZGL)</strong> is the price where aggregate dealer gamma flips from positive to negative; crossing below the ZGL changes the entire market character from dampening to amplifying.</p>
         <p>Before each trading session, check whether net GEX is positive or negative, and where the ZGL is relative to spot. This one number tells you what kind of market you are walking into.</p>
       </div>
-      <div id="gex-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-vex" class="stab-panel">
       <div class="edu-box">
-        <h3>ν Vanna Exposure (VEX) – How Implied Volatility Moves the Market</h3>
+        <h3>ν Vanna Exposure (VEX) – How Implied Volatility Moves the Market (NIFTY)</h3>
         <p>Vanna measures how an option’s delta changes when implied volatility moves. Most traders think of volatility as just a measure of option pricing, but Vanna turns volatility changes into actual, mechanical buying or selling of the underlying. When implied volatility rises, dealers with positive VEX must buy the underlying to stay delta‑neutral. When IV falls, they must sell. These flows can be enormous, especially in the days leading up to expiry or after major events.</p>
         <p><strong>Why VEX matters:</strong> Imagine a scenario where India VIX has been elevated due to an upcoming budget announcement. Once the event passes, IV collapses. If VEX is positive and large, that IV collapse forces dealers to sell the index – often causing a sharp move down even though there is no negative news. Without VEX, that move would look random. With VEX, it is predictable and mechanical.</p>
         <p><strong>How to read the VEX chart:</strong> The chart shows VEX across strikes, similar to GEX. Positive VEX means: if IV falls, dealers sell. Negative VEX means: if IV falls, dealers buy. The magnitude tells you how strong the flow will be. VEX is most significant in the last 5 days before expiry, because near‑term options have the highest vanna sensitivity. Always check VEX before any overnight position, especially before known volatility events.</p>
         <p><strong>Practical use:</strong> If you see a large positive VEX and you expect IV to drop (e.g., after an event, or simply because the market is calming down), you can anticipate selling pressure. Conversely, large negative VEX combined with a rising VIX suggests mechanical buying support. Combine VEX with GEX to confirm whether the market is likely to range or trend.</p>
       </div>
-      <div id="vex-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-cex" class="stab-panel">
       <div class="edu-box">
-        <h3>χ Charm Exposure (CEX) – Time Decay as a Market Force</h3>
+        <h3>χ Charm Exposure (CEX) – Time Decay as a Market Force (NIFTY)</h3>
         <p>Charm measures how an option’s delta decays purely due to the passage of time. As an out‑of‑the‑money option approaches expiry, its delta falls toward zero. Market makers who sold those options must sell back their hedges – creating persistent, predictable selling pressure on OTM calls and buying pressure on OTM puts. This is why expiry weeks often have a distinct directional bias that has nothing to do with news or fundamentals.</p>
         <p><strong>The charm effect in practice:</strong> On Wednesday morning (Nifty expiry week), there may be a large open interest in 24,200 calls (a call wall). As time passes toward Thursday expiry, the delta of those OTM calls decays. The market makers who wrote those calls were buying Nifty futures to hedge the positive delta. Now, as charm reduces that delta, they must sell those futures back. The result is systematic selling pressure that tends to keep the market below the call wall, even if the underlying wants to rise. This is why so many weekly expiries end with Nifty pinned just below a heavy call strike.</p>
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
       </div>
-      <div id="cex-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-itmvex" class="stab-panel">
       <div class="edu-box">
-        <h3>📈 ITM Vanna Exposure – Deep In‑The‑Money Flows</h3>
-        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like Nifty and BankNifty can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
+        <h3>📈 ITM Vanna Exposure – Deep In‑The‑Money Flows (NIFTY)</h3>
+        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like Nifty can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
         <p><strong>Why ITM VEX matters separately:</strong> Large institutional hedges often use deep ITM puts as portfolio protection. When implied volatility rises, those ITM puts become even more expensive, and dealers may need to adjust their hedges. This creates flows that are distinct from the ATM/OTM vanna shown in the main VEX chart. The ITM VEX chart isolates these deep‑in‑the‑money strikes so you can see whether the institutional hedging flow is adding or removing pressure.</p>
         <p><strong>How to interpret ITM VEX:</strong> Positive ITM VEX in puts means dealers will sell the underlying if IV falls – this can amplify downward moves if the market is already weak. Negative ITM VEX in calls means dealers will buy the underlying if IV rises – providing support during volatility spikes. While ITM VEX is usually smaller in magnitude than ATM VEX, it should not be ignored when ITM open interest is unusually high (e.g., after a large market move).</p>
         <p>Check this chart when you see large open interest in strikes that are 5% or more away from current spot. Those positions are likely held by institutions, and their hedge adjustments can create slow, persistent flows that last for days.</p>
       </div>
-      <div id="itmvex-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-skew" class="stab-panel">
       <div class="edu-box">
-        <h3>📉 Volatility Skew – What the Options Market Is Really Pricing</h3>
+        <h3>📉 Volatility Skew – What the Options Market Is Really Pricing (NIFTY)</h3>
         <p>In a perfect Black‑Scholes world, options at all strikes would have the same implied volatility. In reality, they never do. The pattern of IV across strikes – the volatility skew – is one of the most informative signals available. It tells you whether the market is worried about a crash (steep put skew), expecting a rally (call skew), or complacent (flat skew).</p>
         <p><strong>Understanding the skew chart:</strong> The x‑axis shows strike prices relative to spot. The y‑axis shows implied volatility. Typically, put IV (left side) is higher than call IV (right side) – this is called a “negative skew” and is normal for equity indices because investors buy puts for protection. The steepness of the put wing tells you how much fear is priced in. A very steep put skew (e.g., 5% OTM puts trading at 20% IV while ATM is 12%) suggests institutional hedging demand is high – often a sign of underlying weakness or upcoming event risk.</p>
         <p><strong>What to look for:</strong> If the put wing is unusually flat (IV similar across all strikes), the market is complacent – volatility may be about to expand. If the call wing is steeper than usual, there may be speculative buying of upside calls, which can precede a short‑squeeze or breakout. The skew chart also shows open interest as a background histogram, so you can see where the largest positions are relative to the IV curve. A large OI concentration at a strike where IV is also elevated is a high‑conviction level.</p>
         <p>Use the skew to gauge sentiment and to identify which strikes are expensive (sell) and which are cheap (buy) from a volatility perspective.</p>
       </div>
-      <div id="skew-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-pcr" class="stab-panel">
       <div class="edu-box">
-        <h3>📊 Put‑Call Ratio (PCR) – OI vs Volume, Structure vs Flow</h3>
+        <h3>📊 Put‑Call Ratio (PCR) – OI vs Volume, Structure vs Flow (NIFTY)</h3>
         <p>The Put‑Call Ratio is one of the oldest and most widely followed options indicators, but it is also one of the most misused. This dashboard presents two separate PCR measures: <strong>OI PCR</strong> (based on open interest) and <strong>Volume PCR</strong> (based on today’s trading volume). The difference between them is where the real signal lies.</p>
         <p><strong>OI PCR</strong> tells you the accumulated structure. A high OI PCR (above 1.2) means there are more puts outstanding than calls – this is often interpreted as bullish because it means there is a large put floor below the market, and many participants have already hedged their downside. However, OI PCR changes slowly and can lag the market.</p>
         <p><strong>Volume PCR</strong> tells you what participants are doing right now. If Volume PCR is significantly higher than OI PCR, it means today’s trading is much more put‑heavy than the existing structure. This is a sign of fresh fear or hedging entering the market – often bearish in the short term. Conversely, if Volume PCR is lower than OI PCR, it means calls are dominating today’s flow – bullish sentiment.</p>
         <p><strong>How to read the PCR table:</strong> The table shows PCR at different strike ranges (near‑ATM, mid‑range, all strikes) for both OI and volume. Focus on the near‑ATM PCR first – that is where the most sensitive money sits. A rising Volume PCR while OI PCR is flat suggests that today’s participants are adding put protection, which can signal an impending move down. A falling Volume PCR while OI PCR remains high suggests that call buyers are becoming active, potentially signalling a bounce.</p>
         <p>Use PCR as a confirmation tool, not a standalone signal. Combine it with GEX and VEX to understand whether the put or call flow is likely to be absorbed (long gamma) or amplified (short gamma).</p>
       </div>
-      <div id="pcr-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-topgex" class="stab-panel">
       <div class="edu-box">
-        <h3>⭐ Top GEX + Volume – The Six Most Important Strikes</h3>
+        <h3>⭐ Top GEX + Volume – The Six Most Important Strikes (NIFTY)</h3>
         <p>Not all strikes are created equal. The Top GEX + Volume table lists the six strikes with the highest absolute gamma exposure, ranked by magnitude. For each strike, you will see the GEX value in crores, today’s combined call and put volume, and separate Call VOR and Put VOR (Volume/OI Ratio). This table is your fastest way to identify where the structural forces are strongest – and whether those levels are being actively defended today.</p>
         <p><strong>Why VOR matters:</strong> VOR (Volume divided by Open Interest) tells you how much of the accumulated OI has been traded today. A high VOR (above 0.3) means that strike is alive – participants are actively trading it, and the structural level is likely to hold or break with conviction. A low VOR (below 0.05) means the OI is stale – the level may still be structurally significant, but it is not being defended today, so it may break more easily.</p>
         <p><strong>Call VOR vs Put VOR:</strong> Showing them separately is critical. A strike might have a high Call VOR (calls being actively rolled or written) but a low Put VOR (puts sitting there from a previous session). This asymmetry tells you that the market is focused on one side of the chain – it gives you a directional clue. For example, if the top GEX strike is 24,000 and the Call VOR is 0.45 while Put VOR is 0.02, traders are actively engaged with calls at that level, suggesting resistance is being built or tested.</p>
         <p><strong>How to use this table:</strong> Every morning, scan the top 3 strikes. If they are all above spot (call side) and have high Call VOR, expect resistance. If they are below spot (put side) with high Put VOR, expect support. If the top strike has low VOR on both sides, the structural level is weak – price may move through it without much friction.</p>
       </div>
-      <div id="topgex-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-prob" class="stab-panel">
       <div class="edu-box">
-        <h3>🎯 Probable Positioning – Dealer Intent, Strike by Strike</h3>
+        <h3>🎯 Probable Positioning – Dealer Intent, Strike by Strike (NIFTY)</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike by analysing how open interest has been building over recent snapshots, combined with changes in implied volatility and moneyness.</p>
         <p><strong>How the engine works:</strong> For each strike, the system looks at OI change (new positions being opened or closed), IV change (whether option prices are being bid up or sold down), and where the strike is relative to spot. A call strike where OI is rising and IV is falling suggests writers are supplying those calls – dealers become long gamma, creating a resistance ceiling. A put strike where OI is rising and IV is rising suggests buyers are demanding puts for protection – dealers become short gamma, creating a vulnerable floor that could break.</p>
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests. This is the most sophisticated output on the dashboard and requires practice to interpret – start by comparing it to the raw GEX chart.</p>
       </div>
-      <div id="prob-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-volsurf" class="stab-panel">
       <div class="edu-box">
-        <h3>🌊 Volatility Surface – The Complete 3D Picture</h3>
+        <h3>🌊 Volatility Surface – The Complete 3D Picture (NIFTY)</h3>
         <p>The volatility surface is the most comprehensive visualisation of the options market. It shows implied volatility across <strong>every strike and every expiry</strong> simultaneously. This 3D chart is interactive – you can rotate, zoom, and pan to examine the structure from any angle. Understanding the vol surface separates advanced traders from beginners.</p>
         <p><strong>What the axes mean:</strong> The X‑axis represents strike price (or moneyness). The Y‑axis represents time to expiry (days). The Z‑axis (height) represents implied volatility. Every point on the surface is the IV of one specific option – one strike, one expiry date.</p>
         <p><strong>Normal surface features:</strong> In calm markets, you will see a downward slope from near‑term to far‑term expiries (called “downward term structure”) – near‑term IV is higher because of event uncertainty. You will also see a skew: put IV is higher than call IV, especially for deep OTM puts. This is the “volatility smile” or “skew”.</p>
         <p><strong>Abnormal patterns to watch:</strong> If the surface is inverted (far‑term IV > near‑term IV), the market expects volatility to increase in the future – often before elections, RBI policy, or US Fed meetings. If there is a “kink” or bump at a specific expiry (e.g., the weekly expiry IV is much higher than the monthly), that expiry has an event priced in – trade that expiry accordingly. A flat surface (low IV everywhere) indicates complacency – historically, these periods are followed by volatility expansion.</p>
         <p><strong>How to use the vol surface:</strong> Before placing any options trade, check the surface to see if the expiry you are trading has anomalously high or low IV relative to adjacent expiries. If you are selling premium on a weekly expiry that has elevated IV for no obvious reason, you are being compensated for risk that may not materialise – a good trade. If you are buying options on an expiry with compressed IV, you have a volatility edge. The surface gives you that context instantly.</p>
       </div>
-      <div id="volsurf-chart-placeholder"></div>
     </div>
     <div id="sp-nifty-analysis" class="stab-panel">
       <div class="edu-box">
-        <h3>◈ Synopsis – The One‑Screen Summary</h3>
+        <h3>◈ Synopsis – The One‑Screen Summary (NIFTY)</h3>
         <p>The Synopsis is the most important output on the entire dashboard. It compresses everything – GEX regime, GEX pin, Zero Gamma Line, PCR, VEX, CEX, skew, and volume flow – into a single, scannable card. Before any trade, the Synopsis should be your first and last stop. It tells you the structural environment, the key levels, and the flow dynamics in plain language.</p>
         <p><strong>What each section tells you:</strong> The top pills show the composite score (bullish/bearish/neutral) and conviction level (HIGH/MODERATE/LOW). HIGH conviction means multiple signals are aligned – trade with confidence. LOW conviction means signals are conflicting – reduce size or wait. The Structure card shows GEX regime (long or short gamma), GEX pin (the magnetic level), ZGL (the regime switch), and the expected range (1σ move). The Flow & Positioning card tells you whether call buyers, put writers, or other participants are dominant – and whether volume confirmation is high or low. The Volatility card shows ATM IV, risk reversal (skew steepness), VRP (volatility risk premium), and tail asymmetry.</p>
         <p><strong>The Volume Flow panel:</strong> This is the newest and most actionable part of the Synopsis. It shows the Hottest Strike (where the most volume is trading), Vol PCR vs OI PCR divergence, and a table of ATM ±10 strikes with ΔVol, ΔOI, ΔIV, VOR, and status (BUILDING, UNWINDING, CHURN, STALE). Green status means a level is being actively reinforced; red status means it is being abandoned. Use this panel to understand what the market is focused on right now – not just the accumulated structure from past sessions.</p>
         <p><strong>Pre‑market routine:</strong> Open the Synopsis first. Check the composite score and conviction. If conviction is HIGH and the score is strongly positive or negative, you have a tradeable directional bias. Then check the GEX regime – long gamma means range‑bound strategies; short gamma means trending strategies. Then check the Volume Flow panel to see if today’s participants are confirming or contradicting the structure. Finally, check the Hottest Strike – if it is the same as the GEX pin, the magnetic pull is very strong. If it is different, that is a signal of where the market’s attention is actually focused. This entire routine takes less than three minutes.</p>
       </div>
-      <div id="synopsis-placeholder"></div>
     </div>
   </div>
 
-  <!-- BANKNIFTY PANEL (identical structure, all educational boxes repeated) -->
+  <!-- ==================== BANKNIFTY PANEL ==================== -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
     <div class="sub-tabs">
@@ -536,44 +525,250 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">◈ SYNOPSIS</button>
     </div>
-    <div id="sp-banknifty-oi" class="stab-panel on"><div class="edu-box"><h3>📊 Understanding the GEX OI Monitor</h3><p>The same principles apply to BankNifty as for Nifty, but BankNifty options have different characteristics – wider strikes (typically 100‑point increments), higher absolute premiums, and different expiry behaviour due to the modified weekly expiry schedule. The OI concentrations in BankNifty are often more extreme because institutional hedging flows are larger. Use the same interpretation: high put OI below spot = support, high call OI above spot = resistance. The GEX overlay tells you whether dealers are long or short gamma at each strike, which determines whether the level will hold or break.</p><p>BankNifty tends to be more volatile than Nifty, so GEX regimes change faster. Check the OI Monitor multiple times per day to see how positions are shifting. A sudden increase in put OI at a strike 500 points below spot, combined with positive gamma, is a strong floor being built. Conversely, a decrease in call OI at a resistance level with negative gamma suggests the ceiling is weakening – a breakout may be imminent.</p></div><div id="banknifty-oi-placeholder"></div></div>
-    <div id="sp-banknifty-gex" class="stab-panel"><div class="edu-box"><h3>γ Gamma Exposure (GEX) – BankNifty</h3><p>BankNifty’s Gamma Exposure behaves similarly to Nifty but with larger magnitudes due to the higher notional value of BankNifty options (one BankNifty point is worth ₹100, compared to ₹50 for Nifty). The GEX pin in BankNifty is often a round number like 48,000 or 49,000, and the magnetic pull can be extremely strong in the final hours of expiry. Positive GEX (long gamma) in BankNifty tends to produce very tight, range‑bound behaviour – ideal for iron condors and short straddles. Negative GEX (short gamma) can produce explosive moves, especially on low‑volume days.</p><p>Always compare BankNifty GEX to Nifty GEX. If Nifty is in a long‑gamma regime but BankNifty is short‑gamma, the two indices may diverge – BankNifty could trend while Nifty ranges. This is a common condition that creates arbitrage and pair‑trading opportunities. The Zero Gamma Line (ZGL) is especially important in BankNifty because crossing it can trigger large, rapid moves due to the high gamma concentration in weekly expiries.</p></div><div id="banknifty-gex-placeholder"></div></div>
-    <div id="sp-banknifty-vex" class="stab-panel"><div class="edu-box"><h3>ν Vanna Exposure (VEX) – BankNifty</h3><p>BankNifty options have higher vega than Nifty options because BankNifty is more volatile. As a result, VEX flows in BankNifty can be disproportionately large relative to OI. When India VIX spikes, BankNifty VEX often becomes highly positive, meaning dealers are forced to sell BankNifty futures if IV falls. This is one reason why BankNifty sometimes falls faster than Nifty after a volatility event – the VEX unwind is larger.</p><p>Monitor VEX closely in the last 2‑3 days of BankNifty expiry. Because BankNifty weekly expiries are now less frequent (the NSE changed the schedule), the concentration of OI in the monthly expiry has increased, making VEX even more impactful on those days. A large positive VEX combined with falling IV is a reliable signal for selling pressure. Use this to time put purchases or to avoid being caught long on a VEX unwind.</p></div><div id="banknifty-vex-placeholder"></div></div>
-    <div id="sp-banknifty-cex" class="stab-panel"><div class="edu-box"><h3>χ Charm Exposure (CEX) – BankNifty</h3><p>Charm in BankNifty is particularly significant because BankNifty options have higher theta (time decay) than Nifty options. The charm effect – delta decay as time passes – is therefore stronger. In the final two days of BankNifty expiry, CEX can create persistent directional pressure that overrides other signals. For example, if there is a large call wall at 49,000 and CEX is positive, dealers will be selling futures as those calls decay, keeping the market below 49,000 even if the spot price wants to rise.</p><p>Use CEX to understand whether a wall or floor is likely to hold or break. A positive CEX on the call side (above spot) is a strong resistance signal. A negative CEX on the put side (below spot) is a strong support signal. When CEX and GEX agree (both positive on calls, both negative on puts), the structural level is extremely reliable.</p></div><div id="banknifty-cex-placeholder"></div></div>
-    <div id="sp-banknifty-itmvex" class="stab-panel"><div class="edu-box"><h3>📈 ITM Vanna Exposure – BankNifty Deep Flows</h3><p>BankNifty has a large institutional presence, and deep ITM puts are often used to hedge banking sector portfolios. The ITM VEX chart for BankNifty can therefore show significant values that are not visible in the main VEX chart. Pay attention to ITM VEX when BankNifty has moved sharply in one direction – the ITM options that were OTM become ITM, and their hedge adjustments create additional flows.</p><p>A large positive ITM VEX in puts after a sharp fall means that if IV falls (which it often does after a crash), dealers will sell more BankNifty – potentially extending the down move. This is a classic “vanna crash” pattern. Conversely, large negative ITM VEX in calls after a rally can provide buying support if IV rises further.</p></div><div id="banknifty-itmvex-placeholder"></div></div>
-    <div id="sp-banknifty-skew" class="stab-panel"><div class="edu-box"><h3>📉 Volatility Skew – BankNifty</h3><p>The skew in BankNifty is usually steeper than in Nifty because banking stocks are more correlated and can experience sudden, sharp moves (e.g., after RBI policy). A steep put skew (e.g., 5% OTM puts trading at 25% IV while ATM is 15%) is common before major banking events. A flattening of the put skew often signals that the fear has been priced out – this can be a contrarian bullish signal.</p><p>Compare the BankNifty skew to the Nifty skew. If BankNifty skew is much steeper than Nifty skew, the market is pricing specific banking sector risk. If that risk does not materialise, the IV crush will be more severe in BankNifty, creating selling pressure via VEX. Use the skew to decide whether to trade BankNifty options or Nifty options for a given event.</p></div><div id="banknifty-skew-placeholder"></div></div>
-    <div id="sp-banknifty-pcr" class="stab-panel"><div class="edu-box"><h3>📊 Put‑Call Ratio – BankNifty</h3><p>BankNifty PCR behaves similarly to Nifty PCR, but the values tend to be more extreme because BankNifty options are used more heavily for directional speculation rather than portfolio hedging. A BankNifty OI PCR above 1.5 is very bullish – it indicates a massive put floor. A PCR below 0.7 is very bearish – call writers are dominating, creating a heavy ceiling.</p><p>Volume PCR is even more important in BankNifty because intraday speculation is intense. A sudden spike in Volume PCR (today’s put volume much higher than OI PCR) often precedes a sharp intraday fall. Conversely, a drop in Volume PCR below OI PCR often precedes a sharp rise. Use the divergence between OI PCR and Volume PCR as a short‑term trading signal, but always confirm with GEX and VEX.</p></div><div id="banknifty-pcr-placeholder"></div></div>
-    <div id="sp-banknifty-topgex" class="stab-panel"><div class="edu-box"><h3>⭐ Top GEX + Volume – BankNifty</h3><p>The same principles apply as for Nifty, but BankNifty strikes are wider (100‑point increments), so the top GEX strikes are more spaced out. Pay attention to the VOR (Volume/OI Ratio) for BankNifty strikes – because BankNifty OI can be very large, a VOR of 0.1 may still represent significant volume. The Call VOR and Put VOR separation is critical: a strike might have high Put VOR (puts being actively written) but low Call VOR, indicating support is being built without resistance.</p><p>In BankNifty, the Hottest Strike (the one with the most volume) often moves intraday. If the Hottest Strike changes from a put strike to a call strike during the session, that is a sign of a sentiment shift. Use the Top GEX+Volume table to track which strikes are attracting the most attention and whether that attention is structural (high VOR, building OI) or just churn (high volume but flat OI).</p></div><div id="banknifty-topgex-placeholder"></div></div>
-    <div id="sp-banknifty-prob" class="stab-panel"><div class="edu-box"><h3>🎯 Probable Positioning – BankNifty Dealer Intent</h3><p>BankNifty dealer positioning is often more polarised than Nifty because of the concentrated nature of banking stocks. The Probable Positioning chart for BankNifty can show large blue (long gamma) bars at round numbers where put writers are active, and large orange (short gamma) bars at strikes where call writers are active. The conviction level is also typically higher because BankNifty OI changes are more decisive.</p><p>When the Probable Positioning chart shows a cluster of blue bars (long gamma) at strikes just below spot, that is a strong support zone. A cluster of orange bars (short gamma) just above spot is a weak resistance zone – price is likely to break through it. Use this chart to identify strikes where the dealer posture disagrees with the raw OI – those are the most interesting levels for trade setups.</p></div><div id="banknifty-prob-placeholder"></div></div>
-    <div id="sp-banknifty-volsurf" class="stab-panel"><div class="edu-box"><h3>🌊 Volatility Surface – BankNifty</h3><p>The BankNifty volatility surface is often steeper and more irregular than Nifty’s because of the different expiry schedule and the impact of banking‑sector news. You may see “kinks” at specific expiries that correspond to RBI policy dates or major bank earnings. The term structure (IV across expiries) is also more variable – BankNifty near‑term IV can spike dramatically before events and then collapse.</p><p>Use the interactive 3D surface to identify which expiry has the most distorted IV. If the weekly expiry has much higher IV than the monthly, selling weekly options has a higher volatility risk premium. If the monthly expiry has lower IV than the weekly, buying monthly options and selling weekly options is a calendar spread opportunity. The surface gives you the complete picture – do not rely on a single expiry’s skew alone.</p></div><div id="banknifty-volsurf-placeholder"></div></div>
-    <div id="sp-banknifty-analysis" class="stab-panel"><div class="edu-box"><h3>◈ Synopsis – BankNifty One‑Screen Summary</h3><p>The BankNifty Synopsis works exactly the same as the Nifty Synopsis, but with BankNifty‑specific data. The composite score, conviction, GEX regime, pin, ZGL, PCR, VEX, CEX, and volume flow are all presented in the same format. Because BankNifty is more volatile, the conviction levels tend to be lower on quiet days and higher on event days. Pay special attention to the Volume Flow panel – BankNifty volume is often concentrated in a few strikes, so the Hottest Strike is a very strong signal.</p><p>Before trading BankNifty options, always check the Synopsis. If the composite score is NEUTRAL and conviction is LOW, avoid directional trades – stick to range‑bound strategies or stay in cash. If the score is strongly positive or negative with HIGH conviction, you have a structural edge. The Synopsis takes 60 seconds to read and will save you from many bad trades.</p></div><div id="banknifty-synopsis-placeholder"></div></div>
+    <div id="sp-banknifty-oi" class="stab-panel on">
+      <div class="edu-box">
+        <h3>📊 Understanding the GEX OI Monitor (BANKNIFTY)</h3>
+        <p>The same principles apply to BankNifty as for Nifty, but BankNifty options have different characteristics – wider strikes (typically 100‑point increments), higher absolute premiums, and different expiry behaviour due to the modified weekly expiry schedule. The OI concentrations in BankNifty are often more extreme because institutional hedging flows are larger. Use the same interpretation: high put OI below spot = support, high call OI above spot = resistance. The GEX overlay tells you whether dealers are long or short gamma at each strike, which determines whether the level will hold or break.</p>
+        <p>BankNifty tends to be more volatile than Nifty, so GEX regimes change faster. Check the OI Monitor multiple times per day to see how positions are shifting. A sudden increase in put OI at a strike 500 points below spot, combined with positive gamma, is a strong floor being built. Conversely, a decrease in call OI at a resistance level with negative gamma suggests the ceiling is weakening – a breakout may be imminent.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-gex" class="stab-panel">
+      <div class="edu-box">
+        <h3>γ Gamma Exposure (GEX) – BankNifty</h3>
+        <p>BankNifty’s Gamma Exposure behaves similarly to Nifty but with larger magnitudes due to the higher notional value of BankNifty options (one BankNifty point is worth ₹100, compared to ₹50 for Nifty). The GEX pin in BankNifty is often a round number like 48,000 or 49,000, and the magnetic pull can be extremely strong in the final hours of expiry. Positive GEX (long gamma) in BankNifty tends to produce very tight, range‑bound behaviour – ideal for iron condors and short straddles. Negative GEX (short gamma) can produce explosive moves, especially on low‑volume days.</p>
+        <p>Always compare BankNifty GEX to Nifty GEX. If Nifty is in a long‑gamma regime but BankNifty is short‑gamma, the two indices may diverge – BankNifty could trend while Nifty ranges. This is a common condition that creates arbitrage and pair‑trading opportunities. The Zero Gamma Line (ZGL) is especially important in BankNifty because crossing it can trigger large, rapid moves due to the high gamma concentration in weekly expiries.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-vex" class="stab-panel">
+      <div class="edu-box">
+        <h3>ν Vanna Exposure (VEX) – BankNifty</h3>
+        <p>BankNifty options have higher vega than Nifty options because BankNifty is more volatile. As a result, VEX flows in BankNifty can be disproportionately large relative to OI. When India VIX spikes, BankNifty VEX often becomes highly positive, meaning dealers are forced to sell BankNifty futures if IV falls. This is one reason why BankNifty sometimes falls faster than Nifty after a volatility event – the VEX unwind is larger.</p>
+        <p>Monitor VEX closely in the last 2‑3 days of BankNifty expiry. Because BankNifty weekly expiries are now less frequent (the NSE changed the schedule), the concentration of OI in the monthly expiry has increased, making VEX even more impactful on those days. A large positive VEX combined with falling IV is a reliable signal for selling pressure. Use this to time put purchases or to avoid being caught long on a VEX unwind.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-cex" class="stab-panel">
+      <div class="edu-box">
+        <h3>χ Charm Exposure (CEX) – BankNifty</h3>
+        <p>Charm in BankNifty is particularly significant because BankNifty options have higher theta (time decay) than Nifty options. The charm effect – delta decay as time passes – is therefore stronger. In the final two days of BankNifty expiry, CEX can create persistent directional pressure that overrides other signals. For example, if there is a large call wall at 49,000 and CEX is positive, dealers will be selling futures as those calls decay, keeping the market below 49,000 even if the spot price wants to rise.</p>
+        <p>Use CEX to understand whether a wall or floor is likely to hold or break. A positive CEX on the call side (above spot) is a strong resistance signal. A negative CEX on the put side (below spot) is a strong support signal. When CEX and GEX agree (both positive on calls, both negative on puts), the structural level is extremely reliable.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-itmvex" class="stab-panel">
+      <div class="edu-box">
+        <h3>📈 ITM Vanna Exposure – BankNifty Deep Flows</h3>
+        <p>BankNifty has a large institutional presence, and deep ITM puts are often used to hedge banking sector portfolios. The ITM VEX chart for BankNifty can therefore show significant values that are not visible in the main VEX chart. Pay attention to ITM VEX when BankNifty has moved sharply in one direction – the ITM options that were OTM become ITM, and their hedge adjustments create additional flows.</p>
+        <p>A large positive ITM VEX in puts after a sharp fall means that if IV falls (which it often does after a crash), dealers will sell more BankNifty – potentially extending the down move. This is a classic “vanna crash” pattern. Conversely, large negative ITM VEX in calls after a rally can provide buying support if IV rises further.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-skew" class="stab-panel">
+      <div class="edu-box">
+        <h3>📉 Volatility Skew – BankNifty</h3>
+        <p>The skew in BankNifty is usually steeper than in Nifty because banking stocks are more correlated and can experience sudden, sharp moves (e.g., after RBI policy). A steep put skew (e.g., 5% OTM puts trading at 25% IV while ATM is 15%) is common before major banking events. A flattening of the put skew often signals that the fear has been priced out – this can be a contrarian bullish signal.</p>
+        <p>Compare the BankNifty skew to the Nifty skew. If BankNifty skew is much steeper than Nifty skew, the market is pricing specific banking sector risk. If that risk does not materialise, the IV crush will be more severe in BankNifty, creating selling pressure via VEX. Use the skew to decide whether to trade BankNifty options or Nifty options for a given event.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-pcr" class="stab-panel">
+      <div class="edu-box">
+        <h3>📊 Put‑Call Ratio – BankNifty</h3>
+        <p>BankNifty PCR behaves similarly to Nifty PCR, but the values tend to be more extreme because BankNifty options are used more heavily for directional speculation rather than portfolio hedging. A BankNifty OI PCR above 1.5 is very bullish – it indicates a massive put floor. A PCR below 0.7 is very bearish – call writers are dominating, creating a heavy ceiling.</p>
+        <p>Volume PCR is even more important in BankNifty because intraday speculation is intense. A sudden spike in Volume PCR (today’s put volume much higher than OI PCR) often precedes a sharp intraday fall. Conversely, a drop in Volume PCR below OI PCR often precedes a sharp rise. Use the divergence between OI PCR and Volume PCR as a short‑term trading signal, but always confirm with GEX and VEX.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-topgex" class="stab-panel">
+      <div class="edu-box">
+        <h3>⭐ Top GEX + Volume – BankNifty</h3>
+        <p>The same principles apply as for Nifty, but BankNifty strikes are wider (100‑point increments), so the top GEX strikes are more spaced out. Pay attention to the VOR (Volume/OI Ratio) for BankNifty strikes – because BankNifty OI can be very large, a VOR of 0.1 may still represent significant volume. The Call VOR and Put VOR separation is critical: a strike might have high Put VOR (puts being actively written) but low Call VOR, indicating support is being built without resistance.</p>
+        <p>In BankNifty, the Hottest Strike (the one with the most volume) often moves intraday. If the Hottest Strike changes from a put strike to a call strike during the session, that is a sign of a sentiment shift. Use the Top GEX+Volume table to track which strikes are attracting the most attention and whether that attention is structural (high VOR, building OI) or just churn (high volume but flat OI).</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-prob" class="stab-panel">
+      <div class="edu-box">
+        <h3>🎯 Probable Positioning – BankNifty Dealer Intent</h3>
+        <p>BankNifty dealer positioning is often more polarised than Nifty because of the concentrated nature of banking stocks. The Probable Positioning chart for BankNifty can show large blue (long gamma) bars at round numbers where put writers are active, and large orange (short gamma) bars at strikes where call writers are active. The conviction level is also typically higher because BankNifty OI changes are more decisive.</p>
+        <p>When the Probable Positioning chart shows a cluster of blue bars (long gamma) at strikes just below spot, that is a strong support zone. A cluster of orange bars (short gamma) just above spot is a weak resistance zone – price is likely to break through it. Use this chart to identify strikes where the dealer posture disagrees with the raw OI – those are the most interesting levels for trade setups.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-volsurf" class="stab-panel">
+      <div class="edu-box">
+        <h3>🌊 Volatility Surface – BankNifty</h3>
+        <p>The BankNifty volatility surface is often steeper and more irregular than Nifty’s because of the different expiry schedule and the impact of banking‑sector news. You may see “kinks” at specific expiries that correspond to RBI policy dates or major bank earnings. The term structure (IV across expiries) is also more variable – BankNifty near‑term IV can spike dramatically before events and then collapse.</p>
+        <p>Use the interactive 3D surface to identify which expiry has the most distorted IV. If the weekly expiry has much higher IV than the monthly, selling weekly options has a higher volatility risk premium. If the monthly expiry has lower IV than the weekly, buying monthly options and selling weekly options is a calendar spread opportunity. The surface gives you the complete picture – do not rely on a single expiry’s skew alone.</p>
+      </div>
+    </div>
+    <div id="sp-banknifty-analysis" class="stab-panel">
+      <div class="edu-box">
+        <h3>◈ Synopsis – BankNifty One‑Screen Summary</h3>
+        <p>The BankNifty Synopsis works exactly the same as the Nifty Synopsis, but with BankNifty‑specific data. The composite score, conviction, GEX regime, pin, ZGL, PCR, VEX, CEX, and volume flow are all presented in the same format. Because BankNifty is more volatile, the conviction levels tend to be lower on quiet days and higher on event days. Pay special attention to the Volume Flow panel – BankNifty volume is often concentrated in a few strikes, so the Hottest Strike is a very strong signal.</p>
+        <p>Before trading BankNifty options, always check the Synopsis. If the composite score is NEUTRAL and conviction is LOW, avoid directional trades – stick to range‑bound strategies or stay in cash. If the score is strongly positive or negative with HIGH conviction, you have a structural edge. The Synopsis takes 60 seconds to read and will save you from many bad trades.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- SENSEX PANEL (condensed but still fully written) -->
+  <!-- ==================== SENSEX PANEL ==================== -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
-    <div class="sub-tabs"><!-- same sub-tabs as Nifty --></div>
-    <!-- Each sub‑tab has an edu-box with Sensex‑specific text. For brevity I am showing a representative sample, but the final file includes all 11 tabs with full text. -->
-    <div id="sp-sensex-oi" class="stab-panel on"><div class="edu-box"><h3>📊 Sensex GEX OI Monitor</h3><p>Sensex options have different liquidity and strike spacing compared to Nifty. Because Sensex is a price‑weighted index of 30 stocks, its volatility profile differs. The OI concentrations in Sensex are often at 500‑point intervals (e.g., 72,000, 72,500, 73,000). Use the same principles: high put OI below spot = support, high call OI above spot = resistance. Sensex GEX tends to be less reactive than Nifty GEX because the options market is thinner, but the signals are still meaningful, especially near monthly expiry.</p></div><div id="sensex-oi-placeholder"></div></div>
-    <!-- Additional tabs for Sensex: GEX, VEX, CEX, ITM VEX, Skew, PCR, Top GEX, Probable, Vol Surface, Synopsis – each with a full educational paragraph. I have omitted them here for space but they are fully written in the final file. -->
+    <div class="sub-tabs">
+      <button class="stab on" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('sensex','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('sensex','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">Volatility Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">◈ SYNOPSIS</button>
+    </div>
+    <div id="sp-sensex-oi" class="stab-panel on">
+      <div class="edu-box">
+        <h3>📊 Sensex GEX OI Monitor</h3>
+        <p>Sensex options have different liquidity and strike spacing compared to Nifty. Because Sensex is a price‑weighted index of 30 stocks, its volatility profile differs. The OI concentrations in Sensex are often at 500‑point intervals (e.g., 72,000, 72,500, 73,000). Use the same principles: high put OI below spot = support, high call OI above spot = resistance. Sensex GEX tends to be less reactive than Nifty GEX because the options market is thinner, but the signals are still meaningful, especially near monthly expiry.</p>
+      </div>
+    </div>
+    <div id="sp-sensex-gex" class="stab-panel">
+      <div class="edu-box">
+        <h3>γ Gamma Exposure (GEX) – Sensex</h3>
+        <p>Sensex GEX is calculated using the same methodology as Nifty, but with lower liquidity and wider bid‑ask spreads. As a result, GEX signals in Sensex are often more “sticky” – once a level is established, it tends to hold longer. However, when a Sensex GEX level breaks, the move can be larger because of the thinner order book. Use Sensex GEX as a secondary confirmation after checking Nifty and BankNifty. If all three indices show the same GEX regime, the signal is extremely robust.</p>
+      </div>
+    </div>
+    <div id="sp-sensex-vex" class="stab-panel"><div class="edu-box"><h3>ν Vanna Exposure (VEX) – Sensex</h3><p>Sensex VEX is smaller in magnitude than Nifty or BankNifty, but still meaningful. Because Sensex options are less traded, the vanna flows are less likely to be drowned out by other noise. A large positive VEX in Sensex, combined with a falling India VIX, is a reliable signal for selling pressure. Use Sensex VEX primarily when you are trading Sensex options directly, rather than using it as a proxy for Nifty.</p></div></div>
+    <div id="sp-sensex-cex" class="stab-panel"><div class="edu-box"><h3>χ Charm Exposure (CEX) – Sensex</h3><p>Charm in Sensex behaves similarly to Nifty, but the effect is less pronounced because Sensex options have lower open interest. However, on monthly expiry day, the charm unwind can still be significant. Check Sensex CEX in the final 48 hours before expiry to understand whether there is systematic buying or selling pressure from time decay.</p></div></div>
+    <div id="sp-sensex-itmvex" class="stab-panel"><div class="edu-box"><h3>📈 ITM Vanna Exposure – Sensex</h3><p>ITM VEX in Sensex is rarely large, but when it appears, it often signals institutional activity. Deep ITM puts in Sensex are sometimes used as a hedge for large-cap equity portfolios. A sudden increase in ITM put VEX may indicate that large players are adding downside protection – a bearish warning.</p></div></div>
+    <div id="sp-sensex-skew" class="stab-panel"><div class="edu-box"><h3>📉 Volatility Skew – Sensex</h3><p>The Sensex skew is typically flatter than Nifty’s because the index is less volatile and has fewer participants. A steepening of the Sensex put skew is therefore a stronger signal than in Nifty – it indicates a genuine increase in fear rather than normal hedging. Watch for skew steepening ahead of major economic data releases.</p></div></div>
+    <div id="sp-sensex-pcr" class="stab-panel"><div class="edu-box"><h3>📊 Put‑Call Ratio – Sensex</h3><p>Sensex PCR is less reliable as a short‑term signal because of lower liquidity. However, extreme readings (OI PCR above 1.5 or below 0.6) are meaningful and often precede reversals. Volume PCR is more useful because it captures intraday sentiment. A sharp spike in Sensex Volume PCR without a corresponding move in OI PCR suggests a short‑lived fear spike that may fade quickly.</p></div></div>
+    <div id="sp-sensex-topgex" class="stab-panel"><div class="edu-box"><h3>⭐ Top GEX + Volume – Sensex</h3><p>Due to lower liquidity, VOR values in Sensex are often lower than in Nifty. A VOR above 0.2 in Sensex is considered high. Pay extra attention to the Call VOR and Put VOR – because the market is thinner, a single large trade can dominate a strike’s VOR for the whole day. Cross‑reference with volume to see if the activity is concentrated in a few large trades or broad participation.</p></div></div>
+    <div id="sp-sensex-prob" class="stab-panel"><div class="edu-box"><h3>🎯 Probable Positioning – Sensex</h3><p>The probable positioning engine works the same for Sensex, but the lower OI means the conviction level is often MODERATE or LOW. Use the Sensex probable positioning chart to identify strikes where dealers are long gamma – these levels are more reliable because thin markets tend to respect dealer hedging more strongly. Short gamma signals are less reliable because dealers may not have enough hedging volume to move price.</p></div></div>
+    <div id="sp-sensex-volsurf" class="stab-panel"><div class="edu-box"><h3>🌊 Volatility Surface – Sensex</h3><p>The Sensex vol surface is often smoother than Nifty’s because of fewer strikes and expiries. Look for term structure anomalies: if the 1‑month expiry has higher IV than the 2‑month, the market is pricing near‑term event risk. The surface can be rotated to see which strikes are most expensive – useful for identifying relative value trades between Sensex and Nifty options.</p></div></div>
+    <div id="sp-sensex-analysis" class="stab-panel"><div class="edu-box"><h3>◈ Synopsis – Sensex</h3><p>The Sensex Synopsis is the fastest way to gauge the structural environment for the Sensex options market. Because liquidity is lower, pay special attention to the “Vol Confirm” indicator – if it says LOW, the signals are less reliable. The Hottest Strike in Sensex is particularly important because it tells you where the limited liquidity is concentrated. Trade Sensex options only when conviction is HIGH and the composite score is strongly directional.</p></div></div>
   </div>
 
-  <!-- FINNIFTY PANEL (similar structure) -->
+  <!-- ==================== FINNIFTY PANEL ==================== -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
-    <div class="sub-tabs"><!-- same --></div>
-    <div id="sp-finnifty-oi" class="stab-panel on"><div class="edu-box"><h3>📊 FinNifty GEX OI Monitor</h3><p>FinNifty is a relatively new index but has rapidly growing options volume. Its strike spacing is 50 points, making it more granular than BankNifty. FinNifty options are often used for hedging financial sector exposure. The OI concentrations can be sharp – a single strike may hold a large percentage of total OI. This makes the GEX pin very powerful. Watch for put walls at round numbers (e.g., 21,000, 21,500) – they tend to hold strongly. Call walls can be broken more easily because liquidity is thinner.</p></div><div id="finnifty-oi-placeholder"></div></div>
-    <!-- Other tabs similarly have full edu‑boxes -->
+    <div class="sub-tabs">
+      <button class="stab on" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('finnifty','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('finnifty','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">Volatility Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">◈ SYNOPSIS</button>
+    </div>
+    <div id="sp-finnifty-oi" class="stab-panel on">
+      <div class="edu-box">
+        <h3>📊 FinNifty GEX OI Monitor</h3>
+        <p>FinNifty is a relatively new index but has rapidly growing options volume. Its strike spacing is 50 points, making it more granular than BankNifty. FinNifty options are often used for hedging financial sector exposure. The OI concentrations can be sharp – a single strike may hold a large percentage of total OI. This makes the GEX pin very powerful. Watch for put walls at round numbers (e.g., 21,000, 21,500) – they tend to hold strongly. Call walls can be broken more easily because liquidity is thinner.</p>
+      </div>
+    </div>
+    <div id="sp-finnifty-gex" class="stab-panel"><div class="edu-box"><h3>γ Gamma Exposure (GEX) – FinNifty</h3><p>FinNifty GEX is often more volatile than Nifty because the underlying financial stocks are highly correlated. Positive GEX regimes in FinNifty can produce very tight pinning at round numbers. Negative GEX regimes can produce sudden, sharp moves. Because the index is newer, historical patterns are less reliable – always use the latest data and watch for changes in the GEX regime throughout the day.</p></div></div>
+    <div id="sp-finnifty-vex" class="stab-panel"><div class="edu-box"><h3>ν Vanna Exposure (VEX) – FinNifty</h3><p>FinNifty VEX is driven by the same mechanics as other indices, but the smaller OI base means that even moderate VEX values can have a large percentage impact. A VEX reading above 200 crores in FinNifty is significant. Monitor VEX ahead of RBI policy statements – financial sector options are particularly sensitive to interest rate expectations, and IV moves can be large.</p></div></div>
+    <div id="sp-finnifty-cex" class="stab-panel"><div class="edu-box"><h3>χ Charm Exposure (CEX) – FinNifty</h3><p>Charm in FinNifty is most noticeable on expiry day. Because FinNifty has weekly expiries (currently on Tuesdays), the charm unwind happens on Monday and Tuesday. Use CEX to understand whether the market is likely to be pulled toward a strike or pushed away. A large positive CEX on calls above spot is a strong resistance signal.</p></div></div>
+    <div id="sp-finnifty-itmvex" class="stab-panel"><div class="edu-box"><h3>📈 ITM Vanna Exposure – FinNifty</h3><p>ITM VEX in FinNifty is rarely large, but when it appears, it often coincides with major financial sector news. Deep ITM puts are used by some hedge funds to protect against financial crises. A spike in ITM put VEX, even if small in absolute terms, should be taken seriously as a warning sign for the financial sector.</p></div></div>
+    <div id="sp-finnifty-skew" class="stab-panel"><div class="edu-box"><h3>📉 Volatility Skew – FinNifty</h3><p>The FinNifty skew is usually steeper than Nifty because the financial sector is more sensitive to interest rate changes and credit events. A flattening of the put skew often signals that the market expects stability from the banking regulator. Use the skew to gauge whether options are pricing in a specific financial event (e.g., a bank earnings announcement).</p></div></div>
+    <div id="sp-finnifty-pcr" class="stab-panel"><div class="edu-box"><h3>📊 Put‑Call Ratio – FinNifty</h3><p>FinNifty PCR tends to be more extreme because the index is narrower. OI PCR above 1.8 is very bullish; below 0.5 is very bearish. Volume PCR is extremely noisy due to low liquidity – use it with caution. A sustained divergence between OI PCR and Volume PCR over several sessions is more reliable than a single day's spike.</p></div></div>
+    <div id="sp-finnifty-topgex" class="stab-panel"><div class="edu-box"><h3>⭐ Top GEX + Volume – FinNifty</h3><p>Because FinNifty has fewer strikes, the top GEX strikes often repeat week after week. Pay attention to VOR – if a strike that is usually in the top 5 has unusually low VOR, it means the structural level is not being defended today and may break. The Hottest Strike in FinNifty is often the same as the GEX pin; when they diverge, that is a strong signal that the market’s focus has shifted.</p></div></div>
+    <div id="sp-finnifty-prob" class="stab-panel"><div class="edu-box"><h3>🎯 Probable Positioning – FinNifty</h3><p>The probable positioning engine for FinNifty uses the same logic as Nifty, but with lower OI the conviction levels are often MODERATE. Use the chart to identify strikes where the estimated dealer gamma is large in magnitude relative to OI – those are the most important levels. Because FinNifty is less liquid, dealer positioning can change quickly; refresh the data frequently.</p></div></div>
+    <div id="sp-finnifty-volsurf" class="stab-panel"><div class="edu-box"><h3>🌊 Volatility Surface – FinNifty</h3><p>The FinNifty vol surface is often bumpy due to lower liquidity. Look for “kinks” at strikes that are not round numbers – those may be anomalies caused by a single large trade. The term structure is usually downward sloping, but before RBI policy it can invert. Use the interactive surface to identify which expiry has the richest IV for selling premium.</p></div></div>
+    <div id="sp-finnifty-analysis" class="stab-panel"><div class="edu-box"><h3>◈ Synopsis – FinNifty</h3><p>The FinNifty Synopsis is your quick reference for the financial sector’s options structure. Because FinNifty is more volatile than Nifty, the composite score can swing from +10 to -10 in a single session. Always check the conviction – if conviction is LOW, the signals are unreliable. Use the Volume Flow panel to see where the limited liquidity is concentrated, and trade only when the Hottest Strike aligns with the GEX pin.</p></div></div>
   </div>
 
-  <!-- MIDCAP NIFTY PANEL -->
+  <!-- ==================== MIDCAP NIFTY PANEL ==================== -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
-    <div class="sub-tabs"><!-- same --></div>
-    <div id="sp-midcpnifty-oi" class="stab-panel on"><div class="edu-box"><h3>📊 Midcap Nifty GEX OI Monitor</h3><p>Midcap Nifty options are less liquid than Nifty or BankNifty, but the structural signals can be even more powerful because small flows move the index. The strike spacing is typically 100 points. Because of lower liquidity, GEX levels may be more “sticky” – once a put wall is built, it can hold for days. However, when a wall breaks, the move can be violent due to lack of counter‑flow. Use the Midcap dashboard for directional confirmation rather than as a primary signal. The volume flow panel is especially important here – low VOR means the level is untrustworthy.</p></div><div id="midcap-oi-placeholder"></div></div>
-    <!-- Other tabs similarly -->
+    <div class="sub-tabs">
+      <button class="stab on" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor</button>
+      <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('midcpnifty','itmvex',this)">ITM VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab stab-prob" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">Probable Positioning</button>
+      <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">Volatility Surface</button>
+      <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">◈ SYNOPSIS</button>
+    </div>
+    <div id="sp-midcpnifty-oi" class="stab-panel on">
+      <div class="edu-box">
+        <h3>📊 Midcap Nifty GEX OI Monitor</h3>
+        <p>Midcap Nifty options are less liquid than Nifty or BankNifty, but the structural signals can be even more powerful because small flows move the index. The strike spacing is typically 100 points. Because of lower liquidity, GEX levels may be more “sticky” – once a put wall is built, it can hold for days. However, when a wall breaks, the move can be violent due to lack of counter‑flow. Use the Midcap dashboard for directional confirmation rather than as a primary signal. The volume flow panel is especially important here – low VOR means the level is untrustworthy.</p>
+      </div>
+    </div>
+    <div id="sp-midcpnifty-gex" class="stab-panel"><div class="edu-box"><h3>γ Gamma Exposure (GEX) – Midcap Nifty</h3><p>Midcap Nifty GEX is more sensitive to large trades because the options market is thinner. A single institutional order can change the GEX profile significantly. Check the GEX chart frequently – if you see a sudden large positive or negative bar appear at a new strike, that is likely a fresh institutional position. Respect those levels even if the magnitude seems small relative to Nifty.</p></div></div>
+    <div id="sp-midcpnifty-vex" class="stab-panel"><div class="edu-box"><h3>ν Vanna Exposure (VEX) – Midcap Nifty</h3><p>Midcap VEX is often overlooked, but it can be very meaningful. Because midcap stocks are less correlated, the VEX flows from midcap index options can be uncorrelated with Nifty. This creates hedging opportunities. A large positive VEX in Midcap Nifty with a falling VIX suggests selling pressure that may not affect Nifty – useful for pair trades.</p></div></div>
+    <div id="sp-midcpnifty-cex" class="stab-panel"><div class="edu-box"><h3>χ Charm Exposure (CEX) – Midcap Nifty</h3><p>Charm in Midcap Nifty is less predictable because open interest is lower and positions are often held by retail traders rather than institutions. The charm effect may be less systematic. Use CEX only as a secondary check – if both Midcap and Nifty show positive CEX on calls, the selling pressure is likely real. If they diverge, trust the Nifty signal.</p></div></div>
+    <div id="sp-midcpnifty-itmvex" class="stab-panel"><div class="edu-box"><h3>📈 ITM Vanna Exposure – Midcap Nifty</h3><p>ITM VEX in Midcap Nifty is rarely significant because ITM options are thinly traded. Ignore small readings. Only pay attention if ITM VEX exceeds 50 crores – that indicates institutional activity. In that case, cross‑reference with the underlying midcap stocks to understand the driver.</p></div></div>
+    <div id="sp-midcpnifty-skew" class="stab-panel"><div class="edu-box"><h3>📉 Volatility Skew – Midcap Nifty</h3><p>The skew in Midcap Nifty is often flatter than Nifty because there is less institutional put buying. A steep put skew is therefore a strong fear signal – it means participants are genuinely worried about midcap underperformance. Conversely, a steep call skew suggests speculative interest in a midcap rally.</p></div></div>
+    <div id="sp-midcpnifty-pcr" class="stab-panel"><div class="edu-box"><h3>📊 Put‑Call Ratio – Midcap Nifty</h3><p>Midcap PCR is noisy. OI PCR values above 2 or below 0.4 are meaningful, but anything in between is not reliable. Volume PCR is even noisier – ignore intraday spikes. Use Midcap PCR only as a weekly or multi‑day trend indicator, not for short‑term trading.</p></div></div>
+    <div id="sp-midcpnifty-topgex" class="stab-panel"><div class="edu-box"><h3>⭐ Top GEX + Volume – Midcap Nifty</h3><p>Because Midcap Nifty has wide strike spacing, the top GEX strikes are often far apart. The Hottest Strike is usually the one with the most volume – pay close attention to it, as it often moves during the session. VOR values are typically low (below 0.1) due to low liquidity. A VOR above 0.3 in Midcap Nifty is extremely high and indicates a very active level – trade with extra caution because the move may be exhausted.</p></div></div>
+    <div id="sp-midcpnifty-prob" class="stab-panel"><div class="edu-box"><h3>🎯 Probable Positioning – Midcap Nifty</h3><p>The probable positioning engine works less reliably on Midcap Nifty because of lower OI and fewer strikes. Conviction is almost always MODERATE or LOW. Use the chart to identify large blue bars (long gamma) – those are the most reliable levels. Orange bars (short gamma) should be treated with skepticism unless they are very large.</p></div></div>
+    <div id="sp-midcpnifty-volsurf" class="stab-panel"><div class="edu-box"><h3>🌊 Volatility Surface – Midcap Nifty</h3><p>The Midcap Nifty vol surface is often incomplete because not all strikes and expiries have traded options. You may see missing points or jagged edges. Focus on the ATM and near‑ATM region – those are the only reliable areas. The far OTM wings are often not meaningful due to lack of liquidity.</p></div></div>
+    <div id="sp-midcpnifty-analysis" class="stab-panel"><div class="edu-box"><h3>◈ Synopsis – Midcap Nifty</h3><p>The Midcap Nifty Synopsis is useful for confirming signals from Nifty or BankNifty. If the composite score for Midcap Nifty agrees with Nifty, the signal is stronger. If they disagree, the Nifty signal usually dominates because of higher liquidity. The Volume Flow panel is critical – low volume means the entire analysis is unreliable. Only trade Midcap Nifty options when the Synopsis shows HIGH conviction and the Hottest Strike has significant volume.</p></div></div>
   </div>
 
+  <!-- ==================== BOTTOM EDUCATIONAL SECTION (ORIGINAL) ==================== -->
+  <div style="max-width:1080px; margin:60px auto 0; padding:0 24px;">
+    <hr style="border-color:var(--border); margin-bottom:40px;">
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 32px;">
+      <h2 style="font-family:'Syne',sans-serif; font-size:1.4rem; color:var(--t1); margin-bottom:8px;">Beyond the Dashboard – Master Options Flow</h2>
+      <p style="color:var(--t3); margin-bottom:24px; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em;">GEX, Vanna, Dealer Positioning, Volume Flow &amp; Volatility Surface – A Structured Learning Path</p>
+      <p style="margin-bottom:18px; line-height:1.7;">The numbers and charts on this dashboard are powerful, but they are just the starting point. To truly benefit from Gamma Exposure, Vanna flows, and dealer positioning, you need to understand <strong>why</strong> these forces exist and <strong>how</strong> to interpret them in different market conditions – bullish, bearish, or range‑bound.</p>
+      <p style="margin-bottom:18px; line-height:1.7;">That is exactly why we built a complete <strong>free educational library</strong> and a <strong>one‑on‑one mentorship programme</strong>. The dashboard shows you <em>what</em> is happening. The Learn section and mentorship teach you <em>what to do about it</em>.</p>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700; color:var(--t1); margin:28px 0 12px;">Key Concepts – What You Are Looking At</h3>
+      <div style="background:var(--raised); border-radius:12px; padding:18px 20px; margin-bottom:20px;">
+        <strong style="color:var(--accent);">γ Gamma Exposure (GEX)</strong>
+        <p style="margin-top:6px; line-height:1.65; font-size:0.88rem;">GEX measures the total amount of delta‑hedging that market makers must perform for a 1% move in the index. <strong>Positive GEX</strong> (long gamma) means dealers buy falling markets and sell rising markets – creating a stabilising, range‑bound environment. <strong>Negative GEX</strong> (short gamma) means dealers sell into weakness and buy into strength – amplifying trends and increasing volatility. The Zero Gamma Line (ZGL) marks the price where dealer behaviour flips from one regime to the other.</p>
+      </div>
+      <div style="background:var(--raised); border-radius:12px; padding:18px 20px; margin-bottom:20px;">
+        <strong style="color:var(--accent);">ν Vanna Exposure (VEX)</strong>
+        <p style="margin-top:6px; line-height:1.65; font-size:0.88rem;">Vanna measures how an option’s delta changes when implied volatility moves. When IV falls (as it often does after an event), dealers with positive VEX must sell the underlying to stay neutral. When IV rises, they must buy. This creates systematic, non‑directional flows that can move markets even without a price trigger. VEX is most impactful in the final days before expiry.</p>
+      </div>
+      <div style="background:var(--raised); border-radius:12px; padding:18px 20px; margin-bottom:20px;">
+        <strong style="color:var(--accent);">χ Charm Exposure (CEX)</strong>
+        <p style="margin-top:6px; line-height:1.65; font-size:0.88rem;">Charm measures how an option’s delta decays purely due to the passage of time. As an OTM option approaches expiry, its delta falls toward zero. Market makers who sold those options must sell back their hedges – creating persistent, predictable selling pressure on OTM calls and buying pressure on OTM puts. CEX explains why expiry weeks often have a distinct directional bias unrelated to news.</p>
+      </div>
+      <div style="background:var(--raised); border-radius:12px; padding:18px 20px; margin-bottom:20px;">
+        <strong style="color:var(--accent);">📊 Volatility Surface</strong>
+        <p style="margin-top:6px; line-height:1.65; font-size:0.88rem;">The volatility surface is a 3D chart showing implied volatility across all strikes <strong>and</strong> all expiries simultaneously. It reveals where IV is expensive, cheap, or distorted. A steep put wing indicates fear of a crash. An inverted term structure (far‑dated IV > near‑dated IV) signals an expected event. The surface is the most complete picture of the options market’s collective expectation.</p>
+      </div>
+      <div style="background:var(--raised); border-radius:12px; padding:18px 20px; margin-bottom:20px;">
+        <strong style="color:var(--accent);">📈 Volume Flow &amp; PCR</strong>
+        <p style="margin-top:6px; line-height:1.65; font-size:0.88rem;">Open interest tells you where the market <em>has been</em>. Volume tells you where the market is <em>right now</em>. The Volume/OI Ratio (VOR) shows which strikes are being actively defended today. Volume PCR (compared to OI PCR) reveals divergence – if today’s put volume is much higher than the accumulated put OI, fresh fear is entering the market. The Hottest Strike is the single most active strike of the session; it often differs from the GEX pin, and that gap itself is a signal.</p>
+      </div>
+      <div style="background:var(--raised); border-radius:12px; padding:18px 20px; margin-bottom:28px;">
+        <strong style="color:var(--accent);">🎯 Dealer Positioning (Probable GEX)</strong>
+        <p style="margin-top:6px; line-height:1.65; font-size:0.88rem;">Not all open interest is equal. Our Probable Positioning engine analyses OI changes, IV direction, moneyness, and recency to estimate, strike by strike, whether dealers are long or short gamma. A call wall with high conviction (BUILDING STRONG, IV falling) is being reinforced by writers – a reliable ceiling. A call wall with UNWINDING and IV rising is being abandoned – a weak ceiling. This is the closest you can get to reading dealer intent without being on the desk itself.</p>
+      </div>
+      <p style="margin-bottom:18px; line-height:1.7;">All of these concepts are covered in much greater depth – with real Nifty and BankNifty examples – in our <strong>free Learn section</strong>. The 19 articles start from absolute basics (“Calls and Puts Explained”) and progress to advanced topics (“Vanna and Charm”, “Reading the Volatility Surface”, “Real Trade Setup using GEX + PCR + VEX”).</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; margin:28px 0;">
+        <div style="background:var(--raised); border-radius:12px; padding:20px;">
+          <div style="font-size:1.8rem; margin-bottom:8px;">📘</div>
+          <h3 style="font-size:1rem; font-weight:700; color:var(--t1); margin-bottom:8px;">19 In‑Depth Articles</h3>
+          <p style="font-size:0.8rem; color:var(--t3); line-height:1.6;">From “Calls and Puts Explained” to “Real Trade Setup using GEX + PCR + VEX” – all written in plain English, with real NSE examples.</p>
+          <a href="blogs.html" style="display:inline-block; margin-top:14px; color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.7rem; font-weight:600; text-decoration:none;">→ Read the Learn section</a>
+        </div>
+        <div style="background:var(--raised); border-radius:12px; padding:20px;">
+          <div style="font-size:1.8rem; margin-bottom:8px;">🎓</div>
+          <h3 style="font-size:1rem; font-weight:700; color:var(--t1); margin-bottom:8px;">Analyst Mentorship</h3>
+          <p style="font-size:0.8rem; color:var(--t3); line-height:1.6;">Live, one‑on‑one sessions covering the dashboard, pre‑market routines, trade structuring, and expiry mechanics. Ask anything.</p>
+          <a href="mentorship.html" style="display:inline-block; margin-top:14px; color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.7rem; font-weight:600; text-decoration:none;">→ Explore mentorship</a>
+        </div>
+      </div>
+      <p style="margin-bottom:18px; line-height:1.7;">All data on this dashboard is derived from publicly available <strong>NSE and BSE option chains</strong> and the standard Black‑Scholes model. No proprietary data, no black boxes – just transparent, rule‑based analytics. Whether you are a beginner trying to understand open interest or an experienced trader looking for vanna‑driven expiry edges, the dashboard + Learn section + mentorship gives you a complete toolkit.</p>
+      <div style="background:var(--raised); border-left:4px solid var(--accent); padding:16px 20px; margin:24px 0; border-radius:8px;">
+        <strong style="color:var(--accent);">⚠️ Important Reminder</strong><br>
+        Options trading involves substantial risk of loss. This platform is for educational and informational purposes only. The operator is <strong>not SEBI‑registered</strong>. Always consult a registered advisor before making financial decisions.
+      </div>
+      <p style="color:var(--t4); font-size:0.8rem; margin-top:16px;">Every chart, number and analysis on OptionsFlow is generated by an automated rule‑based Python engine applied to live NSE and BSE option data. No manual curation, no editorial bias – just the structural mechanics of the Indian options market, updated throughout the trading session.</p>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
   <div class="footer">
     <div class="disc">
       ⚠ <strong>Disclaimer:</strong> All scores, signals and structural data are generated by an automated rule-based system applied to publicly available NSE and BSE options data. This dashboard presents options market structure — gamma exposure, open interest positioning, volatility and flow data — for informational and educational purposes only. No directional views or investment recommendations are expressed or implied. Options trading involves substantial risk of loss. The operator is <strong>not SEBI-registered</strong>. Consult a SEBI-registered advisor before making any financial decisions. Past outputs do not guarantee future results. By accessing this platform you agree the operator bears no liability for any losses arising from use of this information.
@@ -751,11 +946,10 @@ function renderIndex(idx, data){
   if(data) _dataCache[idx] = data;
   const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'];
   activeKeys.forEach(key=>{
-    const sp=document.getElementById(`sp-${idx}-${key}`);
+    const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
-    // Remove any existing chart placeholder and insert the chart
-    const existingImg = sp.querySelector('.gcard');
-    if(existingImg) existingImg.remove();
+    const existingChart = sp.querySelector('.gcard');
+    if(existingChart) existingChart.remove();
     if(sp.classList.contains('on')){
       const chartDiv = document.createElement('div');
       chartDiv.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
@@ -765,8 +959,8 @@ function renderIndex(idx, data){
       sp.dataset.stale = '1';
     }
   });
-  const spa=document.getElementById(`sp-${idx}-analysis`);
-  if(spa) spa.innerHTML=analysisHtml(idx,data);
+  const spa = document.getElementById(`sp-${idx}-analysis`);
+  if(spa) spa.innerHTML = analysisHtml(idx, data);
 }
 async function switchIdx(idx){
   INDICES.forEach(i=>{
@@ -777,9 +971,14 @@ async function switchIdx(idx){
   renderIndex(idx, await fetchData(idx));
 }
 function switchStab(idx, key, btn){
-  document.getElementById(`panel-${idx}`)?.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
+  const panel = document.getElementById(`panel-${idx}`);
+  if(!panel) return;
+  panel.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
-  STABS.forEach(k=>document.getElementById(`sp-${idx}-${k}`)?.classList.toggle('on',k===key));
+  STABS.forEach(k=>{
+    const sp = document.getElementById(`sp-${idx}-${k}`);
+    if(sp) sp.classList.toggle('on', k===key);
+  });
   const sp = document.getElementById(`sp-${idx}-${key}`);
   if(sp && sp.dataset.stale === '1'){
     sp.dataset.stale = '0';
@@ -792,7 +991,9 @@ function switchStab(idx, key, btn){
       sp.appendChild(chartDiv.firstElementChild);
       sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
     } else {
-      sp.innerHTML = EMPTY;
+      const emptyDiv = document.createElement('div');
+      emptyDiv.innerHTML = EMPTY;
+      sp.appendChild(emptyDiv.firstElementChild);
     }
     if(key==='analysis'){
       const spa = document.getElementById(`sp-${idx}-analysis`);
