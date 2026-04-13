@@ -1619,7 +1619,7 @@ setInterval(function() {
 }, 30000);
 
 // -- Premium password gate --
-const PREMIUM_PASSWORD = "kf@1wsd!@bfdlutr";  // update this every month
+const PREMIUM_PASSWORD = "FLOW-APR25";  // update this every month
 
 function premTnc(idx) {
   var cb = document.getElementById('tnc-' + idx);
@@ -1640,7 +1640,7 @@ function premUnlock(idx) {
     if (!content._loaded) {
       content._loaded = true;
       content.innerHTML = '<div style="padding:24px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading…</div>';
-      fetch('data/' + idx + '/synopsis.html?t=' + Date.now())
+      fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
         .then(function(r){ return r.ok ? r.text() : null; })
         .then(function(html){
           content.innerHTML = html ? html : '<div style="padding:24px;color:var(--t3);font-family:monospace;font-size:.8rem;text-align:center">No recommendation available yet for ' + idx.toUpperCase() + '.<br>Run analysis first.</div>';
