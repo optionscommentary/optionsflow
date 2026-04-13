@@ -1643,19 +1643,21 @@ function premUnlock(idx) {
       fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
         .then(function(r){ return r.ok ? r.text() : null; })
         .then(function(html){
-          if (!html) { content.innerHTML = '<div style="padding:24px;color:var(--t3);font-family:monospace;font-size:.8rem;text-align:center">No recommendation available yet for ' + idx.toUpperCase() + '.<br>Run GEXMA and push first.</div>'; return; }
-          // Extract only the body content — strip full page wrapper
-          var bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-          var inner = bodyMatch ? bodyMatch[1] : html;
-          // Remove any nested <script> and <style> blocks
-          inner = inner.replace(/<script[\s\S]*?<\/script>/gi, '');
-          inner = inner.replace(/<style[\s\S]*?<\/style>/gi, '');
-          // Remove outer wrapper div if present
-          inner = inner.replace(/^\s*<div[^>]*class="[^"]*page[^"]*"[^>]*>/i, '');
-          content.innerHTML = inner.trim() || '<div style="padding:24px;color:var(--t3);font-family:monospace;font-size:.8rem;text-align:center">No recommendation content found.</div>';
+          if(!html){
+            content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.85rem">No recommendation available yet for <strong>' + idx.toUpperCase() + '</strong>.<br><br>Run GEXMA analysis and then run push_to_web.py to publish.</div>';
+            return;
+          }
+          // Extract content inside .recom-body wrapper if present
+          var m = html.match(/<div class="recom-body">([\s\S]*)<\/div>\s*$/);
+          var inner = m ? m[1] : html;
+          // Safety strip any stray script/style tags
+          inner = inner.replace(/<script[\s\S]*?<\/script>/gi,'');
+          inner = inner.replace(/<style[\s\S]*?<\/style>/gi,'');
+          content.innerHTML = inner.trim() ||
+            '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.85rem">Recommendation content is empty. Re-run GEXMA.</div>';
         })
         .catch(function(){
-          content.innerHTML = '<div style="padding:24px;color:var(--neg);font-family:monospace;font-size:.8rem;text-align:center">Unable to load. Check connection.</div>';
+          content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--neg);font-family:monospace;font-size:.85rem">Could not load recommendation. Check network or re-push.</div>';
         });
     }
   } else {
