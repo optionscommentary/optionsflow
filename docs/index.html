@@ -1643,7 +1643,16 @@ function premUnlock(idx) {
       fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
         .then(function(r){ return r.ok ? r.text() : null; })
         .then(function(html){
-          content.innerHTML = html ? html : '<div style="padding:24px;color:var(--t3);font-family:monospace;font-size:.8rem;text-align:center">No recommendation available yet for ' + idx.toUpperCase() + '.<br>Run analysis first.</div>';
+          if (!html) { content.innerHTML = '<div style="padding:24px;color:var(--t3);font-family:monospace;font-size:.8rem;text-align:center">No recommendation available yet for ' + idx.toUpperCase() + '.<br>Run GEXMA and push first.</div>'; return; }
+          // Extract only the body content — strip full page wrapper
+          var bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+          var inner = bodyMatch ? bodyMatch[1] : html;
+          // Remove any nested <script> and <style> blocks
+          inner = inner.replace(/<script[\s\S]*?<\/script>/gi, '');
+          inner = inner.replace(/<style[\s\S]*?<\/style>/gi, '');
+          // Remove outer wrapper div if present
+          inner = inner.replace(/^\s*<div[^>]*class="[^"]*page[^"]*"[^>]*>/i, '');
+          content.innerHTML = inner.trim() || '<div style="padding:24px;color:var(--t3);font-family:monospace;font-size:.8rem;text-align:center">No recommendation content found.</div>';
         })
         .catch(function(){
           content.innerHTML = '<div style="padding:24px;color:var(--neg);font-family:monospace;font-size:.8rem;text-align:center">Unable to load. Check connection.</div>';
