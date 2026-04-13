@@ -498,8 +498,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
               <div class="prem-pw-title">Subscriber Access</div>
               <div class="prem-pw-sub">Enter your monthly access password to view recommendations</div>
               <div class="prem-pw-row">
-                <input class="prem-pw-input" type="password" id="pw-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock('nifty')">
-                <button class="prem-pw-btn" onclick="premUnlock('nifty')">Unlock</button>
+                <input class="prem-pw-input" type="password" id="pw-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock()">
+                <button class="prem-pw-btn" onclick="premUnlock()">Unlock</button>
               </div>
               <div class="prem-pw-err" id="pw-err-nifty" style="display:none">❌ Incorrect password. Contact us on WhatsApp if you need help.</div>
             </div>
@@ -663,8 +663,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
               <div class="prem-pw-title">Subscriber Access</div>
               <div class="prem-pw-sub">Enter your monthly access password to view recommendations</div>
               <div class="prem-pw-row">
-                <input class="prem-pw-input" type="password" id="pw-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock('banknifty')">
-                <button class="prem-pw-btn" onclick="premUnlock('banknifty')">Unlock</button>
+                <input class="prem-pw-input" type="password" id="pw-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock()">
+                <button class="prem-pw-btn" onclick="premUnlock()">Unlock</button>
               </div>
               <div class="prem-pw-err" id="pw-err-banknifty" style="display:none">❌ Incorrect password. Contact us on WhatsApp if you need help.</div>
             </div>
@@ -839,8 +839,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
               <div class="prem-pw-title">Subscriber Access</div>
               <div class="prem-pw-sub">Enter your monthly access password to view recommendations</div>
               <div class="prem-pw-row">
-                <input class="prem-pw-input" type="password" id="pw-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock('sensex')">
-                <button class="prem-pw-btn" onclick="premUnlock('sensex')">Unlock</button>
+                <input class="prem-pw-input" type="password" id="pw-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock()">
+                <button class="prem-pw-btn" onclick="premUnlock()">Unlock</button>
               </div>
               <div class="prem-pw-err" id="pw-err-sensex" style="display:none">❌ Incorrect password. Contact us on WhatsApp if you need help.</div>
             </div>
@@ -1015,8 +1015,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
               <div class="prem-pw-title">Subscriber Access</div>
               <div class="prem-pw-sub">Enter your monthly access password to view recommendations</div>
               <div class="prem-pw-row">
-                <input class="prem-pw-input" type="password" id="pw-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock('finnifty')">
-                <button class="prem-pw-btn" onclick="premUnlock('finnifty')">Unlock</button>
+                <input class="prem-pw-input" type="password" id="pw-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock()">
+                <button class="prem-pw-btn" onclick="premUnlock()">Unlock</button>
               </div>
               <div class="prem-pw-err" id="pw-err-finnifty" style="display:none">❌ Incorrect password. Contact us on WhatsApp if you need help.</div>
             </div>
@@ -1191,8 +1191,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
               <div class="prem-pw-title">Subscriber Access</div>
               <div class="prem-pw-sub">Enter your monthly access password to view recommendations</div>
               <div class="prem-pw-row">
-                <input class="prem-pw-input" type="password" id="pw-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock('midcpnifty')">
-                <button class="prem-pw-btn" onclick="premUnlock('midcpnifty')">Unlock</button>
+                <input class="prem-pw-input" type="password" id="pw-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlock()">
+                <button class="prem-pw-btn" onclick="premUnlock()">Unlock</button>
               </div>
               <div class="prem-pw-err" id="pw-err-midcpnifty" style="display:none">❌ Incorrect password. Contact us on WhatsApp if you need help.</div>
             </div>
@@ -1629,8 +1629,9 @@ setInterval(function() {
   });
 }, 30000);
 
-// -- Premium password gate --
+// -- Premium password gate: single password unlocks all indices --
 const PREMIUM_PASSWORD = "kf@1wsd!@bfdlutr";  // update this every month
+let unlocked = false;  // global flag
 
 function premTnc(idx) {
   var cb = document.getElementById('tnc-' + idx);
@@ -1638,41 +1639,94 @@ function premTnc(idx) {
   if (wa) wa.style.display = cb.checked ? 'block' : 'none';
 }
 
-function premUnlock(idx) {
-  var input   = document.getElementById('pw-' + idx);
-  var errEl   = document.getElementById('pw-err-' + idx);
-  var locked  = document.getElementById('prem-locked-' + idx);
-  var content = document.getElementById('prem-content-' + idx);
+function premUnlock() {
+  var input = document.getElementById('pw-nifty');
+  if (!input) input = document.getElementById('pw-banknifty');
+  if (!input) input = document.getElementById('pw-sensex');
+  if (!input) input = document.getElementById('pw-finnifty');
+  if (!input) input = document.getElementById('pw-midcpnifty');
   if (!input) return;
   if (input.value.trim() === PREMIUM_PASSWORD) {
-    // Hide the locked view (pricing, T&C, password box)
-    locked.style.display  = 'none';
-    content.style.display = 'block';
-    errEl.style.display   = 'none';
-
-    // Fetch and inject recommendation only once
-    if (!content._loaded) {
-      content._loaded = true;
-      content.innerHTML = '<div style="padding:24px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading…</div>';
-      fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
-        .then(function(r){ return r.ok ? r.text() : null; })
-        .then(function(html){
-          if(!html){
-            content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.85rem">No recommendation available yet for <strong>' + idx.toUpperCase() + '</strong>.<br><br>Run GEXMA analysis first.</div>';
-            return;
-          }
-          content.innerHTML = html;
-        })
-        .catch(function(){
-          content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--neg);font-family:monospace;font-size:.85rem">Could not load recommendation. Please try again later.</div>';
-        });
-    }
+    unlocked = true;
+    // Hide all locked views, show all unlocked views
+    INDICES.forEach(function(idx) {
+      var locked  = document.getElementById('prem-locked-' + idx);
+      var content = document.getElementById('prem-content-' + idx);
+      if (locked) locked.style.display = 'none';
+      if (content) content.style.display = 'block';
+      // Clear any error messages
+      var errEl = document.getElementById('pw-err-' + idx);
+      if (errEl) errEl.style.display = 'none';
+    });
+    // Load recommendations for all indices
+    INDICES.forEach(function(idx) {
+      var content = document.getElementById('prem-content-' + idx);
+      if (content && !content._loaded) {
+        content._loaded = true;
+        content.innerHTML = '<div style="padding:24px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading…</div>';
+        fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
+          .then(function(r){ return r.ok ? r.text() : null; })
+          .then(function(html){
+            if(!html){
+              content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.85rem">No recommendation available yet for <strong>' + idx.toUpperCase() + '</strong>.<br><br>Run GEXMA analysis first.</div>';
+              return;
+            }
+            content.innerHTML = html;
+          })
+          .catch(function(){
+            content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--neg);font-family:monospace;font-size:.85rem">Could not load recommendation. Please try again later.</div>';
+          });
+      }
+    });
   } else {
-    errEl.style.display = 'block';
-    input.value = '';
-    input.focus();
+    // Show error on all password fields
+    INDICES.forEach(function(idx) {
+      var errEl = document.getElementById('pw-err-' + idx);
+      if (errEl) errEl.style.display = 'block';
+      var pwInput = document.getElementById('pw-' + idx);
+      if (pwInput) pwInput.value = '';
+    });
   }
 }
+
+// On page load, check if localStorage says already unlocked
+(function() {
+  var storedUnlocked = localStorage.getItem('premiumUnlocked');
+  if (storedUnlocked === 'true') {
+    unlocked = true;
+    INDICES.forEach(function(idx) {
+      var locked  = document.getElementById('prem-locked-' + idx);
+      var content = document.getElementById('prem-content-' + idx);
+      if (locked) locked.style.display = 'none';
+      if (content) content.style.display = 'block';
+      if (content && !content._loaded) {
+        content._loaded = true;
+        content.innerHTML = '<div style="padding:24px;text-align:center;color:var(--t3);font-family:monospace;font-size:.8rem">Loading…</div>';
+        fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
+          .then(function(r){ return r.ok ? r.text() : null; })
+          .then(function(html){
+            if(!html){
+              content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:monospace;font-size:.85rem">No recommendation available yet for <strong>' + idx.toUpperCase() + '</strong>.<br><br>Run GEXMA analysis first.</div>';
+            } else {
+              content.innerHTML = html;
+            }
+          })
+          .catch(function(){
+            content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--neg);font-family:monospace;font-size:.85rem">Could not load recommendation.</div>';
+          });
+      }
+    });
+  }
+})();
+
+// Save to localStorage when unlocked via password
+var originalPremUnlock = premUnlock;
+premUnlock = function() {
+  originalPremUnlock();
+  if (unlocked) {
+    localStorage.setItem('premiumUnlocked', 'true');
+  }
+};
 </script>
 </body>
 </html>
