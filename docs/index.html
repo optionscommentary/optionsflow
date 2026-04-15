@@ -95,7 +95,12 @@
 [data-theme="light"] .stab-prob { color: var(--prob-color) !important; }
 [data-theme="light"] .stab-volsurf { color: var(--volsurf-color) !important; }
 [data-theme="light"] .stab-synopsis { color: var(--synopsis-color) !important; }
-.stab-premium { color: #FFD700 !important; }
+.stab-premium {
+  color: #FFD700 !important;
+  max-width: none !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
 [data-theme="light"] .stab-premium { color: #B8860B !important; }
 
 /* -- Premium panel -- */
@@ -1735,6 +1740,25 @@ setInterval(function() {
 
 // -- Premium password gate: single password unlocks all indices --
 const PREMIUM_PASSWORD = "hrt1@!lucfgpm2_@f!0i";  // update this every month
+// Simple djb2 hash — ties the localStorage session to the exact password value.
+// When you update PREMIUM_PASSWORD above and push, all old sessions are instantly
+// invalidated because their stored hash won't match the new password's hash.
+function _pwHash(s) {
+  var h = 5381;
+  for (var i = 0; i < s.length; i++) {
+    h = ((h << 5) + h) ^ s.charCodeAt(i);
+    h = h & 0x7fffffff;  // keep positive 31-bit int
+  }
+  return 'ph_' + h.toString(36);
+}
+
+// On every page load: if stored hash doesn't match current password, clear it.
+(function() {
+  var stored = localStorage.getItem('premiumUnlocked');
+  if (stored && stored !== _pwHash(PREMIUM_PASSWORD)) {
+    localStorage.removeItem('premiumUnlocked');
+  }
+}());
 let unlocked = false;  // global flag
 
 function premTnc(idx) {
@@ -1815,7 +1839,7 @@ setInterval(function() {
 // On page load, check if localStorage says already unlocked
 (function() {
   var storedUnlocked = localStorage.getItem('premiumUnlocked');
-  if (storedUnlocked === 'true') {
+  if (storedUnlocked && storedUnlocked === _pwHash(PREMIUM_PASSWORD)) {
     unlocked = true;
     INDICES.forEach(function(idx) {
       var locked  = document.getElementById('prem-locked-' + idx);
@@ -1833,7 +1857,7 @@ var originalPremUnlock = premUnlock;
 premUnlock = function() {
   originalPremUnlock();
   if (unlocked) {
-    localStorage.setItem('premiumUnlocked', 'true');
+    localStorage.setItem('premiumUnlocked', _pwHash(PREMIUM_PASSWORD));
   }
 };
 </script>
