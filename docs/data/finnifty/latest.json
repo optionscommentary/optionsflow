@@ -1,6 +1,6 @@
 {
-  "timestamp": "18 Apr 2026  15:03 IST",
-  "timestamp_iso": "2026-04-18T15:03:37.004414",
+  "timestamp": "18 Apr 2026  15:08 IST",
+  "timestamp_iso": "2026-04-18T15:08:00.078062",
   "index": "FINNIFTY",
   "expiry": "28-04-2026",
   "tte_days": 7.0,
@@ -32,7 +32,7 @@
     26650,
     27000
   ],
-  "pcr_atm": 0.596,
+  "pcr_atm": 0.594,
   "net_dealer_delta_cr": 0.01,
   "gex_speed": 0.051184,
   "implied_lower": 26514,
@@ -41,15 +41,15 @@
   "put_skew": 0.5,
   "vol_regime": "normal_vol",
   "conviction": "LOW",
-  "oi_flow_label": "INITIAL OI SNAPSHOT",
+  "oi_flow_label": "MIXED / BALANCED FLOW [HIGH CONVICTION]",
   "gex_tilt_label": "PUT-TILTED (2.5x)",
   "straddle_pts": 767,
   "vol_pcr_session": 0.566,
   "vol_confirmation": "HIGH",
   "hottest_strike": 26500,
   "hottest_strike_vol": 117840,
-  "call_wall_quality": "ACTIVE [Call VOR 1.32 \u2014 being traded today]",
-  "put_floor_quality": "ACTIVE [Call VOR 3.26 \u2014 being traded today]",
+  "call_wall_quality": "STALE [VOR 1.32 \u2014 no activity this interval]",
+  "put_floor_quality": "STALE [VOR 3.28 \u2014 no activity this interval]",
   "total_call_vol": 256560,
   "total_put_vol": 145320,
   "signals": {
@@ -58,7 +58,7 @@
     "pcr": -2,
     "vex": 1,
     "skew": -1,
-    "fxiv": 2
+    "fxiv": 0
   },
   "plots": {
     "gamma_exp": "plots/gamma_exposure.png",
