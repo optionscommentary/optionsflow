@@ -103,6 +103,75 @@
 }
 [data-theme="light"] .stab-premium { color: #B8860B !important; }
 
+/* -- Premium callout banner (new) -- */
+.premium-callout {
+  background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.02));
+  border: 1px solid rgba(255,215,0,0.5);
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin: 16px 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.premium-callout:hover {
+  background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05));
+  border-color: #FFD700;
+  transform: translateY(-1px);
+}
+.premium-callout-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.premium-callout-icon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 4px rgba(255,215,0,0.4));
+}
+.premium-callout-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #FFD700;
+  letter-spacing: -0.01em;
+}
+.premium-callout-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--t2);
+  opacity: 0.9;
+}
+.premium-callout-btn {
+  background: #FFD700;
+  border: none;
+  border-radius: 40px;
+  padding: 8px 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #0D1520;
+  cursor: pointer;
+  transition: 0.15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  white-space: nowrap;
+}
+.premium-callout-btn:hover {
+  background: #FFED4A;
+  transform: scale(1.02);
+}
+@media (max-width: 640px) {
+  .premium-callout { flex-direction: column; align-items: flex-start; }
+  .premium-callout-btn { align-self: stretch; text-align: center; }
+  .premium-callout-title { font-size: 1rem; }
+}
+
 /* -- Premium panel -- */
 .prem-outer { max-width:780px; margin:0 auto; padding:24px 8px 40px; }
 .prem-section-title { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--t1); margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--border); }
@@ -558,6 +627,19 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- ==================== NIFTY PANEL ==================== -->
   <div id="panel-nifty" class="idx-panel on">
     <div id="pills-nifty" class="pills"></div>
+    
+    <!-- PREMIUM CALLOUT - Highly visible banner -->
+    <div class="premium-callout" onclick="switchStab('nifty','premium', document.querySelector('#panel-nifty .stab-premium'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">🌟</span>
+        <div>
+          <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
+          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('nifty','premium', document.querySelector('#panel-nifty .stab-premium'));">VIEW NOW →</button>
+    </div>
+    
     <div class="sub-tabs">
       <button class="stab on" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor</button>
       <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">GEX</button>
@@ -723,6 +805,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- ==================== BANKNIFTY PANEL ==================== -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('banknifty','premium', document.querySelector('#panel-banknifty .stab-premium'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">🌟</span>
+        <div>
+          <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
+          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('banknifty','premium', document.querySelector('#panel-banknifty .stab-premium'));">VIEW NOW →</button>
+    </div>
     <div class="sub-tabs">
       <button class="stab on" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor</button>
       <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">GEX</button>
@@ -899,6 +991,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- ==================== SENSEX PANEL ==================== -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('sensex','premium', document.querySelector('#panel-sensex .stab-premium'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">🌟</span>
+        <div>
+          <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
+          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('sensex','premium', document.querySelector('#panel-sensex .stab-premium'));">VIEW NOW →</button>
+    </div>
     <div class="sub-tabs">
       <button class="stab on" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor</button>
       <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">GEX</button>
@@ -1075,6 +1177,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- ==================== FINNIFTY PANEL ==================== -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('finnifty','premium', document.querySelector('#panel-finnifty .stab-premium'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">🌟</span>
+        <div>
+          <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
+          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('finnifty','premium', document.querySelector('#panel-finnifty .stab-premium'));">VIEW NOW →</button>
+    </div>
     <div class="sub-tabs">
       <button class="stab on" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor</button>
       <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">GEX</button>
@@ -1251,6 +1363,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- ==================== MIDCAP NIFTY PANEL ==================== -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('midcpnifty','premium', document.querySelector('#panel-midcpnifty .stab-premium'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">🌟</span>
+        <div>
+          <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
+          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('midcpnifty','premium', document.querySelector('#panel-midcpnifty .stab-premium'));">VIEW NOW →</button>
+    </div>
     <div class="sub-tabs">
       <button class="stab on" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor</button>
       <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">GEX</button>
