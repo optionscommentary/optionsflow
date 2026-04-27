@@ -376,7 +376,7 @@ button.nav-btn{background:var(--raised)}
   const t=localStorage.getItem('oc-theme')||'dark';
   document.documentElement.setAttribute('data-theme',t);
   const b=document.getElementById('theme-btn');
-  if(b) b.textContent=t==='dark'?'🌙 Dark':'☀ Light';
+  if(b) b.textContent=t==='dark'?'☀ Light':'🌙 Dark';
 })();
 function toggleTheme(){
   const cur=document.documentElement.getAttribute('data-theme')||'dark';
@@ -384,7 +384,7 @@ function toggleTheme(){
   document.documentElement.setAttribute('data-theme',nxt);
   localStorage.setItem('oc-theme',nxt);
   const b=document.getElementById('theme-btn');
-  if(b) b.textContent=nxt==='dark'?'🌙 Dark':'☀ Light';
+  if(b) b.textContent=nxt==='dark'?'☀ Light':'🌙 Dark';
 }
 </script>
 </body>
