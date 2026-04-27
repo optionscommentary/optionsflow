@@ -2007,6 +2007,8 @@ function renderIndex(idx, data){
   if(spa) spa.innerHTML = analysisHtml(idx, data);
 }
 async function switchIdx(idx){
+  // Close all collapsible edu-boxes on every index switch
+  document.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
   INDICES.forEach(i=>{
     document.getElementById(`tab-${i}`)?.classList.toggle('on',i===idx);
     document.getElementById(`panel-${i}`)?.classList.toggle('on',i===idx);
@@ -2017,6 +2019,8 @@ async function switchIdx(idx){
 function switchStab(idx, key, btn){
   const panel = document.getElementById(`panel-${idx}`);
   if(!panel) return;
+  // Close all collapsible edu-boxes whenever a stab switch happens
+  panel.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
   panel.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
   STABS.forEach(k=>{
@@ -2064,6 +2068,32 @@ setInterval(function() {
     });
   });
 }, 30000);
+
+// -- Auto-convert all plain div.edu-box inside stab-panels to collapsible <details> --
+// This gives every graph tab the same "+" expand button as the GEX OI Monitor.
+// Runs once after DOM is ready; the OI panels already use <details> so they are skipped.
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.stab-panel .edu-box').forEach(function(box) {
+    if (box.tagName.toLowerCase() === 'details') return; // already converted
+    var h3 = box.querySelector('h3');
+    if (!h3) return; // no heading to use as summary title — leave as-is
+
+    var details = document.createElement('details');
+    details.className = box.className + ' edu-collapsible';
+
+    var summary = document.createElement('summary');
+    summary.textContent = h3.textContent; // e.g. "γ Gamma Exposure (GEX) – NIFTY"
+    details.appendChild(summary);
+
+    var body = document.createElement('div');
+    body.className = 'edu-body';
+    // Move all children (including the h3) into the body div
+    while (box.firstChild) { body.appendChild(box.firstChild); }
+    details.appendChild(body);
+
+    box.parentNode.replaceChild(details, box);
+  });
+});
 
 // -- Premium password gate: single password unlocks all indices --
 const PREMIUM_PASSWORD = "drt1@!lucayrm2_@f!0v_wpdf";  // update this every month
