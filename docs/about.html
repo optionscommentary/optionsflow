@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#070B12" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
+<script>
+(() => {
+  try {
+    const saved = localStorage.getItem('oc-theme');
+    if (saved === 'dark' || saved === 'light') document.documentElement.setAttribute('data-theme', saved);
+  } catch {}
+})();
+</script>
 <title>About — OptionsFlow</title>
 <meta name="description" content="About OptionsFlow — an independent NSE and BSE options analytics platform computing GEX, Vanna, Charm and dealer positioning for Indian index traders.">
 <link rel="canonical" href="https://optionsflow.in/about">
@@ -10,14 +21,14 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root,[data-theme="dark"]{
-  --bg:#0D1520;--surface:#13202F;--raised:#192B3C;--border:#243749;
-  --t1:#FFFFFF;--t2:#E0E0E0;--t3:#A0A0A0;--t4:#606878;
-  --accent:#64B5F6;--pos:#81C995;--neg:#F28B82;--put:#F9AB64;
+  --bg:#070B12;--surface:#0C1626;--raised:#0F1E33;--border:#1B2B42;
+  --t1:#F8FAFC;--t2:#E2E8F0;--t3:#94A3B8;--t4:#64748B;
+  --accent:#7DD3FC;--pos:#34D399;--neg:#FB7185;--put:#FB923C;
 }
 [data-theme="light"]{
-  --bg:#ECF1F7;--surface:#FFFFFF;--raised:#E2EAF4;--border:#B8CCDE;
-  --t1:#212121;--t2:#333333;--t3:#666666;--t4:#999999;
-  --accent:#1976D2;--pos:#0B8A5C;--neg:#C52B2B;--put:#D45A0A;
+  --bg:#F5F7FB;--surface:#FFFFFF;--raised:#EEF2FF;--border:#D7E3F3;
+  --t1:#0F172A;--t2:#1F2937;--t3:#475569;--t4:#64748B;
+  --accent:#2563EB;--pos:#059669;--neg:#E11D48;--put:#EA580C;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;scroll-behavior:smooth}
@@ -203,20 +214,74 @@ button.nav-btn{background:var(--raised)}
 .mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
 @media(max-width:760px){.mobile-nav-strip{display:flex}}
 @media(max-width:600px){#topbar{padding:0 12px}.tb-nav{gap:4px}.nav-btn{padding:4px 8px;font-size:.62rem}.what-grid{grid-template-columns:1fr}.metrics-row{grid-template-columns:repeat(2,1fr)}.page-hero{padding:32px 16px 28px}.page-hero h1{font-size:1.5rem}.page-hero::before{display:none}.content-wrap{padding:28px 16px 60px}}
+
+/* ========== VISUAL UPGRADE LAYER (self-contained) ========== */
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+body{
+  background:
+    radial-gradient(900px 600px at 18% 8%, rgba(125,211,252,.18), transparent 60%),
+    radial-gradient(900px 600px at 82% 14%, rgba(52,211,153,.10), transparent 60%),
+    radial-gradient(900px 600px at 74% 92%, rgba(251,146,60,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.03) 0%, transparent 42%),
+    var(--bg);
+}
+[data-theme="light"] body{
+  background:
+    radial-gradient(900px 600px at 18% 8%, rgba(37,99,235,.12), transparent 60%),
+    radial-gradient(900px 600px at 82% 14%, rgba(5,150,105,.10), transparent 60%),
+    radial-gradient(900px 600px at 74% 92%, rgba(234,88,12,.08), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02) 0%, transparent 38%),
+    var(--bg);
+}
+::selection{background:rgba(125,211,252,.25)}
+[data-theme="light"] ::selection{background:rgba(37,99,235,.18)}
+:focus-visible{outline:2px solid rgba(125,211,252,.45);outline-offset:2px}
+[data-theme="light"] :focus-visible{outline-color:rgba(37,99,235,.35)}
+
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  #topbar{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(12,22,38,.78)}
+  [data-theme="light"] #topbar{background:rgba(255,255,255,.82)}
+}
+
+.nav-btn{border-radius:999px;box-shadow:0 1px 0 rgba(255,255,255,.05) inset;transition:transform .15s, box-shadow .18s, border-color .18s, color .18s}
+.nav-btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.nav-btn:active{transform:translateY(0)}
+
+.what-card,.metric,.connect-card{box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 10px 26px rgba(0,0,0,.28)}
+[data-theme="light"] .what-card,[data-theme="light"] .metric,[data-theme="light"] .connect-card{box-shadow:0 1px 0 rgba(255,255,255,.72) inset, 0 10px 22px rgba(0,30,60,.10)}
+.what-card:hover,.connect-card:hover{transform:translateY(-2px)}
+
+/* Topbar "More" menu */
+.tb-more{position:relative}
+.tb-more>summary{list-style:none;cursor:pointer}
+.tb-more>summary::-webkit-details-marker{display:none}
+.tb-more-menu{display:none;position:absolute;right:0;top:calc(100% + 10px);min-width:220px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 52px rgba(0,0,0,.36);z-index:1200}
+.tb-more[open]>.tb-more-menu{display:block}
+.tb-more-menu a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--t2);font-family:'IBM Plex Mono',monospace;font-size:.82rem;font-weight:700;letter-spacing:.02em;border:1px solid transparent}
+.tb-more-menu a:hover{background:rgba(125,211,252,.10);border-color:rgba(125,211,252,.25);color:var(--t1)}
+[data-theme="light"] .tb-more-menu a:hover{background:rgba(37,99,235,.07);border-color:rgba(37,99,235,.18)}
 </style>
 </head>
 <body>
 
 <nav id="topbar">
-  <a class="tb-brand" href="index.html">OPTIONS<em>FLOW</em></a>
+  <a class="tb-brand" href="index_with_recommendations.html">OPTIONS<em>FLOW</em></a>
   <div class="tb-nav">
-    <a href="index.html" class="nav-btn">📊 Dashboard</a>
+    <a href="index_with_recommendations.html" class="nav-btn">📊 Dashboard</a>
     <a href="blogs.html" class="nav-btn">📚 Learn</a>
     <a href="mentorship.html" class="nav-btn">🎓 Mentorship</a>
+    <details class="tb-more">
+      <summary class="nav-btn" aria-label="More">☰ More</summary>
+      <div class="tb-more-menu">
+        <a href="about.html">ℹ️ About</a>
+        <a href="contact.html">✉️ Contact</a>
+        <a href="privacy.html">🔒 Privacy</a>
+      </div>
+    </details>
     <button class="nav-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
   </div>
 </nav>
-<div class="mobile-nav-strip"><a href="index.html">📊 Dashboard</a><a href="blogs.html">📚 Learn</a><a href="mentorship.html">🎓 Mentorship</a></div>
+<div class="mobile-nav-strip"><a href="index_with_recommendations.html">📊 Dashboard</a><a href="blogs.html">📚 Learn</a><a href="mentorship.html">🎓 Mentorship</a><a href="contact.html">✉️ Contact</a><a href="privacy.html">🔒 Privacy</a></div>
 
 <!-- HERO -->
 <div class="page-hero">
@@ -322,7 +387,7 @@ button.nav-btn{background:var(--raised)}
 
 <div class="footer">
   © 2026 OptionsFlow · Not SEBI Registered · Educational purposes only &nbsp;|&nbsp;
-  <a href="index.html">Dashboard</a> &nbsp;|&nbsp;
+  <a href="index_with_recommendations.html">Dashboard</a> &nbsp;|&nbsp;
   <a href="contact.html">Contact Us</a> &nbsp;|&nbsp;
   <a href="privacy.html">Privacy Policy</a>
 </div>
