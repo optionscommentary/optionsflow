@@ -88,7 +88,6 @@ table.skew-tbl tr:last-child td{border-bottom:none}
 .mobile-nav-strip a.hl{background:rgba(100,181,246,.12);border-color:var(--accent);color:var(--accent)}
 @media(max-width:760px){.mobile-nav-strip{display:flex}}
 </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6989849027997654" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -110,17 +109,6 @@ table.skew-tbl tr:last-child td{border-bottom:none}
     <p>Everything I've learned about GEX, dealer positioning, Vanna, Charm and reading the NSE options market structure — written in plain language. Start from Article 1 if you're new, or jump to wherever you need.</p>
   </div>
 
-  <div style="max-width:1080px;margin:16px auto 32px;padding:0 24px;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6989849027997654"
-         data-ad-slot="1934970798"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
 
   <div class="level-label">Level 0 — Start Here · Complete Beginner</div>
   <div class="blog-index-grid">
@@ -271,24 +259,6 @@ function showIndexOrArticle() {
       target.style.display = 'block';
       setCanonicalAndMeta(articleId);
       window.scrollTo(0,0);
-      if (!target.querySelector('.dynamic-article-ad')) {
-        const adDiv = document.createElement('div');
-        adDiv.className = 'dynamic-article-ad';
-        adDiv.style.margin = '32px 0';
-        adDiv.innerHTML = `
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-6989849027997654"
-               data-ad-slot="1934970798"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        `;
-        const cta = target.querySelector('.article-course-cta');
-        if (cta) target.insertBefore(adDiv, cta);
-        if (typeof adsbygoogle !== 'undefined') {
-          try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
-        }
-      }
     } else {
       if(indexDiv) indexDiv.style.display = 'block';
       setCanonicalAndMeta(null);
@@ -326,7 +296,7 @@ window.addEventListener('popstate', () => showIndexOrArticle());
   const t = localStorage.getItem('oc-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', t);
   const btn = document.getElementById('theme-btn');
-  if(btn) btn.textContent = t==='dark' ? '🌙 Dark' : '☀ Light';
+  if(btn) btn.textContent = t==='dark' ? '☀ Light' : '🌙 Dark';
 })();
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
@@ -334,7 +304,7 @@ function toggleTheme(){
   document.documentElement.setAttribute('data-theme', nxt);
   localStorage.setItem('oc-theme', nxt);
   const btn = document.getElementById('theme-btn');
-  if(btn) btn.textContent = nxt==='dark' ? '🌙 Dark' : '☀ Light';
+  if(btn) btn.textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
 }
 window.showIndex = navigateToIndex;
 window.toggleTheme = toggleTheme;
