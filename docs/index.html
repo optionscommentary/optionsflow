@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <link rel="canonical" href="https://optionsflow.in/">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#070B12" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F7FB" media="prefers-color-scheme: light)">
+<script>
+(() => {
+  try {
+    const saved = localStorage.getItem('oc-theme');
+    if (saved === 'dark' || saved === 'light') document.documentElement.setAttribute('data-theme', saved);
+  } catch {}
+})();
+</script>
 <meta name="google-site-verification" content="WhqbYyqNK1mlNTzxh61NwhHpiHpoNAPlUrrStmTFq88" />
 <title>Options Flow Dashboard — Free NIFTY, BankNIFTY, Sensex, FinNIFTY & Midcap GEX Analytics</title>
 <meta name="description" content="Free real-time NIFTY, BankNIFTY, Sensex, FinNIFTY and Midcap options flow dashboard with Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow, PCR and volatility surface. Built for serious Indian options traders.">
@@ -33,51 +44,69 @@
 <style>
 /* ========== COMPLETE ORIGINAL STYLES (preserved) ========== */
 :root, [data-theme="dark"] {
-  --bg:           #0D1520;
-  --surface:      #13202F;
-  --raised:       #192B3C;
-  --hover: #383838;
-  --input-bg: #1E1E1E;
-  --border:       #243749;
-  --border-lit: #CCCCCC;
-  --t1: #FFFFFF;
-  --t2: #E0E0E0;
-  --t3: #A0A0A0;
-  --t4: #808080;
-  --call: #64B5F6;
-  --put: #F9AB64;
-  --spot: #81C995;
-  --pos: #81C995;
-  --neg: #F28B82;
-  --accent: #64B5F6;
-  --prob-color: #BB86FC;
-  --volsurf-color: #4DD0E1;
-  --synopsis-color: #FFD54F;
+  --bg:           #070B12;
+  --surface:      #0C1626;
+  --raised:       #0F1E33;
+  --hover:        #142742;
+  --input-bg:     #0B1423;
+  --border:       #1B2B42;
+  --border-lit:   #3B5B7A;
+  --t1:           #F8FAFC;
+  --t2:           #E2E8F0;
+  --t3:           #94A3B8;
+  --t4:           #64748B;
+  --call:         #60A5FA;
+  --put:          #FB923C;
+  --spot:         #34D399;
+  --pos:          #34D399;
+  --neg:          #FB7185;
+  --accent:       #7DD3FC;
+  --prob-color:   #C4B5FD;
+  --volsurf-color:#22D3EE;
+  --synopsis-color:#FDE68A;
   --radius: 8px;
   --card-radius: 10px;
   --topbar: 52px;
 }
 [data-theme="light"] {
-  --bg:           #ECF1F7;
+  --bg:           #F5F7FB;
   --surface:      #FFFFFF;
-  --raised:       #E2EAF4;
-  --hover: #E0E0E0;
-  --input-bg: #FFFFFF;
-  --border:       #B8CCDE;
-  --border-lit: #111111;
-  --t1: #212121;
-  --t2: #333333;
-  --t3: #666666;
-  --t4: #999999;
-  --call: #1976D2;
-  --put: #D45A0A;
-  --spot: #0B8A5C;
-  --pos: #0B8A5C;
-  --neg: #C52B2B;
-  --accent: #1976D2;
-  --prob-color: #6200EE;
-  --volsurf-color: #004D40;
-  --synopsis-color: #E65100;
+  --raised:       #EEF2FF;
+  --hover:        #E6EDF7;
+  --input-bg:     #FFFFFF;
+  --border:       #D7E3F3;
+  --border-lit:   #111827;
+  --t1:           #0F172A;
+  --t2:           #1F2937;
+  --t3:           #475569;
+  --t4:           #64748B;
+  --call:         #2563EB;
+  --put:          #EA580C;
+  --spot:         #059669;
+  --pos:          #059669;
+  --neg:          #E11D48;
+  --accent:       #2563EB;
+  --prob-color:   #7C3AED;
+  --volsurf-color:#0E7490;
+  --synopsis-color:#B45309;
+}
+/* Light theme overrides for premium banner – title and button become amber */
+[data-theme="light"] .premium-callout-title {
+  color: #B45309;
+}
+[data-theme="light"] .premium-callout-btn {
+  background: #B45309;
+  color: #FFFFFF;
+}
+[data-theme="light"] .premium-callout-btn:hover {
+  background: #9B3E08;
+}
+/* Star icon: dark theme keeps original yellow, light theme turns amber */
+[data-theme="dark"] .premium-callout-icon svg {
+  stroke: #FFD700;
+}
+[data-theme="light"] .premium-callout-icon svg {
+  stroke: #B45309;
 }
 [data-theme="light"] #topbar,
 [data-theme="light"] .tabs-bar { background: #FFFFFF; border-color: var(--border); box-shadow: 0 1px 6px rgba(0,30,60,.07); }
@@ -133,6 +162,14 @@
 .premium-callout-icon {
   font-size: 1.8rem;
   filter: drop-shadow(0 0 4px rgba(255,215,0,0.4));
+  display: inline-flex;
+  align-items: center;
+}
+.premium-callout-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 2;
+  fill: none;
 }
 .premium-callout-title {
   font-family: 'Syne', sans-serif;
@@ -363,6 +400,31 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   color: var(--accent);
 }
 
+.edu-box.edu-collapsible { padding: 0; }
+.edu-box.edu-collapsible > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--t1);
+}
+.edu-box.edu-collapsible > summary::-webkit-details-marker { display: none; }
+.edu-box.edu-collapsible > summary::after {
+  content: '＋';
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.edu-box.edu-collapsible[open] > summary::after { content: '－'; }
+.edu-box.edu-collapsible .edu-body { padding: 0 18px 16px; }
+
 .gcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); overflow: visible; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28); transition: border-color 0.18s, box-shadow 0.18s; }
 .gcard:hover { border-color: var(--border-lit); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.38); }
 .gcard-hdr { padding: 10px 16px; background: var(--raised); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
@@ -442,8 +504,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .disc { font-size: 0.63rem; line-height: 1.7; }
 }
 .mobile-nav-strip{display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 10px;gap:8px;flex-wrap:wrap}
-.mobile-nav-strip a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;color:var(--t2);text-decoration:none;transition:all .15s}
-.mobile-nav-strip a:hover{color:var(--t1);border-color:var(--accent)}
+.mobile-nav-strip a,.mobile-nav-strip button{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:var(--raised);border:1px solid var(--border);border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:700;color:var(--t2);text-decoration:none;transition:transform .15s, box-shadow .18s, border-color .18s, background .18s, color .18s;cursor:pointer}
+.mobile-nav-strip a:hover,.mobile-nav-strip button:hover{color:var(--t1);border-color:var(--accent);transform:translateY(-1px);box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.mobile-nav-strip button{appearance:none}
 @media(max-width:760px){.mobile-nav-strip{display:flex}}
 
 /* ── GEXMA Recommendation styles ── */
@@ -549,6 +612,107 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   padding:10px 24px;border-top:1px solid var(--border);font-style:italic
 }
 
+/* ========== VISUAL UPGRADE LAYER (self-contained) ========== */
+html{
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body{
+  background:
+    radial-gradient(900px 600px at 18% 8%, rgba(125, 211, 252, 0.18), transparent 60%),
+    radial-gradient(900px 600px at 82% 14%, rgba(52, 211, 153, 0.10), transparent 60%),
+    radial-gradient(900px 600px at 74% 92%, rgba(251, 146, 60, 0.08), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 42%),
+    var(--bg);
+}
+[data-theme="light"] body{
+  background:
+    radial-gradient(900px 600px at 18% 8%, rgba(37, 99, 235, 0.12), transparent 60%),
+    radial-gradient(900px 600px at 82% 14%, rgba(5, 150, 105, 0.10), transparent 60%),
+    radial-gradient(900px 600px at 74% 92%, rgba(234, 88, 12, 0.08), transparent 60%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 38%),
+    var(--bg);
+}
+
+::selection{ background: rgba(125, 211, 252, 0.25); }
+[data-theme="light"] ::selection{ background: rgba(37, 99, 235, 0.18); }
+
+:focus-visible{ outline: 2px solid rgba(125, 211, 252, 0.45); outline-offset: 2px; }
+[data-theme="light"] :focus-visible{ outline-color: rgba(37, 99, 235, 0.35); }
+
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation-duration:0.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  #topbar, .tabs-bar, .contact-strip { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  #topbar{ background: rgb(12 22 38 / 0.76); }
+  .tabs-bar{ background: rgb(12 22 38 / 0.72); }
+  .contact-strip{ background: rgb(12 22 38 / 0.70); }
+  [data-theme="light"] #topbar{ background: rgb(255 255 255 / 0.82); }
+  [data-theme="light"] .tabs-bar{ background: rgb(255 255 255 / 0.78); }
+  [data-theme="light"] .contact-strip{ background: rgb(255 255 255 / 0.78); }
+}
+
+.theme-btn, .cs-link{
+  border-radius:999px;
+  box-shadow:0 1px 0 rgba(255,255,255,0.05) inset;
+  transition:transform 0.15s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+.theme-btn:hover, .cs-link:hover{ transform:translateY(-1px); box-shadow:0 10px 26px rgba(0,0,0,0.28); }
+.theme-btn:active, .cs-link:active{ transform:translateY(0px); }
+
+.gcard, .kv-item{ box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 10px 26px rgba(0,0,0,0.28); }
+[data-theme="light"] .gcard, [data-theme="light"] .kv-item{ box-shadow:0 1px 0 rgba(255,255,255,0.72) inset, 0 10px 22px rgba(0, 30, 60, 0.10); }
+
+.tb-more{ position:relative; }
+.tb-more > summary{ list-style:none; cursor:pointer; }
+.tb-more > summary::-webkit-details-marker{ display:none; }
+.tb-more-menu{
+  display:none;
+  position:absolute;
+  right:0;
+  top:calc(100% + 10px);
+  min-width:220px;
+  padding:10px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 18px 52px rgba(0,0,0,0.36);
+  z-index:1200;
+}
+.tb-more[open] > .tb-more-menu{ display:block; }
+.tb-more-menu a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  text-decoration:none;
+  color:var(--t2);
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.82rem;
+  font-weight:700;
+  letter-spacing:0.02em;
+  border:1px solid transparent;
+}
+.tb-more-menu a:hover{
+  background:rgba(125, 211, 252, 0.10);
+  border-color:rgba(125, 211, 252, 0.25);
+  color:var(--t1);
+}
+[data-theme="light"] .tb-more-menu a:hover{
+  background:rgba(37, 99, 235, 0.07);
+  border-color:rgba(37, 99, 235, 0.18);
+}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
@@ -573,7 +737,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 </div>
 
 <header id="topbar">
-  <div class="tb-brand"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></div>
+  <a class="tb-brand" href="index_with_recommendations.html" style="text-decoration:none"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></a>
   <div class="tb-pills">
     <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">—</span><div class="chg" id="tpc-nifty"></div></div>
     <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">—</span><div class="chg" id="tpc-banknifty"></div></div>
@@ -586,13 +750,25 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <span id="tb-clock">—</span>
     <a href="blogs.html" class="theme-btn" style="text-decoration:none">📚 Learn</a>
     <a href="mentorship.html" class="theme-btn" style="text-decoration:none">🎓 Mentorship</a>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
+    <details class="tb-more">
+      <summary class="theme-btn" aria-label="More">☰ More</summary>
+      <div class="tb-more-menu">
+        <a href="about.html">ℹ️ About</a>
+        <a href="contact.html">✉️ Contact</a>
+        <a href="privacy.html">🔒 Privacy</a>
+      </div>
+    </details>
+    <button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()">🌙 Dark</button>
   </div>
 </header>
 
 <div class="mobile-nav-strip">
   <a href="blogs.html">📚 Learn</a>
   <a href="mentorship.html">🎓 Mentorship</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="contact.html">✉️ Contact</a>
+  <a href="privacy.html">🔒 Privacy</a>
+  <button class="m-theme-toggle" id="theme-btn-m" type="button" onclick="toggleTheme()">🌙 Dark</button>
 </div>
 
 <div id="main">
@@ -624,7 +800,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <!-- PREMIUM CALLOUT - Highly visible banner -->
     <div class="premium-callout" onclick="switchStab('nifty','premium', document.querySelector('#panel-nifty .stab-premium'))">
       <div class="premium-callout-text">
-        <span class="premium-callout-icon">🌟</span>
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </span>
         <div>
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
           <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
@@ -693,13 +873,15 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
     <div id="sp-nifty-oi" class="stab-panel on">
-      <div class="edu-box">
-        <h3>📊 Understanding the GEX OI Monitor (NIFTY)</h3>
-        <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
-        <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
-        <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
-        <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
-      </div>
+      <details class="edu-box edu-collapsible">
+        <summary>📊 Understanding the GEX OI Monitor (NIFTY)</summary>
+        <div class="edu-body">
+          <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
+          <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
+          <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
+          <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
+        </div>
+      </details>
     </div>
     <div id="sp-nifty-gex" class="stab-panel">
       <div class="edu-box">
@@ -800,7 +982,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="pills-banknifty" class="pills"></div>
     <div class="premium-callout" onclick="switchStab('banknifty','premium', document.querySelector('#panel-banknifty .stab-premium'))">
       <div class="premium-callout-text">
-        <span class="premium-callout-icon">🌟</span>
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </span>
         <div>
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
           <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
@@ -868,14 +1054,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
     <div id="sp-banknifty-oi" class="stab-panel on">
-      <div class="edu-box">
-        <h3>📊 Understanding the GEX OI Monitor (BANKNIFTY)</h3>
-        <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
-        <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
-        <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
-        <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
-        <p><strong>BankNifty‑specific note:</strong> BankNifty options have wider strikes (typically 100‑point increments) and higher absolute premiums. OI concentrations are often more extreme because institutional hedging flows are larger. BankNifty tends to be more volatile, so GEX regimes change faster. Check the OI Monitor multiple times per day to see how positions are shifting.</p>
-      </div>
+      <details class="edu-box edu-collapsible">
+        <summary>📊 Understanding the GEX OI Monitor (BANKNIFTY)</summary>
+        <div class="edu-body">
+          <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
+          <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
+          <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
+          <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
+          <p><strong>BankNifty‑specific note:</strong> BankNifty options have wider strikes (typically 100‑point increments) and higher absolute premiums. OI concentrations are often more extreme because institutional hedging flows are larger. BankNifty tends to be more volatile, so GEX regimes change faster. Check the OI Monitor multiple times per day to see how positions are shifting.</p>
+        </div>
+      </details>
     </div>
     <div id="sp-banknifty-gex" class="stab-panel">
       <div class="edu-box">
@@ -986,7 +1174,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="pills-sensex" class="pills"></div>
     <div class="premium-callout" onclick="switchStab('sensex','premium', document.querySelector('#panel-sensex .stab-premium'))">
       <div class="premium-callout-text">
-        <span class="premium-callout-icon">🌟</span>
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </span>
         <div>
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
           <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
@@ -1054,14 +1246,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
     <div id="sp-sensex-oi" class="stab-panel on">
-      <div class="edu-box">
-        <h3>📊 Understanding the GEX OI Monitor (SENSEX)</h3>
-        <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
-        <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
-        <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
-        <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
-        <p><strong>Sensex‑specific note:</strong> Sensex options have different liquidity and strike spacing compared to Nifty. Because Sensex is a price‑weighted index of 30 stocks, its volatility profile differs. The OI concentrations in Sensex are often at 500‑point intervals (e.g., 72,000, 72,500, 73,000). Sensex GEX tends to be less reactive than Nifty GEX because the options market is thinner, but the signals are still meaningful, especially near monthly expiry.</p>
-      </div>
+      <details class="edu-box edu-collapsible">
+        <summary>📊 Understanding the GEX OI Monitor (SENSEX)</summary>
+        <div class="edu-body">
+          <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
+          <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
+          <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
+          <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
+          <p><strong>Sensex‑specific note:</strong> Sensex options have different liquidity and strike spacing compared to Nifty. Because Sensex is a price‑weighted index of 30 stocks, its volatility profile differs. The OI concentrations in Sensex are often at 500‑point intervals (e.g., 72,000, 72,500, 73,000). Sensex GEX tends to be less reactive than Nifty GEX because the options market is thinner, but the signals are still meaningful, especially near monthly expiry.</p>
+        </div>
+      </details>
     </div>
     <div id="sp-sensex-gex" class="stab-panel">
       <div class="edu-box">
@@ -1172,7 +1366,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="pills-finnifty" class="pills"></div>
     <div class="premium-callout" onclick="switchStab('finnifty','premium', document.querySelector('#panel-finnifty .stab-premium'))">
       <div class="premium-callout-text">
-        <span class="premium-callout-icon">🌟</span>
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </span>
         <div>
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
           <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
@@ -1240,14 +1438,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
     <div id="sp-finnifty-oi" class="stab-panel on">
-      <div class="edu-box">
-        <h3>📊 Understanding the GEX OI Monitor (FINNIFTY)</h3>
-        <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
-        <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
-        <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
-        <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
-        <p><strong>FinNifty‑specific note:</strong> FinNifty is a relatively new index but has rapidly growing options volume. Its strike spacing is 50 points, making it more granular than BankNifty. FinNifty options are often used for hedging financial sector exposure. The OI concentrations can be sharp – a single strike may hold a large percentage of total OI. This makes the GEX pin very powerful. Watch for put walls at round numbers (e.g., 21,000, 21,500) – they tend to hold strongly. Call walls can be broken more easily because liquidity is thinner.</p>
-      </div>
+      <details class="edu-box edu-collapsible">
+        <summary>📊 Understanding the GEX OI Monitor (FINNIFTY)</summary>
+        <div class="edu-body">
+          <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
+          <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
+          <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
+          <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
+          <p><strong>FinNifty‑specific note:</strong> FinNifty is a relatively new index but has rapidly growing options volume. Its strike spacing is 50 points, making it more granular than BankNifty. FinNifty options are often used for hedging financial sector exposure. The OI concentrations can be sharp – a single strike may hold a large percentage of total OI. This makes the GEX pin very powerful. Watch for put walls at round numbers (e.g., 21,000, 21,500) – they tend to hold strongly. Call walls can be broken more easily because liquidity is thinner.</p>
+        </div>
+      </details>
     </div>
     <div id="sp-finnifty-gex" class="stab-panel">
       <div class="edu-box">
@@ -1358,7 +1558,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div id="pills-midcpnifty" class="pills"></div>
     <div class="premium-callout" onclick="switchStab('midcpnifty','premium', document.querySelector('#panel-midcpnifty .stab-premium'))">
       <div class="premium-callout-text">
-        <span class="premium-callout-icon">🌟</span>
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </span>
         <div>
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
           <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
@@ -1426,14 +1630,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
     <div id="sp-midcpnifty-oi" class="stab-panel on">
-      <div class="edu-box">
-        <h3>📊 Understanding the GEX OI Monitor (MIDCAP NIFTY)</h3>
-        <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
-        <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
-        <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
-        <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
-        <p><strong>Midcap‑specific note:</strong> Midcap Nifty options are less liquid than Nifty or BankNifty, but the structural signals can be even more powerful because small flows move the index. The strike spacing is typically 100 points. Because of lower liquidity, GEX levels may be more “sticky” – once a put wall is built, it can hold for days. However, when a wall breaks, the move can be violent due to lack of counter‑flow. Use the Midcap dashboard for directional confirmation rather than as a primary signal. The volume flow panel is especially important here – low VOR means the level is untrustworthy.</p>
-      </div>
+      <details class="edu-box edu-collapsible">
+        <summary>📊 Understanding the GEX OI Monitor (MIDCAP NIFTY)</summary>
+        <div class="edu-body">
+          <p>The <strong>GEX OI Monitor</strong> combines open interest (OI) with gamma exposure (GEX) to show you exactly where the structural support and resistance are located. Open interest represents the total number of outstanding call and put contracts at each strike price. When OI is concentrated at a particular level, it means a large number of market participants have committed to that price – either as option sellers (writers) or option buyers. This concentration creates real, mechanical forces that affect price movement.</p>
+          <p>In this chart, you will see two types of bars: call OI (typically shown in blue or green) and put OI (typically shown in orange or red). The height of each bar represents the amount of open interest at that strike. Additionally, the colour intensity or an overlaid line indicates the GEX direction – positive gamma (stabilising) or negative gamma (amplifying).</p>
+          <p><strong>How to interpret this chart:</strong> Look for strikes where call OI is very high above the current spot price – those are resistance levels. Strikes where put OI is very high below the current spot price – those are support levels. The stronger the OI concentration, the more likely price will pause, reverse, or accelerate when it reaches that level. The GEX overlay tells you whether dealers are long gamma (blue, dampening) or short gamma (orange, amplifying) at that strike. When the market approaches a long‑gamma strike, price tends to be pulled back toward the middle. When it approaches a short‑gamma strike, the move can accelerate through it.</p>
+          <p>Use this monitor as your first step in any pre‑market analysis: identify the nearest heavy OI strikes above and below spot. Those are your structural boundaries for the session.</p>
+          <p><strong>Midcap‑specific note:</strong> Midcap Nifty options are less liquid than Nifty or BankNifty, but the structural signals can be even more powerful because small flows move the index. The strike spacing is typically 100 points. Because of lower liquidity, GEX levels may be more “sticky” – once a put wall is built, it can hold for days. However, when a wall breaks, the move can be violent due to lack of counter‑flow. Use the Midcap dashboard for directional confirmation rather than as a primary signal. The volume flow panel is especially important here – low VOR means the level is untrustworthy.</p>
+        </div>
+      </details>
     </div>
     <div id="sp-midcpnifty-gex" class="stab-panel">
       <div class="edu-box">
@@ -1630,17 +1836,23 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 // sub‑tab navigation, and data updates. No changes have been made.
 
 (function(){
-  const t = localStorage.getItem('oc-theme') || 'dark';
+  let t = 'dark';
+  try { t = localStorage.getItem('oc-theme') || 'dark'; } catch {}
   document.documentElement.setAttribute('data-theme', t);
-  const b = document.getElementById('theme-btn');
-  if(b) b.textContent = t==='dark' ? '☀ Light' : '🌙 Dark';
+  ['theme-btn','theme-btn-m'].forEach(id => {
+    const b = document.getElementById(id);
+    if(b) b.textContent = t==='dark' ? '☀ Light' : '🌙 Dark';
+  });
 })();
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
   const nxt = cur==='dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', nxt);
-  localStorage.setItem('oc-theme', nxt);
-  document.getElementById('theme-btn').textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
+  try { localStorage.setItem('oc-theme', nxt); } catch {}
+  ['theme-btn','theme-btn-m'].forEach(id => {
+    const b = document.getElementById(id);
+    if(b) b.textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
+  });
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
 const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis','premium'];
