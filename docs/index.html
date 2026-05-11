@@ -2095,28 +2095,31 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// -- Premium password gate: single password unlocks all indices --
-const PREMIUM_PASSWORD = "drt1@!lucayrm2_@f!0v_wpdf";  // update this every month
-// Simple djb2 hash — ties the localStorage session to the exact password value.
-// When you update PREMIUM_PASSWORD above and push, all old sessions are instantly
-// invalidated because their stored hash won't match the new password's hash.
+// -- Premium password gate (server-side) --
+// Password is checked by the server — it never appears here in plain text.
+// The server returns a daily token; content is fetched only with that token.
+
+let unlocked = false;
+let _premToken = null;
+
 function _pwHash(s) {
+  // kept only for invalidating old localStorage sessions gracefully
   var h = 5381;
   for (var i = 0; i < s.length; i++) {
     h = ((h << 5) + h) ^ s.charCodeAt(i);
-    h = h & 0x7fffffff;  // keep positive 31-bit int
+    h = h & 0x7fffffff;
   }
   return 'ph_' + h.toString(36);
 }
 
-// On every page load: if stored hash doesn't match current password, clear it.
+// Clear any old plain-text or hash-based localStorage entry on load
 (function() {
   var stored = localStorage.getItem('premiumUnlocked');
-  if (stored && stored !== _pwHash(PREMIUM_PASSWORD)) {
+  // Old format was a hash string; new format is 'tok_XXXX'
+  if (stored && !stored.startsWith('tok_')) {
     localStorage.removeItem('premiumUnlocked');
   }
 }());
-let unlocked = false;  // global flag
 
 function premTnc(idx) {
   var cb = document.getElementById('tnc-' + idx);
@@ -2131,38 +2134,51 @@ function premUnlock() {
   if (!input) input = document.getElementById('pw-finnifty');
   if (!input) input = document.getElementById('pw-midcpnifty');
   if (!input) return;
-  if (input.value.trim() === PREMIUM_PASSWORD) {
-    unlocked = true;
-    // Hide all locked views, show all unlocked views
+  var pwd = input.value.trim();
+  if (!pwd) return;
+
+  fetch('/api/unlock', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({password: pwd})
+  })
+  .then(function(r) { return r.json().then(function(d) { return {ok: r.ok, data: d}; }); })
+  .then(function(res) {
+    if (res.ok && res.data.ok) {
+      _premToken = res.data.token;
+      localStorage.setItem('premiumUnlocked', 'tok_' + _premToken);
+      unlocked = true;
+      INDICES.forEach(function(idx) {
+        var locked  = document.getElementById('prem-locked-' + idx);
+        var content = document.getElementById('prem-content-' + idx);
+        if (locked)  locked.style.display  = 'none';
+        if (content) content.style.display = 'block';
+        var errEl = document.getElementById('pw-err-' + idx);
+        if (errEl) errEl.style.display = 'none';
+      });
+      INDICES.forEach(function(idx) { loadRecommendation(idx, false); });
+    } else {
+      INDICES.forEach(function(idx) {
+        var errEl = document.getElementById('pw-err-' + idx);
+        if (errEl) errEl.style.display = 'block';
+        var pwInput = document.getElementById('pw-' + idx);
+        if (pwInput) pwInput.value = '';
+      });
+    }
+  })
+  .catch(function() {
     INDICES.forEach(function(idx) {
-      var locked  = document.getElementById('prem-locked-' + idx);
-      var content = document.getElementById('prem-content-' + idx);
-      if (locked) locked.style.display = 'none';
-      if (content) content.style.display = 'block';
-      // Clear any error messages
       var errEl = document.getElementById('pw-err-' + idx);
-      if (errEl) errEl.style.display = 'none';
+      if (errEl) { errEl.style.display = 'block'; errEl.textContent = '⚠ Server error. Try again.'; }
     });
-    // Load recommendations for all indices
-    INDICES.forEach(function(idx) { loadRecommendation(idx, false); });
-  } else {
-    // Show error on all password fields
-    INDICES.forEach(function(idx) {
-      var errEl = document.getElementById('pw-err-' + idx);
-      if (errEl) errEl.style.display = 'block';
-      var pwInput = document.getElementById('pw-' + idx);
-      if (pwInput) pwInput.value = '';
-    });
-  }
+  });
 }
 
-// Loads (or reloads) recommendation for one index.
-// If force=false, only updates if content has changed since last load.
 function loadRecommendation(idx, force) {
-  if (!unlocked) return;
+  if (!unlocked || !_premToken) return;
   var content = document.getElementById('prem-content-' + idx);
   if (!content || content.style.display === 'none') return;
-  fetch('data/' + idx + '/recommendation.html?t=' + Date.now())
+  fetch('/api/recommendation/' + idx + '?token=' + encodeURIComponent(_premToken) + '&t=' + Date.now())
     .then(function(r) { return r.ok ? r.text() : null; })
     .then(function(html) {
       if (!html) {
@@ -2172,7 +2188,6 @@ function loadRecommendation(idx, force) {
         }
         return;
       }
-      // Only re-render if content actually changed
       if (force || content._lastHtml !== html) {
         content._lastHtml = html;
         content._loaded   = true;
@@ -2181,42 +2196,43 @@ function loadRecommendation(idx, force) {
     })
     .catch(function() {
       if (!content._loaded) {
-        content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--neg);font-family:monospace;font-size:.85rem">Could not load recommendation. Check connection or re-push.</div>';
+        content.innerHTML = '<div style="padding:32px;text-align:center;color:var(--neg);font-family:monospace;font-size:.85rem">Could not load recommendation. Check connection.</div>';
         content._loaded = true;
       }
     });
 }
 
-// Auto-refresh every 2 minutes — picks up new recommendations without page reload
+// Auto-refresh every 2 minutes
 setInterval(function() {
   if (!unlocked) return;
   INDICES.forEach(function(idx) { loadRecommendation(idx, false); });
 }, 120000);
 
-// On page load, check if localStorage says already unlocked
+// On page load: restore from localStorage if token still valid today
 (function() {
-  var storedUnlocked = localStorage.getItem('premiumUnlocked');
-  if (storedUnlocked && storedUnlocked === _pwHash(PREMIUM_PASSWORD)) {
-    unlocked = true;
-    INDICES.forEach(function(idx) {
-      var locked  = document.getElementById('prem-locked-' + idx);
-      var content = document.getElementById('prem-content-' + idx);
-      if (locked) locked.style.display = 'none';
-      if (content) content.style.display = 'block';
-      // delegate to shared loader
-    });
-    INDICES.forEach(function(idx) { loadRecommendation(idx, false); });
+  var stored = localStorage.getItem('premiumUnlocked');
+  if (stored && stored.startsWith('tok_')) {
+    var token = stored.slice(4);
+    // Verify token is still valid by fetching a recommendation
+    fetch('/api/recommendation/nifty?token=' + encodeURIComponent(token) + '&t=' + Date.now())
+      .then(function(r) {
+        if (r.ok || r.status === 404) {
+          // 404 = valid token but no content yet — still authenticated
+          _premToken = token;
+          unlocked = true;
+          INDICES.forEach(function(idx) {
+            var locked  = document.getElementById('prem-locked-' + idx);
+            var content = document.getElementById('prem-content-' + idx);
+            if (locked)  locked.style.display  = 'none';
+            if (content) content.style.display = 'block';
+          });
+          INDICES.forEach(function(idx) { loadRecommendation(idx, false); });
+        } else {
+          // Token expired (new day) — clear it
+          localStorage.removeItem('premiumUnlocked');
+        }
+      })
+      .catch(function() { localStorage.removeItem('premiumUnlocked'); });
   }
-})();
-
-// Save to localStorage when unlocked via password
-var originalPremUnlock = premUnlock;
-premUnlock = function() {
-  originalPremUnlock();
-  if (unlocked) {
-    localStorage.setItem('premiumUnlocked', _pwHash(PREMIUM_PASSWORD));
-  }
-};
+}());
 </script>
-</body>
-</html>
