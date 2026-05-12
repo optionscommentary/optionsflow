@@ -829,6 +829,7 @@ body{
     </div>
     <div id="sp-nifty-premium" class="stab-panel">
   <div class="prem-outer">
+    <div id="prem-sub-nifty">
     <div class="prem-section-title">NIFTY <em>Premium Recommendations</em></div>
     <div class="prem-pricing-row">
       <div class="prem-price-card prem-first"><div class="prem-price-tag">First Month</div><div class="prem-price-amt">&#8377;499</div><div class="prem-price-note">Introductory offer</div><div class="prem-price-badge">Limited Period</div></div>
@@ -856,6 +857,8 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
+    </div>
+    
     <div id="prem-lock-nifty" class="prem-pw-section">
       <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
@@ -1008,6 +1011,7 @@ body{
     </div>
     <div id="sp-banknifty-premium" class="stab-panel">
   <div class="prem-outer">
+    <div id="prem-sub-banknifty">
     <div class="prem-section-title">BANKNIFTY <em>Premium Recommendations</em></div>
     <div class="prem-pricing-row">
       <div class="prem-price-card prem-first"><div class="prem-price-tag">First Month</div><div class="prem-price-amt">&#8377;499</div><div class="prem-price-note">Introductory offer</div><div class="prem-price-badge">Limited Period</div></div>
@@ -1035,6 +1039,8 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
+    </div>
+    
     <div id="prem-lock-banknifty" class="prem-pw-section">
       <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
@@ -1198,6 +1204,7 @@ body{
     </div>
     <div id="sp-sensex-premium" class="stab-panel">
   <div class="prem-outer">
+    <div id="prem-sub-sensex">
     <div class="prem-section-title">SENSEX <em>Premium Recommendations</em></div>
     <div class="prem-pricing-row">
       <div class="prem-price-card prem-first"><div class="prem-price-tag">First Month</div><div class="prem-price-amt">&#8377;499</div><div class="prem-price-note">Introductory offer</div><div class="prem-price-badge">Limited Period</div></div>
@@ -1225,6 +1232,8 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
+    </div>
+    
     <div id="prem-lock-sensex" class="prem-pw-section">
       <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
@@ -1388,6 +1397,7 @@ body{
     </div>
     <div id="sp-finnifty-premium" class="stab-panel">
   <div class="prem-outer">
+    <div id="prem-sub-finnifty">
     <div class="prem-section-title">FINNIFTY <em>Premium Recommendations</em></div>
     <div class="prem-pricing-row">
       <div class="prem-price-card prem-first"><div class="prem-price-tag">First Month</div><div class="prem-price-amt">&#8377;499</div><div class="prem-price-note">Introductory offer</div><div class="prem-price-badge">Limited Period</div></div>
@@ -1415,6 +1425,8 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
+    </div>
+    
     <div id="prem-lock-finnifty" class="prem-pw-section">
       <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
@@ -1578,6 +1590,7 @@ body{
     </div>
     <div id="sp-midcpnifty-premium" class="stab-panel">
   <div class="prem-outer">
+    <div id="prem-sub-midcpnifty">
     <div class="prem-section-title">MIDCAP <em>Premium Recommendations</em></div>
     <div class="prem-pricing-row">
       <div class="prem-price-card prem-first"><div class="prem-price-tag">First Month</div><div class="prem-price-amt">&#8377;499</div><div class="prem-price-note">Introductory offer</div><div class="prem-price-badge">Limited Period</div></div>
@@ -1605,6 +1618,8 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
+    </div>
+    
     <div id="prem-lock-midcpnifty" class="prem-pw-section">
       <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
@@ -2117,19 +2132,26 @@ async function premUnlockInline(idx) {
 
   try {
     var dec = await _premDecryptFile(idx, pwd);
+    localStorage.setItem('_of_pw', pwd);   // remember for next visit
     _premShowContent(idx, dec);
     // Same password — unlock all other indices silently in background
     var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
     all.forEach(function(i) {
       if (i !== idx && !_premDecrypted[i]) {
-        _premDecryptFile(i, pwd).then(function(d) { _premDecrypted[i] = d; }).catch(function(){});
+        _premDecryptFile(i, pwd).then(function(d) {
+          _premShowContent(i, d);
+        }).catch(function(){});
       }
     });
   } catch(e) {
+    if (e.message === 'wrong') localStorage.removeItem('_of_pw'); // clear stale password
     if (errEl) {
-      errEl.textContent = e.message === 'wrong'
-        ? '❌ Incorrect password. Contact us on WhatsApp if you need help.'
-        : '⚠ Could not load recommendation. Check your connection and try again.';
+      var msg = e.message;
+      errEl.textContent =
+        msg === 'wrong'    ? '❌ Incorrect password. Contact us on WhatsApp if you need help.' :
+        msg === 'fetch'    ? '⚠ Recommendation file not found. Run GEXMA analysis first.' :
+        msg === 'noCrypto' ? '⚠ Decryption library failed to load. Check your internet connection and refresh.' :
+                             '⚠ Could not load recommendation. Check your connection and try again.';
       errEl.style.display = 'block';
     }
     var inp = document.getElementById('pw-inline-' + idx);
@@ -2141,6 +2163,7 @@ async function premUnlockInline(idx) {
 
 async function _premDecryptFile(idx, pwd) {
   if (_premDecrypted[idx]) return _premDecrypted[idx];
+  if (typeof CryptoJS === 'undefined') throw new Error('noCrypto');
   var resp = await fetch('data/' + idx + '/premium.html?t=' + Date.now());
   if (!resp.ok) throw new Error('fetch');
   var text = await resp.text();
@@ -2152,7 +2175,12 @@ async function _premDecryptFile(idx, pwd) {
   var iv   = CryptoJS.enc.Base64.parse(im[1]);
   var ct   = CryptoJS.enc.Base64.parse(cm[1]);
   var key  = CryptoJS.PBKDF2(pwd, salt, {keySize: 256/32, iterations: 200000, hasher: CryptoJS.algo.SHA256});
-  var dec  = CryptoJS.AES.decrypt({ciphertext: ct}, key, {iv: iv}).toString(CryptoJS.enc.Utf8);
+  var dec;
+  try {
+    dec = CryptoJS.AES.decrypt({ciphertext: ct}, key, {iv: iv}).toString(CryptoJS.enc.Utf8);
+  } catch(e) {
+    throw new Error('wrong');
+  }
   if (!dec || dec.length < 10) throw new Error('wrong');
   _premDecrypted[idx] = dec;
   return dec;
@@ -2160,9 +2188,11 @@ async function _premDecryptFile(idx, pwd) {
 
 function _premShowContent(idx, html) {
   var lockEl    = document.getElementById('prem-lock-' + idx);
+  var subEl     = document.getElementById('prem-sub-'  + idx);
   var contentEl = document.getElementById('prem-inline-content-' + idx);
   if (!lockEl || !contentEl) return;
-  lockEl.style.display = 'none';
+  if (lockEl) lockEl.style.display = 'none';
+  if (subEl)  subEl.style.display  = 'none';  // hide T&C, pricing, WA — not needed for subscribers
 
   // Render the full styled HTML page inside a seamless iframe using a blob URL.
   // This preserves all CSS (_ANALYSIS_PAGE_CSS + fonts) without injecting a full
@@ -2186,17 +2216,22 @@ function _premShowContent(idx, html) {
   contentEl.style.display = 'block';
 }
 
-// If user switches to a panel whose index was already silently unlocked, show it
+// On every page load: if a password was saved from a previous visit, silently
+// attempt to decrypt all panels. If decryption fails (new password after a
+// GEXMA run), the stored password is cleared and the lock UI stays visible.
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.stab-premium').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var idx = btn.closest('[id^="tab-"]') ? btn.closest('[id^="tab-"]').id.replace('tab-','') : null;
-      // derive idx from the switchStab call instead
-      var onclickStr = btn.getAttribute('onclick') || '';
-      var m = onclickStr.match(/switchStab\('([^']+)'/);
-      if (m) idx = m[1];
-      if (idx && _premDecrypted[idx]) _premShowContent(idx, _premDecrypted[idx]);
-    });
+  var saved = localStorage.getItem('_of_pw');
+  if (!saved) return;
+  var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
+  all.forEach(function(idx) {
+    _premDecryptFile(idx, saved)
+      .then(function(dec) { _premShowContent(idx, dec); })
+      .catch(function(e) {
+        if (e.message === 'wrong') {
+          localStorage.removeItem('_of_pw'); // password changed — force re-entry
+        }
+        // fetch/format/other errors: leave lock UI in place, keep stored pw
+      });
   });
 });
 </script>
