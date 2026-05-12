@@ -2012,7 +2012,7 @@ function renderIndex(idx, data){
   if(spa) spa.innerHTML = analysisHtml(idx, data);
 }
 async function switchIdx(idx){
-  localStorage.setItem('_of_tab', idx);
+  sessionStorage.setItem('_of_tab', idx);
   // Close all collapsible edu-boxes on every index switch
   document.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
   INDICES.forEach(i=>{
@@ -2023,7 +2023,7 @@ async function switchIdx(idx){
   renderIndex(idx, await fetchData(idx));
 }
 function switchStab(idx, key, btn){
-  localStorage.setItem('_of_stab_' + idx, key);
+  sessionStorage.setItem('_of_stab_' + idx, key);
   const panel = document.getElementById(`panel-${idx}`);
   if(!panel) return;
   // Close all collapsible edu-boxes whenever a stab switch happens
@@ -2283,13 +2283,14 @@ function _premShowContent(idx, html) {
   contentEl.style.display = 'block';
 }
 
-// On every page load:
-// 1. Restore the last active index tab and sub-tab the user was on
+// On every page load in the same browser tab:
+// 1. Restore the active index tab and sub-tab for manual refreshes only.
+//    sessionStorage clears on a fresh tab/session, so new visitors start clean.
 // 2. If a password was saved, silently decrypt all panels
 document.addEventListener('DOMContentLoaded', function() {
 
   // ── Restore last active index tab + sub-tab ──
-  var savedIdx  = localStorage.getItem('_of_tab');
+  var savedIdx  = sessionStorage.getItem('_of_tab');
   var validIdx  = savedIdx && INDICES.includes(savedIdx) ? savedIdx : null;
   if (validIdx && validIdx !== 'nifty') {
     INDICES.forEach(function(i) {
@@ -2299,7 +2300,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchData(validIdx).then(function(d) { if (d) renderIndex(validIdx, d); });
   }
   var activeIdx = validIdx || 'nifty';
-  var savedStab = localStorage.getItem('_of_stab_' + activeIdx);
+  var savedStab = sessionStorage.getItem('_of_stab_' + activeIdx);
   if (savedStab && savedStab !== 'oi') {
     var btn = document.querySelector('#panel-' + activeIdx + ' .stab[data-key="' + savedStab + '"]');
     if (btn) switchStab(activeIdx, savedStab, btn);
