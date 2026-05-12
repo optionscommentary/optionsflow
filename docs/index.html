@@ -2200,17 +2200,38 @@ function _premShowContent(idx, html) {
   var blob = new Blob([html], {type: 'text/html'});
   var url  = URL.createObjectURL(blob);
   var frame = document.createElement('iframe');
-  frame.src              = url;
-  frame.style.cssText    = 'width:100%;border:none;display:block;min-height:400px;border-radius:10px;margin-top:8px;';
-  frame.scrolling        = 'no';
-  frame.onload = function() {
-    // Auto-size to content height — no scrollbar, no clipping
+  frame.src           = url;
+  frame.style.cssText = 'width:100%;border:none;display:block;min-height:400px;border-radius:10px;margin-top:8px;';
+  frame.scrolling     = 'no';
+
+  function _fitHeight() {
     try {
       var h = frame.contentDocument.documentElement.scrollHeight;
-      frame.style.height = h + 'px';
-    } catch(e) { frame.style.height = '600px'; }
-    URL.revokeObjectURL(url); // free memory
+      if (h > 50) frame.style.height = h + 'px';
+    } catch(e) {}
+  }
+
+  frame.onload = function() {
+    _fitHeight();                          // immediate measurement
+    URL.revokeObjectURL(url);
+
+    // Re-measure after fonts finish loading inside the frame
+    try {
+      frame.contentDocument.fonts.ready.then(function() {
+        _fitHeight();
+        // Watch for any further reflows (e.g. images, lazy content)
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(function() { _fitHeight(); })
+            .observe(frame.contentDocument.documentElement);
+        }
+      });
+    } catch(e) {
+      // Fallback: re-check at 300 ms and 1 s after load
+      setTimeout(_fitHeight, 300);
+      setTimeout(_fitHeight, 1000);
+    }
   };
+
   contentEl.innerHTML = '';
   contentEl.appendChild(frame);
   contentEl.style.display = 'block';
