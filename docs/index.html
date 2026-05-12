@@ -721,6 +721,7 @@ body{
   gtag('js', new Date());
   gtag('config', 'G-TVCKEZ01PR');
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 
 <body>
@@ -855,12 +856,17 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
-    <div class="prem-pw-section" style="text-align:center; padding:20px;">
-      <div class="prem-pw-icon">&#128275;</div>
+    <div id="prem-lock-nifty" class="prem-pw-section">
+      <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
-      <div class="prem-pw-sub">Click the button to open your password&#8209;protected recommendation.</div>
-      <a href="data/nifty/premium.html" target="_blank" class="prem-wa-btn" style="background:var(--accent); color:#0D1520;">Open Premium Recommendation</a>
+      <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
+      <div class="prem-pw-row">
+        <input class="prem-pw-input" type="password" id="pw-inline-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('nifty')">
+        <button class="prem-pw-btn" id="pw-inline-btn-nifty" onclick="premUnlockInline('nifty')">Unlock</button>
+      </div>
+      <div class="prem-pw-err" id="pw-inline-err-nifty" style="display:none"></div>
     </div>
+    <div id="prem-inline-content-nifty" style="display:none; padding:8px 0;"></div>
   </div>
 </div>
     
@@ -1029,12 +1035,17 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
-    <div class="prem-pw-section" style="text-align:center; padding:20px;">
-      <div class="prem-pw-icon">&#128275;</div>
+    <div id="prem-lock-banknifty" class="prem-pw-section">
+      <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
-      <div class="prem-pw-sub">Click the button to open your password&#8209;protected recommendation.</div>
-      <a href="data/banknifty/premium.html" target="_blank" class="prem-wa-btn" style="background:var(--accent); color:#0D1520;">Open Premium Recommendation</a>
+      <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
+      <div class="prem-pw-row">
+        <input class="prem-pw-input" type="password" id="pw-inline-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('banknifty')">
+        <button class="prem-pw-btn" id="pw-inline-btn-banknifty" onclick="premUnlockInline('banknifty')">Unlock</button>
+      </div>
+      <div class="prem-pw-err" id="pw-inline-err-banknifty" style="display:none"></div>
     </div>
+    <div id="prem-inline-content-banknifty" style="display:none; padding:8px 0;"></div>
   </div>
 </div>
     
@@ -1214,12 +1225,17 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
-    <div class="prem-pw-section" style="text-align:center; padding:20px;">
-      <div class="prem-pw-icon">&#128275;</div>
+    <div id="prem-lock-sensex" class="prem-pw-section">
+      <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
-      <div class="prem-pw-sub">Click the button to open your password&#8209;protected recommendation.</div>
-      <a href="data/sensex/premium.html" target="_blank" class="prem-wa-btn" style="background:var(--accent); color:#0D1520;">Open Premium Recommendation</a>
+      <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
+      <div class="prem-pw-row">
+        <input class="prem-pw-input" type="password" id="pw-inline-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('sensex')">
+        <button class="prem-pw-btn" id="pw-inline-btn-sensex" onclick="premUnlockInline('sensex')">Unlock</button>
+      </div>
+      <div class="prem-pw-err" id="pw-inline-err-sensex" style="display:none"></div>
     </div>
+    <div id="prem-inline-content-sensex" style="display:none; padding:8px 0;"></div>
   </div>
 </div>
     
@@ -1399,12 +1415,17 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
-    <div class="prem-pw-section" style="text-align:center; padding:20px;">
-      <div class="prem-pw-icon">&#128275;</div>
+    <div id="prem-lock-finnifty" class="prem-pw-section">
+      <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
-      <div class="prem-pw-sub">Click the button to open your password&#8209;protected recommendation.</div>
-      <a href="data/finnifty/premium.html" target="_blank" class="prem-wa-btn" style="background:var(--accent); color:#0D1520;">Open Premium Recommendation</a>
+      <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
+      <div class="prem-pw-row">
+        <input class="prem-pw-input" type="password" id="pw-inline-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('finnifty')">
+        <button class="prem-pw-btn" id="pw-inline-btn-finnifty" onclick="premUnlockInline('finnifty')">Unlock</button>
+      </div>
+      <div class="prem-pw-err" id="pw-inline-err-finnifty" style="display:none"></div>
     </div>
+    <div id="prem-inline-content-finnifty" style="display:none; padding:8px 0;"></div>
   </div>
 </div>
     
@@ -1584,12 +1605,17 @@ body{
     </div>
     <!-- NEW: Subscriber direct link -->
     <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
-    <div class="prem-pw-section" style="text-align:center; padding:20px;">
-      <div class="prem-pw-icon">&#128275;</div>
+    <div id="prem-lock-midcpnifty" class="prem-pw-section">
+      <div class="prem-pw-icon">&#128272;</div>
       <div class="prem-pw-title">Subscriber Access</div>
-      <div class="prem-pw-sub">Click the button to open your password&#8209;protected recommendation.</div>
-      <a href="data/midcpnifty/premium.html" target="_blank" class="prem-wa-btn" style="background:var(--accent); color:#0D1520;">Open Premium Recommendation</a>
+      <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
+      <div class="prem-pw-row">
+        <input class="prem-pw-input" type="password" id="pw-inline-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('midcpnifty')">
+        <button class="prem-pw-btn" id="pw-inline-btn-midcpnifty" onclick="premUnlockInline('midcpnifty')">Unlock</button>
+      </div>
+      <div class="prem-pw-err" id="pw-inline-err-midcpnifty" style="display:none"></div>
     </div>
+    <div id="prem-inline-content-midcpnifty" style="display:none; padding:8px 0;"></div>
   </div>
 </div>
     
@@ -2072,4 +2098,105 @@ function premTnc(idx) {
   var wa = document.getElementById('wa-' + idx);
   if (wa) wa.style.display = cb.checked ? 'block' : 'none';
 }
+
+// -- Premium inline decrypt --
+// Fetches the AES-256 encrypted premium.html generated by GEXMA.py,
+// extracts salt/iv/ciphertext, decrypts with CryptoJS entirely in-browser,
+// and renders the result right inside the panel — no new tab, password never
+// leaves the page, never touches a server.
+
+var _premDecrypted = {};  // idx → decrypted HTML (session cache)
+
+async function premUnlockInline(idx) {
+  var pwd     = (document.getElementById('pw-inline-' + idx) || {}).value || '';
+  var errEl   = document.getElementById('pw-inline-err-' + idx);
+  var btn     = document.getElementById('pw-inline-btn-' + idx);
+  if (!pwd) return;
+  if (errEl) errEl.style.display = 'none';
+  if (btn)  { btn.textContent = 'Unlocking…'; btn.disabled = true; }
+
+  try {
+    var dec = await _premDecryptFile(idx, pwd);
+    _premShowContent(idx, dec);
+    // Same password — unlock all other indices silently in background
+    var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
+    all.forEach(function(i) {
+      if (i !== idx && !_premDecrypted[i]) {
+        _premDecryptFile(i, pwd).then(function(d) { _premDecrypted[i] = d; }).catch(function(){});
+      }
+    });
+  } catch(e) {
+    if (errEl) {
+      errEl.textContent = e.message === 'wrong'
+        ? '❌ Incorrect password. Contact us on WhatsApp if you need help.'
+        : '⚠ Could not load recommendation. Check your connection and try again.';
+      errEl.style.display = 'block';
+    }
+    var inp = document.getElementById('pw-inline-' + idx);
+    if (inp) inp.value = '';
+  } finally {
+    if (btn) { btn.textContent = 'Unlock'; btn.disabled = false; }
+  }
+}
+
+async function _premDecryptFile(idx, pwd) {
+  if (_premDecrypted[idx]) return _premDecrypted[idx];
+  var resp = await fetch('data/' + idx + '/premium.html?t=' + Date.now());
+  if (!resp.ok) throw new Error('fetch');
+  var text = await resp.text();
+  var sm = text.match(/const S="([^"]+)"/);
+  var im = text.match(/,I="([^"]+)"/);
+  var cm = text.match(/,C="([^"]+)"/);
+  if (!sm || !im || !cm) throw new Error('format');
+  var salt = CryptoJS.enc.Base64.parse(sm[1]);
+  var iv   = CryptoJS.enc.Base64.parse(im[1]);
+  var ct   = CryptoJS.enc.Base64.parse(cm[1]);
+  var key  = CryptoJS.PBKDF2(pwd, salt, {keySize: 256/32, iterations: 200000, hasher: CryptoJS.algo.SHA256});
+  var dec  = CryptoJS.AES.decrypt({ciphertext: ct}, key, {iv: iv}).toString(CryptoJS.enc.Utf8);
+  if (!dec || dec.length < 10) throw new Error('wrong');
+  _premDecrypted[idx] = dec;
+  return dec;
+}
+
+function _premShowContent(idx, html) {
+  var lockEl    = document.getElementById('prem-lock-' + idx);
+  var contentEl = document.getElementById('prem-inline-content-' + idx);
+  if (!lockEl || !contentEl) return;
+  lockEl.style.display = 'none';
+
+  // Render the full styled HTML page inside a seamless iframe using a blob URL.
+  // This preserves all CSS (_ANALYSIS_PAGE_CSS + fonts) without injecting a full
+  // HTML document as innerHTML (which strips <head>/<style> and breaks styling).
+  var blob = new Blob([html], {type: 'text/html'});
+  var url  = URL.createObjectURL(blob);
+  var frame = document.createElement('iframe');
+  frame.src              = url;
+  frame.style.cssText    = 'width:100%;border:none;display:block;min-height:400px;border-radius:10px;margin-top:8px;';
+  frame.scrolling        = 'no';
+  frame.onload = function() {
+    // Auto-size to content height — no scrollbar, no clipping
+    try {
+      var h = frame.contentDocument.documentElement.scrollHeight;
+      frame.style.height = h + 'px';
+    } catch(e) { frame.style.height = '600px'; }
+    URL.revokeObjectURL(url); // free memory
+  };
+  contentEl.innerHTML = '';
+  contentEl.appendChild(frame);
+  contentEl.style.display = 'block';
+}
+
+// If user switches to a panel whose index was already silently unlocked, show it
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.stab-premium').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = btn.closest('[id^="tab-"]') ? btn.closest('[id^="tab-"]').id.replace('tab-','') : null;
+      // derive idx from the switchStab call instead
+      var onclickStr = btn.getAttribute('onclick') || '';
+      var m = onclickStr.match(/switchStab\('([^']+)'/);
+      if (m) idx = m[1];
+      if (idx && _premDecrypted[idx]) _premShowContent(idx, _premDecrypted[idx]);
+    });
+  });
+});
 </script>
