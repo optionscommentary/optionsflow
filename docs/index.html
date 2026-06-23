@@ -1891,29 +1891,39 @@ function scoreClass(sc){
   if(sc!==0) return 'sp-neu'; return 'sp-flat';
 }
 const WORKER_URL = 'https://optionsflow-quotes.learntoearnfromstockmarket.workers.dev';
-async function fetchLive(idx){
-  function applyPrice(price, prev){
-    const chg=price-prev, pct=prev?(chg/prev)*100:0;
-    const sign=chg>=0?'+':'';
-    const arrow=chg>0?'▲':chg<0?'▼':'';
-    const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
-    const ev=document.getElementById(`tpv-${idx}`);
-    const ec=document.getElementById(`tpc-${idx}`);
-    if(ev) ev.textContent=f(Math.round(price));
-    if(ec) ec.innerHTML=`<span style="color:${col}">${arrow} ${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
-  }
+function applyPrice(idx, price, prev){
+  const chg=price-prev, pct=prev?(chg/prev)*100:0;
+  const sign=chg>=0?'+':'';
+  const arrow=chg>0?'▲':chg<0?'▼':'';
+  const col=chg>0?'var(--pos)':chg<0?'var(--neg)':'var(--t3)';
+  const ev=document.getElementById(`tpv-${idx}`);
+  const ec=document.getElementById(`tpc-${idx}`);
+  if(ev) ev.textContent=f(Math.round(price));
+  if(ec) ec.innerHTML=`<span style="color:${col}">${arrow} ${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+}
+function applyFallback(idx){
+  const d=_dataCache[idx];
+  if(d?.spot) applyPrice(idx, d.spot, d.spot-(d.spot_chg||0));
+}
+// Single batched call covering all 5 indices — calling WORKER_URL/quotes with
+// NO ?index= param returns every index in one response (this branch already
+// existed in the Worker; previously the frontend just wasn't using it).
+// This replaces 5 separate requests per cycle with exactly 1.
+async function updateTickers(){
   try{
-    const r=await fetch(`${WORKER_URL}/quotes?index=${idx}`,{signal:AbortSignal.timeout(8000)});
+    const r=await fetch(`${WORKER_URL}/quotes`,{signal:AbortSignal.timeout(8000)});
     if(!r.ok) throw new Error();
     const d=await r.json();
-    if(!d.ok||!d.price) throw new Error();
-    applyPrice(d.price, d.prev||d.price);
+    if(!d.ok||!d.quotes) throw new Error();
+    INDICES.forEach(idx=>{
+      const q=d.quotes[idx];
+      if(q && typeof q.price==='number') applyPrice(idx, q.price, q.prev||q.price);
+      else applyFallback(idx);
+    });
   }catch{
-    const d=_dataCache[idx];
-    if(d?.spot) applyPrice(d.spot, d.spot-(d.spot_chg||0));
+    INDICES.forEach(applyFallback);
   }
 }
-async function updateTickers(){ await Promise.allSettled(INDICES.map(fetchLive)); }
 const EMPTY=`<div class="empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg><p>Chart not generated yet for this run.<br><span style="font-size:.75rem;color:var(--t3)">Run GEXMA to generate plots.</span></p></div>`;
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
@@ -2063,9 +2073,7 @@ const _lastTs = {};
 Promise.all(INDICES.map(i => fetchData(i))).then(results => {
   INDICES.forEach((i, n) => { if(results[n]) renderIndex(i, results[n]); });
 });
-updateTickers();
-setInterval(updateTickers, 30000);
-setInterval(function() {
+function _refreshDataAndPremium() {
   INDICES.forEach(function(idx) {
     // ── Regular data refresh ──
     fetchData(idx, true).then(function(d) {
@@ -2092,7 +2100,11 @@ setInterval(function() {
       })
       .catch(function() {});
   });
-}, 30000);
+}
+
+updateTickers();
+setInterval(updateTickers, 30000);
+setInterval(_refreshDataAndPremium, 30000);
 
 // Simple non-crypto hash to detect premium.html file changes between polls
 var _premRawHash = {};
