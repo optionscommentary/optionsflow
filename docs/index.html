@@ -822,6 +822,7 @@ body{
       <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab" data-key="totalgex" onclick="switchStab('nifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('nifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">◈ SYNOPSIS</button>
@@ -948,6 +949,14 @@ body{
         <p><strong>How to use this table:</strong> Every morning, scan the top 3 strikes. If they are all above spot (call side) and have high Call VOR, expect resistance. If they are below spot (put side) with high Put VOR, expect support. If the top strike has low VOR on both sides, the structural level is weak – price may move through it without much friction.</p>
       </div>
     </div>
+    <div id="sp-nifty-totalgex" class="stab-panel">
+      <div class="edu-box">
+        <h3>📊 Total Absolute GEX – NIFTY</h3>
+        <p>The Top GEX table shows your six strongest strikes, but it doesn't tell you what's happening to the option chain as a whole, over time. <strong>Total Absolute GEX</strong> answers that: at every run, it sums |Call GEX| + |Put GEX| across <em>every</em> strike in the chain — no netting, no cancellation, just raw magnitude — and plots one bar per iteration through the day. Rising bars mean the whole chain is accumulating gamma exposure; falling bars mean it's unwinding.</p>
+        <p><strong>Why the two colours:</strong> Each bar is split into two shades using the synthetic futures price plotted on the right-hand axis. The lower portion (teal/cyan) is the part of that bar's GEX that corresponds to where price has been trading; the upper portion (amber) is the part above it. Watch how the amber layer grows or shrinks as price moves — a thickening amber band while price rallies means gamma is building up above the market, which can act as a brake on further upside (dealers hedging into strength). The pink line connecting every point is the synthetic futures path itself, so you can read price action and total gamma load on the same chart.</p>
+        <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
+      </div>
+    </div>
     <div id="sp-nifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – NIFTY</h3>
@@ -1004,6 +1013,7 @@ body{
       <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab" data-key="totalgex" onclick="switchStab('banknifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('banknifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">◈ SYNOPSIS</button>
@@ -1138,6 +1148,14 @@ body{
         <p><strong>BankNifty‑specific note:</strong> BankNifty strikes are wider (100‑point increments), so the top GEX strikes are more spaced out. Because BankNifty OI can be very large, a VOR of 0.1 may still represent significant volume. The Hottest Strike often moves intraday – if it changes from a put strike to a call strike, that signals a sentiment shift.</p>
       </div>
     </div>
+    <div id="sp-banknifty-totalgex" class="stab-panel">
+      <div class="edu-box">
+        <h3>📊 Total Absolute GEX – BANKNIFTY</h3>
+        <p>The Top GEX table shows your six strongest strikes, but it doesn't tell you what's happening to the option chain as a whole, over time. <strong>Total Absolute GEX</strong> answers that: at every run, it sums |Call GEX| + |Put GEX| across <em>every</em> strike in the chain — no netting, no cancellation, just raw magnitude — and plots one bar per iteration through the day. Rising bars mean the whole chain is accumulating gamma exposure; falling bars mean it's unwinding.</p>
+        <p><strong>Why the two colours:</strong> Each bar is split into two shades using the synthetic futures price plotted on the right-hand axis. The lower portion (teal/cyan) is the part of that bar's GEX that corresponds to where price has been trading; the upper portion (amber) is the part above it. Watch how the amber layer grows or shrinks as price moves — a thickening amber band while price rallies means gamma is building up above the market, which can act as a brake on further upside (dealers hedging into strength). The pink line connecting every point is the synthetic futures path itself, so you can read price action and total gamma load on the same chart.</p>
+        <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
+      </div>
+    </div>
     <div id="sp-banknifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – BANKNIFTY</h3>
@@ -1197,6 +1215,7 @@ body{
       <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab" data-key="totalgex" onclick="switchStab('sensex','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('sensex','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">◈ SYNOPSIS</button>
@@ -1331,6 +1350,14 @@ body{
         <p><strong>Sensex‑specific note:</strong> Due to lower liquidity, VOR values in Sensex are often lower than in Nifty. A VOR above 0.2 in Sensex is considered high. Pay extra attention to the Call VOR and Put VOR – because the market is thinner, a single large trade can dominate a strike’s VOR for the whole day. Cross‑reference with volume to see if the activity is concentrated in a few large trades or broad participation.</p>
       </div>
     </div>
+    <div id="sp-sensex-totalgex" class="stab-panel">
+      <div class="edu-box">
+        <h3>📊 Total Absolute GEX – SENSEX</h3>
+        <p>The Top GEX table shows your six strongest strikes, but it doesn't tell you what's happening to the option chain as a whole, over time. <strong>Total Absolute GEX</strong> answers that: at every run, it sums |Call GEX| + |Put GEX| across <em>every</em> strike in the chain — no netting, no cancellation, just raw magnitude — and plots one bar per iteration through the day. Rising bars mean the whole chain is accumulating gamma exposure; falling bars mean it's unwinding.</p>
+        <p><strong>Why the two colours:</strong> Each bar is split into two shades using the synthetic futures price plotted on the right-hand axis. The lower portion (teal/cyan) is the part of that bar's GEX that corresponds to where price has been trading; the upper portion (amber) is the part above it. Watch how the amber layer grows or shrinks as price moves — a thickening amber band while price rallies means gamma is building up above the market, which can act as a brake on further upside (dealers hedging into strength). The pink line connecting every point is the synthetic futures path itself, so you can read price action and total gamma load on the same chart.</p>
+        <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
+      </div>
+    </div>
     <div id="sp-sensex-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – SENSEX</h3>
@@ -1390,6 +1417,7 @@ body{
       <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab" data-key="totalgex" onclick="switchStab('finnifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('finnifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">◈ SYNOPSIS</button>
@@ -1524,6 +1552,14 @@ body{
         <p><strong>FinNifty‑specific note:</strong> Because FinNifty has fewer strikes, the top GEX strikes often repeat week after week. Pay attention to VOR – if a strike that is usually in the top 5 has unusually low VOR, it means the structural level is not being defended today and may break. The Hottest Strike in FinNifty is often the same as the GEX pin; when they diverge, that is a strong signal that the market’s focus has shifted.</p>
       </div>
     </div>
+    <div id="sp-finnifty-totalgex" class="stab-panel">
+      <div class="edu-box">
+        <h3>📊 Total Absolute GEX – FINNIFTY</h3>
+        <p>The Top GEX table shows your six strongest strikes, but it doesn't tell you what's happening to the option chain as a whole, over time. <strong>Total Absolute GEX</strong> answers that: at every run, it sums |Call GEX| + |Put GEX| across <em>every</em> strike in the chain — no netting, no cancellation, just raw magnitude — and plots one bar per iteration through the day. Rising bars mean the whole chain is accumulating gamma exposure; falling bars mean it's unwinding.</p>
+        <p><strong>Why the two colours:</strong> Each bar is split into two shades using the synthetic futures price plotted on the right-hand axis. The lower portion (teal/cyan) is the part of that bar's GEX that corresponds to where price has been trading; the upper portion (amber) is the part above it. Watch how the amber layer grows or shrinks as price moves — a thickening amber band while price rallies means gamma is building up above the market, which can act as a brake on further upside (dealers hedging into strength). The pink line connecting every point is the synthetic futures path itself, so you can read price action and total gamma load on the same chart.</p>
+        <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
+      </div>
+    </div>
     <div id="sp-finnifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – FINNIFTY</h3>
@@ -1583,6 +1619,7 @@ body{
       <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
+      <button class="stab" data-key="totalgex" onclick="switchStab('midcpnifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">◈ SYNOPSIS</button>
@@ -1715,6 +1752,14 @@ body{
         <p><strong>Call VOR vs Put VOR:</strong> Showing them separately is critical. A strike might have a high Call VOR (calls being actively rolled or written) but a low Put VOR (puts sitting there from a previous session). This asymmetry tells you that the market is focused on one side of the chain – it gives you a directional clue.</p>
         <p><strong>How to use this table:</strong> Every morning, scan the top 3 strikes. If they are all above spot (call side) and have high Call VOR, expect resistance. If they are below spot (put side) with high Put VOR, expect support. If the top strike has low VOR on both sides, the structural level is weak – price may move through it without much friction.</p>
         <p><strong>Midcap‑specific note:</strong> Because Midcap Nifty has wide strike spacing, the top GEX strikes are often far apart. The Hottest Strike is usually the one with the most volume – pay close attention to it, as it often moves during the session. VOR values are typically low (below 0.1) due to low liquidity. A VOR above 0.3 in Midcap Nifty is extremely high and indicates a very active level – trade with extra caution because the move may be exhausted.</p>
+      </div>
+    </div>
+    <div id="sp-midcpnifty-totalgex" class="stab-panel">
+      <div class="edu-box">
+        <h3>📊 Total Absolute GEX – MIDCPNIFTY</h3>
+        <p>The Top GEX table shows your six strongest strikes, but it doesn't tell you what's happening to the option chain as a whole, over time. <strong>Total Absolute GEX</strong> answers that: at every run, it sums |Call GEX| + |Put GEX| across <em>every</em> strike in the chain — no netting, no cancellation, just raw magnitude — and plots one bar per iteration through the day. Rising bars mean the whole chain is accumulating gamma exposure; falling bars mean it's unwinding.</p>
+        <p><strong>Why the two colours:</strong> Each bar is split into two shades using the synthetic futures price plotted on the right-hand axis. The lower portion (teal/cyan) is the part of that bar's GEX that corresponds to where price has been trading; the upper portion (amber) is the part above it. Watch how the amber layer grows or shrinks as price moves — a thickening amber band while price rallies means gamma is building up above the market, which can act as a brake on further upside (dealers hedging into strength). The pink line connecting every point is the synthetic futures path itself, so you can read price action and total gamma load on the same chart.</p>
+        <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
     <div id="sp-midcpnifty-prob" class="stab-panel">
@@ -1860,10 +1905,10 @@ function toggleTheme(){
   });
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf','analysis','premium'];
-const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcr:'pcr_table', topgex:'top_gamma',prob:'prob', volsurf:'vol_surface'};
-const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',prob:'Probable Positioning Analysis',volsurf:'Implied Volatility Surface'};
-const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcr:'OI PCR + Volume PCR', topgex:'Abs GEX · Volume · VOR',prob:'GEX + Candles · PCR + OI Synthesised',volsurf:''};
+const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
+const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcr:'pcr_table', topgex:'top_gamma',totalgex:'total_abs_gex',prob:'prob', volsurf:'vol_surface'};
+const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',prob:'Probable Positioning Analysis',volsurf:'Implied Volatility Surface'};
+const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcr:'OI PCR + Volume PCR', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',prob:'GEX + Candles · PCR + OI Synthesised',volsurf:''};
 const cache = {};
 const _dataCache = {};
 function tick(){
@@ -2003,7 +2048,7 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','prob','volsurf'];
+  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','totalgex','prob','volsurf'];
   activeKeys.forEach(key=>{
     const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
