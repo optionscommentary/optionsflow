@@ -939,6 +939,12 @@ body{
         <p><strong>How to read the PCR table:</strong> The table shows PCR at different strike ranges (near‑ATM, mid‑range, all strikes) for both OI and volume. Focus on the near‑ATM PCR first – that is where the most sensitive money sits. A rising Volume PCR while OI PCR is flat suggests that today’s participants are adding put protection, which can signal an impending move down. A falling Volume PCR while OI PCR remains high suggests that call buyers are becoming active, potentially signalling a bounce.</p>
         <p>Use PCR as a confirmation tool, not a standalone signal. Combine it with GEX and VEX to understand whether the put or call flow is likely to be absorbed (long gamma) or amplified (short gamma).</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab pcr-sub on" data-key="pcrtable" onclick="switchPcrSub('nifty','pcrtable',this)">PCR Table</button>
+      <button class="stab pcr-sub" data-key="pcrhist"  onclick="switchPcrSub('nifty','pcrhist',this)">PCR History</button>
+    </div>
+    <div id="sp-nifty-pcrtable" class="stab-panel on"></div>
+    <div id="sp-nifty-pcrhist" class="stab-panel"></div>
     </div>
     <div id="sp-nifty-topgex" class="stab-panel">
       <div class="edu-box">
@@ -1137,6 +1143,12 @@ body{
         <p>Use PCR as a confirmation tool, not a standalone signal. Combine it with GEX and VEX to understand whether the put or call flow is likely to be absorbed (long gamma) or amplified (short gamma).</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty PCR values tend to be more extreme. OI PCR above 1.5 is very bullish; below 0.7 is very bearish. Volume PCR is even more important because intraday speculation is intense. A sudden spike in Volume PCR often precedes a sharp intraday fall.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab pcr-sub on" data-key="pcrtable" onclick="switchPcrSub('banknifty','pcrtable',this)">PCR Table</button>
+      <button class="stab pcr-sub" data-key="pcrhist"  onclick="switchPcrSub('banknifty','pcrhist',this)">PCR History</button>
+    </div>
+    <div id="sp-banknifty-pcrtable" class="stab-panel on"></div>
+    <div id="sp-banknifty-pcrhist" class="stab-panel"></div>
     </div>
     <div id="sp-banknifty-topgex" class="stab-panel">
       <div class="edu-box">
@@ -1339,6 +1351,12 @@ body{
         <p>Use PCR as a confirmation tool, not a standalone signal. Combine it with GEX and VEX to understand whether the put or call flow is likely to be absorbed (long gamma) or amplified (short gamma).</p>
         <p><strong>Sensex‑specific note:</strong> Sensex PCR is less reliable as a short‑term signal because of lower liquidity. However, extreme readings (OI PCR above 1.5 or below 0.6) are meaningful and often precede reversals. Volume PCR is more useful because it captures intraday sentiment. A sharp spike in Sensex Volume PCR without a corresponding move in OI PCR suggests a short‑lived fear spike that may fade quickly.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab pcr-sub on" data-key="pcrtable" onclick="switchPcrSub('sensex','pcrtable',this)">PCR Table</button>
+      <button class="stab pcr-sub" data-key="pcrhist"  onclick="switchPcrSub('sensex','pcrhist',this)">PCR History</button>
+    </div>
+    <div id="sp-sensex-pcrtable" class="stab-panel on"></div>
+    <div id="sp-sensex-pcrhist" class="stab-panel"></div>
     </div>
     <div id="sp-sensex-topgex" class="stab-panel">
       <div class="edu-box">
@@ -1541,6 +1559,12 @@ body{
         <p>Use PCR as a confirmation tool, not a standalone signal. Combine it with GEX and VEX to understand whether the put or call flow is likely to be absorbed (long gamma) or amplified (short gamma).</p>
         <p><strong>FinNifty‑specific note:</strong> FinNifty PCR tends to be more extreme because the index is narrower. OI PCR above 1.8 is very bullish; below 0.5 is very bearish. Volume PCR is extremely noisy due to low liquidity – use it with caution. A sustained divergence between OI PCR and Volume PCR over several sessions is more reliable than a single day's spike.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab pcr-sub on" data-key="pcrtable" onclick="switchPcrSub('finnifty','pcrtable',this)">PCR Table</button>
+      <button class="stab pcr-sub" data-key="pcrhist"  onclick="switchPcrSub('finnifty','pcrhist',this)">PCR History</button>
+    </div>
+    <div id="sp-finnifty-pcrtable" class="stab-panel on"></div>
+    <div id="sp-finnifty-pcrhist" class="stab-panel"></div>
     </div>
     <div id="sp-finnifty-topgex" class="stab-panel">
       <div class="edu-box">
@@ -1743,6 +1767,12 @@ body{
         <p>Use PCR as a confirmation tool, not a standalone signal. Combine it with GEX and VEX to understand whether the put or call flow is likely to be absorbed (long gamma) or amplified (short gamma).</p>
         <p><strong>Midcap‑specific note:</strong> Midcap PCR is noisy. OI PCR values above 2 or below 0.4 are meaningful, but anything in between is not reliable. Volume PCR is even noisier – ignore intraday spikes. Use Midcap PCR only as a weekly or multi‑day trend indicator, not for short‑term trading.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab pcr-sub on" data-key="pcrtable" onclick="switchPcrSub('midcpnifty','pcrtable',this)">PCR Table</button>
+      <button class="stab pcr-sub" data-key="pcrhist"  onclick="switchPcrSub('midcpnifty','pcrhist',this)">PCR History</button>
+    </div>
+    <div id="sp-midcpnifty-pcrtable" class="stab-panel on"></div>
+    <div id="sp-midcpnifty-pcrhist" class="stab-panel"></div>
     </div>
     <div id="sp-midcpnifty-topgex" class="stab-panel">
       <div class="edu-box">
@@ -1906,9 +1936,9 @@ function toggleTheme(){
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
 const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
-const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcr:'pcr_table', topgex:'top_gamma',totalgex:'total_abs_gex',prob:'prob', volsurf:'vol_surface'};
-const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcr:'Put / Call Ratio Analysis', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',prob:'Probable Positioning Analysis',volsurf:'Implied Volatility Surface'};
-const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcr:'OI PCR + Volume PCR', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',prob:'GEX + Candles · PCR + OI Synthesised',volsurf:''};
+const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',prob:'prob', volsurf:'vol_surface'};
+const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',prob:'Probable Positioning Analysis',volsurf:'Implied Volatility Surface'};
+const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',prob:'GEX + Candles · PCR + OI Synthesised',volsurf:''};
 const cache = {};
 const _dataCache = {};
 function tick(){
@@ -2048,7 +2078,7 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','totalgex','prob','volsurf'];
+  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcrtable','pcrhist','topgex','totalgex','prob','volsurf'];
   activeKeys.forEach(key=>{
     const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
@@ -2083,7 +2113,7 @@ function switchStab(idx, key, btn){
   if(!panel) return;
   // Close all collapsible edu-boxes whenever a stab switch happens
   panel.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
-  panel.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
+  panel.querySelectorAll('.stab:not(.pcr-sub)').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
   STABS.forEach(k=>{
     const sp = document.getElementById(`sp-${idx}-${k}`);
@@ -2108,6 +2138,34 @@ function switchStab(idx, key, btn){
     if(key==='analysis'){
       const spa = document.getElementById(`sp-${idx}-analysis`);
       if(spa) spa.innerHTML = analysisHtml(idx, d);
+    }
+  }
+}
+function switchPcrSub(idx, sub, btn){
+  sessionStorage.setItem('_of_pcrsub_' + idx, sub);
+  const wrap = document.getElementById(`sp-${idx}-pcr`);
+  if(!wrap) return;
+  wrap.querySelectorAll('.stab.pcr-sub').forEach(b=>b.classList.remove('on'));
+  btn?.classList.add('on');
+  const table = document.getElementById(`sp-${idx}-pcrtable`);
+  const hist  = document.getElementById(`sp-${idx}-pcrhist`);
+  if(table) table.classList.toggle('on', sub === 'pcrtable');
+  if(hist)  hist.classList.toggle('on', sub === 'pcrhist');
+  const sp = document.getElementById(`sp-${idx}-${sub}`);
+  if(sp && sp.dataset.stale === '1'){
+    sp.dataset.stale = '0';
+    const d = _dataCache[idx];
+    const existingChart = sp.querySelector('.gcard');
+    if(existingChart) existingChart.remove();
+    if(d){
+      const chartDiv = document.createElement('div');
+      chartDiv.innerHTML = chartHtml(idx, d, sub);
+      sp.appendChild(chartDiv.firstElementChild);
+      sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
+    } else {
+      const emptyDiv = document.createElement('div');
+      emptyDiv.innerHTML = EMPTY;
+      sp.appendChild(emptyDiv.firstElementChild);
     }
   }
 }
@@ -2361,6 +2419,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedStab && savedStab !== 'oi') {
     var btn = document.querySelector('#panel-' + activeIdx + ' .stab[data-key="' + savedStab + '"]');
     if (btn) switchStab(activeIdx, savedStab, btn);
+  }
+  var savedPcrSub = sessionStorage.getItem('_of_pcrsub_' + activeIdx);
+  if (savedPcrSub && savedPcrSub !== 'pcrtable') {
+    var pbtn = document.querySelector('#sp-' + activeIdx + '-pcr .stab.pcr-sub[data-key="' + savedPcrSub + '"]');
+    if (pbtn) switchPcrSub(activeIdx, savedPcrSub, pbtn);
   }
 
   // ── Auto-unlock premium if password saved ──
