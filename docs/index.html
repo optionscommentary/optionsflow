@@ -2055,7 +2055,15 @@ async function fetchData(idx, force){
   try{
     const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
     if(!r.ok) return cache[idx]?.data||null;
-    const d=await r.json();
+    // Read as raw text first, not r.json(). Python's json.dump can legally
+    // write literal NaN/Infinity/-Infinity tokens (e.g. from a BSM divide-
+    // by-near-zero on expiry day), which the JSON spec forbids and which
+    // JSON.parse throws on. One bad field would otherwise take down the
+    // entire payload — every chart, the spot price, everything — instead
+    // of just that one field. Strip those tokens to null before parsing.
+    const txt = await r.text();
+    const safe = txt.replace(/:\s*-?Infinity\b/g, ': null').replace(/:\s*NaN\b/g, ': null');
+    const d=JSON.parse(safe);
     cache[idx]={data:d,ts:Date.now()};
     return d;
   }catch{ return cache[idx]?.data||null; }
