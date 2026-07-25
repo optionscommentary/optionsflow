@@ -133,6 +133,19 @@ button.nav-btn{background:var(--raised)}
   font-family:'IBM Plex Mono',monospace;
   flex-shrink:0;font-size:.8rem;margin-top:1px;
 }
+#s5 ul li strong{
+  display:inline-block;flex-shrink:0;
+  min-width:140px;
+}
+#s5 ul li .li-body{
+  display:flex;flex-direction:column;gap:4px;
+}
+#s5 ul li .li-body a{
+  align-self:flex-start;
+}
+@media (max-width:600px){
+  #s5 ul li strong{min-width:0}
+}
 
 /* HIGHLIGHT BOX */
 .highlight{
@@ -365,10 +378,9 @@ body{
     <p>OptionsFlow integrates with the following third-party services to deliver its functionality:</p>
     <ul>
       <li><strong style="color:var(--t1);margin-right:6px">Options Chain Data:</strong> All options chain data used on this platform is publicly available and accessible to anyone. We do not store user trade history or account data.</li>
-      <li><strong style="color:var(--t1);margin-right:6px">Cloudflare Workers:</strong> Used to fetch live index price data (Nifty, BankNifty etc.) for the dashboard topbar. No personal data is transmitted.</li>
-      <li><strong style="color:var(--t1);margin-right:6px">Google Fonts:</strong> Used for typography. Google may log font requests — see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--accent)">Google's Privacy Policy</a>.</li>
-      <li><strong style="color:var(--t1);margin-right:6px">WhatsApp:</strong> Used for mentorship enquiries and bookings. Any conversation on WhatsApp is subject to <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener" style="color:var(--accent)">WhatsApp's Privacy Policy</a>.</li>
-      <li><strong style="color:var(--t1);margin-right:6px">Netlify:</strong> This website is hosted on Cloudflare Pages. Cloudflare may collect standard server logs. See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" style="color:var(--accent)">Cloudflare's Privacy Policy</a>.</li>
+      <li><strong style="color:var(--t1);margin-right:6px">Google Fonts:</strong><span class="li-body">Used for typography. Google may log font requests. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--accent)">Google's Privacy Policy</a></span></li>
+      <li><strong style="color:var(--t1);margin-right:6px">WhatsApp:</strong><span class="li-body">Used for mentorship enquiries and bookings. Any conversation on WhatsApp is subject to their terms. <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener" style="color:var(--accent)">WhatsApp's Privacy Policy</a></span></li>
+      <li><strong style="color:var(--t1);margin-right:6px">Cloudflare:</strong><span class="li-body">This website is hosted on Cloudflare Pages, and Cloudflare Workers are used to fetch live index price data (Nifty, BankNifty etc.) for the dashboard topbar — no personal data is transmitted. Cloudflare may also collect standard server logs. <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener" style="color:var(--accent)">Cloudflare's Privacy Policy</a></span></li>
     </ul>
   </div>
 
