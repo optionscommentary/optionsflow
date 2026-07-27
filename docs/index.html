@@ -2009,6 +2009,9 @@ function chartHtml(idx, data, key){
     return `<div class="gcard vol-surface-card"><div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)"><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">Implied Volatility Surface</span><a href="${src}" target="_blank" rel="noopener" style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a></div><div class="vol-surface-wrap"><iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Volatility Surface"></iframe></div></div>`;
   }
   const src=`data/${idx}/${fn}?t=${(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12)||Math.floor(Date.now()/1800000)}`;
+  if(fn.endsWith('.html')){
+    return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div><iframe src="${src}" class="chart-frame" loading="lazy" title="${CHART_TITLE[key]||key}" style="width:100%;height:720px;border:0;display:block;border-radius:0 0 8px 8px"></iframe></div>`;
+  }
   return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div><img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:auto"></div>`;
 }
 function analysisHtml(idx, data){
