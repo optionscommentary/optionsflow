@@ -970,6 +970,16 @@ body{
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests. This is the most sophisticated output on the dashboard and requires practice to interpret – start by comparing it to the raw GEX chart.</p>
       </div>
+      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('nifty','probmain',this)">Positioning Chart</button>
+        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('nifty','probcall',this)">Call GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('nifty','probput',this)">Put GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('nifty','probnet',this)">Net GEX Matrix</button>
+      </div>
+      <div id="sp-nifty-probmain" class="stab-panel on"></div>
+      <div id="sp-nifty-probcall" class="stab-panel"></div>
+      <div id="sp-nifty-probput" class="stab-panel"></div>
+      <div id="sp-nifty-probnet" class="stab-panel"></div>
     </div>
     <div id="sp-nifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1176,6 +1186,16 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty dealer positioning is often more polarised than Nifty. The chart can show large blue bars at round numbers where put writers are active, and large orange bars at strikes where call writers are active. When a cluster of blue bars sits just below spot, that is a strong support zone. A cluster of orange bars just above spot is a weak resistance zone – price is likely to break through it.</p>
       </div>
+      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('banknifty','probmain',this)">Positioning Chart</button>
+        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('banknifty','probcall',this)">Call GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('banknifty','probput',this)">Put GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('banknifty','probnet',this)">Net GEX Matrix</button>
+      </div>
+      <div id="sp-banknifty-probmain" class="stab-panel on"></div>
+      <div id="sp-banknifty-probcall" class="stab-panel"></div>
+      <div id="sp-banknifty-probput" class="stab-panel"></div>
+      <div id="sp-banknifty-probnet" class="stab-panel"></div>
     </div>
     <div id="sp-banknifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1384,6 +1404,16 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Sensex‑specific note:</strong> The probable positioning engine works the same for Sensex, but the lower OI means the conviction level is often MODERATE or LOW. Use the Sensex probable positioning chart to identify strikes where dealers are long gamma – these levels are more reliable because thin markets tend to respect dealer hedging more strongly. Short gamma signals are less reliable because dealers may not have enough hedging volume to move price.</p>
       </div>
+      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('sensex','probmain',this)">Positioning Chart</button>
+        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('sensex','probcall',this)">Call GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('sensex','probput',this)">Put GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('sensex','probnet',this)">Net GEX Matrix</button>
+      </div>
+      <div id="sp-sensex-probmain" class="stab-panel on"></div>
+      <div id="sp-sensex-probcall" class="stab-panel"></div>
+      <div id="sp-sensex-probput" class="stab-panel"></div>
+      <div id="sp-sensex-probnet" class="stab-panel"></div>
     </div>
     <div id="sp-sensex-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1592,6 +1622,16 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>FinNifty‑specific note:</strong> The probable positioning engine for FinNifty uses the same logic as Nifty, but with lower OI the conviction levels are often MODERATE. Use the chart to identify strikes where the estimated dealer gamma is large in magnitude relative to OI – those are the most important levels. Because FinNifty is less liquid, dealer positioning can change quickly; refresh the data frequently.</p>
       </div>
+      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('finnifty','probmain',this)">Positioning Chart</button>
+        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('finnifty','probcall',this)">Call GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('finnifty','probput',this)">Put GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('finnifty','probnet',this)">Net GEX Matrix</button>
+      </div>
+      <div id="sp-finnifty-probmain" class="stab-panel on"></div>
+      <div id="sp-finnifty-probcall" class="stab-panel"></div>
+      <div id="sp-finnifty-probput" class="stab-panel"></div>
+      <div id="sp-finnifty-probnet" class="stab-panel"></div>
     </div>
     <div id="sp-finnifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1800,6 +1840,16 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Midcap‑specific note:</strong> The probable positioning engine works less reliably on Midcap Nifty because of lower OI and fewer strikes. Conviction is almost always MODERATE or LOW. Use the chart to identify large blue bars (long gamma) – those are the most reliable levels. Orange bars (short gamma) should be treated with skepticism unless they are very large.</p>
       </div>
+      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('midcpnifty','probmain',this)">Positioning Chart</button>
+        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('midcpnifty','probcall',this)">Call GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('midcpnifty','probput',this)">Put GEX Matrix</button>
+        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('midcpnifty','probnet',this)">Net GEX Matrix</button>
+      </div>
+      <div id="sp-midcpnifty-probmain" class="stab-panel on"></div>
+      <div id="sp-midcpnifty-probcall" class="stab-panel"></div>
+      <div id="sp-midcpnifty-probput" class="stab-panel"></div>
+      <div id="sp-midcpnifty-probnet" class="stab-panel"></div>
     </div>
     <div id="sp-midcpnifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1935,9 +1985,9 @@ function toggleTheme(){
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
 const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
-const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',prob:'prob', volsurf:'vol_surface'};
-const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',prob:'Probable Positioning Analysis',volsurf:'Implied Volatility Surface'};
-const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',prob:'GEX + Candles · PCR + OI Synthesised',volsurf:''};
+const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',probmain:'prob', probcall:'prob_call_matrix', probput:'prob_put_matrix', probnet:'prob_net_matrix', volsurf:'vol_surface'};
+const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',probmain:'Probable Positioning Analysis',probcall:'Call Probable GEX — Strike (ATM ±10) × Time',probput:'Put Probable GEX — Strike (ATM ±10) × Time',probnet:'Net Probable GEX — Strike (ATM ±10) × Time',volsurf:'Implied Volatility Surface'};
+const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',probmain:'GEX + Candles · PCR + OI Synthesised',probcall:'₹ Cr',probput:'₹ Cr',probnet:'₹ Cr',volsurf:''};
 const cache = {};
 const _dataCache = {};
 function tick(){
@@ -2085,7 +2135,7 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcrtable','pcrhist','topgex','totalgex','prob','volsurf'];
+  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcrtable','pcrhist','topgex','totalgex','probmain','probcall','probput','probnet','volsurf'];
   activeKeys.forEach(key=>{
     const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
@@ -2120,7 +2170,7 @@ function switchStab(idx, key, btn){
   if(!panel) return;
   // Close all collapsible edu-boxes whenever a stab switch happens
   panel.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
-  panel.querySelectorAll('.stab:not(.pcr-sub)').forEach(b=>b.classList.remove('on'));
+  panel.querySelectorAll('.stab:not(.pcr-sub):not(.prob-sub)').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
   STABS.forEach(k=>{
     const sp = document.getElementById(`sp-${idx}-${k}`);
@@ -2158,6 +2208,34 @@ function switchPcrSub(idx, sub, btn){
   const hist  = document.getElementById(`sp-${idx}-pcrhist`);
   if(table) table.classList.toggle('on', sub === 'pcrtable');
   if(hist)  hist.classList.toggle('on', sub === 'pcrhist');
+  const sp = document.getElementById(`sp-${idx}-${sub}`);
+  if(sp && sp.dataset.stale === '1'){
+    sp.dataset.stale = '0';
+    const d = _dataCache[idx];
+    const existingChart = sp.querySelector('.gcard');
+    if(existingChart) existingChart.remove();
+    if(d){
+      const chartDiv = document.createElement('div');
+      chartDiv.innerHTML = chartHtml(idx, d, sub);
+      sp.appendChild(chartDiv.firstElementChild);
+      sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
+    } else {
+      const emptyDiv = document.createElement('div');
+      emptyDiv.innerHTML = EMPTY;
+      sp.appendChild(emptyDiv.firstElementChild);
+    }
+  }
+}
+function switchProbSub(idx, sub, btn){
+  sessionStorage.setItem('_of_probsub_' + idx, sub);
+  const wrap = document.getElementById(`sp-${idx}-prob`);
+  if(!wrap) return;
+  wrap.querySelectorAll('.stab.prob-sub').forEach(b=>b.classList.remove('on'));
+  btn?.classList.add('on');
+  ['probmain','probcall','probput','probnet'].forEach(k=>{
+    const el = document.getElementById(`sp-${idx}-${k}`);
+    if(el) el.classList.toggle('on', k === sub);
+  });
   const sp = document.getElementById(`sp-${idx}-${sub}`);
   if(sp && sp.dataset.stale === '1'){
     sp.dataset.stale = '0';
@@ -2467,6 +2545,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedPcrSub && savedPcrSub !== 'pcrtable') {
     var pbtn = document.querySelector('#sp-' + activeIdx + '-pcr .stab.pcr-sub[data-key="' + savedPcrSub + '"]');
     if (pbtn) switchPcrSub(activeIdx, savedPcrSub, pbtn);
+  }
+  var savedProbSub = sessionStorage.getItem('_of_probsub_' + activeIdx);
+  if (savedProbSub && savedProbSub !== 'probmain') {
+    var prbtn = document.querySelector('#sp-' + activeIdx + '-prob .stab.prob-sub[data-key="' + savedProbSub + '"]');
+    if (prbtn) switchProbSub(activeIdx, savedProbSub, prbtn);
   }
 
   // ── Auto-unlock premium if password saved ──
