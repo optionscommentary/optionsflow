@@ -15,7 +15,7 @@
 })();
 </script>
 <title>Optionsflow Mentorship</title>
-<meta name="description" content="Learn options flow analysis directly with the OptionsFlow analyst. One-on-one sessions covering GEX, VEX, PCR, dealer positioning and live market structure.">
+<meta name="description" content="Learn options flow analysis directly with the OptionsFlow analyst. Individual or group sessions covering GEX, VEX, PCR, dealer positioning and live market structure.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -30,7 +30,7 @@
   --pos:#059669;--neg:#E11D48;--accent:#2563EB;--put:#EA580C;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px}
+html{font-size:15px;scroll-behavior:smooth}
 body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t2);min-height:100vh;display:flex;flex-direction:column}
 
 /* NAV */
@@ -50,7 +50,8 @@ button.nav-btn{background:var(--raised)}
 .hero p{color:var(--t3);font-size:.95rem;line-height:1.75;max-width:620px;margin:0 auto}
 
 /* CARDS */
-.cards-wrap{max-width:900px;margin:0 auto;padding:0 24px 60px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:stretch}
+.solo-wrap{max-width:900px;margin:0 auto;padding:0 24px 60px}
+.cards-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:stretch}
 @media(max-width:720px){.cards-wrap{grid-template-columns:1fr}}
 
 .m-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s;height:100%}
@@ -78,6 +79,29 @@ button.nav-btn{background:var(--raised)}
 .rec-highlight{color:var(--accent) !important;font-weight:500}
 .rec-highlight::before{content:'✓' !important;color:var(--accent) !important}
 
+/* GROUP TEASER */
+.group-teaser{display:flex;align-items:center;justify-content:center;gap:8px;max-width:560px;margin:0 auto 8px;padding:10px 22px;background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.28);border-radius:999px;text-decoration:none;color:var(--put);font-size:.8rem;font-weight:600;text-align:center;transition:background .2s}
+.group-teaser:hover{background:rgba(251,146,60,.15)}
+.group-teaser-arrow{opacity:.65;transition:transform .2s}
+.group-teaser:hover .group-teaser-arrow{transform:translateY(2px)}
+@media(max-width:600px){.group-teaser{font-size:.72rem;padding:9px 16px;margin-bottom:4px}}
+
+/* GROUP SESSIONS */
+.group-wrap{max-width:1120px;margin:0 auto;padding:0 24px 60px}
+.g-intro{color:var(--t3);font-size:.86rem;line-height:1.75;max-width:760px;margin-bottom:28px}
+.group-cards-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media(max-width:900px){.group-cards-wrap{grid-template-columns:1fr}}
+.g-card{gap:0}
+.m-card-badge.group{background:rgba(251,146,60,.12);color:var(--put);border:1px solid rgba(251,146,60,.3);margin-bottom:4px}
+.g-price-block{padding:16px 0}
+.g-price-block+.g-price-block{border-top:1px solid var(--border)}
+.g-price-label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--t4);font-weight:600;margin-bottom:8px}
+.g-price{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--t1);line-height:1}
+.g-price span{font-size:.66rem;color:var(--t3);font-weight:400;margin-left:5px}
+.g-price-sub{font-size:.74rem;color:var(--t3);line-height:1.5;margin-top:6px;margin-bottom:14px}
+.g-cta{padding:10px 16px;font-size:.72rem;margin-top:0}
+@media(max-width:600px){.group-wrap{padding:0 14px 40px}.g-card{padding:20px}}
+
 /* HOW IT WORKS */
 .hiw-wrap{max-width:860px;margin:0 auto;padding:0 24px 60px}
 .section-tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
@@ -101,7 +125,7 @@ button.nav-btn{background:var(--raised)}
 
 @media(max-width:600px){
   .hero h1{font-size:1.5rem}
-  .cards-wrap{padding:0 14px 40px}
+  .solo-wrap{padding:0 14px 40px}
   .m-card{padding:20px}
 }
 
@@ -185,13 +209,21 @@ body{
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">Private · One-on-One · Limited Slots</div>
+  <div class="hero-tag">Private · Individual or Group · Limited Slots</div>
   <h1>Understand Options Flow the Way Professionals Do</h1>
   <p>I built OptionsFlow from scratch to decode how market makers hedge their books. These sessions are for traders who want to go beyond the charts and understand the mechanics driving price — GEX, VEX, dealer positioning, expiry structure and how to read all of it in real time.</p>
 </div>
 
+<a href="#group-sessions" class="group-teaser">
+  Also available as a group of up to 4 — save up to 25% per person
+  <span class="group-teaser-arrow">↓</span>
+</a>
+
 <!-- CARDS -->
-<div class="cards-wrap">
+<div class="solo-wrap">
+  <div class="section-tag">Individual Option</div>
+  <div class="section-title">Learn One-to-One</div>
+  <div class="cards-wrap">
 
   <!-- Card 1 -->
   <div class="m-card">
@@ -239,6 +271,105 @@ body{
   </div>
 
 </div>
+</div>
+
+<!-- GROUP SESSIONS -->
+<div class="group-wrap" id="group-sessions">
+  <div class="section-tag">Group Option</div>
+  <div class="section-title">Learn as a Group</div>
+  <p class="g-intro">Both the Trial Session and the Optionsflow Mentorship above are also available as a group of two, three, or four, at a lower cost per person than booking individually. Bring your own group — friends, colleagues, or fellow traders — and once everyone's on board, message the tier below to share the details and get scheduled.</p>
+
+  <div class="group-cards-wrap">
+
+    <!-- One-to-Two -->
+    <div class="m-card g-card">
+      <span class="m-card-badge group">One-to-Two · 2 Participants</span>
+
+      <div class="g-price-block">
+        <div class="g-price-label">Trial Session</div>
+        <div class="g-price">₹799 <span>/ person</span></div>
+        <div class="g-price-sub">2 hours · ₹1,598 total for both</div>
+        <a class="m-cta intro g-cta"
+           href="https://wa.me/919041156082?text=Hi%2C%20I%20have%20a%20group%20of%20two%20interested%20in%20the%20One-to-Two%20Trial%20Session%20%28%E2%82%B9799%20per%20person%2C%20%E2%82%B91%2C598%20total%29%20on%20OptionsFlow.%20Please%20share%20the%20available%20slots."
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Trial — One-to-Two
+        </a>
+      </div>
+
+      <div class="g-price-block">
+        <div class="g-price-label">Optionsflow Mentorship</div>
+        <div class="g-price">₹18,000 <span>/ person</span></div>
+        <div class="g-price-sub">~10 sessions · ₹36,000 total for both · 10% off individual pricing</div>
+        <a class="m-cta prog g-cta"
+           href="https://wa.me/919041156082?text=Hi%2C%20I%20have%20a%20group%20of%20two%20interested%20in%20the%20One-to-Two%20Optionsflow%20Mentorship%20%28%E2%82%B918%2C000%20per%20person%2C%20%E2%82%B936%2C000%20total%29.%20Please%20share%20the%20details."
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enquire — One-to-Two Mentorship
+        </a>
+      </div>
+    </div>
+
+    <!-- One-to-Three -->
+    <div class="m-card g-card">
+      <span class="m-card-badge group">One-to-Three · 3 Participants</span>
+
+      <div class="g-price-block">
+        <div class="g-price-label">Trial Session</div>
+        <div class="g-price">₹699 <span>/ person</span></div>
+        <div class="g-price-sub">2 hours · ₹2,097 total for all three</div>
+        <a class="m-cta intro g-cta"
+           href="https://wa.me/919041156082?text=Hi%2C%20I%20have%20a%20group%20of%20three%20interested%20in%20the%20One-to-Three%20Trial%20Session%20%28%E2%82%B9699%20per%20person%2C%20%E2%82%B92%2C097%20total%29%20on%20OptionsFlow.%20Please%20share%20the%20available%20slots."
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Trial — One-to-Three
+        </a>
+      </div>
+
+      <div class="g-price-block">
+        <div class="g-price-label">Optionsflow Mentorship</div>
+        <div class="g-price">₹16,000 <span>/ person</span></div>
+        <div class="g-price-sub">~10 sessions · ₹48,000 total for all three · 20% off individual pricing</div>
+        <a class="m-cta prog g-cta"
+           href="https://wa.me/919041156082?text=Hi%2C%20I%20have%20a%20group%20of%20three%20interested%20in%20the%20One-to-Three%20Optionsflow%20Mentorship%20%28%E2%82%B916%2C000%20per%20person%2C%20%E2%82%B948%2C000%20total%29.%20Please%20share%20the%20details."
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enquire — One-to-Three Mentorship
+        </a>
+      </div>
+    </div>
+
+    <!-- One-to-Four -->
+    <div class="m-card g-card">
+      <span class="m-card-badge group">One-to-Four · 4 Participants</span>
+
+      <div class="g-price-block">
+        <div class="g-price-label">Trial Session</div>
+        <div class="g-price">₹599 <span>/ person</span></div>
+        <div class="g-price-sub">2 hours · ₹2,396 total for all four</div>
+        <a class="m-cta intro g-cta"
+           href="https://wa.me/919041156082?text=Hi%2C%20I%20have%20a%20group%20of%20four%20interested%20in%20the%20One-to-Four%20Trial%20Session%20%28%E2%82%B9599%20per%20person%2C%20%E2%82%B92%2C396%20total%29%20on%20OptionsFlow.%20Please%20share%20the%20available%20slots."
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Trial — One-to-Four
+        </a>
+      </div>
+
+      <div class="g-price-block">
+        <div class="g-price-label">Optionsflow Mentorship</div>
+        <div class="g-price">₹15,000 <span>/ person</span></div>
+        <div class="g-price-sub">~10 sessions · ₹60,000 total for all four · 25% off individual pricing</div>
+        <a class="m-cta prog g-cta"
+           href="https://wa.me/919041156082?text=Hi%2C%20I%20have%20a%20group%20of%20four%20interested%20in%20the%20One-to-Four%20Optionsflow%20Mentorship%20%28%E2%82%B915%2C000%20per%20person%2C%20%E2%82%B960%2C000%20total%29.%20Please%20share%20the%20details."
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enquire — One-to-Four Mentorship
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <div class="hiw-wrap">
@@ -253,12 +384,12 @@ body{
     <div class="step">
       <div class="step-num">02</div>
       <h4>We Agree on Timing</h4>
-      <p>We figure out a slot that works for both of us. No fixed schedule — completely flexible around your availability.</p>
+      <p>We lock in a slot as soon as you message — solo, or with your group already in place. No fixed schedule, completely flexible around everyone's availability.</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
       <h4>Session Happens</h4>
-      <p>We go through the dashboard together in real market context. You ask, I explain. Completely two-way.</p>
+      <p>We go through the dashboard together in real market context — one-on-one, or as a group discussion if you've joined with others. Every question gets answered either way.</p>
     </div>
     <div class="step">
       <div class="step-num">04</div>
@@ -284,6 +415,10 @@ body{
   <div class="faq-item">
     <div class="faq-q">How do I pay?</div>
     <div class="faq-a">Payment details are shared over WhatsApp once we confirm a slot. UPI accepted. Trial session is ₹999. Optionsflow Mentorship is ₹19,999 for around 10 sessions.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How does group (One-to-Two / One-to-Three / One-to-Four) registration work?</div>
+    <div class="faq-a">Group pricing is for a group you bring yourself — friends, colleagues, or fellow traders. Once your group of two, three, or four is ready, message the tier you want on WhatsApp, and the details and scheduling will be sorted out from there.</div>
   </div>
   <div class="faq-item">
     <div class="faq-q">Is the number of sessions always exactly 10?</div>
