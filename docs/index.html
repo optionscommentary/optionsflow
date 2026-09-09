@@ -126,11 +126,26 @@
 [data-theme="light"] .stab-synopsis { color: var(--synopsis-color) !important; }
 .stab-premium {
   color: #FFD700 !important;
-  max-width: none !important;
-  padding-left: 18px !important;
-  padding-right: 18px !important;
+  max-width: 190px !important;
+  white-space: normal !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  position: relative;
+  animation: premiumTwinkle 2.2s ease-in-out infinite;
+}
+@keyframes premiumTwinkle {
+  0%, 100% { text-shadow: 0 0 3px rgba(255,215,0,0.25); }
+  50%      { text-shadow: 0 0 8px rgba(255,215,0,0.95), 0 0 16px rgba(255,215,0,0.55); }
 }
 [data-theme="light"] .stab-premium { color: #B8860B !important; }
+@media (prefers-reduced-motion: reduce) {
+  .stab-premium { animation: none; }
+}
+/* Higher specificity than either .stab-prob or .stab-premium alone, so the
+   gold "premium" color always wins on the tab that carries both classes
+   (Probable Positioning is now premium too), regardless of CSS source order. */
+.stab-prob.stab-premium { color: #FFD700 !important; }
+[data-theme="light"] .stab-prob.stab-premium { color: #B8860B !important; }
 
 /* -- Premium callout banner (new) -- */
 .premium-callout {
@@ -211,6 +226,7 @@
 
 /* -- Premium panel -- */
 .prem-outer { max-width:780px; margin:0 auto; padding:24px 8px 40px; }
+.posprem-outer { max-width:780px; margin:0 auto; padding:24px 8px 40px; }
 .prem-section-title { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--t1); margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--border); }
 .prem-section-title em { color:#FFD700; font-style:normal; }
 .prem-pricing-row { display:flex; gap:16px; margin-bottom:28px; flex-wrap:wrap; }
@@ -332,16 +348,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 3px; font-weight: 700; }
 .pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--t1); }
 
-.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow-x: auto; overflow-y: visible; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sub-tabs { display: flex; flex-wrap: wrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow-x: visible; overflow-y: visible; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .sub-tabs::-webkit-scrollbar { height: 3px; }
 .sub-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .stab {
-  padding: 7px 14px;
-  min-height: 52px;
+  padding: 6px 8px;
+  min-height: 58px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   border: none;
   background: transparent;
@@ -357,7 +373,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   align-items: center;
   justify-content: center;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.25;
   max-width: 150px;
 }
 .stab:last-child { border-right: none; }
@@ -492,9 +508,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     display: block;
     margin: 0 !important;
   }
-  .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 12px -10px 0; padding: 0 10px; }
+  .sub-tabs { overflow-x: visible; flex-wrap: wrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 12px -10px 0; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
-  .stab { padding: 7px 10px; font-size: 0.68rem; }
+  .stab { padding: 6px 6px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
   .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; }
   #footer-right { margin-left: 0 !important; text-align: center !important; width: 100%; }
@@ -797,6 +813,18 @@ body{
     <div id="pills-nifty" class="pills"></div>
     
     <!-- PREMIUM CALLOUT - Highly visible banner -->
+    <div class="premium-callout" onclick="switchStab('nifty','prob', document.querySelector('#panel-nifty .stab-prob'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M2 12h2M12 20v2M20 12h2M12 2v2"/></svg>
+        </span>
+        <div>
+          <div class="premium-callout-title">PREMIUM PROBABLE POSITIONING</div>
+          <div class="premium-callout-desc">Charts and tables estimating where dealers are long or short gamma</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('nifty','prob', document.querySelector('#panel-nifty .stab-prob'));">VIEW NOW →</button>
+    </div>
     <div class="premium-callout" onclick="switchStab('nifty','premium', document.querySelector('#panel-nifty .stab-premium'))">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
@@ -811,18 +839,17 @@ body{
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('nifty','premium', document.querySelector('#panel-nifty .stab-premium'));">VIEW NOW →</button>
     </div>
-    
-    <div class="sub-tabs">
-      <button class="stab on" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('nifty','itmvex',this)">ITM VEX</button>
+<div class="sub-tabs">
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('nifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('nifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('nifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-prob" data-key="prob" onclick="switchStab('nifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">◈ SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
@@ -970,16 +997,42 @@ body{
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests. This is the most sophisticated output on the dashboard and requires practice to interpret – start by comparing it to the raw GEX chart.</p>
       </div>
-      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
-        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('nifty','probmain',this)">Positioning Chart</button>
-        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('nifty','probcall',this)">Call GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('nifty','probput',this)">Put GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('nifty','probnet',this)">Net GEX Matrix</button>
+      <div id="posprem-sales-nifty" class="posprem-outer">
+        <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
+        <div class="prem-pricing-row">
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div></div>
+        </div>
+        <div class="prem-feat-row">
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128203;</div><div><div class="prem-feat-title">Call / Put / Net GEX tracking tables</div><div class="prem-feat-desc">Colour-coded tables showing how estimated GEX at each nearby strike has changed across the session, updated periodically.</div></div></div>
+        </div>
+        <div class="prem-tnc-wrap">
+          <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Password Sharing &amp; Access Revocation</h4><p>Your monthly access password is strictly personal and non-transferable. Sharing or distributing your password to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if password sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-check-row">
+            <input type="checkbox" id="postnc-nifty" onchange="posPremTnc('nifty')">
+            <label class="prem-tnc-check-label" for="postnc-nifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
+          </div>
+        </div>
+        <div id="poswa-nifty" class="prem-wa-section" style="display:none">
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          </a><br>
+          <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access password.</div>
+        </div>
+        <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
-      <div id="sp-nifty-probmain" class="stab-panel on"></div>
-      <div id="sp-nifty-probcall" class="stab-panel"></div>
-      <div id="sp-nifty-probput" class="stab-panel"></div>
-      <div id="sp-nifty-probnet" class="stab-panel"></div>
+      <div id="posprem-lock-nifty" class="prem-pw-section">
+        <div class="prem-pw-icon">&#128272;</div>
+        <div class="prem-pw-title">Subscriber Access</div>
+        <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
+        <div class="prem-pw-row">
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('nifty')">
+          <button class="prem-pw-btn" id="pw-inline-pos-btn-nifty" onclick="posPremUnlockInline('nifty')">Unlock</button>
+        </div>
+        <div class="prem-pw-err" id="pw-inline-pos-err-nifty" style="display:none"></div>
+      </div>
+      <div id="posprem-content-nifty" style="display:none; padding:8px 0;"></div>
     </div>
     <div id="sp-nifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1005,6 +1058,18 @@ body{
   <!-- ==================== BANKNIFTY PANEL ==================== -->
   <div id="panel-banknifty" class="idx-panel">
     <div id="pills-banknifty" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('banknifty','prob', document.querySelector('#panel-banknifty .stab-prob'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M2 12h2M12 20v2M20 12h2M12 2v2"/></svg>
+        </span>
+        <div>
+          <div class="premium-callout-title">PREMIUM PROBABLE POSITIONING</div>
+          <div class="premium-callout-desc">Charts and tables estimating where dealers are long or short gamma</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('banknifty','prob', document.querySelector('#panel-banknifty .stab-prob'));">VIEW NOW →</button>
+    </div>
     <div class="premium-callout" onclick="switchStab('banknifty','premium', document.querySelector('#panel-banknifty .stab-premium'))">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
@@ -1019,17 +1084,17 @@ body{
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('banknifty','premium', document.querySelector('#panel-banknifty .stab-premium'));">VIEW NOW →</button>
     </div>
-    <div class="sub-tabs">
-      <button class="stab on" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('banknifty','itmvex',this)">ITM VEX</button>
+<div class="sub-tabs">
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('banknifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('banknifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('banknifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-prob" data-key="prob" onclick="switchStab('banknifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">◈ SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
@@ -1186,16 +1251,42 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty dealer positioning is often more polarised than Nifty. The chart can show large blue bars at round numbers where put writers are active, and large orange bars at strikes where call writers are active. When a cluster of blue bars sits just below spot, that is a strong support zone. A cluster of orange bars just above spot is a weak resistance zone – price is likely to break through it.</p>
       </div>
-      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
-        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('banknifty','probmain',this)">Positioning Chart</button>
-        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('banknifty','probcall',this)">Call GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('banknifty','probput',this)">Put GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('banknifty','probnet',this)">Net GEX Matrix</button>
+      <div id="posprem-sales-banknifty" class="posprem-outer">
+        <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
+        <div class="prem-pricing-row">
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div></div>
+        </div>
+        <div class="prem-feat-row">
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128203;</div><div><div class="prem-feat-title">Call / Put / Net GEX tracking tables</div><div class="prem-feat-desc">Colour-coded tables showing how estimated GEX at each nearby strike has changed across the session, updated periodically.</div></div></div>
+        </div>
+        <div class="prem-tnc-wrap">
+          <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Password Sharing &amp; Access Revocation</h4><p>Your monthly access password is strictly personal and non-transferable. Sharing or distributing your password to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if password sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-check-row">
+            <input type="checkbox" id="postnc-banknifty" onchange="posPremTnc('banknifty')">
+            <label class="prem-tnc-check-label" for="postnc-banknifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
+          </div>
+        </div>
+        <div id="poswa-banknifty" class="prem-wa-section" style="display:none">
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          </a><br>
+          <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access password.</div>
+        </div>
+        <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
-      <div id="sp-banknifty-probmain" class="stab-panel on"></div>
-      <div id="sp-banknifty-probcall" class="stab-panel"></div>
-      <div id="sp-banknifty-probput" class="stab-panel"></div>
-      <div id="sp-banknifty-probnet" class="stab-panel"></div>
+      <div id="posprem-lock-banknifty" class="prem-pw-section">
+        <div class="prem-pw-icon">&#128272;</div>
+        <div class="prem-pw-title">Subscriber Access</div>
+        <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
+        <div class="prem-pw-row">
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('banknifty')">
+          <button class="prem-pw-btn" id="pw-inline-pos-btn-banknifty" onclick="posPremUnlockInline('banknifty')">Unlock</button>
+        </div>
+        <div class="prem-pw-err" id="pw-inline-pos-err-banknifty" style="display:none"></div>
+      </div>
+      <div id="posprem-content-banknifty" style="display:none; padding:8px 0;"></div>
     </div>
     <div id="sp-banknifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1223,6 +1314,18 @@ body{
   <!-- ==================== SENSEX PANEL ==================== -->
   <div id="panel-sensex" class="idx-panel">
     <div id="pills-sensex" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('sensex','prob', document.querySelector('#panel-sensex .stab-prob'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M2 12h2M12 20v2M20 12h2M12 2v2"/></svg>
+        </span>
+        <div>
+          <div class="premium-callout-title">PREMIUM PROBABLE POSITIONING</div>
+          <div class="premium-callout-desc">Charts and tables estimating where dealers are long or short gamma</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('sensex','prob', document.querySelector('#panel-sensex .stab-prob'));">VIEW NOW →</button>
+    </div>
     <div class="premium-callout" onclick="switchStab('sensex','premium', document.querySelector('#panel-sensex .stab-premium'))">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
@@ -1237,17 +1340,17 @@ body{
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('sensex','premium', document.querySelector('#panel-sensex .stab-premium'));">VIEW NOW →</button>
     </div>
-    <div class="sub-tabs">
-      <button class="stab on" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor</button>
-      <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('sensex','itmvex',this)">ITM VEX</button>
+<div class="sub-tabs">
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('sensex','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('sensex','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('sensex','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-prob" data-key="prob" onclick="switchStab('sensex','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">◈ SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
@@ -1404,16 +1507,42 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Sensex‑specific note:</strong> The probable positioning engine works the same for Sensex, but the lower OI means the conviction level is often MODERATE or LOW. Use the Sensex probable positioning chart to identify strikes where dealers are long gamma – these levels are more reliable because thin markets tend to respect dealer hedging more strongly. Short gamma signals are less reliable because dealers may not have enough hedging volume to move price.</p>
       </div>
-      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
-        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('sensex','probmain',this)">Positioning Chart</button>
-        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('sensex','probcall',this)">Call GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('sensex','probput',this)">Put GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('sensex','probnet',this)">Net GEX Matrix</button>
+      <div id="posprem-sales-sensex" class="posprem-outer">
+        <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
+        <div class="prem-pricing-row">
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div></div>
+        </div>
+        <div class="prem-feat-row">
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128203;</div><div><div class="prem-feat-title">Call / Put / Net GEX tracking tables</div><div class="prem-feat-desc">Colour-coded tables showing how estimated GEX at each nearby strike has changed across the session, updated periodically.</div></div></div>
+        </div>
+        <div class="prem-tnc-wrap">
+          <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Password Sharing &amp; Access Revocation</h4><p>Your monthly access password is strictly personal and non-transferable. Sharing or distributing your password to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if password sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-check-row">
+            <input type="checkbox" id="postnc-sensex" onchange="posPremTnc('sensex')">
+            <label class="prem-tnc-check-label" for="postnc-sensex">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
+          </div>
+        </div>
+        <div id="poswa-sensex" class="prem-wa-section" style="display:none">
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          </a><br>
+          <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access password.</div>
+        </div>
+        <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
-      <div id="sp-sensex-probmain" class="stab-panel on"></div>
-      <div id="sp-sensex-probcall" class="stab-panel"></div>
-      <div id="sp-sensex-probput" class="stab-panel"></div>
-      <div id="sp-sensex-probnet" class="stab-panel"></div>
+      <div id="posprem-lock-sensex" class="prem-pw-section">
+        <div class="prem-pw-icon">&#128272;</div>
+        <div class="prem-pw-title">Subscriber Access</div>
+        <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
+        <div class="prem-pw-row">
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('sensex')">
+          <button class="prem-pw-btn" id="pw-inline-pos-btn-sensex" onclick="posPremUnlockInline('sensex')">Unlock</button>
+        </div>
+        <div class="prem-pw-err" id="pw-inline-pos-err-sensex" style="display:none"></div>
+      </div>
+      <div id="posprem-content-sensex" style="display:none; padding:8px 0;"></div>
     </div>
     <div id="sp-sensex-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1441,6 +1570,18 @@ body{
   <!-- ==================== FINNIFTY PANEL ==================== -->
   <div id="panel-finnifty" class="idx-panel">
     <div id="pills-finnifty" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('finnifty','prob', document.querySelector('#panel-finnifty .stab-prob'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M2 12h2M12 20v2M20 12h2M12 2v2"/></svg>
+        </span>
+        <div>
+          <div class="premium-callout-title">PREMIUM PROBABLE POSITIONING</div>
+          <div class="premium-callout-desc">Charts and tables estimating where dealers are long or short gamma</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('finnifty','prob', document.querySelector('#panel-finnifty .stab-prob'));">VIEW NOW →</button>
+    </div>
     <div class="premium-callout" onclick="switchStab('finnifty','premium', document.querySelector('#panel-finnifty .stab-premium'))">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
@@ -1455,17 +1596,17 @@ body{
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('finnifty','premium', document.querySelector('#panel-finnifty .stab-premium'));">VIEW NOW →</button>
     </div>
-    <div class="sub-tabs">
-      <button class="stab on" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('finnifty','itmvex',this)">ITM VEX</button>
+<div class="sub-tabs">
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('finnifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('finnifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('finnifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-prob" data-key="prob" onclick="switchStab('finnifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">◈ SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
@@ -1622,16 +1763,42 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>FinNifty‑specific note:</strong> The probable positioning engine for FinNifty uses the same logic as Nifty, but with lower OI the conviction levels are often MODERATE. Use the chart to identify strikes where the estimated dealer gamma is large in magnitude relative to OI – those are the most important levels. Because FinNifty is less liquid, dealer positioning can change quickly; refresh the data frequently.</p>
       </div>
-      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
-        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('finnifty','probmain',this)">Positioning Chart</button>
-        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('finnifty','probcall',this)">Call GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('finnifty','probput',this)">Put GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('finnifty','probnet',this)">Net GEX Matrix</button>
+      <div id="posprem-sales-finnifty" class="posprem-outer">
+        <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
+        <div class="prem-pricing-row">
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div></div>
+        </div>
+        <div class="prem-feat-row">
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128203;</div><div><div class="prem-feat-title">Call / Put / Net GEX tracking tables</div><div class="prem-feat-desc">Colour-coded tables showing how estimated GEX at each nearby strike has changed across the session, updated periodically.</div></div></div>
+        </div>
+        <div class="prem-tnc-wrap">
+          <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Password Sharing &amp; Access Revocation</h4><p>Your monthly access password is strictly personal and non-transferable. Sharing or distributing your password to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if password sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-check-row">
+            <input type="checkbox" id="postnc-finnifty" onchange="posPremTnc('finnifty')">
+            <label class="prem-tnc-check-label" for="postnc-finnifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
+          </div>
+        </div>
+        <div id="poswa-finnifty" class="prem-wa-section" style="display:none">
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          </a><br>
+          <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access password.</div>
+        </div>
+        <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
-      <div id="sp-finnifty-probmain" class="stab-panel on"></div>
-      <div id="sp-finnifty-probcall" class="stab-panel"></div>
-      <div id="sp-finnifty-probput" class="stab-panel"></div>
-      <div id="sp-finnifty-probnet" class="stab-panel"></div>
+      <div id="posprem-lock-finnifty" class="prem-pw-section">
+        <div class="prem-pw-icon">&#128272;</div>
+        <div class="prem-pw-title">Subscriber Access</div>
+        <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
+        <div class="prem-pw-row">
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('finnifty')">
+          <button class="prem-pw-btn" id="pw-inline-pos-btn-finnifty" onclick="posPremUnlockInline('finnifty')">Unlock</button>
+        </div>
+        <div class="prem-pw-err" id="pw-inline-pos-err-finnifty" style="display:none"></div>
+      </div>
+      <div id="posprem-content-finnifty" style="display:none; padding:8px 0;"></div>
     </div>
     <div id="sp-finnifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -1659,6 +1826,18 @@ body{
   <!-- ==================== MIDCAP NIFTY PANEL ==================== -->
   <div id="panel-midcpnifty" class="idx-panel">
     <div id="pills-midcpnifty" class="pills"></div>
+    <div class="premium-callout" onclick="switchStab('midcpnifty','prob', document.querySelector('#panel-midcpnifty .stab-prob'))">
+      <div class="premium-callout-text">
+        <span class="premium-callout-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M2 12h2M12 20v2M20 12h2M12 2v2"/></svg>
+        </span>
+        <div>
+          <div class="premium-callout-title">PREMIUM PROBABLE POSITIONING</div>
+          <div class="premium-callout-desc">Charts and tables estimating where dealers are long or short gamma</div>
+        </div>
+      </div>
+      <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('midcpnifty','prob', document.querySelector('#panel-midcpnifty .stab-prob'));">VIEW NOW →</button>
+    </div>
     <div class="premium-callout" onclick="switchStab('midcpnifty','premium', document.querySelector('#panel-midcpnifty .stab-premium'))">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
@@ -1673,17 +1852,17 @@ body{
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); switchStab('midcpnifty','premium', document.querySelector('#panel-midcpnifty .stab-premium'));">VIEW NOW →</button>
     </div>
-    <div class="sub-tabs">
-      <button class="stab on" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor</button>
-      <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('midcpnifty','itmvex',this)">ITM VEX</button>
+<div class="sub-tabs">
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
+      <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
+      <button class="stab" data-key="itmvex" onclick="switchStab('midcpnifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('midcpnifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-prob" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">Probable Positioning</button>
       <button class="stab stab-volsurf" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">◈ SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
@@ -1840,16 +2019,42 @@ body{
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Midcap‑specific note:</strong> The probable positioning engine works less reliably on Midcap Nifty because of lower OI and fewer strikes. Conviction is almost always MODERATE or LOW. Use the chart to identify large blue bars (long gamma) – those are the most reliable levels. Orange bars (short gamma) should be treated with skepticism unless they are very large.</p>
       </div>
-      <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
-        <button class="stab prob-sub on" data-key="probmain" onclick="switchProbSub('midcpnifty','probmain',this)">Positioning Chart</button>
-        <button class="stab prob-sub" data-key="probcall" onclick="switchProbSub('midcpnifty','probcall',this)">Call GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probput"  onclick="switchProbSub('midcpnifty','probput',this)">Put GEX Matrix</button>
-        <button class="stab prob-sub" data-key="probnet"  onclick="switchProbSub('midcpnifty','probnet',this)">Net GEX Matrix</button>
+      <div id="posprem-sales-midcpnifty" class="posprem-outer">
+        <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
+        <div class="prem-pricing-row">
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div></div>
+        </div>
+        <div class="prem-feat-row">
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
+          <div class="prem-feat-item"><div class="prem-feat-icon">&#128203;</div><div><div class="prem-feat-title">Call / Put / Net GEX tracking tables</div><div class="prem-feat-desc">Colour-coded tables showing how estimated GEX at each nearby strike has changed across the session, updated periodically.</div></div></div>
+        </div>
+        <div class="prem-tnc-wrap">
+          <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Password Sharing &amp; Access Revocation</h4><p>Your monthly access password is strictly personal and non-transferable. Sharing or distributing your password to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if password sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-check-row">
+            <input type="checkbox" id="postnc-midcpnifty" onchange="posPremTnc('midcpnifty')">
+            <label class="prem-tnc-check-label" for="postnc-midcpnifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
+          </div>
+        </div>
+        <div id="poswa-midcpnifty" class="prem-wa-section" style="display:none">
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          </a><br>
+          <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access password.</div>
+        </div>
+        <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
-      <div id="sp-midcpnifty-probmain" class="stab-panel on"></div>
-      <div id="sp-midcpnifty-probcall" class="stab-panel"></div>
-      <div id="sp-midcpnifty-probput" class="stab-panel"></div>
-      <div id="sp-midcpnifty-probnet" class="stab-panel"></div>
+      <div id="posprem-lock-midcpnifty" class="prem-pw-section">
+        <div class="prem-pw-icon">&#128272;</div>
+        <div class="prem-pw-title">Subscriber Access</div>
+        <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
+        <div class="prem-pw-row">
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('midcpnifty')">
+          <button class="prem-pw-btn" id="pw-inline-pos-btn-midcpnifty" onclick="posPremUnlockInline('midcpnifty')">Unlock</button>
+        </div>
+        <div class="prem-pw-err" id="pw-inline-pos-err-midcpnifty" style="display:none"></div>
+      </div>
+      <div id="posprem-content-midcpnifty" style="display:none; padding:8px 0;"></div>
     </div>
     <div id="sp-midcpnifty-volsurf" class="stab-panel">
       <div class="edu-box">
@@ -2519,6 +2724,169 @@ function _premShowContent(idx, html) {
   contentEl.style.display = 'block';
 }
 
+
+// -- Probable Positioning premium gate (separate subscription from Recommendations) --
+// Same envelope-encryption / client-side decrypt scheme as the Recommendations
+// tab above, but points at premium_positioning.html and uses its own password
+// storage key so a Recommendations password does NOT unlock Positioning, and
+// vice versa. On success we simply reveal the already-live chart panels
+// (posprem-content-<idx>) rather than injecting decrypted HTML into an iframe.
+
+var _posPremDecrypted = {};
+
+function posPremTnc(idx) {
+  var cb = document.getElementById('postnc-' + idx);
+  var wa = document.getElementById('poswa-' + idx);
+  if (wa) wa.style.display = cb.checked ? 'block' : 'none';
+}
+
+async function _posPremDecryptFile(idx, pwd) {
+  if (_posPremDecrypted[idx]) return _posPremDecrypted[idx];
+  if (!window.crypto || !window.crypto.subtle) throw new Error('noCrypto');
+  var resp = await fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now());
+  if (!resp.ok) throw new Error('fetch');
+  var text = await resp.text();
+
+  var dm = text.match(/const DATA = (\{[\s\S]*?\});/);
+  if (!dm) throw new Error('format');
+  var DATA;
+  try { DATA = JSON.parse(dm[1]); } catch (e) { throw new Error('format'); }
+  if (!DATA.content || !DATA.keys || !DATA.keys.length) throw new Error('format');
+
+  function b64ToBytes(b64) {
+    var bin = atob(b64);
+    var arr = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return arr;
+  }
+
+  var baseKey = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(pwd), { name: 'PBKDF2' }, false, ['deriveKey']
+  );
+
+  var contentKeyBytes = null;
+  for (var k = 0; k < DATA.keys.length; k++) {
+    var entry = DATA.keys[k];
+    try {
+      var wrapKey = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: b64ToBytes(entry.salt), iterations: entry.iter, hash: 'SHA-256' },
+        baseKey, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+      );
+      var ckBuf = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: b64ToBytes(entry.iv) }, wrapKey, b64ToBytes(entry.ct)
+      );
+      contentKeyBytes = new Uint8Array(ckBuf);
+      break;
+    } catch (e) { /* wrong password for this entry — try the next one */ }
+  }
+  if (!contentKeyBytes) throw new Error('wrong');
+
+  var dec;
+  try {
+    var ck = await crypto.subtle.importKey('raw', contentKeyBytes, { name: 'AES-GCM' }, false, ['decrypt']);
+    var plainBuf = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: b64ToBytes(DATA.content.iv) }, ck, b64ToBytes(DATA.content.ct)
+    );
+    dec = new TextDecoder().decode(plainBuf);
+  } catch (e) {
+    throw new Error('wrong');
+  }
+
+  if (!dec || dec.length < 10) throw new Error('wrong');
+  _posPremDecrypted[idx] = dec;
+  return dec;
+}
+
+function _posPremShowContent(idx, html) {
+  var salesEl   = document.getElementById('posprem-sales-' + idx);
+  var lockEl    = document.getElementById('posprem-lock-' + idx);
+  var contentEl = document.getElementById('posprem-content-' + idx);
+  if (!lockEl || !contentEl) return;
+  lockEl.style.display = 'none';
+  if (salesEl) salesEl.style.display = 'none';
+
+  // Same seamless-iframe-via-blob-URL approach as Recommendations — preserves
+  // full styling/scripts (the bundled tab switcher) without stripping <style>.
+  var blob = new Blob([
+    html.trimStart().toLowerCase().startsWith('<!doctype') ? html :
+      '<!DOCTYPE html><html lang="en" data-theme="dark"><head>'
+    + '<meta charset="UTF-8">'
+    + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+    + '<style>:root{--bg:#0D1520;--surface:#111D2E;--raised:#162236;--border:#1E3050;--accent:#00E5FF;--pos:#00E676;--neg:#FF5252;--warn:#FFD740;--t1:#E8F4FD;--t2:#B0C4D8;--t3:#6B8CAE;--t4:#3D5A7A;}'
+    + 'body{margin:0;padding:16px;background:var(--bg);color:var(--t1);font-family:Inter,sans-serif}</style></head><body>'
+    + html
+    + '</body></html>'
+  ], {type: 'text/html'});
+  var url   = URL.createObjectURL(blob);
+  var frame = document.createElement('iframe');
+  frame.src           = url;
+  frame.style.cssText = 'width:100%;border:none;display:block;min-height:400px;border-radius:10px;margin-top:8px;';
+  frame.scrolling     = 'no';
+
+  function _fitHeight() {
+    try {
+      var h = frame.contentDocument.documentElement.scrollHeight;
+      if (h > 50) frame.style.height = h + 'px';
+    } catch(e) {}
+  }
+
+  frame.onload = function() {
+    _fitHeight();
+    URL.revokeObjectURL(url);
+    try {
+      frame.contentDocument.fonts.ready.then(function() {
+        _fitHeight();
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(function() { _fitHeight(); }).observe(frame.contentDocument.documentElement);
+        }
+      });
+    } catch(e) {
+      setTimeout(_fitHeight, 300);
+      setTimeout(_fitHeight, 1000);
+    }
+  };
+
+  contentEl.innerHTML = '';
+  contentEl.appendChild(frame);
+  contentEl.style.display = 'block';
+}
+
+async function posPremUnlockInline(idx) {
+  var pwd   = (document.getElementById('pw-inline-pos-' + idx) || {}).value || '';
+  var errEl = document.getElementById('pw-inline-pos-err-' + idx);
+  var btn   = document.getElementById('pw-inline-pos-btn-' + idx);
+  if (!pwd) return;
+  if (errEl) errEl.style.display = 'none';
+  if (btn)  { btn.textContent = 'Unlocking…'; btn.disabled = true; }
+
+  try {
+    var dec = await _posPremDecryptFile(idx, pwd);
+    localStorage.setItem('_of_pw_pos', pwd);
+    _posPremShowContent(idx, dec);
+    var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
+    all.forEach(function(i) {
+      if (i !== idx && !_posPremDecrypted[i]) {
+        _posPremDecryptFile(i, pwd).then(function(d) { _posPremShowContent(i, d); }).catch(function(){});
+      }
+    });
+  } catch(e) {
+    if (e.message === 'wrong') localStorage.removeItem('_of_pw_pos');
+    if (errEl) {
+      var msg = e.message;
+      errEl.textContent =
+        msg === 'wrong'    ? '❌ Incorrect password. Contact us on WhatsApp if you need help.' :
+        msg === 'fetch'    ? '⚠ Positioning file not found. Run GEXMA analysis first.' :
+        msg === 'noCrypto' ? '⚠ Decryption library failed to load. Check your internet connection and refresh.' :
+                             '⚠ Could not load Probable Positioning. Check your connection and try again.';
+      errEl.style.display = 'block';
+    }
+    var inp = document.getElementById('pw-inline-pos-' + idx);
+    if (inp) inp.value = '';
+  } finally {
+    if (btn) { btn.textContent = 'Unlock'; btn.disabled = false; }
+  }
+}
+
 // On every page load in the same browser tab:
 // 1. Restore the active index tab and sub-tab for manual refreshes only.
 //    sessionStorage clears on a fresh tab/session, so new visitors start clean.
@@ -2554,19 +2922,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ── Auto-unlock premium if password saved ──
   var saved = localStorage.getItem('_of_pw');
-  if (!saved) return;
   var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-  all.forEach(function(idx) {
-    _premDecryptFile(idx, saved)
-      .then(function(dec) {
-        _premRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
-        _premShowContent(idx, dec);
-      })
-      .catch(function(e) {
-        if (e.message === 'wrong') {
-          localStorage.removeItem('_of_pw'); // password changed — force re-entry
-        }
-      });
-  });
+  if (saved) {
+    all.forEach(function(idx) {
+      _premDecryptFile(idx, saved)
+        .then(function(dec) {
+          _premRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
+          _premShowContent(idx, dec);
+        })
+        .catch(function(e) {
+          if (e.message === 'wrong') {
+            localStorage.removeItem('_of_pw'); // password changed — force re-entry
+          }
+        });
+    });
+  }
+
+  // ── Auto-unlock Probable Positioning if its (separate) password is saved ──
+  var savedPos = localStorage.getItem('_of_pw_pos');
+  if (savedPos) {
+    all.forEach(function(idx) {
+      _posPremDecryptFile(idx, savedPos)
+        .then(function(dec) { _posPremShowContent(idx, dec); })
+        .catch(function(e) {
+          if (e.message === 'wrong') {
+            localStorage.removeItem('_of_pw_pos');
+          }
+        });
+    });
+  }
 });
 </script>
