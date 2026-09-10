@@ -2245,9 +2245,15 @@ function applyFallback(idx){
 // NO ?index= param returns every index in one response (this branch already
 // existed in the Worker; previously the frontend just wasn't using it).
 // This replaces 5 separate requests per cycle with exactly 1.
+//
+// cache:'no-store' + a cache-busting timestamp: without these, this fixed
+// URL (same on every call) can get served from the browser's HTTP cache or
+// an edge cache in front of the Worker instead of hitting it live — which
+// is what showed an old/stale price for a few seconds right after a
+// reload, before a real network round-trip finally happened.
 async function updateTickers(){
   try{
-    const r=await fetch(`${WORKER_URL}/quotes`,{signal:AbortSignal.timeout(8000)});
+    const r=await fetch(`${WORKER_URL}/quotes?_=${Date.now()}`,{signal:AbortSignal.timeout(8000),cache:'no-store'});
     if(!r.ok) throw new Error();
     const d=await r.json();
     if(!d.ok||!d.quotes) throw new Error();
@@ -2315,7 +2321,7 @@ function _synFallback(idx, data){
 async function fetchData(idx, force){
   if(!force && cache[idx] && Date.now()-cache[idx].ts<30000) return cache[idx].data;
   try{
-    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
+    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`,{cache:'no-store'});
     if(!r.ok) return cache[idx]?.data||null;
     // Read as raw text first, not r.json(). Python's json.dump can legally
     // write literal NaN/Infinity/-Infinity tokens (e.g. from a BSM divide-
@@ -2499,6 +2505,27 @@ function _refreshDataAndPremium() {
           .catch(function() {});
       })
       .catch(function() {});
+
+    // ── Premium Probable Positioning refresh (separate subscription) ──
+    // Same pattern as the Recommendations refresh above, but for
+    // premium_positioning.html + its own password. Without this, the
+    // Positioning tab only ever loaded once (on unlock) and never picked
+    // up new columns as GEXMA kept running through the session.
+    var pwdPos = localStorage.getItem('_of_pw_pos');
+    if (!pwdPos || !_posPremDecrypted[idx] || !_posPremRawHash[idx + '_init']) return;
+    fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now())
+      .then(function(r) { return r.ok ? r.text() : null; })
+      .then(function(text) {
+        if (!text) return;
+        var h = _premHash(text);
+        if (h === _posPremRawHash[idx]) return;  // file unchanged — nothing to do
+        _posPremRawHash[idx] = h;                // update stored hash
+        delete _posPremDecrypted[idx];           // clear decrypted cache
+        _posPremDecryptFile(idx, pwdPos)
+          .then(function(dec) { _posPremShowContent(idx, dec); })
+          .catch(function() {});
+      })
+      .catch(function() {});
   });
 }
 
@@ -2508,6 +2535,7 @@ setInterval(_refreshDataAndPremium, 30000);
 
 // Simple non-crypto hash to detect premium.html file changes between polls
 var _premRawHash = {};
+var _posPremRawHash = {};  // same change-detection hash, for premium_positioning.html
 function _premHash(s) {
   var h = 0;
   for (var i = 0; i < s.length; i++) { h = (Math.imul(31, h) + s.charCodeAt(i)) | 0; }
@@ -2593,12 +2621,14 @@ async function premUnlockInline(idx) {
     var dec = await _premDecryptFile(idx, pwd);
     localStorage.setItem('_of_pw', pwd);   // remember for next visit
     _premShowContent(idx, dec);
+    _premRawHash[idx + '_init'] = true;  // baseline set — poll can now detect changes
     // Same password — unlock all other indices silently in background
     var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
     all.forEach(function(i) {
       if (i !== idx && !_premDecrypted[i]) {
         _premDecryptFile(i, pwd).then(function(d) {
           _premShowContent(i, d);
+          _premRawHash[i + '_init'] = true;
         }).catch(function(){});
       }
     });
@@ -2768,6 +2798,7 @@ async function _posPremDecryptFile(idx, pwd) {
   var resp = await fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now());
   if (!resp.ok) throw new Error('fetch');
   var text = await resp.text();
+  _posPremRawHash[idx] = _premHash(text);  // store baseline for change detection
 
   var dm = text.match(/const DATA = (\{[\s\S]*?\});/);
   if (!dm) throw new Error('format');
@@ -2819,6 +2850,60 @@ async function _posPremDecryptFile(idx, pwd) {
   return dec;
 }
 
+// Remembers each matrix panel's horizontal scroll state (per index, per
+// call/put/net) across refreshes, so a rebuilt iframe can restore it
+// instead of always resetting to the left edge.
+var _posPremScrollState = {};
+
+function _posPremCaptureScroll(idx) {
+  var contentEl = document.getElementById('posprem-content-' + idx);
+  var oldFrame  = contentEl && contentEl.querySelector('iframe');
+  if (!oldFrame) return;
+  try {
+    var doc = oldFrame.contentDocument;
+    var panels = doc.querySelectorAll('.pp-panel');
+    var state = {};
+    panels.forEach(function(panel) {
+      var key = (panel.id || '').replace('pp-panel-', '');
+      var box = panel.querySelector('.pp-matrix-scroll');
+      if (!key || !box) return;
+      var maxScroll = box.scrollWidth - box.clientWidth;
+      // "at edge" = within 4px of the right end (treat that as "following
+      // the latest data" even if not pixel-perfect against the old width)
+      state[key] = {
+        atEdge:     maxScroll <= 0 || box.scrollLeft >= maxScroll - 4,
+        scrollLeft: box.scrollLeft
+      };
+    });
+    _posPremScrollState[idx] = state;
+  } catch (e) { /* cross-origin/blob edge cases — just skip restoring */ }
+}
+
+function _posPremRestoreScroll(idx, frame) {
+  try {
+    var doc = frame.contentDocument;
+    var panels = doc.querySelectorAll('.pp-panel');
+    var state = _posPremScrollState[idx] || {};
+    panels.forEach(function(panel) {
+      var key = (panel.id || '').replace('pp-panel-', '');
+      var box = panel.querySelector('.pp-matrix-scroll');
+      if (!key || !box) return;
+      var maxScroll = box.scrollWidth - box.clientWidth;
+      var saved = state[key];
+      if (!saved || saved.atEdge) {
+        // No prior state (first/manual load) — or the user was following
+        // the latest data — snap to the rightmost (most recent) column.
+        box.scrollLeft = maxScroll;
+      } else {
+        // User was looking at older data — keep them at the same spot
+        // (column width is fixed, so the same pixel offset lines up with
+        // the same columns; clamp in case the panel is now narrower).
+        box.scrollLeft = Math.min(saved.scrollLeft, Math.max(0, maxScroll));
+      }
+    });
+  } catch (e) {}
+}
+
 function _posPremShowContent(idx, html) {
   var salesEl   = document.getElementById('posprem-sales-' + idx);
   var lockEl    = document.getElementById('posprem-lock-' + idx);
@@ -2826,6 +2911,10 @@ function _posPremShowContent(idx, html) {
   if (!lockEl || !contentEl) return;
   lockEl.style.display = 'none';
   if (salesEl) salesEl.style.display = 'none';
+
+  // Grab the outgoing iframe's scroll position (if any) before it's
+  // replaced, so a refresh can restore it instead of resetting to the left.
+  _posPremCaptureScroll(idx);
 
   // Same seamless-iframe-via-blob-URL approach as Recommendations — preserves
   // full styling/scripts (the bundled tab switcher) without stripping <style>.
@@ -2854,10 +2943,12 @@ function _posPremShowContent(idx, html) {
 
   frame.onload = function() {
     _fitHeight();
+    _posPremRestoreScroll(idx, frame);
     URL.revokeObjectURL(url);
     try {
       frame.contentDocument.fonts.ready.then(function() {
         _fitHeight();
+        _posPremRestoreScroll(idx, frame);
         if (typeof ResizeObserver !== 'undefined') {
           new ResizeObserver(function() { _fitHeight(); }).observe(frame.contentDocument.documentElement);
         }
@@ -2865,6 +2956,8 @@ function _posPremShowContent(idx, html) {
     } catch(e) {
       setTimeout(_fitHeight, 300);
       setTimeout(_fitHeight, 1000);
+      setTimeout(function(){ _posPremRestoreScroll(idx, frame); }, 350);
+      setTimeout(function(){ _posPremRestoreScroll(idx, frame); }, 1050);
     }
   };
 
@@ -2885,10 +2978,14 @@ async function posPremUnlockInline(idx) {
     var dec = await _posPremDecryptFile(idx, pwd);
     localStorage.setItem('_of_pw_pos', pwd);
     _posPremShowContent(idx, dec);
+    _posPremRawHash[idx + '_init'] = true;  // baseline set — poll can now detect changes
     var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
     all.forEach(function(i) {
       if (i !== idx && !_posPremDecrypted[i]) {
-        _posPremDecryptFile(i, pwd).then(function(d) { _posPremShowContent(i, d); }).catch(function(){});
+        _posPremDecryptFile(i, pwd).then(function(d) {
+          _posPremShowContent(i, d);
+          _posPremRawHash[i + '_init'] = true;
+        }).catch(function(){});
       }
     });
   } catch(e) {
@@ -2965,7 +3062,10 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedPos) {
     all.forEach(function(idx) {
       _posPremDecryptFile(idx, savedPos)
-        .then(function(dec) { _posPremShowContent(idx, dec); })
+        .then(function(dec) {
+          _posPremRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
+          _posPremShowContent(idx, dec);
+        })
         .catch(function(e) {
           if (e.message === 'wrong') {
             localStorage.removeItem('_of_pw_pos');
