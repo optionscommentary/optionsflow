@@ -467,14 +467,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .empty svg { color: var(--border); margin: 0 auto 14px; display: block; }
 .empty p { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--t3); line-height: 2; font-weight: 500; }
 
-#lbx { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.93); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; overflow: hidden; touch-action: none; }
+#lbx { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.93); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
 #lbx.open { display: flex; }
-#lbx img { max-width: 96vw; max-height: 94vh; object-fit: contain; border-radius: 6px; box-shadow: 0 8px 60px rgba(0, 0, 0, 0.9); touch-action: none; user-select: none; -webkit-user-drag: none; }
-#lbx.zoomed img { cursor: grab; }
-#lbx.zoomed.dragging img { cursor: grabbing; }
+#lbx img { max-width: 96vw; max-height: 94vh; object-fit: contain; border-radius: 6px; box-shadow: 0 8px 60px rgba(0, 0, 0, 0.9); }
 #lbx-x { position: absolute; top: 14px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; user-select: none; z-index: 10000; line-height: 1; font-weight: 700; }
-#lbx-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: #B8CCDE; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 600; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); padding: 5px 12px; border-radius: 999px; pointer-events: none; z-index: 10000; animation: lbxHintFade 4.5s ease forwards; }
-@keyframes lbxHintFade { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
 
 .footer { margin-top: auto; border-top: 1px solid var(--border); background: var(--surface); padding: 16px 24px; display: flex; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
 .disc { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--t2); line-height: 2; max-width: 840px; font-weight: 600; }
@@ -484,11 +480,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .footer-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: var(--t2); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.15s; cursor: pointer; font-weight: 600; }
 .footer-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-lit); border-radius: 6px; border: 2px solid var(--bg); background-clip: padding-box; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); background-clip: padding-box; }
-* { scrollbar-width: auto; scrollbar-color: var(--border-lit) transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-lit); border-radius: 2px; }
 
 @media (max-width: 760px) {
   #main { padding: 10px; }
@@ -2174,7 +2168,6 @@ body{
 <div id="lbx" onclick="closeLbx()">
   <span id="lbx-x" onclick="closeLbx()">✕</span>
   <img id="lbx-img" src="" alt="zoom">
-  <span id="lbx-hint">Scroll / pinch to zoom · drag to pan · double-click to reset</span>
 </div>
 
 <script>
@@ -2479,117 +2472,9 @@ function switchProbSub(idx, sub, btn){
     }
   }
 }
-function openLbx(src){ document.getElementById('lbx-img').src=src; lbxReset(false); document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; lbxReset(false); }
+function openLbx(src){ document.getElementById('lbx-img').src=src; document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
-
-// ── Lightbox pinch/wheel zoom + drag-to-pan ──────────────────────────────
-// Click a chart to open the lightbox (existing behaviour); once open,
-// scroll the mouse wheel or pinch with two fingers to zoom in/out on the
-// image, drag to pan around once zoomed, and double-click/double-tap to
-// reset. Clicking the backdrop (or the image while at 1x with no drag)
-// still closes the lightbox as before.
-(function(){
-  const MIN_S = 1, MAX_S = 6;
-  const lbx = document.getElementById('lbx');
-  const lbxImg = document.getElementById('lbx-img');
-  let scale = 1, panX = 0, panY = 0, dragging = false, dragMoved = false, lastX = 0, lastY = 0, pinch = null, lastTap = 0;
-
-  function apply(anim){
-    lbxImg.style.transition = anim ? 'transform .18s ease' : 'none';
-    lbxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
-    lbx.classList.toggle('zoomed', scale > 1.01);
-  }
-  function clamp(){
-    const bw = lbxImg.clientWidth, bh = lbxImg.clientHeight;
-    const maxX = Math.max(0, (bw * scale - bw) / 2);
-    const maxY = Math.max(0, (bh * scale - bh) / 2);
-    panX = Math.min(maxX, Math.max(-maxX, panX));
-    panY = Math.min(maxY, Math.max(-maxY, panY));
-  }
-  window.lbxReset = function(anim){ scale = 1; panX = 0; panY = 0; apply(anim); };
-
-  lbx.addEventListener('wheel', function(e){
-    if(!lbx.classList.contains('open')) return;
-    e.preventDefault();
-    const rect = lbxImg.getBoundingClientRect();
-    const mx = e.clientX - rect.left - rect.width / 2;
-    const my = e.clientY - rect.top - rect.height / 2;
-    const factor = e.deltaY < 0 ? 1.18 : 1 / 1.18;
-    const newScale = Math.min(MAX_S, Math.max(MIN_S, scale * factor));
-    const ratio = newScale / scale;
-    panX = panX * ratio + mx * (1 - ratio);
-    panY = panY * ratio + my * (1 - ratio);
-    scale = newScale;
-    clamp(); apply(false);
-  }, { passive: false });
-
-  lbxImg.addEventListener('mousedown', function(e){
-    if(scale <= 1.001) return;
-    dragging = true; dragMoved = false; lastX = e.clientX; lastY = e.clientY;
-    lbx.classList.add('dragging'); e.preventDefault();
-  });
-  window.addEventListener('mousemove', function(e){
-    if(!dragging) return;
-    const dx = e.clientX - lastX, dy = e.clientY - lastY;
-    if(Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
-    lastX = e.clientX; lastY = e.clientY;
-    panX += dx; panY += dy; clamp(); apply(false);
-  });
-  window.addEventListener('mouseup', function(){
-    if(dragging){ dragging = false; lbx.classList.remove('dragging'); }
-  });
-  lbxImg.addEventListener('click', function(e){
-    if(scale > 1.01 || dragMoved){ e.stopPropagation(); dragMoved = false; }
-  });
-  lbxImg.addEventListener('dblclick', function(e){
-    e.stopPropagation();
-    if(scale > 1.01){ window.lbxReset(true); return; }
-    const rect = lbxImg.getBoundingClientRect();
-    panX = -(e.clientX - rect.left - rect.width / 2);
-    panY = -(e.clientY - rect.top - rect.height / 2);
-    scale = 2.4; clamp(); apply(true);
-  });
-
-  lbxImg.addEventListener('touchstart', function(e){
-    if(e.touches.length === 2){
-      const [t1, t2] = e.touches;
-      pinch = { d: Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY), s: scale, px: panX, py: panY };
-    } else if(e.touches.length === 1){
-      dragging = true; dragMoved = false; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
-    }
-  }, { passive: true });
-  lbxImg.addEventListener('touchmove', function(e){
-    if(pinch && e.touches.length === 2){
-      e.preventDefault();
-      const [t1, t2] = e.touches;
-      const d = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
-      const ns = Math.min(MAX_S, Math.max(MIN_S, pinch.s * (d / pinch.d)));
-      const ratio = ns / pinch.s;
-      panX = pinch.px * ratio; panY = pinch.py * ratio;
-      scale = ns; clamp(); apply(false);
-    } else if(dragging && e.touches.length === 1 && scale > 1.001){
-      e.preventDefault();
-      const dx = e.touches[0].clientX - lastX, dy = e.touches[0].clientY - lastY;
-      if(Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
-      lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
-      panX += dx; panY += dy; clamp(); apply(false);
-    }
-  }, { passive: false });
-  lbxImg.addEventListener('touchend', function(e){
-    if(e.touches.length < 2) pinch = null;
-    if(e.touches.length === 0){
-      dragging = false;
-      if(scale <= 1.001) window.lbxReset(false);
-      const now = Date.now();
-      if(now - lastTap < 300 && !dragMoved){
-        if(scale > 1.01){ window.lbxReset(true); }
-        else { scale = 2.2; clamp(); apply(true); }
-      }
-      lastTap = now;
-    }
-  });
-})();
 const _lastTs = {};
 Promise.all(INDICES.map(i => fetchData(i))).then(results => {
   INDICES.forEach((i, n) => { if(results[n]) renderIndex(i, results[n]); });
