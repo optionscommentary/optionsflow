@@ -2386,6 +2386,13 @@ async function switchIdx(idx){
     document.getElementById(`tab-${i}`)?.classList.toggle('on',i===idx);
     document.getElementById(`panel-${i}`)?.classList.toggle('on',i===idx);
   });
+  // Switching to a different index should always land on the Probable
+  // Positioning premium widget's first sub-tab (Positioning Chart) — a
+  // sub-tab you left it on for this index during an earlier visit this
+  // session should NOT carry over just because you tabbed away and back.
+  // (Auto/manual *refreshes while staying on the same index* are the only
+  // case that restores the last sub-tab — see _posPremRestoreScroll.)
+  _posPremResetToMain(idx);
   window.scrollTo({top:0,behavior:'smooth'});
   renderIndex(idx, await fetchData(idx));
 }
@@ -2604,43 +2611,52 @@ function _refreshDataAndPremium() {
       }
     });
     // ── Premium recommendation refresh ──
-    // Only runs if this panel is already unlocked and a password is saved
+    // Only runs if this panel is already unlocked and a password is saved.
+    // IMPORTANT: this must not be a bare `if(...) return;` — Recommendations
+    // and Probable Positioning are separate subscriptions with separate
+    // passwords, and this whole function runs inside a forEach callback, so
+    // an early `return` here would also skip the unrelated Positioning
+    // block below for anyone who unlocked Positioning but not
+    // Recommendations (or vice versa). Each premium feature gets its own
+    // independent `if` block instead.
     var pwd = localStorage.getItem('_of_pw');
-    if (!pwd || !_premDecrypted[idx] || !_premRawHash[idx + '_init']) return;
-    fetch('data/' + idx + '/premium.html?t=' + Date.now())
-      .then(function(r) { return r.ok ? r.text() : null; })
-      .then(function(text) {
-        if (!text) return;
-        var h = _premHash(text);
-        if (h === _premRawHash[idx]) return;    // file unchanged — nothing to do
-        _premRawHash[idx] = h;                  // update stored hash
-        delete _premDecrypted[idx];             // clear decrypted cache
-        _premDecryptFile(idx, pwd)
-          .then(function(dec) { _premShowContent(idx, dec); })
-          .catch(function() {});
-      })
-      .catch(function() {});
+    if (pwd && _premDecrypted[idx] && _premRawHash[idx + '_init']) {
+      fetch('data/' + idx + '/premium.html?t=' + Date.now())
+        .then(function(r) { return r.ok ? r.text() : null; })
+        .then(function(text) {
+          if (!text) return;
+          var h = _premHash(text);
+          if (h === _premRawHash[idx]) return;    // file unchanged — nothing to do
+          _premRawHash[idx] = h;                  // update stored hash
+          delete _premDecrypted[idx];             // clear decrypted cache
+          _premDecryptFile(idx, pwd)
+            .then(function(dec) { _premShowContent(idx, dec); })
+            .catch(function() {});
+        })
+        .catch(function() {});
+    }
 
     // ── Premium Probable Positioning refresh (separate subscription) ──
     // Same pattern as the Recommendations refresh above, but for
-    // premium_positioning.html + its own password. Without this, the
-    // Positioning tab only ever loaded once (on unlock) and never picked
-    // up new columns as GEXMA kept running through the session.
+    // premium_positioning.html + its own password. Independent `if` block
+    // (see comment above) — this must run regardless of whether the
+    // Recommendations subscription is unlocked.
     var pwdPos = localStorage.getItem('_of_pw_pos');
-    if (!pwdPos || !_posPremDecrypted[idx] || !_posPremRawHash[idx + '_init']) return;
-    fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now())
-      .then(function(r) { return r.ok ? r.text() : null; })
-      .then(function(text) {
-        if (!text) return;
-        var h = _premHash(text);
-        if (h === _posPremRawHash[idx]) return;  // file unchanged — nothing to do
-        _posPremRawHash[idx] = h;                // update stored hash
-        delete _posPremDecrypted[idx];           // clear decrypted cache
-        _posPremDecryptFile(idx, pwdPos)
-          .then(function(dec) { _posPremShowContent(idx, dec); })
-          .catch(function() {});
-      })
-      .catch(function() {});
+    if (pwdPos && _posPremDecrypted[idx] && _posPremRawHash[idx + '_init']) {
+      fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now())
+        .then(function(r) { return r.ok ? r.text() : null; })
+        .then(function(text) {
+          if (!text) return;
+          var h = _premHash(text);
+          if (h === _posPremRawHash[idx]) return;  // file unchanged — nothing to do
+          _posPremRawHash[idx] = h;                // update stored hash
+          delete _posPremDecrypted[idx];           // clear decrypted cache
+          _posPremDecryptFile(idx, pwdPos)
+            .then(function(dec) { _posPremShowContent(idx, dec); })
+            .catch(function() {});
+        })
+        .catch(function() {});
+    }
   });
 }
 
@@ -3033,6 +3049,22 @@ function _posPremRestoreScroll(idx, frame) {
         box._zmSetState(state.zoom.scale, state.zoom.panX, state.zoom.panY, false);
       }
     }
+  } catch (e) {}
+}
+
+// Forces the Probable Positioning premium widget for `idx` back to its
+// first sub-tab (Positioning Chart) and clears the remembered sub-tab for
+// it, so switching to a different index never carries over whatever
+// sub-tab was last viewed. Safe to call even if the widget isn't unlocked
+// yet or isn't built (no iframe) — it just no-ops in that case.
+function _posPremResetToMain(idx) {
+  try {
+    sessionStorage.setItem('_of_posprem_tab_' + idx, 'main');
+    delete _posPremScrollState[idx];
+    var contentEl = document.getElementById('posprem-content-' + idx);
+    var frame = contentEl && contentEl.querySelector('iframe');
+    var win = frame && frame.contentDocument && frame.contentDocument.defaultView;
+    if (win && typeof win.ppSwitchByKey === 'function') win.ppSwitchByKey('main');
   } catch (e) {}
 }
 
