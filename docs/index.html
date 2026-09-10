@@ -268,15 +268,8 @@
 .prem-pw-title { font-family:'IBM Plex Mono',monospace; font-size:.8rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
 .prem-pw-sub { font-size:.78rem; color:var(--t3); margin-bottom:16px; }
 .prem-pw-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
-.prem-pw-input { background:var(--input-bg); border:1px solid var(--border); border-radius:6px; padding:9px 40px 9px 14px; color:var(--t1); font-family:'IBM Plex Mono',monospace; font-size:.85rem; width:220px; outline:none; transition:border-color .15s; }
+.prem-pw-input { background:var(--input-bg); border:1px solid var(--border); border-radius:6px; padding:9px 14px; color:var(--t1); font-family:'IBM Plex Mono',monospace; font-size:.85rem; width:220px; outline:none; transition:border-color .15s; }
 .prem-pw-input:focus { border-color:var(--accent); }
-.prem-pw-field { position:relative; display:inline-flex; }
-.pw-eye { position:absolute; right:6px; top:50%; transform:translateY(-50%); width:28px; height:28px; display:flex; align-items:center; justify-content:center; background:transparent; border:none; padding:0; margin:0; color:var(--t3); cursor:pointer; border-radius:5px; transition:color .15s, background .15s; }
-.pw-eye:hover { color:var(--accent); background:var(--hover); }
-.pw-eye svg { width:17px; height:17px; pointer-events:none; }
-/* Suppress native browser reveal/clear icons (e.g. Edge) so they don't
-   double up with our own custom eye toggle button above. */
-.prem-pw-input::-ms-reveal, .prem-pw-input::-ms-clear { display:none; }
 .prem-pw-btn { background:var(--accent); color:#0D1520; font-family:'IBM Plex Mono',monospace; font-size:.8rem; font-weight:700; letter-spacing:.06em; border:none; border-radius:6px; padding:9px 20px; cursor:pointer; transition:opacity .15s; }
 .prem-pw-btn:hover { opacity:.85; }
 .prem-pw-err { margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--neg); font-weight:600; }
@@ -355,7 +348,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 3px; font-weight: 700; }
 .pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--t1); }
 
-.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sub-tabs { display: flex; flex-wrap: wrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow-x: visible; overflow-y: visible; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .sub-tabs::-webkit-scrollbar { height: 3px; }
 .sub-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .stab {
@@ -515,7 +508,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     display: block;
     margin: 0 !important;
   }
-  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 12px -10px 0; padding: 0 10px; }
+  .sub-tabs { overflow-x: visible; flex-wrap: wrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 12px -10px 0; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 6px 6px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
@@ -898,7 +891,7 @@ body{
       <div class="prem-pw-title">Subscriber Access</div>
       <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
       <div class="prem-pw-row">
-        <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('nifty')"><button type="button" class="pw-eye" id="pw-inline-nifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-nifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <input class="prem-pw-input" type="password" id="pw-inline-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('nifty')">
         <button class="prem-pw-btn" id="pw-inline-btn-nifty" onclick="premUnlockInline('nifty')">Unlock</button>
       </div>
       <div class="prem-pw-err" id="pw-inline-err-nifty" style="display:none"></div>
@@ -1034,7 +1027,7 @@ body{
         <div class="prem-pw-title">Subscriber Access</div>
         <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
         <div class="prem-pw-row">
-          <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-pos-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('nifty')"><button type="button" class="pw-eye" id="pw-inline-pos-nifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-pos-nifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-nifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('nifty')">
           <button class="prem-pw-btn" id="pw-inline-pos-btn-nifty" onclick="posPremUnlockInline('nifty')">Unlock</button>
         </div>
         <div class="prem-pw-err" id="pw-inline-pos-err-nifty" style="display:none"></div>
@@ -1143,7 +1136,7 @@ body{
       <div class="prem-pw-title">Subscriber Access</div>
       <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
       <div class="prem-pw-row">
-        <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('banknifty')"><button type="button" class="pw-eye" id="pw-inline-banknifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-banknifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <input class="prem-pw-input" type="password" id="pw-inline-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('banknifty')">
         <button class="prem-pw-btn" id="pw-inline-btn-banknifty" onclick="premUnlockInline('banknifty')">Unlock</button>
       </div>
       <div class="prem-pw-err" id="pw-inline-err-banknifty" style="display:none"></div>
@@ -1288,7 +1281,7 @@ body{
         <div class="prem-pw-title">Subscriber Access</div>
         <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
         <div class="prem-pw-row">
-          <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-pos-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('banknifty')"><button type="button" class="pw-eye" id="pw-inline-pos-banknifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-pos-banknifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-banknifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('banknifty')">
           <button class="prem-pw-btn" id="pw-inline-pos-btn-banknifty" onclick="posPremUnlockInline('banknifty')">Unlock</button>
         </div>
         <div class="prem-pw-err" id="pw-inline-pos-err-banknifty" style="display:none"></div>
@@ -1399,7 +1392,7 @@ body{
       <div class="prem-pw-title">Subscriber Access</div>
       <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
       <div class="prem-pw-row">
-        <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('sensex')"><button type="button" class="pw-eye" id="pw-inline-sensex-eye" aria-label="Show password" onclick="togglePw('pw-inline-sensex')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <input class="prem-pw-input" type="password" id="pw-inline-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('sensex')">
         <button class="prem-pw-btn" id="pw-inline-btn-sensex" onclick="premUnlockInline('sensex')">Unlock</button>
       </div>
       <div class="prem-pw-err" id="pw-inline-err-sensex" style="display:none"></div>
@@ -1544,7 +1537,7 @@ body{
         <div class="prem-pw-title">Subscriber Access</div>
         <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
         <div class="prem-pw-row">
-          <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-pos-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('sensex')"><button type="button" class="pw-eye" id="pw-inline-pos-sensex-eye" aria-label="Show password" onclick="togglePw('pw-inline-pos-sensex')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-sensex" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('sensex')">
           <button class="prem-pw-btn" id="pw-inline-pos-btn-sensex" onclick="posPremUnlockInline('sensex')">Unlock</button>
         </div>
         <div class="prem-pw-err" id="pw-inline-pos-err-sensex" style="display:none"></div>
@@ -1655,7 +1648,7 @@ body{
       <div class="prem-pw-title">Subscriber Access</div>
       <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
       <div class="prem-pw-row">
-        <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('finnifty')"><button type="button" class="pw-eye" id="pw-inline-finnifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-finnifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <input class="prem-pw-input" type="password" id="pw-inline-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('finnifty')">
         <button class="prem-pw-btn" id="pw-inline-btn-finnifty" onclick="premUnlockInline('finnifty')">Unlock</button>
       </div>
       <div class="prem-pw-err" id="pw-inline-err-finnifty" style="display:none"></div>
@@ -1800,7 +1793,7 @@ body{
         <div class="prem-pw-title">Subscriber Access</div>
         <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
         <div class="prem-pw-row">
-          <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-pos-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('finnifty')"><button type="button" class="pw-eye" id="pw-inline-pos-finnifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-pos-finnifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-finnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('finnifty')">
           <button class="prem-pw-btn" id="pw-inline-pos-btn-finnifty" onclick="posPremUnlockInline('finnifty')">Unlock</button>
         </div>
         <div class="prem-pw-err" id="pw-inline-pos-err-finnifty" style="display:none"></div>
@@ -1911,7 +1904,7 @@ body{
       <div class="prem-pw-title">Subscriber Access</div>
       <div class="prem-pw-sub">Enter your monthly access password to view your recommendation</div>
       <div class="prem-pw-row">
-        <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('midcpnifty')"><button type="button" class="pw-eye" id="pw-inline-midcpnifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-midcpnifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <input class="prem-pw-input" type="password" id="pw-inline-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')premUnlockInline('midcpnifty')">
         <button class="prem-pw-btn" id="pw-inline-btn-midcpnifty" onclick="premUnlockInline('midcpnifty')">Unlock</button>
       </div>
       <div class="prem-pw-err" id="pw-inline-err-midcpnifty" style="display:none"></div>
@@ -2056,7 +2049,7 @@ body{
         <div class="prem-pw-title">Subscriber Access</div>
         <div class="prem-pw-sub">Enter your monthly access password to view Probable Positioning</div>
         <div class="prem-pw-row">
-          <div class="prem-pw-field"><input class="prem-pw-input" type="password" id="pw-inline-pos-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('midcpnifty')"><button type="button" class="pw-eye" id="pw-inline-pos-midcpnifty-eye" aria-label="Show password" onclick="togglePw('pw-inline-pos-midcpnifty')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+          <input class="prem-pw-input" type="password" id="pw-inline-pos-midcpnifty" placeholder="Enter password" onkeydown="if(event.key==='Enter')posPremUnlockInline('midcpnifty')">
           <button class="prem-pw-btn" id="pw-inline-pos-btn-midcpnifty" onclick="posPremUnlockInline('midcpnifty')">Unlock</button>
         </div>
         <div class="prem-pw-err" id="pw-inline-pos-err-midcpnifty" style="display:none"></div>
@@ -2245,15 +2238,9 @@ function applyFallback(idx){
 // NO ?index= param returns every index in one response (this branch already
 // existed in the Worker; previously the frontend just wasn't using it).
 // This replaces 5 separate requests per cycle with exactly 1.
-//
-// cache:'no-store' + a cache-busting timestamp: without these, this fixed
-// URL (same on every call) can get served from the browser's HTTP cache or
-// an edge cache in front of the Worker instead of hitting it live — which
-// is what showed an old/stale price for a few seconds right after a
-// reload, before a real network round-trip finally happened.
 async function updateTickers(){
   try{
-    const r=await fetch(`${WORKER_URL}/quotes?_=${Date.now()}`,{signal:AbortSignal.timeout(8000),cache:'no-store'});
+    const r=await fetch(`${WORKER_URL}/quotes`,{signal:AbortSignal.timeout(8000)});
     if(!r.ok) throw new Error();
     const d=await r.json();
     if(!d.ok||!d.quotes) throw new Error();
@@ -2321,7 +2308,7 @@ function _synFallback(idx, data){
 async function fetchData(idx, force){
   if(!force && cache[idx] && Date.now()-cache[idx].ts<30000) return cache[idx].data;
   try{
-    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`,{cache:'no-store'});
+    const r=await fetch(`data/${idx}/latest.json?_=${Date.now()}`);
     if(!r.ok) return cache[idx]?.data||null;
     // Read as raw text first, not r.json(). Python's json.dump can legally
     // write literal NaN/Infinity/-Infinity tokens (e.g. from a BSM divide-
@@ -2505,27 +2492,6 @@ function _refreshDataAndPremium() {
           .catch(function() {});
       })
       .catch(function() {});
-
-    // ── Premium Probable Positioning refresh (separate subscription) ──
-    // Same pattern as the Recommendations refresh above, but for
-    // premium_positioning.html + its own password. Without this, the
-    // Positioning tab only ever loaded once (on unlock) and never picked
-    // up new columns as GEXMA kept running through the session.
-    var pwdPos = localStorage.getItem('_of_pw_pos');
-    if (!pwdPos || !_posPremDecrypted[idx] || !_posPremRawHash[idx + '_init']) return;
-    fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now())
-      .then(function(r) { return r.ok ? r.text() : null; })
-      .then(function(text) {
-        if (!text) return;
-        var h = _premHash(text);
-        if (h === _posPremRawHash[idx]) return;  // file unchanged — nothing to do
-        _posPremRawHash[idx] = h;                // update stored hash
-        delete _posPremDecrypted[idx];           // clear decrypted cache
-        _posPremDecryptFile(idx, pwdPos)
-          .then(function(dec) { _posPremShowContent(idx, dec); })
-          .catch(function() {});
-      })
-      .catch(function() {});
   });
 }
 
@@ -2535,7 +2501,6 @@ setInterval(_refreshDataAndPremium, 30000);
 
 // Simple non-crypto hash to detect premium.html file changes between polls
 var _premRawHash = {};
-var _posPremRawHash = {};  // same change-detection hash, for premium_positioning.html
 function _premHash(s) {
   var h = 0;
   for (var i = 0; i < s.length; i++) { h = (Math.imul(31, h) + s.charCodeAt(i)) | 0; }
@@ -2594,21 +2559,6 @@ function premTnc(idx) {
 
 var _premDecrypted = {};  // idx → decrypted HTML (session cache)
 
-// Custom show/hide toggle for password fields — used instead of relying on
-// each browser's own (inconsistent / sometimes absent on mobile, sometimes
-// visually backwards on desktop) built-in reveal icon.
-var _PW_EYE_OPEN  = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
-var _PW_EYE_CLOSED = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.3 20.3 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 7 11 7a20.28 20.28 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>';
-function togglePw(id) {
-  var inp = document.getElementById(id);
-  var btn = document.getElementById(id + '-eye');
-  if (!inp || !btn) return;
-  var willShow = inp.type === 'password';
-  inp.type = willShow ? 'text' : 'password';
-  btn.innerHTML = willShow ? _PW_EYE_CLOSED : _PW_EYE_OPEN;
-  btn.setAttribute('aria-label', willShow ? 'Hide password' : 'Show password');
-}
-
 async function premUnlockInline(idx) {
   var pwd     = (document.getElementById('pw-inline-' + idx) || {}).value || '';
   var errEl   = document.getElementById('pw-inline-err-' + idx);
@@ -2621,14 +2571,12 @@ async function premUnlockInline(idx) {
     var dec = await _premDecryptFile(idx, pwd);
     localStorage.setItem('_of_pw', pwd);   // remember for next visit
     _premShowContent(idx, dec);
-    _premRawHash[idx + '_init'] = true;  // baseline set — poll can now detect changes
     // Same password — unlock all other indices silently in background
     var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
     all.forEach(function(i) {
       if (i !== idx && !_premDecrypted[i]) {
         _premDecryptFile(i, pwd).then(function(d) {
           _premShowContent(i, d);
-          _premRawHash[i + '_init'] = true;
         }).catch(function(){});
       }
     });
@@ -2798,7 +2746,6 @@ async function _posPremDecryptFile(idx, pwd) {
   var resp = await fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now());
   if (!resp.ok) throw new Error('fetch');
   var text = await resp.text();
-  _posPremRawHash[idx] = _premHash(text);  // store baseline for change detection
 
   var dm = text.match(/const DATA = (\{[\s\S]*?\});/);
   if (!dm) throw new Error('format');
@@ -2850,60 +2797,6 @@ async function _posPremDecryptFile(idx, pwd) {
   return dec;
 }
 
-// Remembers each matrix panel's horizontal scroll state (per index, per
-// call/put/net) across refreshes, so a rebuilt iframe can restore it
-// instead of always resetting to the left edge.
-var _posPremScrollState = {};
-
-function _posPremCaptureScroll(idx) {
-  var contentEl = document.getElementById('posprem-content-' + idx);
-  var oldFrame  = contentEl && contentEl.querySelector('iframe');
-  if (!oldFrame) return;
-  try {
-    var doc = oldFrame.contentDocument;
-    var panels = doc.querySelectorAll('.pp-panel');
-    var state = {};
-    panels.forEach(function(panel) {
-      var key = (panel.id || '').replace('pp-panel-', '');
-      var box = panel.querySelector('.pp-matrix-scroll');
-      if (!key || !box) return;
-      var maxScroll = box.scrollWidth - box.clientWidth;
-      // "at edge" = within 4px of the right end (treat that as "following
-      // the latest data" even if not pixel-perfect against the old width)
-      state[key] = {
-        atEdge:     maxScroll <= 0 || box.scrollLeft >= maxScroll - 4,
-        scrollLeft: box.scrollLeft
-      };
-    });
-    _posPremScrollState[idx] = state;
-  } catch (e) { /* cross-origin/blob edge cases — just skip restoring */ }
-}
-
-function _posPremRestoreScroll(idx, frame) {
-  try {
-    var doc = frame.contentDocument;
-    var panels = doc.querySelectorAll('.pp-panel');
-    var state = _posPremScrollState[idx] || {};
-    panels.forEach(function(panel) {
-      var key = (panel.id || '').replace('pp-panel-', '');
-      var box = panel.querySelector('.pp-matrix-scroll');
-      if (!key || !box) return;
-      var maxScroll = box.scrollWidth - box.clientWidth;
-      var saved = state[key];
-      if (!saved || saved.atEdge) {
-        // No prior state (first/manual load) — or the user was following
-        // the latest data — snap to the rightmost (most recent) column.
-        box.scrollLeft = maxScroll;
-      } else {
-        // User was looking at older data — keep them at the same spot
-        // (column width is fixed, so the same pixel offset lines up with
-        // the same columns; clamp in case the panel is now narrower).
-        box.scrollLeft = Math.min(saved.scrollLeft, Math.max(0, maxScroll));
-      }
-    });
-  } catch (e) {}
-}
-
 function _posPremShowContent(idx, html) {
   var salesEl   = document.getElementById('posprem-sales-' + idx);
   var lockEl    = document.getElementById('posprem-lock-' + idx);
@@ -2911,10 +2804,6 @@ function _posPremShowContent(idx, html) {
   if (!lockEl || !contentEl) return;
   lockEl.style.display = 'none';
   if (salesEl) salesEl.style.display = 'none';
-
-  // Grab the outgoing iframe's scroll position (if any) before it's
-  // replaced, so a refresh can restore it instead of resetting to the left.
-  _posPremCaptureScroll(idx);
 
   // Same seamless-iframe-via-blob-URL approach as Recommendations — preserves
   // full styling/scripts (the bundled tab switcher) without stripping <style>.
@@ -2943,12 +2832,10 @@ function _posPremShowContent(idx, html) {
 
   frame.onload = function() {
     _fitHeight();
-    _posPremRestoreScroll(idx, frame);
     URL.revokeObjectURL(url);
     try {
       frame.contentDocument.fonts.ready.then(function() {
         _fitHeight();
-        _posPremRestoreScroll(idx, frame);
         if (typeof ResizeObserver !== 'undefined') {
           new ResizeObserver(function() { _fitHeight(); }).observe(frame.contentDocument.documentElement);
         }
@@ -2956,8 +2843,6 @@ function _posPremShowContent(idx, html) {
     } catch(e) {
       setTimeout(_fitHeight, 300);
       setTimeout(_fitHeight, 1000);
-      setTimeout(function(){ _posPremRestoreScroll(idx, frame); }, 350);
-      setTimeout(function(){ _posPremRestoreScroll(idx, frame); }, 1050);
     }
   };
 
@@ -2978,14 +2863,10 @@ async function posPremUnlockInline(idx) {
     var dec = await _posPremDecryptFile(idx, pwd);
     localStorage.setItem('_of_pw_pos', pwd);
     _posPremShowContent(idx, dec);
-    _posPremRawHash[idx + '_init'] = true;  // baseline set — poll can now detect changes
     var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
     all.forEach(function(i) {
       if (i !== idx && !_posPremDecrypted[i]) {
-        _posPremDecryptFile(i, pwd).then(function(d) {
-          _posPremShowContent(i, d);
-          _posPremRawHash[i + '_init'] = true;
-        }).catch(function(){});
+        _posPremDecryptFile(i, pwd).then(function(d) { _posPremShowContent(i, d); }).catch(function(){});
       }
     });
   } catch(e) {
@@ -3062,10 +2943,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedPos) {
     all.forEach(function(idx) {
       _posPremDecryptFile(idx, savedPos)
-        .then(function(dec) {
-          _posPremRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
-          _posPremShowContent(idx, dec);
-        })
+        .then(function(dec) { _posPremShowContent(idx, dec); })
         .catch(function(e) {
           if (e.message === 'wrong') {
             localStorage.removeItem('_of_pw_pos');
