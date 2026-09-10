@@ -3033,15 +3033,34 @@ function _posPremRestoreScroll(idx, frame) {
     // Switch to the tab the user was actually on (works for both the
     // auto-refresh in-memory case and the manual/page-reload sessionStorage
     // fallback). Skip if it's already the default 'main' tab — nothing to do.
-    if (savedTab !== 'main' && typeof doc.defaultView.ppSwitchByKey === 'function') {
-      doc.defaultView.ppSwitchByKey(savedTab);
+    if (savedTab !== 'main') {
+      // Hand the matrix tables back their exact scroll position too (see
+      // the 'scroll' listener in _posPremShowContent's frame.onload, which
+      // keeps this sessionStorage entry current as the user drags). Only
+      // re-snap to the latest column if they were already at/near that
+      // edge before the refresh — otherwise a refresh would keep yanking
+      // them back to "now" while they're mid-review of older data.
+      var scrollState = null;
+      try {
+        var raw = sessionStorage.getItem('_of_posprem_scroll_' + idx + '_' + savedTab);
+        scrollState = raw ? JSON.parse(raw) : null;
+      } catch (e2) {}
+      if (typeof doc.defaultView.ppRestoreAfterRefresh === 'function') {
+        doc.defaultView.ppRestoreAfterRefresh(
+          savedTab,
+          scrollState ? scrollState.left : null,
+          scrollState ? !!scrollState.stuck : true
+        );
+      } else if (typeof doc.defaultView.ppSwitchByKey === 'function') {
+        doc.defaultView.ppSwitchByKey(savedTab); // fallback for older cached pages
+      }
     }
 
-    // Only reapply the exact zoom/pan on an auto-refresh — on a manual
-    // reload there's nothing saved to restore, and that's intentional: the
-    // panel comes up at its default fit-to-view, which (now that .zm-box
-    // shows the whole image by default) already means the latest column is
-    // visible without any panning needed.
+    // Only reapply the exact zoom/pan on an auto-refresh, and only for the
+    // Positioning Chart tab — that's the only one with a .zm-box now (the
+    // Call/Put/Net matrix tables scroll instead of zoom, and position
+    // themselves to the latest column on their own inside the iframe via
+    // ppSwitchByKey above, on both auto and manual refresh).
     if (isAutoRefresh && state.zoom && savedTab !== 'main') {
       var activePanel = doc.getElementById('pp-panel-' + savedTab);
       var box = activePanel && activePanel.querySelector('.zm-box');
@@ -3120,6 +3139,25 @@ function _posPremShowContent(idx, html) {
         var key = btn && btn.dataset && btn.dataset.key;
         if (key) sessionStorage.setItem('_of_posprem_tab_' + idx, key);
       });
+    } catch (e) {}
+    // Track the matrix tables' horizontal scroll position live (capture
+    // phase, since 'scroll' doesn't bubble) so a later refresh — auto or
+    // manual/page-reload — can tell whether the user was sitting at the
+    // latest column (re-snap on refresh) or had scrolled left to review
+    // older data (leave them exactly where they were). See
+    // _posPremRestoreScroll / ppRestoreAfterRefresh.
+    try {
+      frame.contentDocument.addEventListener('scroll', function(e) {
+        var el = e.target;
+        if (!el.classList || !el.classList.contains('pp-scroll')) return;
+        var panel = el.closest('.pp-panel');
+        var key = panel && (panel.id || '').replace('pp-panel-', '');
+        if (!key) return;
+        var maxLeft = el.scrollWidth - el.clientWidth;
+        var stuck = maxLeft <= 0 || (maxLeft - el.scrollLeft) <= 24;
+        sessionStorage.setItem('_of_posprem_scroll_' + idx + '_' + key,
+          JSON.stringify({ left: el.scrollLeft, stuck: stuck }));
+      }, true);
     } catch (e) {}
     try {
       frame.contentDocument.fonts.ready.then(function() {
