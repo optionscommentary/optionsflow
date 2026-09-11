@@ -541,6 +541,12 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 6px 6px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+  /* Call/Put/Net Probable-GEX matrix titles are long ("Call Probable GEX —
+     Strike (ATM ±10) × Time") and were clipping in the fixed-width gcard-hdr
+     row on narrow screens. Shrink the title text only on mobile — table/
+     scroll sizing is untouched. */
+  .gcard-title { font-size: 0.6rem; letter-spacing: 0.05em; }
+  .gcard-hdr { gap: 8px; padding: 8px 10px; }
   .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; }
   #footer-right { margin-left: 0 !important; text-align: center !important; width: 100%; }
   .foot-brand { margin-left: 0; text-align: center; }
@@ -874,7 +880,6 @@ body{
       <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('nifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
@@ -967,16 +972,7 @@ body{
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
       </div>
     </div>
-    <div id="sp-nifty-itmvex" class="stab-panel">
-      <div class="edu-box">
-        <h3>📈 ITM Vanna Exposure – NIFTY</h3>
-        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like Nifty can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
-        <p><strong>Why ITM VEX matters separately:</strong> Large institutional hedges often use deep ITM puts as portfolio protection. When implied volatility rises, those ITM puts become even more expensive, and dealers may need to adjust their hedges. This creates flows that are distinct from the ATM/OTM vanna shown in the main VEX chart. The ITM VEX chart isolates these deep‑in‑the‑money strikes so you can see whether the institutional hedging flow is adding or removing pressure.</p>
-        <p><strong>How to interpret ITM VEX:</strong> Positive ITM VEX in puts means dealers will sell the underlying if IV falls – this can amplify downward moves if the market is already weak. Negative ITM VEX in calls means dealers will buy the underlying if IV rises – providing support during volatility spikes. While ITM VEX is usually smaller in magnitude than ATM VEX, it should not be ignored when ITM open interest is unusually high (e.g., after a large market move).</p>
-        <p>Check this chart when you see large open interest in strikes that are 5% or more away from current spot. Those positions are likely held by institutions, and their hedge adjustments can create slow, persistent flows that last for days.</p>
-      </div>
-    </div>
-    <div id="sp-nifty-skew" class="stab-panel">
+        <div id="sp-nifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – NIFTY</h3>
         <p>In a perfect Black‑Scholes world, options at all strikes would have the same implied volatility. In reality, they never do. The pattern of IV across strikes – the volatility skew – is one of the most informative signals available. It tells you whether the market is worried about a crash (steep put skew), expecting a rally (call skew), or complacent (flat skew).</p>
@@ -1072,6 +1068,12 @@ body{
         <p><strong>Abnormal patterns to watch:</strong> If the surface is inverted (far‑term IV > near‑term IV), the market expects volatility to increase in the future – often before elections, RBI policy, or US Fed meetings. If there is a “kink” or bump at a specific expiry (e.g., the weekly expiry IV is much higher than the monthly), that expiry has an event priced in – trade that expiry accordingly. A flat surface (low IV everywhere) indicates complacency – historically, these periods are followed by volatility expansion.</p>
         <p><strong>How to use the vol surface:</strong> Before placing any options trade, check the surface to see if the expiry you are trading has anomalously high or low IV relative to adjacent expiries. If you are selling premium on a weekly expiry that has elevated IV for no obvious reason, you are being compensated for risk that may not materialise – a good trade. If you are buying options on an expiry with compressed IV, you have a volatility edge. The surface gives you that context instantly.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab volsurf-sub on" data-key="volsurfchart" onclick="switchVolsurfSub('nifty','volsurfchart',this)">Vol Surface</button>
+      <button class="stab volsurf-sub" data-key="atmiv" onclick="switchVolsurfSub('nifty','atmiv',this)">ATM Volatility</button>
+    </div>
+    <div id="sp-nifty-volsurfchart" class="stab-panel on"></div>
+    <div id="sp-nifty-atmiv" class="stab-panel"></div>
     </div>
     <div id="sp-nifty-analysis" class="stab-panel">
       <div class="edu-box">
@@ -1119,7 +1121,6 @@ body{
       <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('banknifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
@@ -1216,17 +1217,7 @@ body{
         <p><strong>BankNifty‑specific note:</strong> BankNifty options have higher theta (time decay), so the charm effect is stronger. In the final two days of expiry, CEX can create persistent directional pressure that overrides other signals. When CEX and GEX agree (both positive on calls, both negative on puts), the structural level is extremely reliable.</p>
       </div>
     </div>
-    <div id="sp-banknifty-itmvex" class="stab-panel">
-      <div class="edu-box">
-        <h3>📈 ITM Vanna Exposure – BANKNIFTY</h3>
-        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like BankNifty can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
-        <p><strong>Why ITM VEX matters separately:</strong> Large institutional hedges often use deep ITM puts as portfolio protection. When implied volatility rises, those ITM puts become even more expensive, and dealers may need to adjust their hedges. This creates flows that are distinct from the ATM/OTM vanna shown in the main VEX chart. The ITM VEX chart isolates these deep‑in‑the‑money strikes so you can see whether the institutional hedging flow is adding or removing pressure.</p>
-        <p><strong>How to interpret ITM VEX:</strong> Positive ITM VEX in puts means dealers will sell the underlying if IV falls – this can amplify downward moves if the market is already weak. Negative ITM VEX in calls means dealers will buy the underlying if IV rises – providing support during volatility spikes. While ITM VEX is usually smaller in magnitude than ATM VEX, it should not be ignored when ITM open interest is unusually high (e.g., after a large market move).</p>
-        <p>Check this chart when you see large open interest in strikes that are 5% or more away from current spot. Those positions are likely held by institutions, and their hedge adjustments can create slow, persistent flows that last for days.</p>
-        <p><strong>BankNifty‑specific note:</strong> BankNifty has a large institutional presence, and deep ITM puts are often used to hedge banking sector portfolios. The ITM VEX chart for BankNifty can therefore show significant values that are not visible in the main VEX chart. Pay attention to ITM VEX when BankNifty has moved sharply in one direction – the ITM options that were OTM become ITM, and their hedge adjustments create additional flows.</p>
-      </div>
-    </div>
-    <div id="sp-banknifty-skew" class="stab-panel">
+        <div id="sp-banknifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – BANKNIFTY</h3>
         <p>In a perfect Black‑Scholes world, options at all strikes would have the same implied volatility. In reality, they never do. The pattern of IV across strikes – the volatility skew – is one of the most informative signals available. It tells you whether the market is worried about a crash (steep put skew), expecting a rally (call skew), or complacent (flat skew).</p>
@@ -1327,6 +1318,12 @@ body{
         <p><strong>How to use the vol surface:</strong> Before placing any options trade, check the surface to see if the expiry you are trading has anomalously high or low IV relative to adjacent expiries. If you are selling premium on a weekly expiry that has elevated IV for no obvious reason, you are being compensated for risk that may not materialise – a good trade. If you are buying options on an expiry with compressed IV, you have a volatility edge. The surface gives you that context instantly.</p>
         <p><strong>BankNifty‑specific note:</strong> The BankNifty volatility surface is often steeper and more irregular than Nifty’s because of the different expiry schedule and the impact of banking‑sector news. You may see “kinks” at specific expiries that correspond to RBI policy dates or major bank earnings. The term structure is also more variable – BankNifty near‑term IV can spike dramatically before events and then collapse.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab volsurf-sub on" data-key="volsurfchart" onclick="switchVolsurfSub('banknifty','volsurfchart',this)">Vol Surface</button>
+      <button class="stab volsurf-sub" data-key="atmiv" onclick="switchVolsurfSub('banknifty','atmiv',this)">ATM Volatility</button>
+    </div>
+    <div id="sp-banknifty-volsurfchart" class="stab-panel on"></div>
+    <div id="sp-banknifty-atmiv" class="stab-panel"></div>
     </div>
     <div id="sp-banknifty-analysis" class="stab-panel">
       <div class="edu-box">
@@ -1375,7 +1372,6 @@ body{
       <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('sensex','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
@@ -1472,17 +1468,7 @@ body{
         <p><strong>Sensex‑specific note:</strong> Charm in Sensex behaves similarly to Nifty, but the effect is less pronounced because Sensex options have lower open interest. However, on monthly expiry day, the charm unwind can still be significant. Check Sensex CEX in the final 48 hours before expiry to understand whether there is systematic buying or selling pressure from time decay.</p>
       </div>
     </div>
-    <div id="sp-sensex-itmvex" class="stab-panel">
-      <div class="edu-box">
-        <h3>📈 ITM Vanna Exposure – SENSEX</h3>
-        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like Sensex can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
-        <p><strong>Why ITM VEX matters separately:</strong> Large institutional hedges often use deep ITM puts as portfolio protection. When implied volatility rises, those ITM puts become even more expensive, and dealers may need to adjust their hedges. This creates flows that are distinct from the ATM/OTM vanna shown in the main VEX chart. The ITM VEX chart isolates these deep‑in‑the‑money strikes so you can see whether the institutional hedging flow is adding or removing pressure.</p>
-        <p><strong>How to interpret ITM VEX:</strong> Positive ITM VEX in puts means dealers will sell the underlying if IV falls – this can amplify downward moves if the market is already weak. Negative ITM VEX in calls means dealers will buy the underlying if IV rises – providing support during volatility spikes. While ITM VEX is usually smaller in magnitude than ATM VEX, it should not be ignored when ITM open interest is unusually high (e.g., after a large market move).</p>
-        <p>Check this chart when you see large open interest in strikes that are 5% or more away from current spot. Those positions are likely held by institutions, and their hedge adjustments can create slow, persistent flows that last for days.</p>
-        <p><strong>Sensex‑specific note:</strong> ITM VEX in Sensex is rarely large, but when it appears, it often signals institutional activity. Deep ITM puts in Sensex are sometimes used as a hedge for large‑cap equity portfolios. A sudden increase in ITM put VEX may indicate that large players are adding downside protection – a bearish warning.</p>
-      </div>
-    </div>
-    <div id="sp-sensex-skew" class="stab-panel">
+        <div id="sp-sensex-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – SENSEX</h3>
         <p>In a perfect Black‑Scholes world, options at all strikes would have the same implied volatility. In reality, they never do. The pattern of IV across strikes – the volatility skew – is one of the most informative signals available. It tells you whether the market is worried about a crash (steep put skew), expecting a rally (call skew), or complacent (flat skew).</p>
@@ -1583,6 +1569,12 @@ body{
         <p><strong>How to use the vol surface:</strong> Before placing any options trade, check the surface to see if the expiry you are trading has anomalously high or low IV relative to adjacent expiries. If you are selling premium on a weekly expiry that has elevated IV for no obvious reason, you are being compensated for risk that may not materialise – a good trade. If you are buying options on an expiry with compressed IV, you have a volatility edge. The surface gives you that context instantly.</p>
         <p><strong>Sensex‑specific note:</strong> The Sensex vol surface is often smoother than Nifty’s because of fewer strikes and expiries. Look for term structure anomalies: if the 1‑month expiry has higher IV than the 2‑month, the market is pricing near‑term event risk. The surface can be rotated to see which strikes are most expensive – useful for identifying relative value trades between Sensex and Nifty options.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab volsurf-sub on" data-key="volsurfchart" onclick="switchVolsurfSub('sensex','volsurfchart',this)">Vol Surface</button>
+      <button class="stab volsurf-sub" data-key="atmiv" onclick="switchVolsurfSub('sensex','atmiv',this)">ATM Volatility</button>
+    </div>
+    <div id="sp-sensex-volsurfchart" class="stab-panel on"></div>
+    <div id="sp-sensex-atmiv" class="stab-panel"></div>
     </div>
     <div id="sp-sensex-analysis" class="stab-panel">
       <div class="edu-box">
@@ -1631,7 +1623,6 @@ body{
       <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('finnifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
@@ -1728,17 +1719,7 @@ body{
         <p><strong>FinNifty‑specific note:</strong> Charm in FinNifty is most noticeable on expiry day. Because FinNifty has weekly expiries (currently on Tuesdays), the charm unwind happens on Monday and Tuesday. Use CEX to understand whether the market is likely to be pulled toward a strike or pushed away. A large positive CEX on calls above spot is a strong resistance signal.</p>
       </div>
     </div>
-    <div id="sp-finnifty-itmvex" class="stab-panel">
-      <div class="edu-box">
-        <h3>📈 ITM Vanna Exposure – FINNIFTY</h3>
-        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like FinNifty can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
-        <p><strong>Why ITM VEX matters separately:</strong> Large institutional hedges often use deep ITM puts as portfolio protection. When implied volatility rises, those ITM puts become even more expensive, and dealers may need to adjust their hedges. This creates flows that are distinct from the ATM/OTM vanna shown in the main VEX chart. The ITM VEX chart isolates these deep‑in‑the‑money strikes so you can see whether the institutional hedging flow is adding or removing pressure.</p>
-        <p><strong>How to interpret ITM VEX:</strong> Positive ITM VEX in puts means dealers will sell the underlying if IV falls – this can amplify downward moves if the market is already weak. Negative ITM VEX in calls means dealers will buy the underlying if IV rises – providing support during volatility spikes. While ITM VEX is usually smaller in magnitude than ATM VEX, it should not be ignored when ITM open interest is unusually high (e.g., after a large market move).</p>
-        <p>Check this chart when you see large open interest in strikes that are 5% or more away from current spot. Those positions are likely held by institutions, and their hedge adjustments can create slow, persistent flows that last for days.</p>
-        <p><strong>FinNifty‑specific note:</strong> ITM VEX in FinNifty is rarely large, but when it appears, it often coincides with major financial sector news. Deep ITM puts are used by some hedge funds to protect against financial crises. A spike in ITM put VEX, even if small in absolute terms, should be taken seriously as a warning sign for the financial sector.</p>
-      </div>
-    </div>
-    <div id="sp-finnifty-skew" class="stab-panel">
+        <div id="sp-finnifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – FINNIFTY</h3>
         <p>In a perfect Black‑Scholes world, options at all strikes would have the same implied volatility. In reality, they never do. The pattern of IV across strikes – the volatility skew – is one of the most informative signals available. It tells you whether the market is worried about a crash (steep put skew), expecting a rally (call skew), or complacent (flat skew).</p>
@@ -1839,6 +1820,12 @@ body{
         <p><strong>How to use the vol surface:</strong> Before placing any options trade, check the surface to see if the expiry you are trading has anomalously high or low IV relative to adjacent expiries. If you are selling premium on a weekly expiry that has elevated IV for no obvious reason, you are being compensated for risk that may not materialise – a good trade. If you are buying options on an expiry with compressed IV, you have a volatility edge. The surface gives you that context instantly.</p>
         <p><strong>FinNifty‑specific note:</strong> The FinNifty vol surface is often bumpy due to lower liquidity. Look for “kinks” at strikes that are not round numbers – those may be anomalies caused by a single large trade. The term structure is usually downward sloping, but before RBI policy it can invert. Use the interactive surface to identify which expiry has the richest IV for selling premium.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab volsurf-sub on" data-key="volsurfchart" onclick="switchVolsurfSub('finnifty','volsurfchart',this)">Vol Surface</button>
+      <button class="stab volsurf-sub" data-key="atmiv" onclick="switchVolsurfSub('finnifty','atmiv',this)">ATM Volatility</button>
+    </div>
+    <div id="sp-finnifty-volsurfchart" class="stab-panel on"></div>
+    <div id="sp-finnifty-atmiv" class="stab-panel"></div>
     </div>
     <div id="sp-finnifty-analysis" class="stab-panel">
       <div class="edu-box">
@@ -1887,7 +1874,6 @@ body{
       <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="itmvex" onclick="switchStab('midcpnifty','itmvex',this)">RAW ITM VEX</button>
       <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
@@ -1984,17 +1970,7 @@ body{
         <p><strong>Midcap‑specific note:</strong> Charm in Midcap Nifty is less predictable because open interest is lower and positions are often held by retail traders rather than institutions. The charm effect may be less systematic. Use CEX only as a secondary check – if both Midcap and Nifty show positive CEX on calls, the selling pressure is likely real. If they diverge, trust the Nifty signal.</p>
       </div>
     </div>
-    <div id="sp-midcpnifty-itmvex" class="stab-panel">
-      <div class="edu-box">
-        <h3>📈 ITM Vanna Exposure – MIDCAP NIFTY</h3>
-        <p>While Vanna is most often discussed for out‑of‑the‑money options, in‑the‑money (ITM) options also have significant vanna exposure – and their behaviour is different. ITM options have deltas close to 1 (for calls) or -1 (for puts). Their vanna is much smaller than ATM options, but the sheer size of ITM open interest in indices like Midcap Nifty can make ITM VEX meaningful, especially near expiry when ITM options are exercised or rolled.</p>
-        <p><strong>Why ITM VEX matters separately:</strong> Large institutional hedges often use deep ITM puts as portfolio protection. When implied volatility rises, those ITM puts become even more expensive, and dealers may need to adjust their hedges. This creates flows that are distinct from the ATM/OTM vanna shown in the main VEX chart. The ITM VEX chart isolates these deep‑in‑the‑money strikes so you can see whether the institutional hedging flow is adding or removing pressure.</p>
-        <p><strong>How to interpret ITM VEX:</strong> Positive ITM VEX in puts means dealers will sell the underlying if IV falls – this can amplify downward moves if the market is already weak. Negative ITM VEX in calls means dealers will buy the underlying if IV rises – providing support during volatility spikes. While ITM VEX is usually smaller in magnitude than ATM VEX, it should not be ignored when ITM open interest is unusually high (e.g., after a large market move).</p>
-        <p>Check this chart when you see large open interest in strikes that are 5% or more away from current spot. Those positions are likely held by institutions, and their hedge adjustments can create slow, persistent flows that last for days.</p>
-        <p><strong>Midcap‑specific note:</strong> ITM VEX in Midcap Nifty is rarely significant because ITM options are thinly traded. Ignore small readings. Only pay attention if ITM VEX exceeds 50 crores – that indicates institutional activity. In that case, cross‑reference with the underlying midcap stocks to understand the driver.</p>
-      </div>
-    </div>
-    <div id="sp-midcpnifty-skew" class="stab-panel">
+        <div id="sp-midcpnifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – MIDCAP NIFTY</h3>
         <p>In a perfect Black‑Scholes world, options at all strikes would have the same implied volatility. In reality, they never do. The pattern of IV across strikes – the volatility skew – is one of the most informative signals available. It tells you whether the market is worried about a crash (steep put skew), expecting a rally (call skew), or complacent (flat skew).</p>
@@ -2095,6 +2071,12 @@ body{
         <p><strong>How to use the vol surface:</strong> Before placing any options trade, check the surface to see if the expiry you are trading has anomalously high or low IV relative to adjacent expiries. If you are selling premium on a weekly expiry that has elevated IV for no obvious reason, you are being compensated for risk that may not materialise – a good trade. If you are buying options on an expiry with compressed IV, you have a volatility edge. The surface gives you that context instantly.</p>
         <p><strong>Midcap‑specific note:</strong> The Midcap Nifty vol surface is often incomplete because not all strikes and expiries have traded options. You may see missing points or jagged edges. Focus on the ATM and near‑ATM region – those are the only reliable areas. The far OTM wings are often not meaningful due to lack of liquidity.</p>
       </div>
+    <div class="sub-tabs" style="margin-top:14px;margin-bottom:0;">
+      <button class="stab volsurf-sub on" data-key="volsurfchart" onclick="switchVolsurfSub('midcpnifty','volsurfchart',this)">Vol Surface</button>
+      <button class="stab volsurf-sub" data-key="atmiv" onclick="switchVolsurfSub('midcpnifty','atmiv',this)">ATM Volatility</button>
+    </div>
+    <div id="sp-midcpnifty-volsurfchart" class="stab-panel on"></div>
+    <div id="sp-midcpnifty-atmiv" class="stab-panel"></div>
     </div>
     <div id="sp-midcpnifty-analysis" class="stab-panel">
       <div class="edu-box">
@@ -2219,10 +2201,10 @@ function toggleTheme(){
   });
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS = ['oi','gex','vex','cex','itmvex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
-const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp',itmvex:'itm_vex', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',probmain:'prob', probcall:'prob_call_matrix', probput:'prob_put_matrix', probnet:'prob_net_matrix', volsurf:'vol_surface'};
-const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios',itmvex:'ITM Vanna Exposure', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',probmain:'Probable Positioning Analysis',probcall:'Call Probable GEX — Strike (ATM ±10) × Time',probput:'Put Probable GEX — Strike (ATM ±10) × Time',probnet:'Net Probable GEX — Strike (ATM ±10) × Time',volsurf:'Implied Volatility Surface'};
-const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', itmvex:'In-The-Money Strikes', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',probmain:'GEX + Candles · PCR + OI Synthesised',probcall:'₹ Cr',probput:'₹ Cr',probnet:'₹ Cr',volsurf:''};
+const STABS = ['oi','gex','vex','cex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
+const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',probmain:'prob', probcall:'prob_call_matrix', probput:'prob_put_matrix', probnet:'prob_net_matrix', volsurfchart:'vol_surface', atmiv:'atm_iv_table'};
+const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',probmain:'Probable Positioning Analysis',probcall:'Call Probable GEX — Strike (ATM ±10) × Time',probput:'Put Probable GEX — Strike (ATM ±10) × Time',probnet:'Net Probable GEX — Strike (ATM ±10) × Time',volsurfchart:'Implied Volatility Surface',atmiv:'ATM Volatility'};
+const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',probmain:'GEX + Candles · PCR + OI Synthesised',probcall:'₹ Cr',probput:'₹ Cr',probnet:'₹ Cr',volsurfchart:'',atmiv:'Synthetic Futures ATM · Call +1/+2% · Put -1/-2%'};
 const cache = {};
 const _dataCache = {};
 function tick(){
@@ -2294,10 +2276,15 @@ function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf];
   if(!fn) return `<div class="empty"><p style="font-size:.8rem">Chart not available.<br><span style="font-size:.72rem;color:var(--t3)">Re-run GEXMA to regenerate plots.</span></p></div>`;
-  if(key==='volsurf'){
+  if(key==='volsurfchart'){
     const ts = data?.timestamp_iso ? new Date(data.timestamp_iso).getTime() : Date.now();
     const src = `data/${idx}/${fn}?t=${ts}`;
     return `<div class="gcard vol-surface-card"><div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)"><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">Implied Volatility Surface</span><a href="${src}" target="_blank" rel="noopener" style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a></div><div class="vol-surface-wrap"><iframe src="${src}" class="vol-surface-frame" loading="lazy" title="Volatility Surface"></iframe></div></div>`;
+  }
+  if(key==='atmiv'){
+    const ts = data?.timestamp_iso ? new Date(data.timestamp_iso).getTime() : Date.now();
+    const src = `data/${idx}/${fn}?t=${ts}`;
+    return `<div class="gcard vol-surface-card"><div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)"><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">ATM Volatility (Synthetic Futures)</span><a href="${src}" target="_blank" rel="noopener" style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ FULL SCREEN</a></div><div class="vol-surface-wrap"><iframe src="${src}" class="vol-surface-frame" loading="lazy" title="ATM Volatility"></iframe></div></div>`;
   }
   const src=`data/${idx}/${fn}?t=${(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12)||Math.floor(Date.now()/1800000)}`;
   return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div><img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:auto"></div>`;
@@ -2376,7 +2363,7 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  const activeKeys = ['oi','gex','vex','cex','itmvex','skew','pcrtable','pcrhist','topgex','totalgex','probmain','probcall','probput','probnet','volsurf'];
+  const activeKeys = ['oi','gex','vex','cex','skew','pcrtable','pcrhist','topgex','totalgex','probmain','probcall','probput','probnet','volsurfchart','atmiv'];
   activeKeys.forEach(key=>{
     const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
@@ -2418,7 +2405,7 @@ function switchStab(idx, key, btn){
   if(!panel) return;
   // Close all collapsible edu-boxes whenever a stab switch happens
   panel.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
-  panel.querySelectorAll('.stab:not(.pcr-sub):not(.prob-sub)').forEach(b=>b.classList.remove('on'));
+  panel.querySelectorAll('.stab:not(.pcr-sub):not(.prob-sub):not(.volsurf-sub)').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
   STABS.forEach(k=>{
     const sp = document.getElementById(`sp-${idx}-${k}`);
@@ -2456,6 +2443,34 @@ function switchPcrSub(idx, sub, btn){
   const hist  = document.getElementById(`sp-${idx}-pcrhist`);
   if(table) table.classList.toggle('on', sub === 'pcrtable');
   if(hist)  hist.classList.toggle('on', sub === 'pcrhist');
+  const sp = document.getElementById(`sp-${idx}-${sub}`);
+  if(sp && sp.dataset.stale === '1'){
+    sp.dataset.stale = '0';
+    const d = _dataCache[idx];
+    const existingChart = sp.querySelector('.gcard');
+    if(existingChart) existingChart.remove();
+    if(d){
+      const chartDiv = document.createElement('div');
+      chartDiv.innerHTML = chartHtml(idx, d, sub);
+      sp.appendChild(chartDiv.firstElementChild);
+      sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
+    } else {
+      const emptyDiv = document.createElement('div');
+      emptyDiv.innerHTML = EMPTY;
+      sp.appendChild(emptyDiv.firstElementChild);
+    }
+  }
+}
+function switchVolsurfSub(idx, sub, btn){
+  sessionStorage.setItem('_of_volsurfsub_' + idx, sub);
+  const wrap = document.getElementById(`sp-${idx}-volsurf`);
+  if(!wrap) return;
+  wrap.querySelectorAll('.stab.volsurf-sub').forEach(b=>b.classList.remove('on'));
+  btn?.classList.add('on');
+  ['volsurfchart','atmiv'].forEach(k=>{
+    const el = document.getElementById(`sp-${idx}-${k}`);
+    if(el) el.classList.toggle('on', k === sub);
+  });
   const sp = document.getElementById(`sp-${idx}-${sub}`);
   if(sp && sp.dataset.stale === '1'){
     sp.dataset.stale = '0';
@@ -2678,6 +2693,11 @@ function _refreshDataAndPremium() {
 
 updateTickers();
 setInterval(updateTickers, 30000);
+// Fire the full data/premium refresh immediately too (not just after the
+// first 30s tick) so it starts in lockstep with the ticker refresh above —
+// keeps price pills and chart/data refresh moving together on the same
+// cadence on both mobile and desktop instead of drifting out of phase.
+_refreshDataAndPremium();
 setInterval(_refreshDataAndPremium, 30000);
 
 // Simple non-crypto hash to detect premium.html file changes between polls
@@ -3049,26 +3069,17 @@ function _posPremRestoreScroll(idx, frame) {
     // Switch to the tab the user was actually on (works for both the
     // auto-refresh in-memory case and the manual/page-reload sessionStorage
     // fallback). Skip if it's already the default 'main' tab — nothing to do.
+    //
+    // This function only ever runs when the underlying content actually
+    // changed (see the hash-check gate in _refreshDataAndPremium — an idle
+    // 30s poll with no new data never calls this at all, so the scroller
+    // is untouched then) or on first load / manual page refresh. In every
+    // case where it DOES run, land on the latest column — new data (or a
+    // fresh manual refresh) should always surface the newest snapshot; the
+    // person can still scroll left themselves afterwards whenever they want.
     if (savedTab !== 'main') {
-      // Hand the matrix tables back their exact scroll position too (see
-      // the 'scroll' listener in _posPremShowContent's frame.onload, which
-      // keeps this sessionStorage entry current as the user drags). Only
-      // re-snap to the latest column if they were already at/near that
-      // edge before the refresh — otherwise a refresh would keep yanking
-      // them back to "now" while they're mid-review of older data.
-      var scrollState = null;
-      try {
-        var raw = sessionStorage.getItem('_of_posprem_scroll_' + idx + '_' + savedTab);
-        scrollState = raw ? JSON.parse(raw) : null;
-      } catch (e2) {}
-      if (typeof doc.defaultView.ppRestoreAfterRefresh === 'function') {
-        doc.defaultView.ppRestoreAfterRefresh(
-          savedTab,
-          scrollState ? scrollState.left : null,
-          scrollState ? !!scrollState.stuck : true
-        );
-      } else if (typeof doc.defaultView.ppSwitchByKey === 'function') {
-        doc.defaultView.ppSwitchByKey(savedTab); // fallback for older cached pages
+      if (typeof doc.defaultView.ppSwitchByKey === 'function') {
+        doc.defaultView.ppSwitchByKey(savedTab);
       }
     }
 
@@ -3267,6 +3278,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedProbSub && savedProbSub !== 'probmain') {
     var prbtn = document.querySelector('#sp-' + activeIdx + '-prob .stab.prob-sub[data-key="' + savedProbSub + '"]');
     if (prbtn) switchProbSub(activeIdx, savedProbSub, prbtn);
+  }
+  var savedVolsurfSub = sessionStorage.getItem('_of_volsurfsub_' + activeIdx);
+  if (savedVolsurfSub && savedVolsurfSub !== 'volsurfchart') {
+    var vsbtn = document.querySelector('#sp-' + activeIdx + '-volsurf .stab.volsurf-sub[data-key="' + savedVolsurfSub + '"]');
+    if (vsbtn) switchVolsurfSub(activeIdx, savedVolsurfSub, vsbtn);
   }
 
   // ── Auto-unlock premium if password saved ──
