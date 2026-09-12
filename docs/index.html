@@ -2804,10 +2804,11 @@ async function premUnlockInline(idx) {
     if (errEl) {
       var msg = e.message;
       errEl.textContent =
-        msg === 'wrong'    ? '❌ Incorrect password. Contact us on WhatsApp if you need help.' :
-        msg === 'fetch'    ? '⚠ Recommendation file not found. Run GEXMA analysis first.' :
-        msg === 'noCrypto' ? '⚠ Decryption library failed to load. Check your internet connection and refresh.' :
-                             '⚠ Could not load recommendation. Check your connection and try again.';
+        msg === 'wrong'         ? '❌ Incorrect password. Contact us on WhatsApp if you need help.' :
+        msg === 'fetch'         ? '⚠ Recommendation file not found. Run GEXMA analysis first.' :
+        msg === 'noCrypto'      ? '⚠ Decryption library failed to load. Check your internet connection and refresh.' :
+        msg === 'noSubscribers' ? '⚠ No active subscriber passwords are configured on the server for this tab yet.' :
+                                   '⚠ Could not load recommendation. Check your connection and try again.';
       errEl.style.display = 'block';
     }
     var inp = document.getElementById('pw-inline-' + idx);
@@ -2826,7 +2827,15 @@ async function _premDecryptFile(idx, pwd) {
   _premRawHash[idx] = _premHash(text);   // store baseline for change detection
 
   var dm = text.match(/const DATA = (\{[\s\S]*?\});/);
-  if (!dm) throw new Error('format');
+  if (!dm) {
+    // The generator writes this exact fallback page (no `const DATA` block
+    // at all) when the passwords file it reads from has zero active rows —
+    // i.e. premium_passwords_recom.txt is empty / all-placeholder / not
+    // found next to GEXMA.py. That's indistinguishable from a real fetch
+    // problem unless we spot the fallback's own wording here.
+    if (/no active premium passwords/i.test(text)) throw new Error('noSubscribers');
+    throw new Error('format');
+  }
   var DATA;
   try { DATA = JSON.parse(dm[1]); } catch (e) { throw new Error('format'); }
   if (!DATA.content || !DATA.keys || !DATA.keys.length) throw new Error('format');
@@ -2968,7 +2977,10 @@ async function _posPremDecryptFile(idx, pwd) {
   _posPremRawHash[idx] = _premHash(text);  // store baseline for change detection
 
   var dm = text.match(/const DATA = (\{[\s\S]*?\});/);
-  if (!dm) throw new Error('format');
+  if (!dm) {
+    if (/no active premium passwords/i.test(text)) throw new Error('noSubscribers');
+    throw new Error('format');
+  }
   var DATA;
   try { DATA = JSON.parse(dm[1]); } catch (e) { throw new Error('format'); }
   if (!DATA.content || !DATA.keys || !DATA.keys.length) throw new Error('format');
@@ -3234,10 +3246,11 @@ async function posPremUnlockInline(idx) {
     if (errEl) {
       var msg = e.message;
       errEl.textContent =
-        msg === 'wrong'    ? '❌ Incorrect password. Contact us on WhatsApp if you need help.' :
-        msg === 'fetch'    ? '⚠ Positioning file not found. Run GEXMA analysis first.' :
-        msg === 'noCrypto' ? '⚠ Decryption library failed to load. Check your internet connection and refresh.' :
-                             '⚠ Could not load Probable Positioning. Check your connection and try again.';
+        msg === 'wrong'         ? '❌ Incorrect password. Contact us on WhatsApp if you need help.' :
+        msg === 'fetch'         ? '⚠ Positioning file not found. Run GEXMA analysis first.' :
+        msg === 'noCrypto'      ? '⚠ Decryption library failed to load. Check your internet connection and refresh.' :
+        msg === 'noSubscribers' ? '⚠ No active subscriber passwords are configured on the server for this tab yet.' :
+                                   '⚠ Could not load Probable Positioning. Check your connection and try again.';
       errEl.style.display = 'block';
     }
     var inp = document.getElementById('pw-inline-pos-' + idx);
