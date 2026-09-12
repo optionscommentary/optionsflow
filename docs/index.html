@@ -2697,7 +2697,13 @@ setInterval(updateTickers, 30000);
 // first 30s tick) so it starts in lockstep with the ticker refresh above —
 // keeps price pills and chart/data refresh moving together on the same
 // cadence on both mobile and desktop instead of drifting out of phase.
-_refreshDataAndPremium();
+// Deferred via setTimeout(...,0) rather than called directly: this function
+// reads _posPremDecrypted / _posPremRawHash, which are declared further
+// down in this same script (after this point) and are still `undefined`
+// if called synchronously here. setTimeout pushes the call to right after
+// the whole script has finished running once, by which point everything
+// below is initialised.
+setTimeout(_refreshDataAndPremium, 0);
 setInterval(_refreshDataAndPremium, 30000);
 
 // Simple non-crypto hash to detect premium.html file changes between polls
