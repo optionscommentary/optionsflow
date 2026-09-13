@@ -3489,6 +3489,12 @@ function _volsurfPremShowContent(idx, volHtml, atmHtml) {
     frame.src           = url;
     frame.loading       = 'lazy';
     frame.title         = title;
+    // 'vol-surface-frame' is what lets the mobile CSS (@media max-width:760px)
+    // give this iframe a fixed 680px width inside a horizontally-scrollable
+    // '.vol-surface-wrap' — without this class the iframe only had the
+    // inline width:100% below, so on a narrow phone screen it just squeezed
+    // to full width with no way to scroll, cutting off the surface/legend.
+    frame.className      = 'vol-surface-frame';
     frame.style.cssText = 'width:100%;height:' + heightPx + 'px;border:none;background:var(--bg)';
     frame.onload        = function() { URL.revokeObjectURL(url); };
 
