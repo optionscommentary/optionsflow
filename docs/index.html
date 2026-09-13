@@ -2482,7 +2482,15 @@ function renderIndex(idx, data){
     } else { pills.innerHTML=''; }
   }
   if(data) _dataCache[idx] = data;
-  const activeKeys = ['oi','gex','vex','cex','skew','pcrtable','pcrhist','topgex','totalgex','probmain','probcall','probput','probnet','volsurfchart','atmiv'];
+  // volsurfchart/atmiv are intentionally NOT in this list. Their content is
+  // premium-gated and owned exclusively by _volsurfPremShowContent (see the
+  // vol-surface premium decrypt flow below) — never generated from the raw
+  // plot manifest via chartHtml(). Including them here used to wipe the
+  // decrypted iframe on every 30s poll and replace it with "chart not
+  // available" (since the plain vol_surface_*.html/atm_iv_table.html files
+  // are deliberately never published), which is why the chart appeared to
+  // "disappear and reload" whenever a refresh landed while that tab was open.
+  const activeKeys = ['oi','gex','vex','cex','skew','pcrtable','pcrhist','topgex','totalgex','probmain','probcall','probput','probnet'];
   activeKeys.forEach(key=>{
     const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
@@ -2586,27 +2594,14 @@ function switchVolsurfSub(idx, sub, btn){
   if(!wrap) return;
   wrap.querySelectorAll('.stab.volsurf-sub').forEach(b=>b.classList.remove('on'));
   btn?.classList.add('on');
+  // Just toggle which panel is visible. Content for both panels is injected
+  // once by _volsurfPremShowContent (on unlock) and refreshed in place by
+  // the hash-checked poll in _refreshDataAndPremium — never rebuilt here,
+  // so switching tabs is instant instead of re-fetching/re-decrypting.
   ['volsurfchart','atmiv'].forEach(k=>{
     const el = document.getElementById(`sp-${idx}-${k}`);
     if(el) el.classList.toggle('on', k === sub);
   });
-  const sp = document.getElementById(`sp-${idx}-${sub}`);
-  if(sp && sp.dataset.stale === '1'){
-    sp.dataset.stale = '0';
-    const d = _dataCache[idx];
-    const existingChart = sp.querySelector('.gcard');
-    if(existingChart) existingChart.remove();
-    if(d){
-      const chartDiv = document.createElement('div');
-      chartDiv.innerHTML = chartHtml(idx, d, sub);
-      sp.appendChild(chartDiv.firstElementChild);
-      sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
-    } else {
-      const emptyDiv = document.createElement('div');
-      emptyDiv.innerHTML = EMPTY;
-      sp.appendChild(emptyDiv.firstElementChild);
-    }
-  }
 }
 function switchProbSub(idx, sub, btn){
   sessionStorage.setItem('_of_probsub_' + idx, sub);
@@ -2807,8 +2802,30 @@ function _refreshDataAndPremium() {
         })
         .catch(function() {});
     }
+
+    // ── Premium Vol Surface / ATM IV refresh (shares Positioning's password) ──
+    // Previously there was no refresh path for these two at all — once
+    // unlocked they never updated again until a full page reload re-ran the
+    // DOMContentLoaded auto-unlock. Only runs once already unlocked for this
+    // index, and only re-injects via _volsurfPremShowContent — this must
+    // NEVER touch the panel through the free chartHtml()/activeKeys path.
+    if (pwdPos && _volsurfDecrypted[idx]) {
+      Promise.all([
+        fetch('data/' + idx + '/premium_volsurface.html?t=' + Date.now()).then(function(r) { return r.ok ? r.text() : null; }),
+        fetch('data/' + idx + '/premium_atmiv.html?t=' + Date.now()).then(function(r) { return r.ok ? r.text() : null; })
+      ]).then(function(texts) {
+        var volText = texts[0], atmText = texts[1];
+        if (!volText || !atmText) return;
+        var h = _premHash(volText + atmText);
+        if (h === _volsurfRawHash[idx]) return;   // unchanged — nothing to do
+        _volsurfRawHash[idx] = h;
+        delete _volsurfDecrypted[idx];             // clear cache — force re-decrypt below
+        volsurfPremUnlockInline(idx, pwdPos).catch(function(){});
+      }).catch(function() {});
+    }
   });
 }
+var _volsurfRawHash = {};  // change-detection hash for premium_volsurface.html + premium_atmiv.html, keyed by idx
 
 updateTickers();
 setInterval(updateTickers, 30000);
