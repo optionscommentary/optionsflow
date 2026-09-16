@@ -592,6 +592,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
      row on narrow screens. Shrink the title text only on mobile — table/
      scroll sizing is untouched. */
   .gcard-title { font-size: 0.6rem; letter-spacing: 0.05em; }
+  /* Call/Put/Net Probable-GEX matrix titles specifically, further shrunk per
+     explicit request — scoped to .gcard-title-probgex only, mobile only, so
+     every other chart card's title keeps the 0.6rem size set just above. */
+  .gcard-title-probgex { font-size: 0.2rem; }
   .gcard-hdr { gap: 8px; padding: 8px 10px; }
   .footer { padding: 14px 10px; flex-direction: column; align-items: center; gap: 12px; }
   #footer-right { margin-left: 0 !important; text-align: center !important; width: 100%; }
@@ -2437,7 +2441,9 @@ function chartHtml(idx, data, key){
     return `<div class="gcard vol-surface-card"><div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)"><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">ATM Volatility (Synthetic Futures)</span>${_fsBtnHtml()}<a href="${src}" target="_blank" rel="noopener" style="margin-left:8px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ OPEN RAW</a></div><div class="vol-surface-wrap"><iframe src="${src}" class="vol-surface-frame" loading="lazy" title="ATM Volatility"></iframe></div></div>`;
   }
   const src=`data/${idx}/${fn}?t=${(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12)||Math.floor(Date.now()/1800000)}`;
-  return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div><img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:auto"></div>`;
+  const isProbGexMatrix = (key==='probcall'||key==='probput'||key==='probnet');
+  const titleCls = isProbGexMatrix ? 'gcard-title gcard-title-probgex' : 'gcard-title';
+  return `<div class="gcard"><div class="gcard-hdr"><span class="${titleCls}">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div><img src="${src}" alt="${CHART_TITLE[key]||key}" style="width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:auto"></div>`;
 }
 function analysisHtml(idx, data){
   if(!data) return EMPTY;
