@@ -130,16 +130,16 @@
   white-space: normal !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
-  position: relative;
-  animation: premiumTwinkle 2.2s ease-in-out infinite;
-}
-@keyframes premiumTwinkle {
-  0%, 100% { text-shadow: 0 0 3px rgba(255,215,0,0.25); }
-  50%      { text-shadow: 0 0 8px rgba(255,215,0,0.95), 0 0 16px rgba(255,215,0,0.55); }
 }
 [data-theme="light"] .stab-premium { color: #B8860B !important; }
+.stab-lock {
+  display: inline;
+  font-size: 0.72rem;
+  line-height: 1;
+  margin-right: 4px;
+}
+.stab-premium.unlocked .stab-lock { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  .stab-premium { animation: none; }
   .prem-price-card.prem-mentor { animation: none; }
 }
 /* Higher specificity than either .stab-prob or .stab-premium alone, so the
@@ -157,8 +157,8 @@
   background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.02));
   border: 1px solid rgba(255,215,0,0.5);
   border-radius: 12px;
-  padding: 12px 20px;
-  margin: 16px 0 12px 0;
+  padding: 8px 18px;
+  margin: 8px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -180,14 +180,14 @@
   flex-wrap: wrap;
 }
 .premium-callout-icon {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   filter: drop-shadow(0 0 4px rgba(255,215,0,0.4));
   display: inline-flex;
   align-items: center;
 }
 .premium-callout-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   stroke-width: 2;
   fill: none;
 }
@@ -388,7 +388,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .theme-btn { display: flex; align-items: center; gap: 6px; padding: 5px 13px; background: var(--raised); border: 1px solid var(--border-lit); border-radius: 6px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; color: var(--t2); transition: all 0.18s; white-space: nowrap; font-weight: 600; }
 .theme-btn:hover { color: var(--t1); border-color: var(--accent); }
 
-#main { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; }
+#main { flex: 1; padding: 12px 24px; display: flex; flex-direction: column; }
+/* Hero intro — full-size, readable text; the vertical room it needs is
+   reclaimed from the padding/margins around it (below) rather than from
+   shrinking the type, so the tabs + Premium Probable Positioning still
+   land above the fold on first paint. */
+.hero-intro { max-width: 1080px; margin: 0 auto 10px; padding: 0 24px; }
+.hero-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; line-height: 1.22; color: var(--t1); margin-bottom: 8px; }
+.hero-desc { font-size: 0.98rem; line-height: 1.55; color: var(--t2); max-width: 720px; }
 .tabs-bar { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: var(--topbar); z-index: 800; margin: 0 -24px; padding: 0 0 0 24px; overflow: hidden; }
 .tabs-scroll { display: flex; flex: 1; overflow-x: auto; scrollbar-width: none; min-width: 0; }
 .tabs-scroll::-webkit-scrollbar { display: none; }
@@ -399,18 +406,18 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .idx-panel { display: none; }
 .idx-panel.on { display: block; }
 
-.pills { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 16px; }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 8px; }
 .pill { background: var(--raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; transition: background 0.15s; }
 .pill:hover { background: var(--hover); }
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 3px; font-weight: 700; }
 .pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--t1); }
 
-.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 14px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .sub-tabs::-webkit-scrollbar { height: 3px; }
 .sub-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .stab {
   padding: 6px 8px;
-  min-height: 58px;
+  min-height: 44px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem;
   font-weight: 700;
@@ -437,6 +444,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .stab:hover { background: var(--hover); color: var(--t2); }
 .stab.on { background: var(--raised); color: var(--accent); border-bottom-color: var(--accent); }
 .stab-prob { color: var(--prob-color) !important; }
+/* PCR's label is short enough that its content-sized tab was noticeably
+   narrower than its neighbours (e.g. RAW GEX); give it the same floor
+   width so it visually matches without affecting any other tab. */
+.stab[data-key="pcr"] { min-width: 70px; }
 .stab-volsurf { color: var(--volsurf-color) !important; }
 .stab-synopsis { color: var(--synopsis-color) !important; }
 .stab-vol { color: #4DD0E1 !important; }
@@ -553,7 +564,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 * { scrollbar-width: auto; scrollbar-color: var(--border-lit) transparent; }
 
 @media (max-width: 760px) {
-  #main { padding: 10px; }
+  #main { padding: 8px; }
+  .hero-intro { margin: 0 auto 6px; padding: 0 2px; }
+  .hero-title { font-size: 1.25rem; margin-bottom: 5px; }
+  .hero-desc { font-size: 0.85rem; line-height: 1.45; }
   .contact-strip { display: none; }
   #topbar { padding: 0 6px; height: auto; min-height: 52px; overflow: hidden; }
   .tb-brand { font-size: 0.8rem; padding-right: 8px; gap: 5px; flex-shrink: 0; }
@@ -583,7 +597,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     display: block;
     margin: 0 !important;
   }
-  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 12px -10px 0; padding: 0 10px; }
+  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 8px -10px 0; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 6px 6px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
@@ -869,11 +883,11 @@ body{
 
 <div id="main">
 
-  <div style="max-width:1080px;margin:0 auto 32px;padding:0 24px;">
-    <h1 style="font-family:'Syne',sans-serif;font-size:2.1rem;line-height:1.2;color:var(--t1);margin-bottom:16px;">
+  <div class="hero-intro">
+    <h1 class="hero-title">
       Free Real-Time Options Flow Dashboard — NIFTY, BankNIFTY, Sensex, FinNIFTY &amp; Midcap
     </h1>
-    <p style="font-size:1.05rem;line-height:1.65;color:var(--t2);max-width:720px;">
+    <p class="hero-desc">
       Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow analytics, volatility skew and implied volatility surface — all updated live from NSE and BSE option chain data for all major indices. 
       Designed for serious Indian options traders who want to understand the <strong>structural forces</strong> behind price movement.
     </p>
@@ -921,8 +935,8 @@ body{
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','nifty');">VIEW NOW →</button>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('nifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
-      <button class="stab on" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('nifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor (LCSP)</button>
       <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
@@ -930,9 +944,9 @@ body{
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('nifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)">&#9670; Volatility Surface</button>
+      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-nifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -982,7 +996,7 @@ body{
   </div>
 </div>
     
-    <div id="sp-nifty-oi" class="stab-panel on">
+    <div id="sp-nifty-oi" class="stab-panel">
       <details class="edu-box edu-collapsible">
         <summary>📊 Understanding the GEX OI Monitor (NIFTY)</summary>
         <div class="edu-body">
@@ -1062,7 +1076,7 @@ body{
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-nifty-prob" class="stab-panel">
+    <div id="sp-nifty-prob" class="stab-panel on">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – NIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike by analysing how open interest has been building over recent snapshots, combined with changes in implied volatility and moneyness.</p>
@@ -1179,8 +1193,8 @@ body{
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','banknifty');">VIEW NOW →</button>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('banknifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
-      <button class="stab on" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('banknifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor (LCSP)</button>
       <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
@@ -1188,9 +1202,9 @@ body{
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('banknifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)">&#9670; Volatility Surface</button>
+      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-banknifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1240,7 +1254,7 @@ body{
   </div>
 </div>
     
-    <div id="sp-banknifty-oi" class="stab-panel on">
+    <div id="sp-banknifty-oi" class="stab-panel">
       <details class="edu-box edu-collapsible">
         <summary>📊 Understanding the GEX OI Monitor (BANKNIFTY)</summary>
         <div class="edu-body">
@@ -1327,7 +1341,7 @@ body{
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-banknifty-prob" class="stab-panel">
+    <div id="sp-banknifty-prob" class="stab-panel on">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – BANKNIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike by analysing how open interest has been building over recent snapshots, combined with changes in implied volatility and moneyness.</p>
@@ -1447,8 +1461,8 @@ body{
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','sensex');">VIEW NOW →</button>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('sensex','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
-      <button class="stab on" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('sensex','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor (LCSP)</button>
       <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
@@ -1456,9 +1470,9 @@ body{
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('sensex','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)">&#9670; Volatility Surface</button>
+      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-sensex-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1508,7 +1522,7 @@ body{
   </div>
 </div>
     
-    <div id="sp-sensex-oi" class="stab-panel on">
+    <div id="sp-sensex-oi" class="stab-panel">
       <details class="edu-box edu-collapsible">
         <summary>📊 Understanding the GEX OI Monitor (SENSEX)</summary>
         <div class="edu-body">
@@ -1595,7 +1609,7 @@ body{
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-sensex-prob" class="stab-panel">
+    <div id="sp-sensex-prob" class="stab-panel on">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – SENSEX</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike by analysing how open interest has been building over recent snapshots, combined with changes in implied volatility and moneyness.</p>
@@ -1715,8 +1729,8 @@ body{
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','finnifty');">VIEW NOW →</button>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('finnifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
-      <button class="stab on" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('finnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor (LCSP)</button>
       <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
@@ -1724,9 +1738,9 @@ body{
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('finnifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)">&#9670; Volatility Surface</button>
+      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-finnifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1776,7 +1790,7 @@ body{
   </div>
 </div>
     
-    <div id="sp-finnifty-oi" class="stab-panel on">
+    <div id="sp-finnifty-oi" class="stab-panel">
       <details class="edu-box edu-collapsible">
         <summary>📊 Understanding the GEX OI Monitor (FINNIFTY)</summary>
         <div class="edu-body">
@@ -1863,7 +1877,7 @@ body{
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-finnifty-prob" class="stab-panel">
+    <div id="sp-finnifty-prob" class="stab-panel on">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – FINNIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike by analysing how open interest has been building over recent snapshots, combined with changes in implied volatility and moneyness.</p>
@@ -1983,8 +1997,8 @@ body{
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','midcpnifty');">VIEW NOW →</button>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('midcpnifty','prob',this)">◈ PREMIUM PROBABLE POSITIONING</button>
-      <button class="stab on" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor (LCSP)</button>
+      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('midcpnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor (LCSP)</button>
       <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
       <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
@@ -1992,9 +2006,9 @@ body{
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('midcpnifty','totalgex',this)">Total Abs GEX</button>
-      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)">&#9670; Volatility Surface</button>
+      <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)">◈ PREMIUM RECOMMENDATIONS</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-midcpnifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2044,7 +2058,7 @@ body{
   </div>
 </div>
     
-    <div id="sp-midcpnifty-oi" class="stab-panel on">
+    <div id="sp-midcpnifty-oi" class="stab-panel">
       <details class="edu-box edu-collapsible">
         <summary>📊 Understanding the GEX OI Monitor (MIDCAP NIFTY)</summary>
         <div class="edu-body">
@@ -2131,7 +2145,7 @@ body{
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-midcpnifty-prob" class="stab-panel">
+    <div id="sp-midcpnifty-prob" class="stab-panel on">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – MIDCAP NIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike by analysing how open interest has been building over recent snapshots, combined with changes in implied volatility and moneyness.</p>
@@ -3064,6 +3078,9 @@ function _premShowContent(idx, html) {
   if (!lockEl || !contentEl) return;
   if (lockEl) lockEl.style.display = 'none';
   if (subEl)  subEl.style.display  = 'none';  // hide T&C, pricing, WA — not needed for subscribers
+  // Drop the lock badge from the "PREMIUM RECOMMENDATIONS" tab now that
+  // this index's content is unlocked.
+  document.querySelector('#panel-' + idx + ' .stab[data-key="premium"]')?.classList.add('unlocked');
 
   // Render the full styled HTML page inside a seamless iframe using a blob URL.
   // This preserves all CSS (_ANALYSIS_PAGE_CSS + fonts) without injecting a full
@@ -3311,6 +3328,9 @@ function _posPremShowContent(idx, html) {
   if (!lockEl || !contentEl) return;
   lockEl.style.display = 'none';
   if (salesEl) salesEl.style.display = 'none';
+  // Drop the lock badge from the "PREMIUM PROBABLE POSITIONING" tab now
+  // that this index's content is unlocked.
+  document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
 
   // Grab the outgoing iframe's active tab + zoom state (if any) before
   // it's replaced, so a refresh can restore it instead of resetting to
@@ -3522,6 +3542,9 @@ function _volsurfPremShowContent(idx, volHtml, atmHtml) {
   if (!contentEl) return;
   if (lockEl) lockEl.style.display = 'none';
   contentEl.style.display = 'block';
+  // Drop the lock badge from the "Volatility Surface" tab now that this
+  // index's content is unlocked.
+  document.querySelector('#panel-' + idx + ' .stab[data-key="volsurf"]')?.classList.add('unlocked');
 
   function mkCard(title, html, heightPx) {
     var blob  = new Blob([html], { type: 'text/html' });
@@ -3711,7 +3734,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   var activeIdx = validIdx || 'nifty';
   var savedStab = sessionStorage.getItem('_of_stab_' + activeIdx);
-  if (savedStab && savedStab !== 'oi') {
+  if (savedStab && savedStab !== 'prob') {
     var btn = document.querySelector('#panel-' + activeIdx + ' .stab[data-key="' + savedStab + '"]');
     if (btn) switchStab(activeIdx, savedStab, btn);
   }
