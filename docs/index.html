@@ -256,8 +256,11 @@
 }
 @media (max-width: 640px) {
   .premium-callout-row { flex-direction: column; }
-  .premium-callout { flex-basis: auto; }
-  .premium-callout-title { font-size: 0.85rem; }
+  .premium-callout { flex-basis: auto; flex-direction: column; align-items: stretch; gap: 8px; }
+  .premium-callout-text { min-width: 0; }
+  .premium-callout-title { font-size: 0.85rem; white-space: normal; }
+  .premium-callout-desc { white-space: normal; }
+  .premium-callout-btn { align-self: stretch; text-align: center; }
 }
 
 /* -- Premium panel -- */
