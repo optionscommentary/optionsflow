@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="canonical" href="https://optionsflow.in/">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#070B12" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#F5F7FB" media="prefers-color-scheme: light)">
 <script>
 (() => {
   try {
@@ -1247,115 +1247,6 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 
 /* GLASS-LAYER:END */
 </style>
-<style id="app-mobile-layout">
-/* =====================================================================
-   ANDROID-STYLE MOBILE APP LAYOUT  (<=760px only; desktop untouched)
-   Structure:  top app bar (scrolls away)  ->  live index chips
-               sticky chart-type chips     ->  content cards
-               bottom navigation (5 indices, fixed)  +  "menu" bottom sheet
-   Placed after the glass layer so equal-specificity rules win by order.
-   ===================================================================== */
-.app-menu-btn,.app-scrim{display:none}
-@media (max-width:760px){
-  html,body{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
-  button,a,summary{touch-action:manipulation}
-  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
-  html.app-sheet-open{overflow:hidden}
-  #main{padding:0 8px 12px}
-
-  /* SEO/a11y H1 + intro stay in the DOM but are visually removed in the app view */
-  .hero-intro{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-
-  /* ---------- Top app bar ---------- */
-  html[data-theme] #topbar{position:static;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;height:auto;min-height:0;margin:0;padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 10px;background:var(--surface);border:0;border-bottom:1px solid var(--border);border-radius:0;box-shadow:none;overflow:visible}
-  html[data-theme] #topbar::before{display:none}
-  html[data-theme] .tb-brand{order:1;margin-right:auto;padding:0;border:0;font-size:1rem}
-  html[data-theme] .tb-right{order:2;display:flex;align-items:center;gap:8px;margin:0;padding:0}
-  html[data-theme] .tb-right .tb-nav,html[data-theme] #theme-btn{display:none}
-  html[data-theme] .mkt-badge{font-size:.58rem;padding:3px 8px}
-  #tb-clock{font-size:.66rem}
-  .app-menu-btn{order:3;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;margin:-4px -8px -4px 0;padding:0;border:0;border-radius:50%;background:transparent;color:var(--t2);cursor:pointer}
-  .app-menu-btn:active{background:rgba(var(--gl-acc),.18)}
-  .app-menu-btn svg{width:24px;height:24px;fill:currentColor}
-  /* live index chips */
-  html[data-theme] .tb-pills{order:4;flex:0 0 calc(100% + 24px);margin:2px -12px 0;padding:0 12px;gap:8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
-  html[data-theme] .tb-pills::-webkit-scrollbar{display:none}
-  html[data-theme] .tb-pill{flex:0 0 auto;min-width:0;padding:5px 10px;border:1px solid var(--border);border-radius:12px;background:var(--raised)}
-
-  /* ---------- Bottom navigation (re-skins the existing index tabs) ---------- */
-  html[data-theme] .tabs-bar{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:950;display:block;margin:0;padding:0 0 env(safe-area-inset-bottom,0px);overflow:visible;background:var(--surface);border:0;border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(0,0,0,.28)}
-  html[data-theme] .tabs-scroll{display:flex;flex:none;width:100%;max-width:100%;overflow:visible;padding:0;gap:0;border:0;border-radius:0;background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
-  html[data-theme] .tabs-scroll .glass-flow{display:none}
-  html[data-theme] .mentor-cta-tab{display:none}
-  html[data-theme] .tab{position:relative;flex:1 1 0;min-width:0;height:64px;padding:0 0 9px;display:flex;align-items:flex-end;justify-content:center;border:0;border-radius:0;background:transparent !important;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.02em;color:var(--t3);white-space:nowrap;transition:color .2s}
-  html[data-theme] .tab::before{content:'';position:absolute;top:9px;left:50%;width:56px;height:30px;margin-left:-28px;border-radius:15px;background:transparent;transition:background .2s}
-  html[data-theme] .tab::after{content:'';position:absolute;top:13px;left:50%;width:22px;height:22px;margin-left:-11px;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
-  html[data-theme] .tab.on{color:var(--accent);font-weight:700}
-  html[data-theme] .tab.on::before{background:rgba(var(--gl-acc),.20)}
-  html[data-theme] .tab:active::before{background:rgba(var(--gl-acc),.14)}
-  #tab-nifty{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z'/></svg>")}
-  #tab-banknifty{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z'/></svg>")}
-  #tab-sensex{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z'/></svg>")}
-  #tab-finnifty{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/></svg>")}
-  #tab-midcpnifty{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z'/></svg>")}
-
-  /* ---------- Sticky chart-type chips ---------- */
-  html[data-theme] .sub-tabs{position:sticky;top:0;z-index:850;display:flex;flex-wrap:nowrap;gap:8px;margin:8px -8px 0;padding:8px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:var(--bg);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
-  html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
-  html[data-theme] .sub-tabs .glass-flow{display:none}
-  html[data-theme] .sub-tabs::after{flex:0 0 4px}
-  html[data-theme] .stab{flex:0 0 auto;height:34px;min-height:0;padding:0 14px;flex-direction:row;border:1px solid var(--border);border-radius:10px;background:transparent !important;box-shadow:none;font-size:.66rem}
-  html[data-theme] .stab.on{background:rgba(var(--gl-acc),.18) !important;border-color:rgba(var(--gl-acc),.55);color:var(--accent)}
-  html[data-theme] .stab-premium{border-color:rgba(var(--gl-gold),.35)}
-  html[data-theme] .stab-premium.on{background:rgba(var(--gl-gold),.18) !important;border-color:rgba(var(--gl-gold),.65)}
-  html[data-theme] .stab:active{background:rgba(var(--gl-acc),.12) !important}
-
-  /* ---------- Content ---------- */
-  .pills{flex-wrap:nowrap;overflow-x:auto;margin:0 -8px;padding:10px 8px 2px;scrollbar-width:none}
-  .pills::-webkit-scrollbar{display:none}
-  html[data-theme] .pill{flex:0 0 auto;border-radius:12px;padding:6px 12px}
-  .stab-panel{padding-top:12px}
-  /* "Beyond the Dashboard" promo block: inline styles gave it 24px + 32px side padding
-     (a third of a phone's width) and pushed the page wider than 320px. */
-  #main > div[style*="max-width:1080px"]{min-width:0;margin-top:28px !important;padding:0 !important}
-  #main > div[style*="max-width:1080px"] > div{min-width:0;padding:20px 16px !important;border-radius:16px !important}
-  #main > div[style*="max-width:1080px"] hr{margin-bottom:24px !important}
-  /* Premium pricing: First month + Renewal sit side-by-side (not two tall cards) */
-  .prem-pricing-row:has(.prem-renewal){flex-wrap:nowrap;gap:10px}
-  .prem-pricing-row:has(.prem-renewal) .prem-price-card{flex:1 1 0;min-width:0;padding:14px 8px}
-  .prem-pricing-row:has(.prem-renewal) .prem-price-amt{font-size:1.7rem}
-  .prem-pricing-row:has(.prem-renewal) .prem-price-note{font-size:.68rem}
-  html[data-theme] .gcard{border-radius:16px}
-  html[data-theme] .gcard-hdr{border-radius:15px 15px 0 0}
-  html[data-theme] .gcard>img:last-child,html[data-theme] .gcard>a:last-child>img{border-radius:0 0 15px 15px}
-  html[data-theme] .prem-pw-section,html[data-theme] .prem-pw-input{scroll-margin-top:64px}
-  /* premium promo cards: swipeable carousel instead of a tall stack */
-  .premium-callout-row{flex-direction:row;flex-wrap:nowrap;gap:10px;margin:0 -8px;padding:10px 8px 6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-  .premium-callout-row::-webkit-scrollbar{display:none}
-  html[data-theme] .premium-callout{flex:0 0 88%;flex-direction:row;align-items:center;padding:10px 12px;gap:10px;border-radius:16px;scroll-snap-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);-webkit-backdrop-filter:none;backdrop-filter:none}
-  .premium-callout-text{flex:1;min-width:0}
-  .premium-callout-desc{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-  .premium-callout-btn{align-self:center;padding:8px 12px;font-size:.62rem}
-  .idx-panel.on,.stab-panel.on{animation:appIn .2s ease-out}
-  @keyframes appIn{from{opacity:0}to{opacity:1}}
-
-  /* ---------- Menu: bottom sheet (re-uses .mobile-nav-strip links) ---------- */
-  .app-scrim{display:block;position:fixed;inset:0;z-index:990;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .25s}
-  .app-scrim.open{opacity:1;pointer-events:auto}
-  html[data-theme] .mobile-nav-strip{position:fixed;left:0;right:0;bottom:0;z-index:1000;display:flex;flex-direction:column;flex-wrap:nowrap;gap:2px;margin:0;padding:26px 12px calc(14px + env(safe-area-inset-bottom,0px));border:0;border-top:1px solid var(--border);border-radius:28px 28px 0 0;background:var(--surface);box-shadow:0 -16px 48px rgba(0,0,0,.5);overflow:visible;-webkit-backdrop-filter:none;backdrop-filter:none;transform:translateY(105%);visibility:hidden;transition:transform .28s cubic-bezier(.2,.8,.2,1),visibility 0s linear .28s}
-  html[data-theme] .mobile-nav-strip.open{transform:none;visibility:visible;transition:transform .28s cubic-bezier(.2,.8,.2,1),visibility 0s}
-  .mobile-nav-strip::before{content:'';position:absolute;top:9px;left:50%;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:var(--border-lit)}
-  html[data-theme] .mobile-nav-strip a,html[data-theme] .mobile-nav-strip button{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:0 16px;border-radius:14px;background:transparent;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;color:var(--t1);text-align:left}
-  html[data-theme] .mobile-nav-strip a:active,html[data-theme] .mobile-nav-strip button:active{background:rgba(var(--gl-acc),.14)}
-  html[data-theme] .mobile-nav-strip a[href="mentorship.html"]{color:#FFD700}
-  html[data-theme="light"] .mobile-nav-strip a[href="mentorship.html"]{color:#B45309}
-}
-@media (max-width:380px){#tb-clock{display:none}}
-@media (max-width:760px) and (prefers-reduced-motion:reduce){
-  .idx-panel.on,.stab-panel.on{animation:none}
-  html[data-theme] .mobile-nav-strip,.app-scrim{transition:none}
-}
-</style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
 <script>
@@ -1404,11 +1295,9 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     <button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()">🌙 Dark</button>
   </div>
-  <button type="button" class="app-menu-btn" id="app-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="app-sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
 </header>
 
-<div class="app-scrim" id="app-scrim"></div>
-<div class="mobile-nav-strip" id="app-sheet" role="dialog" aria-label="Menu">
+<div class="mobile-nav-strip">
   <a href="blogs.html">📚 Learn</a>
   <a href="mentorship.html">🎓 Mentorship</a>
   <a href="about.html">ℹ️ About</a>
@@ -2891,7 +2780,6 @@ function toggleTheme(){
     const b = document.getElementById(id);
     if(b) b.textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
   });
-  if (window._syncThemeColor) _syncThemeColor();
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
 const STABS = ['oi','gex','vex','cex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
@@ -4205,20 +4093,13 @@ function _fillOfferSlot(slotId, templateId) {
 // that `top` + its own height. Measured live so it stays right on mobile
 // (<=760px: different top/margins) and if the bars ever change height.
 function _stickyStackBottom() {
-  // Every element that is actually pinned (position:sticky) contributes its
-  // pinned bottom edge = CSS `top` + height. Desktop: topbar + .tabs-bar.
-  // Mobile app layout: only the chart-type chips (.sub-tabs) are sticky; the
-  // top bar scrolls away and .tabs-bar is the fixed bottom nav (not sticky).
-  var bottom = 0;
-  ['#topbar', '.tabs-bar', '.idx-panel.on .sub-tabs'].forEach(function (sel) {
-    var el = document.querySelector(sel);
-    if (!el || !el.offsetHeight) return;
-    var cs = getComputedStyle(el);
-    if (cs.position !== 'sticky') return;
-    var t = parseFloat(cs.top);
-    bottom = Math.max(bottom, (isNaN(t) ? 0 : t) + el.offsetHeight);
-  });
-  return bottom;
+  var tabs = document.querySelector('.tabs-bar');
+  if (tabs && tabs.offsetHeight) {
+    var t = parseFloat(getComputedStyle(tabs).top);
+    return (isNaN(t) ? 0 : t) + tabs.offsetHeight;
+  }
+  var tb = document.getElementById('topbar');
+  return tb ? tb.offsetHeight + 16 : 0;
 }
 
 // Scrolls so the section's TOP EDGE (its title) sits just under the pinned
@@ -4273,8 +4154,6 @@ function scrollToTnc(btn) {
     var topbarEl = document.getElementById('topbar');
     var tabsEl = document.querySelector('.tabs-bar');
     var stickyOffset = (topbarEl ? topbarEl.offsetHeight : 0) + (tabsEl ? tabsEl.offsetHeight : 0) + 12;
-    // Mobile app layout: only the chart-type chips are pinned at the top.
-    if (window.matchMedia && matchMedia('(max-width:760px)').matches) stickyOffset = _stickyStackBottom() + 12;
     var y = tnc.getBoundingClientRect().top + window.pageYOffset - stickyOffset;
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
@@ -4592,41 +4471,3 @@ document.addEventListener('pointermove',function(e){
 })();
 </script>
 <!-- GLASS-LAYER-JS:END -->
-<script>
-/* Android-style mobile app layer: menu bottom sheet, status-bar colour, haptics */
-(function(){
-  var mq = window.matchMedia ? matchMedia('(max-width:760px)') : null;
-  window._syncThemeColor = function(){
-    try {
-      var c = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
-      if (!c) return;
-      document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){ m.removeAttribute('media'); m.setAttribute('content', c); });
-    } catch (e) {}
-  };
-  _syncThemeColor();
-
-  var btn = document.getElementById('app-menu-btn'), sheet = document.getElementById('app-sheet'), scrim = document.getElementById('app-scrim');
-  if (!btn || !sheet || !scrim) return;
-  var pushed = false;
-  function set(open){
-    sheet.classList.toggle('open', open); scrim.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.documentElement.classList.toggle('app-sheet-open', open);
-  }
-  function openSheet(){ set(true); try { history.pushState({appSheet:1}, ''); pushed = true; } catch (e) {} }
-  function closeSheet(){ var was = pushed; set(false); pushed = false; if (was) { try { history.back(); } catch (e) {} } }
-  btn.addEventListener('click', function(){ sheet.classList.contains('open') ? closeSheet() : openSheet(); });
-  scrim.addEventListener('click', closeSheet);
-  // Links navigate away: just hide the sheet (no history.back(), it would fight the navigation).
-  sheet.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('a')) { set(false); pushed = false; } });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
-  // Android system Back closes the sheet instead of leaving the page.
-  window.addEventListener('popstate', function(){ if (sheet.classList.contains('open')) { pushed = false; set(false); } });
-  if (mq && mq.addEventListener) mq.addEventListener('change', function(){ if (!mq.matches && sheet.classList.contains('open')) { set(false); pushed = false; } });
-
-  document.addEventListener('click', function(e){
-    if (!mq || !mq.matches || !e.target.closest || !e.target.closest('.tab,.stab')) return;
-    try { if (navigator.vibrate) navigator.vibrate(8); } catch (x) {}
-  }, true);
-})();
-</script>
