@@ -407,10 +407,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .idx-panel.on { display: block; }
 
 .pills { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 8px; }
-.pill { background: var(--raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; transition: background 0.15s; }
+.pill { background: var(--raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 12px; transition: background 0.15s; }
 .pill:hover { background: var(--hover); }
-.pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 3px; font-weight: 700; }
-.pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--t1); }
+.pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 1px; font-weight: 700; }
+.pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--t1); }
 
 .sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .sub-tabs::-webkit-scrollbar { height: 3px; }
@@ -880,8 +880,8 @@ html[data-theme] body::before{
     radial-gradient(44vw 40vh at -4% 88%, rgba(var(--gl-acc),calc(var(--gl-amb-a) * .45)), transparent 62%);
 }
 html[data-theme] #topbar{
-  position:sticky;top:6px;z-index:900;height:50px;
-  margin:6px clamp(8px,1.6vw,22px) 0;padding:0 8px 0 22px;gap:14px;
+  position:sticky;top:8px;z-index:900;height:54px;
+  margin:8px clamp(8px,1.6vw,22px) 0;padding:0 8px 0 22px;gap:14px;
   background:transparent;border:0;border-radius:999px;box-shadow:none;isolation:isolate;
   view-transition-name:of-topbar;
 }
@@ -963,7 +963,7 @@ html[data-theme] .glass-flow::after{
 }
 html[data-theme] .glass-flow.sheen::after{animation:gl-sheen .9s ease-out}
 html[data-theme] .tabs-bar{
-  top:62px;margin:6px 0 0;padding:0;background:transparent;border:0;box-shadow:none;overflow:visible;
+  top:70px;margin:8px 0 2px;padding:0;background:transparent;border:0;box-shadow:none;overflow:visible;
   -webkit-backdrop-filter:none;backdrop-filter:none;
 }
 html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip{
@@ -1010,7 +1010,7 @@ html[data-theme] .stab-premium{
 html[data-theme] .stab-premium:hover{background:linear-gradient(180deg,rgba(var(--gl-gold),.18),rgba(var(--gl-gold),.06));box-shadow:inset 0 0 0 1px rgba(var(--gl-gold),.55),inset 0 1px 0 rgba(255,255,255,.2)}
 html[data-theme] .flow-ready>.stab-premium.on,html[data-theme] .flow-ready>.stab-premium.on:hover{background:transparent;box-shadow:none}
 html[data-theme] .contact-strip{
-  margin:6px clamp(8px,1.6vw,22px) 0;padding:4px 12px;border-radius:24px;
+  margin:8px clamp(8px,1.6vw,22px) 0;padding:8px 14px;border-radius:28px;
   background:linear-gradient(118deg,var(--gl-glare) 0%,transparent 42%),linear-gradient(180deg,var(--gl-fill-a),var(--gl-nav));
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),inset 0 -1px 0 var(--gl-shade),var(--gl-shadow-sm);
@@ -1057,10 +1057,7 @@ html[data-theme] .metric,html[data-theme] .kv-item,html[data-theme] .pill,html[d
   box-shadow:inset 0 1px 0 var(--gl-hi),var(--gl-shadow-sm);
   border-radius:16px;
 }
-html[data-theme] .pill{border-radius:24px;padding:5px 18px}
-html[data-theme] .pill .pl{font-size:.58rem;margin-bottom:1px}
-html[data-theme] .pill .pv{font-size:.9rem}
-html[data-theme] .pills{padding-top:6px;gap:6px}
+html[data-theme] .pill{border-radius:22px;padding:6px 16px}
 html[data-theme] .kv-item:hover,html[data-theme] .pill:hover{border-color:rgba(var(--gl-acc),.40)}
 html[data-theme] .edu-box{
   border-left:1px solid var(--gl-line);border-radius:20px;
@@ -1137,31 +1134,11 @@ html[data-theme] .footer,html[data-theme] .blog-footer{
 html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip,html[data-theme] .tb-more-menu{background:var(--gl-menu)}
 
 }
-html[data-theme] .cs-link{padding:3px 11px;font-size:.78rem}
-html[data-theme] .cs-link svg{width:13px;height:13px}
-html[data-theme] .hero-intro{margin-bottom:4px}
-html[data-theme] .hero-intro h1{font-size:1.2rem;margin:2px 0 1px;line-height:1.25}
-html[data-theme] .hero-intro p{font-size:.78rem;line-height:1.4;margin:0}
-html[data-theme] .sub-tabs{margin-top:6px}
-html[data-theme] .premium-callout{padding:5px 16px;margin:5px 0;gap:8px}
-html[data-theme] .premium-callout-icon svg{width:20px;height:20px}
-html[data-theme] .premium-callout-title{font-size:.98rem}
-html[data-theme] .premium-callout-desc{font-size:.66rem}
-html[data-theme] .premium-callout-btn{padding:5px 16px;font-size:.7rem}
-html[data-theme] .edu-box.edu-collapsible>summary{padding-top:9px;padding-bottom:9px}
-html[data-theme] .prem-pw-section{padding:14px 20px}
-html[data-theme] .prem-pw-icon{font-size:1.4rem;margin-bottom:3px}
-html[data-theme] .prem-pw-title{font-size:.72rem;margin-bottom:3px}
-html[data-theme] .prem-pw-sub{font-size:.74rem;margin-bottom:9px}
-html[data-theme] .prem-pw-input{padding-top:6px;padding-bottom:6px}
-html[data-theme] .prem-pw-btn{padding:6px 18px}
-html[data-theme] .prem-pw-nokey{margin-top:8px}
-html[data-theme] .prem-pw-nokey a{padding:6px 16px}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.30s;animation-timing-function:cubic-bezier(.3,.7,.2,1)}
-@media(max-width:760px){html[data-theme] #topbar{height:48px;padding:0 10px 0 16px}
+@media(max-width:760px){html[data-theme] #topbar{height:52px;padding:0 10px 0 16px}
 html[data-theme] .tb-nav>a,html[data-theme] .tb-nav>details,html[data-theme] .topbar-nav>a,html[data-theme] .topbar-nav>details{display:none}
 html[data-theme] .tb-nav,html[data-theme] .topbar-nav{padding:3px;background:transparent;box-shadow:none}
-html[data-theme] .tabs-bar{top:60px;margin:4px 0 0}
+html[data-theme] .tabs-bar{top:66px;margin:6px 0 2px}
 html[data-theme] .tabs-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 html[data-theme] .tab{padding:7px 14px}
 html[data-theme] .sub-tabs{margin:8px 0 0;padding:3px}
