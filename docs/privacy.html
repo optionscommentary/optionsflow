@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#070B12" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
@@ -605,6 +605,55 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 
 /* GLASS-LAYER:END */
 </style>
+<style id="app-mobile-layout">
+/* =====================================================================
+   ANDROID-STYLE MOBILE APP LAYOUT (<=760px only; desktop untouched)
+   Fixed top app bar with a top-right overflow (⋮) menu, bottom navigation,
+   nothing scrolls sideways. Same look as the dashboard page.
+   ===================================================================== */
+.app-menu-btn,.app-scrim,.app-bottom-nav{display:none}
+@media (max-width:760px){
+  html,body{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+  html{overscroll-behavior-x:none}
+  button,a,summary{touch-action:manipulation}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));overflow-x:clip}
+  /* narrow-phone fit: grids that had a fixed minimum column width */
+  .metrics-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metric-val{font-size:1.25rem;overflow-wrap:anywhere}
+  .blog-index-grid{grid-template-columns:minmax(0,1fr);gap:12px;padding:0 16px 16px}
+
+  /* ---------- Fixed top app bar ---------- */
+  html[data-theme] #topbar{position:sticky;top:0;z-index:900;display:flex;flex-wrap:nowrap;align-items:center;gap:8px;height:auto;min-height:48px;margin:0;padding:env(safe-area-inset-top,0px) 12px 0;background:var(--surface);border:0;border-bottom:1px solid var(--border);border-radius:0;box-shadow:none;overflow:visible}
+  html[data-theme] #topbar::before{display:none}
+  html[data-theme] .tb-brand,html[data-theme] .brand{margin-right:auto;padding:0;border:0;font-size:1rem}
+  html[data-theme] .tb-nav,html[data-theme] .topbar-nav{display:none}
+  .app-menu-btn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:40px;height:40px;margin:0 -8px 0 0;padding:0;border:0;border-radius:50%;background:transparent;color:var(--t2);cursor:pointer}
+  .app-menu-btn:active{background:rgba(var(--gl-acc),.18)}
+  .app-menu-btn svg{width:24px;height:24px;fill:currentColor}
+
+  /* ---------- Bottom navigation ---------- */
+  html[data-theme] .app-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:950;display:flex;padding:0 0 env(safe-area-inset-bottom,0px);background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(0,0,0,.28)}
+  .app-bottom-nav a{flex:1 1 0;min-width:0;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;padding:8px 2px 6px;color:var(--t3);text-decoration:none;font:600 .6rem 'Inter',sans-serif;letter-spacing:.02em;white-space:nowrap}
+  .app-bottom-nav a .ic{display:flex;align-items:center;justify-content:center;width:56px;height:30px;border-radius:15px;transition:background .2s}
+  .app-bottom-nav a svg{width:22px;height:22px;fill:currentColor}
+  .app-bottom-nav a[aria-current="page"]{color:var(--accent);font-weight:700}
+  .app-bottom-nav a[aria-current="page"] .ic{background:rgba(var(--gl-acc),.20)}
+  .app-bottom-nav a:active .ic{background:rgba(var(--gl-acc),.14)}
+
+  /* ---------- Overflow menu: Android-style popup under the top-right ⋮ ---------- */
+  .app-scrim{display:block;position:fixed;inset:0;z-index:990;background:transparent;pointer-events:none;transition:background .16s}
+  .app-scrim.open{pointer-events:auto;background:rgba(0,0,0,.28)}
+  html[data-theme] .mobile-nav-strip{position:fixed;top:calc(env(safe-area-inset-top,0px) + 46px);right:8px;left:auto;bottom:auto;z-index:1000;display:flex;flex-direction:column;flex-wrap:nowrap;gap:2px;width:min(252px,calc(100vw - 16px));max-height:calc(100vh - 130px);margin:0;padding:6px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:0 14px 40px rgba(0,0,0,.45);overflow-y:auto;overflow-x:hidden;-webkit-backdrop-filter:none;backdrop-filter:none;transform-origin:top right;transform:scale(.9) translateY(-6px);opacity:0;visibility:hidden;transition:transform .16s ease-out,opacity .16s ease-out,visibility 0s linear .16s}
+  html[data-theme] .mobile-nav-strip.open{transform:none;opacity:1;visibility:visible;transition:transform .16s ease-out,opacity .16s ease-out,visibility 0s}
+  html[data-theme] .mobile-nav-strip a,html[data-theme] .mobile-nav-strip button{display:flex;align-items:center;gap:12px;flex:0 0 auto;width:100%;min-height:46px;padding:0 14px;border:0;border-radius:12px;background:transparent;box-shadow:none;font-family:'Inter',sans-serif;font-size:.92rem;font-weight:600;color:var(--t1);text-align:left;text-decoration:none}
+  html[data-theme] .mobile-nav-strip a:active,html[data-theme] .mobile-nav-strip button:active{background:rgba(var(--gl-acc),.14)}
+  html[data-theme] .mobile-nav-strip .m-theme-toggle{margin-top:4px;border-top:1px solid var(--border);border-radius:0 0 12px 12px}
+  html[data-theme] .mobile-nav-strip a[href="mentorship.html"]{color:#FFD700}
+  html[data-theme="light"] .mobile-nav-strip a[href="mentorship.html"]{color:#B45309}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){html[data-theme] .mobile-nav-strip,.app-scrim{transition:none}}
+</style>
+
 </head>
 <body>
 
@@ -624,8 +673,25 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </details>
     <button class="nav-btn" id="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
   </div>
+  <button type="button" class="app-menu-btn" id="app-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="app-sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
 </nav>
-<div class="mobile-nav-strip"><a href="index_with_recommendations.html">📊 Dashboard</a><a href="blogs.html">📚 Learn</a><a href="mentorship.html">🎓 Mentorship</a><a href="about.html">ℹ️ About</a><a href="contact.html">✉️ Contact</a></div>
+<div class="app-scrim" id="app-scrim"></div>
+<div class="mobile-nav-strip" id="app-sheet" role="menu" aria-label="Menu">
+  <a href="index_with_recommendations.html" role="menuitem">📊 Dashboard</a>
+  <a href="blogs.html" role="menuitem">📚 Learn</a>
+  <a href="mentorship.html" role="menuitem">🎓 Mentorship</a>
+  <a href="about.html" role="menuitem">ℹ️ About</a>
+  <a href="contact.html" role="menuitem">✉️ Contact</a>
+  <a href="privacy.html" role="menuitem">🔒 Privacy</a>
+  <button class="m-theme-toggle" id="theme-btn-m" type="button" onclick="toggleTheme()">🌙 Dark</button>
+</div>
+<nav class="app-bottom-nav" aria-label="Primary navigation">
+  <a href="index_with_recommendations.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>Dashboard</a>
+  <a href="blogs.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg></span>Learn</a>
+  <a href="mentorship.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>Mentorship</a>
+  <a href="about.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span>About</a>
+  <a href="contact.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>Contact</a>
+</nav>
 
 <div class="page-hero">
   <div class="page-hero-inner">
@@ -995,5 +1061,38 @@ document.addEventListener('pointermove',function(e){
 })();
 </script>
 <!-- GLASS-LAYER-JS:END -->
+<script>
+/* Android-style mobile app layer: top-right overflow menu, status-bar colour */
+(function(){
+  var mq = window.matchMedia ? matchMedia('(max-width:760px)') : null;
+  function themeLabel(){ var t=document.documentElement.getAttribute('data-theme')||'dark'; var b=document.getElementById('theme-btn-m'); if(b) b.textContent = t==='dark' ? '\u2600 Light' : '\ud83c\udf19 Dark'; }
+  window._syncThemeColor = function(){
+    try {
+      var c = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+      if (!c) return;
+      document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){ m.removeAttribute('media'); m.setAttribute('content', c); });
+    } catch (e) {}
+  };
+  var _orig = window.toggleTheme;
+  if (typeof _orig === 'function') window.toggleTheme = function(){ _orig.apply(this, arguments); themeLabel(); _syncThemeColor(); };
+  themeLabel(); _syncThemeColor();
+
+  var btn = document.getElementById('app-menu-btn'), sheet = document.getElementById('app-sheet'), scrim = document.getElementById('app-scrim');
+  if (!btn || !sheet || !scrim) return;
+  var pushed = false;
+  function set(open){
+    sheet.classList.toggle('open', open); scrim.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function openSheet(){ set(true); try { history.pushState({appSheet:1}, ''); pushed = true; } catch (e) {} }
+  function closeSheet(){ var was = pushed; set(false); pushed = false; if (was) { try { history.back(); } catch (e) {} } }
+  btn.addEventListener('click', function(){ sheet.classList.contains('open') ? closeSheet() : openSheet(); });
+  scrim.addEventListener('click', closeSheet);
+  sheet.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('a')) { set(false); pushed = false; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
+  window.addEventListener('popstate', function(){ if (sheet.classList.contains('open')) { pushed = false; set(false); } });
+  if (mq && mq.addEventListener) mq.addEventListener('change', function(){ if (!mq.matches && sheet.classList.contains('open')) { set(false); pushed = false; } });
+})();
+</script>
 </body>
 </html>
