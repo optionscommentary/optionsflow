@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="canonical" href="https://optionsflow.in/">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#070B12" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F5F7FB" media="prefers-color-scheme: light)">
+<meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
 <script>
 (() => {
   try {
@@ -1247,6 +1247,141 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 
 /* GLASS-LAYER:END */
 </style>
+<style id="app-mobile-layout">
+/* =====================================================================
+   ANDROID-STYLE MOBILE APP LAYOUT  (<=760px only; desktop untouched)
+   Structure:  top app bar (scrolls away)  ->  live index chips
+               sticky chart-type chips     ->  content cards
+               bottom navigation (5 indices, fixed)  +  "menu" bottom sheet
+   Placed after the glass layer so equal-specificity rules win by order.
+   ===================================================================== */
+.app-menu-btn,.app-scrim,.tab .tab-live,.app-quick-links{display:none}
+@media (max-width:760px){
+  html,body{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+  button,a,summary{touch-action:manipulation}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  html.app-sheet-open{overflow:hidden}
+  #main{padding:0 8px 12px}
+
+  /* Top-of-page shortcuts so first-time visitors can see Learn / Mentorship / Contact exist */
+  .app-quick-links{display:flex;gap:8px;margin:8px 0 0}
+  .app-quick-links a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;height:36px;padding:0 6px;overflow:hidden;border-radius:999px;background:linear-gradient(135deg,rgba(var(--gl-cta),.24),rgba(var(--gl-cta),.09));border:1.5px solid rgba(var(--gl-cta),.6);color:var(--cta) !important;font:800 .68rem 'IBM Plex Mono',monospace;letter-spacing:.02em;text-decoration:none !important;white-space:nowrap;box-shadow:0 0 0 1px rgba(var(--gl-cta),.10),0 2px 10px rgba(var(--gl-cta),.22)}
+  .app-quick-links a:active{background:linear-gradient(135deg,rgba(var(--gl-cta),.38),rgba(var(--gl-cta),.16))}
+  [data-theme="light"] .app-quick-links a{border-color:#065F46}
+  /* SEO/a11y H1 + intro stay in the DOM but are visually removed in the app view */
+  .hero-intro{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+
+  /* ---------- Top app bar ---------- */
+  html[data-theme] #topbar{position:sticky;top:0;z-index:900;display:flex;flex-wrap:nowrap;align-items:center;gap:8px;height:auto;min-height:48px;margin:0;padding:env(safe-area-inset-top,0px) 12px 0;background:var(--surface);border:0;border-bottom:1px solid var(--border);border-radius:0;box-shadow:none;overflow:visible}
+  html[data-theme] #topbar::before{display:none}
+  html[data-theme] .tb-brand{order:1;margin-right:auto;padding:0;border:0;font-size:1rem}
+  html[data-theme] .tb-right{order:2;display:flex;align-items:center;gap:8px;margin:0;padding:0}
+  html[data-theme] .tb-right .tb-nav,html[data-theme] #theme-btn{display:none}
+  html[data-theme] .mkt-badge{font-size:.58rem;padding:3px 8px}
+  #tb-clock{font-size:.66rem}
+  .app-menu-btn{order:3;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;margin:-4px -8px -4px 0;padding:0;border:0;border-radius:50%;background:transparent;color:var(--t2);cursor:pointer}
+  .app-menu-btn:active{background:rgba(var(--gl-acc),.18)}
+  .app-menu-btn svg{width:24px;height:24px;fill:currentColor}
+  /* live index prices now live in the bottom tabs; nothing in the header scrolls sideways */
+  html[data-theme] .tb-pills{display:none}
+
+  /* ---------- Bottom navigation (re-skins the existing index tabs) ---------- */
+  html[data-theme] .tabs-bar{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:950;display:block;margin:0;padding:0 0 env(safe-area-inset-bottom,0px);overflow:visible;background:var(--surface);border:0;border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(0,0,0,.28)}
+  html[data-theme] .tabs-scroll{display:flex;flex:none;width:100%;max-width:100%;overflow:visible;padding:0;gap:0;border:0;border-radius:0;background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  html[data-theme] .tabs-scroll .glass-flow{display:none}
+  html[data-theme] .mentor-cta-tab{display:none}
+  html[data-theme] .tab{position:relative;flex:1 1 0;min-width:0;height:64px;padding:7px 2px 6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;border:0;border-radius:0;background:transparent !important;color:var(--t3);transition:color .2s}
+  html[data-theme] .tab .tab-live{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:68px;height:36px;border-radius:14px;line-height:1.15;transition:background .2s}
+  html[data-theme] .tab .tab-live{order:1}
+  html[data-theme] .tab .tab-lbl{order:2}
+  html[data-theme] .tab .tab-px{font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:700;font-style:normal;color:var(--t1);letter-spacing:-.01em}
+  html[data-theme] .tab .tab-chg{font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:600;font-style:normal;color:var(--t3)}
+  html[data-theme] .tab .tab-lbl{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+  html[data-theme] #tab-sensex .tab-lbl::after{content:' ~15m';font-size:.5rem;font-weight:600;color:var(--t4)}
+  html[data-theme] .tab.on{color:var(--accent)}
+  html[data-theme] .tab.on .tab-lbl{font-weight:700}
+  html[data-theme] .tab.on .tab-live{background:rgba(var(--gl-acc),.20)}
+  html[data-theme] .tab:active .tab-live{background:rgba(var(--gl-acc),.14)}
+
+  /* ---------- Sticky chart-type chips ---------- */
+  html[data-theme] .sub-tabs{position:sticky;top:var(--app-bar-h,48px);z-index:850;display:flex;flex-wrap:nowrap;gap:8px;margin:6px -8px 0;padding:6px 8px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:var(--bg);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
+  html[data-theme] .sub-tabs .glass-flow{display:none}
+  html[data-theme] .sub-tabs::after{flex:0 0 4px}
+  html[data-theme] .stab{flex:0 0 auto;height:32px;min-height:0;padding:0 14px;flex-direction:row;border:1px solid var(--border);border-radius:10px;background:transparent !important;box-shadow:none;font-size:.66rem}
+  html[data-theme] .stab.on{background:rgba(var(--gl-acc),.18) !important;border-color:rgba(var(--gl-acc),.55);color:var(--accent)}
+  html[data-theme] .stab-premium{border-color:rgba(var(--gl-gold),.35)}
+  html[data-theme] .stab-premium.on{background:rgba(var(--gl-gold),.18) !important;border-color:rgba(var(--gl-gold),.65)}
+  html[data-theme] .stab:active{background:rgba(var(--gl-acc),.12) !important}
+
+  /* ---------- Content ---------- */
+  /* Compact tiles so the key box + "Don't have a key?" link fit on the first screen, uncut */
+  .pills{flex-wrap:wrap;gap:4px;margin:0;padding:8px 0 0}
+  html[data-theme] .pill{flex:0 0 auto;min-width:0;padding:3px 6px;border-radius:10px;white-space:nowrap}
+  html[data-theme] .pill .pl{font-size:.5rem;margin-bottom:0}
+  html[data-theme] .pill .pv{font-size:.66rem !important}
+  .stab-panel{padding-top:8px}
+  .edu-box.edu-collapsible > summary{padding:10px 14px;font-size:.88rem}
+  .prem-pw-section{padding:12px 12px 14px}
+  .prem-pw-icon{font-size:1.4rem;margin-bottom:2px}
+  .prem-pw-title{font-size:.7rem;margin-bottom:2px}
+  .prem-pw-sub{font-size:.7rem;margin-bottom:8px}
+  .prem-pw-row{flex-wrap:nowrap;gap:8px}
+  .prem-pw-field{flex:1 1 auto;min-width:0}
+  html[data-theme] .prem-pw-input{width:100%;min-width:0;padding-top:8px;padding-bottom:8px}
+  .prem-pw-btn{flex:0 0 auto;padding:8px 16px}
+  .prem-pw-nokey{margin-top:8px}
+  .prem-pw-nokey a{padding:8px 14px;font-size:.78rem}
+  /* "Beyond the Dashboard" promo block: inline styles gave it 24px + 32px side padding
+     (a third of a phone's width) and pushed the page wider than 320px. */
+  #main > div[style*="max-width:1080px"]{min-width:0;margin-top:28px !important;padding:0 !important}
+  #main > div[style*="max-width:1080px"] > div{min-width:0;padding:20px 16px !important;border-radius:16px !important}
+  #main > div[style*="max-width:1080px"] hr{margin-bottom:24px !important}
+  /* Premium pricing: First month + Renewal sit side-by-side (not two tall cards) */
+  .prem-pricing-row:has(.prem-renewal){flex-wrap:nowrap;gap:10px}
+  .prem-pricing-row:has(.prem-renewal) .prem-price-card{flex:1 1 0;min-width:0;padding:14px 8px}
+  .prem-pricing-row:has(.prem-renewal) .prem-price-amt{font-size:1.7rem}
+  .prem-pricing-row:has(.prem-renewal) .prem-price-note{font-size:.68rem}
+  html[data-theme] .gcard{border-radius:16px}
+  html[data-theme] .gcard-hdr{border-radius:15px 15px 0 0}
+  html[data-theme] .gcard>img:last-child,html[data-theme] .gcard>a:last-child>img{border-radius:0 0 15px 15px}
+  html[data-theme] .prem-pw-section,html[data-theme] .prem-pw-input{scroll-margin-top:64px}
+  /* premium promo cards: compact stacked rows (no sideways swipe) */
+  .premium-callout-row{flex-direction:column;flex-wrap:nowrap;gap:6px;margin:8px 0 0;padding:0;overflow:visible}
+  html[data-theme] .premium-callout{flex:0 0 auto;flex-direction:row;align-items:center;padding:6px 10px;gap:8px;border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .premium-callout-text{flex:1;min-width:0}
+  .premium-callout-desc{display:none}
+  .premium-callout-icon svg{width:16px;height:16px}
+  .premium-callout-title{font-size:.8rem}
+  .premium-callout-btn{align-self:center;padding:6px 10px;font-size:.6rem}
+  html[data-theme] .vol-surface-wrap{overflow:hidden !important}
+  html[data-theme] .vol-surface-frame{width:100% !important;min-width:0 !important;height:min(72vh,460px) !important;min-height:360px !important}
+  /* nothing may push the page sideways; only the chart-chip strip scrolls, inside its fixed bar */
+  html{overscroll-behavior-x:none}
+  #main{overflow-x:clip}
+  .idx-panel.on,.stab-panel.on{animation:appIn .2s ease-out}
+  @keyframes appIn{from{opacity:0}to{opacity:1}}
+
+  /* ---------- Overflow menu: Android-style popup under the top-right ⋮ ---------- */
+  .app-scrim{display:block;position:fixed;inset:0;z-index:990;background:transparent;pointer-events:none;transition:background .16s}
+  .app-scrim.open{pointer-events:auto;background:rgba(0,0,0,.28)}
+  html[data-theme] .mobile-nav-strip{position:fixed;top:calc(env(safe-area-inset-top,0px) + 46px);right:8px;left:auto;bottom:auto;z-index:1000;display:flex;flex-direction:column;flex-wrap:nowrap;gap:2px;width:min(252px,calc(100vw - 16px));max-height:calc(100vh - 130px);margin:0;padding:6px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:0 14px 40px rgba(0,0,0,.45);overflow-y:auto;overflow-x:hidden;-webkit-backdrop-filter:none;backdrop-filter:none;transform-origin:top right;transform:scale(.9) translateY(-6px);opacity:0;visibility:hidden;transition:transform .16s ease-out,opacity .16s ease-out,visibility 0s linear .16s}
+  html[data-theme] .mobile-nav-strip.open{transform:none;opacity:1;visibility:visible;transition:transform .16s ease-out,opacity .16s ease-out,visibility 0s}
+  html[data-theme] .mobile-nav-strip a,html[data-theme] .mobile-nav-strip button{display:flex;align-items:center;gap:12px;flex:0 0 auto;width:100%;min-height:46px;padding:0 14px;border:0;border-radius:12px;background:transparent;box-shadow:none;font-family:'Inter',sans-serif;font-size:.92rem;font-weight:600;color:var(--t1);text-align:left;text-decoration:none}
+  html[data-theme] .mobile-nav-strip a:active,html[data-theme] .mobile-nav-strip button:active{background:rgba(var(--gl-acc),.14)}
+  html[data-theme] .mobile-nav-strip .m-theme-toggle{margin-top:4px;border-top:1px solid var(--border);border-radius:0 0 12px 12px}
+  html[data-theme] .mobile-nav-strip a[href="mentorship.html"]{color:#FFD700}
+  html[data-theme="light"] .mobile-nav-strip a[href="mentorship.html"]{color:#B45309}
+}
+@media (max-width:380px){#tb-clock{display:none}}
+@media (max-width:340px){.app-quick-links a{font-size:.6rem;gap:3px}}
+/* very short phones: drop the "Index" and "Status" tiles (the highlighted bottom tab already names the index; Status is a fixed label) */
+@media (max-width:760px) and (max-height:620px){html[data-theme] .pills .pill:first-child,html[data-theme] .pills .pill:nth-child(2){display:none}.prem-pw-icon{display:none}}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  .idx-panel.on,.stab-panel.on{animation:none}
+  html[data-theme] .mobile-nav-strip,.app-scrim{transition:none}
+}
+</style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVCKEZ01PR"></script>
 <script>
@@ -1295,9 +1430,12 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     <button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()">🌙 Dark</button>
   </div>
+  <button type="button" class="app-menu-btn" id="app-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="app-sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
 </header>
 
-<div class="mobile-nav-strip">
+<div class="app-scrim" id="app-scrim"></div>
+<div class="mobile-nav-strip" id="app-sheet" role="menu" aria-label="Menu">
+  <a href="index_with_recommendations.html">📊 Dashboard</a>
   <a href="blogs.html">📚 Learn</a>
   <a href="mentorship.html">🎓 Mentorship</a>
   <a href="about.html">ℹ️ About</a>
@@ -1307,6 +1445,12 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 </div>
 
 <div id="main">
+
+  <div class="app-quick-links" aria-label="Site sections">
+    <a href="blogs.html" title="Learn to use this data">&#128218; Learn</a>
+    <a href="mentorship.html">&#127891; Mentorship</a>
+    <a href="contact.html">&#9993;&#65039; Contact</a>
+  </div>
 
   <div class="hero-intro">
     <h1 class="hero-title">
@@ -1320,11 +1464,11 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 
   <div class="tabs-bar">
     <div class="tabs-scroll">
-      <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty')">NIFTY</button>
-      <button class="tab" id="tab-banknifty" onclick="switchIdx('banknifty')">BANKNIFTY</button>
-      <button class="tab" id="tab-sensex" onclick="switchIdx('sensex')">SENSEX</button>
-      <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty')">FINNIFTY</button>
-      <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty')">MIDCAP</button>
+      <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty')"><span class="tab-lbl">NIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-nifty">—</b><i class="tab-chg" id="tabchg-nifty"></i></span></button>
+      <button class="tab" id="tab-banknifty" onclick="switchIdx('banknifty')"><span class="tab-lbl">BANKNIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-banknifty">—</b><i class="tab-chg" id="tabchg-banknifty"></i></span></button>
+      <button class="tab" id="tab-sensex" onclick="switchIdx('sensex')"><span class="tab-lbl">SENSEX</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-sensex">—</b><i class="tab-chg" id="tabchg-sensex"></i></span></button>
+      <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty')"><span class="tab-lbl">FINNIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-finnifty">—</b><i class="tab-chg" id="tabchg-finnifty"></i></span></button>
+      <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty')"><span class="tab-lbl">MIDCAP</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-midcpnifty">—</b><i class="tab-chg" id="tabchg-midcpnifty"></i></span></button>
     </div>
     <a href="mentorship.html" class="mentor-cta-tab">🎓 <span class="mentor-cta-full">Learn to use this data?</span> Click here →</a>
   </div>
@@ -2780,6 +2924,7 @@ function toggleTheme(){
     const b = document.getElementById(id);
     if(b) b.textContent = nxt==='dark' ? '☀ Light' : '🌙 Dark';
   });
+  if (window._syncThemeColor) _syncThemeColor();
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
 const STABS = ['oi','gex','vex','cex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
@@ -2821,6 +2966,9 @@ function applyPrice(idx, price, prev){
   const ev=document.getElementById(`tpv-${idx}`);
   const ec=document.getElementById(`tpc-${idx}`);
   if(ev) ev.textContent=f(Math.round(price));
+  const tpx=document.getElementById(`tabpx-${idx}`), tch=document.getElementById(`tabchg-${idx}`);
+  if(tpx) tpx.textContent=f(Math.round(price));
+  if(tch){ tch.textContent=`${arrow}${Math.abs(pct).toFixed(2)}%`; tch.style.color=col; }
   if(ec) ec.innerHTML=`<span style="color:${col}">${arrow} ${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
 }
 function applyFallback(idx){
@@ -2950,12 +3098,14 @@ function renderIndex(idx, data){
   if(data){
     const ev=document.getElementById(`tpv-${idx}`);
     if(ev&&ev.textContent==='—') ev.textContent=f(Math.round(data.spot||0));
+    const tpx0=document.getElementById(`tabpx-${idx}`);
+    if(tpx0&&tpx0.textContent==='—') tpx0.textContent=f(Math.round(data.spot||0));
   }
   const pills=document.getElementById(`pills-${idx}`);
   if(pills){
     if(data){
       const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime||'—'}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
+      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime?String(data.gex_regime).toUpperCase().replace('POSITIVE','LONG').replace('NEGATIVE','SHORT'):'—'}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
@@ -4093,13 +4243,20 @@ function _fillOfferSlot(slotId, templateId) {
 // that `top` + its own height. Measured live so it stays right on mobile
 // (<=760px: different top/margins) and if the bars ever change height.
 function _stickyStackBottom() {
-  var tabs = document.querySelector('.tabs-bar');
-  if (tabs && tabs.offsetHeight) {
-    var t = parseFloat(getComputedStyle(tabs).top);
-    return (isNaN(t) ? 0 : t) + tabs.offsetHeight;
-  }
-  var tb = document.getElementById('topbar');
-  return tb ? tb.offsetHeight + 16 : 0;
+  // Every element that is actually pinned (position:sticky) contributes its
+  // pinned bottom edge = CSS `top` + height. Desktop: topbar + .tabs-bar.
+  // Mobile app layout: only the chart-type chips (.sub-tabs) are sticky; the
+  // top bar scrolls away and .tabs-bar is the fixed bottom nav (not sticky).
+  var bottom = 0;
+  ['#topbar', '.tabs-bar', '.idx-panel.on .sub-tabs'].forEach(function (sel) {
+    var el = document.querySelector(sel);
+    if (!el || !el.offsetHeight) return;
+    var cs = getComputedStyle(el);
+    if (cs.position !== 'sticky') return;
+    var t = parseFloat(cs.top);
+    bottom = Math.max(bottom, (isNaN(t) ? 0 : t) + el.offsetHeight);
+  });
+  return bottom;
 }
 
 // Scrolls so the section's TOP EDGE (its title) sits just under the pinned
@@ -4154,6 +4311,8 @@ function scrollToTnc(btn) {
     var topbarEl = document.getElementById('topbar');
     var tabsEl = document.querySelector('.tabs-bar');
     var stickyOffset = (topbarEl ? topbarEl.offsetHeight : 0) + (tabsEl ? tabsEl.offsetHeight : 0) + 12;
+    // Mobile app layout: only the chart-type chips are pinned at the top.
+    if (window.matchMedia && matchMedia('(max-width:760px)').matches) stickyOffset = _stickyStackBottom() + 12;
     var y = tnc.getBoundingClientRect().top + window.pageYOffset - stickyOffset;
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
@@ -4471,3 +4630,47 @@ document.addEventListener('pointermove',function(e){
 })();
 </script>
 <!-- GLASS-LAYER-JS:END -->
+<script>
+/* Android-style mobile app layer: menu bottom sheet, status-bar colour, haptics */
+(function(){
+  var mq = window.matchMedia ? matchMedia('(max-width:760px)') : null;
+  window._syncThemeColor = function(){
+    try {
+      var c = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+      if (!c) return;
+      document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){ m.removeAttribute('media'); m.setAttribute('content', c); });
+    } catch (e) {}
+  };
+  _syncThemeColor();
+
+  // Header height -> CSS var so the sticky chart chips sit exactly under the fixed header.
+  var tbar = document.getElementById('topbar');
+  function setBarH(){ if (tbar) document.documentElement.style.setProperty('--app-bar-h', tbar.offsetHeight + 'px'); }
+  setBarH();
+  if (window.ResizeObserver && tbar) new ResizeObserver(setBarH).observe(tbar);
+  window.addEventListener('resize', setBarH);
+
+  var btn = document.getElementById('app-menu-btn'), sheet = document.getElementById('app-sheet'), scrim = document.getElementById('app-scrim');
+  if (!btn || !sheet || !scrim) return;
+  var pushed = false;
+  function set(open){
+    sheet.classList.toggle('open', open); scrim.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function openSheet(){ set(true); try { history.pushState({appSheet:1}, ''); pushed = true; } catch (e) {} }
+  function closeSheet(){ var was = pushed; set(false); pushed = false; if (was) { try { history.back(); } catch (e) {} } }
+  btn.addEventListener('click', function(){ sheet.classList.contains('open') ? closeSheet() : openSheet(); });
+  scrim.addEventListener('click', closeSheet);
+  // Links navigate away: just hide the sheet (no history.back(), it would fight the navigation).
+  sheet.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('a')) { set(false); pushed = false; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
+  // Android system Back closes the sheet instead of leaving the page.
+  window.addEventListener('popstate', function(){ if (sheet.classList.contains('open')) { pushed = false; set(false); } });
+  if (mq && mq.addEventListener) mq.addEventListener('change', function(){ if (!mq.matches && sheet.classList.contains('open')) { set(false); pushed = false; } });
+
+  document.addEventListener('click', function(e){
+    if (!mq || !mq.matches || !e.target.closest || !e.target.closest('.tab,.stab')) return;
+    try { if (navigator.vibrate) navigator.vibrate(8); } catch (x) {}
+  }, true);
+})();
+</script>
