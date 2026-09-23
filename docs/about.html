@@ -158,7 +158,7 @@ button.nav-btn{background:var(--raised)}
 .method-list li .m-label{
   font-family:'IBM Plex Mono',monospace;font-size:.65rem;
   font-weight:700;color:var(--accent);letter-spacing:.08em;
-  text-transform:uppercase;flex-shrink:0;min-width:80px;
+  text-transform:uppercase;flex-shrink:0;min-width:120px;
   margin-top:1px;
 }
 
@@ -723,7 +723,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     <div class="what-card">
       <div class="what-card-icon" style="color:var(--neg)">◈</div>
       <h3>Dealer Positioning</h3>
-      <p>Estimates whether market makers are long or short gamma at each strike — strike by strike — using OI change, IV direction and moneyness signals.</p>
+      <p>Estimates whether market makers are long or short gamma at each strike — strike by strike — using a proprietary model backtested against how price actually moves.</p>
     </div>
     <div class="what-card">
       <div class="what-card-icon" style="color:#4DD0E1">⬡</div>
@@ -768,8 +768,8 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     <ul class="method-list">
       <li><span class="m-label">Data Source</span>Publicly available NSE and BSE option chain feeds, updated throughout the trading session.</li>
       <li><span class="m-label">GEX Engine</span>Black-Scholes gamma computed for all strikes across all expiries. Aggregated by dealer posture assumption across four scenarios.</li>
-      <li><span class="m-label">Prob. GEX</span>Strike-by-strike dealer positioning estimated using a proprietary multi-factor model.</li>
       <li><span class="m-label">VEX / CEX</span>Vanna and charm computed per strike, aggregated across the estimated dealer book, giving a fuller picture of dealer hedging pressure as expiry approaches.</li>
+      <li><span class="m-label">Probable Positioning</span>Strike-by-strike dealer positioning estimated using a proprietary multi-factor model.</li>
       <li><span class="m-label">Vol Surface</span>Full implied volatility surface across strikes and expiries, plotted as an interactive 3D chart.</li>
       <li><span class="m-label">Volume Flow</span>Session call/put volume per strike, Volume/OI Ratio (VOR) conviction scoring, Volume PCR vs OI PCR divergence, and hottest strike identification. Active vs stale structural level tagging.</li>
     </ul>
