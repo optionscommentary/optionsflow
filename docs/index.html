@@ -1535,16 +1535,16 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('nifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
-      <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('nifty','totalgex',this)">Total Abs GEX</button>
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('nifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
+      <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
@@ -1607,7 +1607,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         </div>
       </details>
     </div>
-    <div id="sp-nifty-gex" class="stab-panel">
+    <div id="sp-nifty-gex" class="stab-panel on">
       <div class="edu-box">
         <h3>γ Gamma Exposure (GEX) – NIFTY</h3>
         <p>Gamma Exposure measures the total amount of delta‑hedging that market makers must perform for a 1% move in the underlying index. It is expressed in crores of rupees and tells you whether dealers are <strong>long gamma</strong> (stabilising) or <strong>short gamma</strong> (amplifying). This chart shows four different dealer‑positioning scenarios because the actual dealer posture is not directly observable – but the range of possibilities gives you a complete picture.</p>
@@ -1676,7 +1676,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-nifty-prob" class="stab-panel on">
+    <div id="sp-nifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – NIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
@@ -1795,16 +1795,16 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('banknifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
-      <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('banknifty','totalgex',this)">Total Abs GEX</button>
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('banknifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
+      <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
@@ -1868,7 +1868,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         </div>
       </details>
     </div>
-    <div id="sp-banknifty-gex" class="stab-panel">
+    <div id="sp-banknifty-gex" class="stab-panel on">
       <div class="edu-box">
         <h3>γ Gamma Exposure (GEX) – BANKNIFTY</h3>
         <p>Gamma Exposure measures the total amount of delta‑hedging that market makers must perform for a 1% move in the underlying index. It is expressed in crores of rupees and tells you whether dealers are <strong>long gamma</strong> (stabilising) or <strong>short gamma</strong> (amplifying). This chart shows four different dealer‑positioning scenarios because the actual dealer posture is not directly observable – but the range of possibilities gives you a complete picture.</p>
@@ -1943,7 +1943,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-banknifty-prob" class="stab-panel on">
+    <div id="sp-banknifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – BANKNIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
@@ -2065,16 +2065,16 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('sensex','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
-      <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('sensex','totalgex',this)">Total Abs GEX</button>
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('sensex','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
+      <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
@@ -2138,7 +2138,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         </div>
       </details>
     </div>
-    <div id="sp-sensex-gex" class="stab-panel">
+    <div id="sp-sensex-gex" class="stab-panel on">
       <div class="edu-box">
         <h3>γ Gamma Exposure (GEX) – SENSEX</h3>
         <p>Gamma Exposure measures the total amount of delta‑hedging that market makers must perform for a 1% move in the underlying index. It is expressed in crores of rupees and tells you whether dealers are <strong>long gamma</strong> (stabilising) or <strong>short gamma</strong> (amplifying). This chart shows four different dealer‑positioning scenarios because the actual dealer posture is not directly observable – but the range of possibilities gives you a complete picture.</p>
@@ -2213,7 +2213,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-sensex-prob" class="stab-panel on">
+    <div id="sp-sensex-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – SENSEX</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
@@ -2335,16 +2335,16 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('finnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
-      <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('finnifty','totalgex',this)">Total Abs GEX</button>
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('finnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
+      <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
@@ -2408,7 +2408,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         </div>
       </details>
     </div>
-    <div id="sp-finnifty-gex" class="stab-panel">
+    <div id="sp-finnifty-gex" class="stab-panel on">
       <div class="edu-box">
         <h3>γ Gamma Exposure (GEX) – FINNIFTY</h3>
         <p>Gamma Exposure measures the total amount of delta‑hedging that market makers must perform for a 1% move in the underlying index. It is expressed in crores of rupees and tells you whether dealers are <strong>long gamma</strong> (stabilising) or <strong>short gamma</strong> (amplifying). This chart shows four different dealer‑positioning scenarios because the actual dealer posture is not directly observable – but the range of possibilities gives you a complete picture.</p>
@@ -2483,7 +2483,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-finnifty-prob" class="stab-panel on">
+    <div id="sp-finnifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – FINNIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
@@ -2605,16 +2605,16 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
     </div>
     </div>
 <div class="sub-tabs">
-      <button class="stab stab-prob stab-premium on" data-key="prob" onclick="switchStab('midcpnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab on" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
-      <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
-      <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('midcpnifty','totalgex',this)">Total Abs GEX</button>
+      <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('midcpnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
+      <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
+      <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
+      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
+      <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">SYNOPSIS</button>
       <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
@@ -2678,7 +2678,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         </div>
       </details>
     </div>
-    <div id="sp-midcpnifty-gex" class="stab-panel">
+    <div id="sp-midcpnifty-gex" class="stab-panel on">
       <div class="edu-box">
         <h3>γ Gamma Exposure (GEX) – MIDCAP NIFTY</h3>
         <p>Gamma Exposure measures the total amount of delta‑hedging that market makers must perform for a 1% move in the underlying index. It is expressed in crores of rupees and tells you whether dealers are <strong>long gamma</strong> (stabilising) or <strong>short gamma</strong> (amplifying). This chart shows four different dealer‑positioning scenarios because the actual dealer posture is not directly observable – but the range of possibilities gives you a complete picture.</p>
@@ -2753,7 +2753,7 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
         <p><strong>How to use it:</strong> A steadily rising Total Abs GEX through the day usually means the chain is getting "stickier" — more hedging flow, tighter ranges. A sudden drop usually lines up with unwind events (large OI exits, expiry effects) and often precedes an expansion in range. Compare the shape of this chart to the Probable Positioning and GEX regime tabs — if Total Abs GEX is climbing while price pins near a level, that's corroborating evidence the pin is real, not noise.</p>
       </div>
     </div>
-    <div id="sp-midcpnifty-prob" class="stab-panel on">
+    <div id="sp-midcpnifty-prob" class="stab-panel">
       <div class="edu-box">
         <h3>🎯 Probable Positioning – MIDCAP NIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
@@ -2955,7 +2955,7 @@ function toggleTheme(){
   if (window._syncThemeColor) _syncThemeColor();
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS = ['oi','gex','vex','cex','skew','pcr','topgex','totalgex','prob','volsurf','analysis','premium'];
+const STABS = ['gex','oi','topgex','totalgex','prob','pcr','volsurf','vex','skew','cex','analysis','premium'];
 const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',probmain:'prob', probcall:'prob_call_matrix', probput:'prob_put_matrix', probnet:'prob_net_matrix', volsurfchart:'vol_surface', atmiv:'atm_iv_table'};
 const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',probmain:'Probable Positioning Analysis',probcall:'Call Probable GEX — Strike (ATM ±10) × Time',probput:'Put Probable GEX — Strike (ATM ±10) × Time',probnet:'Net Probable GEX — Strike (ATM ±10) × Time',volsurfchart:'Implied Volatility Surface',atmiv:'ATM Volatility'};
 const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',probmain:'GEX + Candles · PCR + OI Synthesised',probcall:'₹ Cr',probput:'₹ Cr',probnet:'₹ Cr',volsurfchart:'',atmiv:'Synthetic Futures ATM · Call +1/+2% · Put -1/-2%'};
@@ -4390,7 +4390,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   var activeIdx = validIdx || 'nifty';
   var savedStab = sessionStorage.getItem('_of_stab_' + activeIdx);
-  if (savedStab && savedStab !== 'prob') {
+  if (savedStab && savedStab !== 'gex') {
     var btn = document.querySelector('#panel-' + activeIdx + ' .stab[data-key="' + savedStab + '"]');
     if (btn) switchStab(activeIdx, savedStab, btn);
   }
