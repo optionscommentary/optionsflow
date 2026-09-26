@@ -63,7 +63,7 @@
   --accent:       #7DD3FC;
   --prob-color:   #C4B5FD;
   --volsurf-color:#22D3EE;
-  --synopsis-color:#FDE68A;
+  --synopsis-color:#E8D9A6;
   --silver:       #CBD5E1;
   --cta:          #34D399;
   --radius: 8px;
@@ -113,7 +113,7 @@
 }
 /* Star icon: dark theme keeps original yellow, light theme turns amber */
 [data-theme="dark"] .premium-callout-icon svg {
-  stroke: #FFD700;
+  stroke: #D4AF37;
 }
 [data-theme="light"] .premium-callout-icon svg {
   stroke: #B45309;
@@ -135,7 +135,7 @@
 [data-theme="light"] .stab-volsurf { color: var(--volsurf-color) !important; }
 [data-theme="light"] .stab-synopsis { color: var(--synopsis-color) !important; }
 .stab-premium {
-  color: #FFD700 !important;
+  color: #D4AF37 !important;
   max-width: 190px !important;
   white-space: normal !important;
   padding-left: 10px !important;
@@ -155,11 +155,11 @@
 /* Higher specificity than either .stab-prob or .stab-premium alone, so the
    gold "premium" color always wins on the tab that carries both classes
    (Probable Positioning is now premium too), regardless of CSS source order. */
-.stab-prob.stab-premium { color: #FFD700 !important; }
+.stab-prob.stab-premium { color: #D4AF37 !important; }
 [data-theme="light"] .stab-prob.stab-premium { color: #B8860B !important; }
 /* Volatility Surface is bundled into the same paid subscription now — same
    gold treatment, same specificity trick as the Positioning tab above. */
-.stab-volsurf.stab-premium { color: #FFD700 !important; }
+.stab-volsurf.stab-premium { color: #D4AF37 !important; }
 [data-theme="light"] .stab-volsurf.stab-premium { color: #B8860B !important; }
 
 /* -- Premium callout banner (new) -- */
@@ -235,7 +235,7 @@
   text-overflow: ellipsis;
 }
 .premium-callout-btn {
-  background: #FFD700;
+  background: #D4AF37;
   border: none;
   border-radius: 40px;
   padding: 7px 14px;
@@ -251,7 +251,7 @@
   flex-shrink: 0;
 }
 .premium-callout-btn:hover {
-  background: #FFED4A;
+  background: #E3C567;
   transform: scale(1.02);
 }
 @media (max-width: 640px) {
@@ -509,7 +509,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .stab {
   padding: 8px 8px;
   min-height: 50px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.045em;
@@ -935,7 +935,7 @@ body{
   --gl-shadow:0 20px 46px -16px rgba(0,0,0,.62),0 2px 8px rgba(0,0,0,.22);
   --gl-shadow-sm:0 10px 22px -12px rgba(0,0,0,.55);
   --gl-tint:rgba(255,255,255,.05);
-  --gl-gold:255,215,0;
+  --gl-gold:212,175,55;
   --gl-line-strong:rgba(255,255,255,.15);
   --gl-inset-dark:rgba(0,0,0,.30);
 }
@@ -984,9 +984,7 @@ html[data-theme] #topbar{
 }
 html[data-theme] #topbar::before{
   content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
-  background:
-    linear-gradient(118deg,var(--gl-glare) 0%,transparent 36%),
-    linear-gradient(180deg,var(--gl-fill-a),var(--gl-nav));
+  background:var(--bg);
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),inset 0 -1px 0 var(--gl-shade),var(--gl-shadow);
   -webkit-backdrop-filter:blur(22px) saturate(1.7);backdrop-filter:blur(22px) saturate(1.7);
@@ -1044,7 +1042,7 @@ html[data-theme="light"] .mentor-cta-tab:hover{border-color:#064E3B}
 html[data-theme] .tb-nav #theme-btn,html[data-theme] .topbar-nav #theme-btn{margin-left:4px}
 html[data-theme] .tb-more-menu{
   top:calc(100% + 14px);min-width:212px;padding:8px;border-radius:22px;
-  background:linear-gradient(135deg,var(--gl-glare),transparent 46%),var(--gl-menu);
+  background:var(--bg);
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),0 26px 60px -14px rgba(0,0,0,.55);
   -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);
@@ -1079,9 +1077,7 @@ html[data-theme] .tabs-bar{
 }
 html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip{
   position:relative;padding:4px;gap:2px;border-radius:999px;--fl-inset:4px;
-  background:
-    linear-gradient(118deg,var(--gl-glare) 0%,transparent 42%),
-    linear-gradient(180deg,var(--gl-fill-a),var(--gl-nav));
+  background:var(--bg);
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),inset 0 -1px 0 var(--gl-shade),var(--gl-shadow-sm);
   -webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);
@@ -1249,8 +1245,8 @@ html[data-theme] .footer,html[data-theme] .blog-footer{
   background:linear-gradient(180deg,var(--gl-fill-a),var(--gl-fill-b));
   border-top:1px solid var(--gl-line);box-shadow:inset 0 1px 0 var(--gl-hi);
 }
-@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){html[data-theme] #topbar::before{background:linear-gradient(180deg,var(--gl-fill-a),var(--gl-menu))}
-html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip,html[data-theme] .tb-more-menu{background:var(--gl-menu)}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){html[data-theme] #topbar::before{background:var(--bg)}
+html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip,html[data-theme] .tb-more-menu{background:var(--bg)}
 
 }
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.30s;animation-timing-function:cubic-bezier(.3,.7,.2,1)}
@@ -1274,6 +1270,25 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 
 }
 
+/* Standard tab/sub-tab labels: pure white text in dark theme (special-colored
+   tabs — stab-prob, stab-volsurf, stab-synopsis, stab-premium — keep their
+   own !important colors and are unaffected). */
+html[data-theme="dark"] .tab,
+html[data-theme="dark"] .tab:hover,
+html[data-theme="dark"] .tab.on,
+html[data-theme="dark"] .stab,
+html[data-theme="dark"] .stab:hover,
+html[data-theme="dark"] .stab.on{color:#FFFFFF}
+
+/* Desktop topbar nav links (Learn / Mentorship / ...More) — pure white in dark theme */
+html[data-theme="dark"] .tb-nav>a,
+html[data-theme="dark"] .tb-nav>details>summary,
+html[data-theme="dark"] .tb-nav>a:hover,
+html[data-theme="dark"] .tb-nav>details>summary:hover,
+html[data-theme="dark"] .topbar-nav>a,
+html[data-theme="dark"] .topbar-nav>details>summary,
+html[data-theme="dark"] .topbar-nav>a:hover,
+html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 
 /* GLASS-LAYER:END */
 </style>
