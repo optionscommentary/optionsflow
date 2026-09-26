@@ -297,7 +297,7 @@
 @media(max-width:520px){ .prem-feat-row { grid-template-columns:1fr; } }
 .prem-feat-item { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; }
 .prem-feat-icon { font-size:1.2rem; flex-shrink:0; margin-top:1px; }
-.prem-feat-title { font-family:'IBM Plex Mono',monospace; font-size:.68rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
+.prem-feat-title { font-family:'Inter',sans-serif; font-size:.85rem; font-weight:700; letter-spacing:normal; text-transform:none; color:var(--accent); margin-bottom:3px; }
 .prem-feat-desc { font-size:.77rem; color:var(--t3); line-height:1.5; }
 .prem-tnc-wrap { background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:20px; overflow:hidden; display:none; }
 .prem-tnc-head { background:var(--raised); padding:12px 18px; border-bottom:1px solid var(--border); font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--neg); }
@@ -456,7 +456,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
    shrinking the type, so the tabs + Premium Probable Positioning still
    land above the fold on first paint. */
 .hero-intro { max-width: 1600px; margin: 0 auto 10px; padding: 0 24px; }
-.hero-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; line-height: 1.22; color: var(--t1); margin-bottom: 8px; }
+.hero-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.5rem; line-height: 1.25; color: var(--t1); margin-bottom: 8px; }
 .hero-desc { font-size: 0.98rem; line-height: 1.55; color: var(--t2); max-width: 1100px; }
 .tabs-bar { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: var(--topbar); z-index: 800; margin: 0 -24px; padding: 0 0 0 24px; overflow: hidden; }
 .tabs-scroll { display: flex; flex: 1; overflow-x: auto; scrollbar-width: none; min-width: 0; }
@@ -657,7 +657,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 @media (max-width: 760px) {
   #main { padding: 8px; }
   .hero-intro { margin: 0 auto 6px; padding: 0 2px; }
-  .hero-title { font-size: 1.25rem; margin-bottom: 5px; }
+  .hero-title { font-size: 1.05rem; margin-bottom: 5px; }
   .hero-desc { font-size: 0.85rem; line-height: 1.45; }
   .contact-strip { display: none; }
   #topbar { padding: 0 6px; height: auto; min-height: 52px; overflow: hidden; }
@@ -1497,7 +1497,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 
   <div class="hero-intro">
     <h1 class="hero-title">
-      Real-Time Options Flow Dashboard — NIFTY, BankNIFTY, Sensex, FinNIFTY &amp; Midcap
+      Real-Time Options Flow Dashboard — NIFTY, BankNIFTY, Sensex, FinNIFTY &amp; Midcap Nifty
     </h1>
     <p class="hero-desc">
       Gamma Exposure (GEX), Vanna, Charm, dealer positioning, volume flow analytics, volatility skew and implied volatility surface — all updated live from NSE and BSE option chain data for all major indices. 
@@ -1529,7 +1529,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM FEATURES</div>
-          <div class="premium-callout-desc">Probable Positioning, GEX matrices &amp; the full Volatility Surface</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','nifty');">VIEW NOW →</button>
@@ -1543,7 +1542,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
-          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','nifty');">VIEW NOW →</button>
@@ -1789,7 +1787,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM FEATURES</div>
-          <div class="premium-callout-desc">Probable Positioning, GEX matrices &amp; the full Volatility Surface</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','banknifty');">VIEW NOW →</button>
@@ -1803,7 +1800,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
-          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','banknifty');">VIEW NOW →</button>
@@ -2059,7 +2055,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM FEATURES</div>
-          <div class="premium-callout-desc">Probable Positioning, GEX matrices &amp; the full Volatility Surface</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','sensex');">VIEW NOW →</button>
@@ -2073,7 +2068,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
-          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','sensex');">VIEW NOW →</button>
@@ -2329,7 +2323,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM FEATURES</div>
-          <div class="premium-callout-desc">Probable Positioning, GEX matrices &amp; the full Volatility Surface</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','finnifty');">VIEW NOW →</button>
@@ -2343,7 +2336,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
-          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','finnifty');">VIEW NOW →</button>
@@ -2599,7 +2591,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM FEATURES</div>
-          <div class="premium-callout-desc">Probable Positioning, GEX matrices &amp; the full Volatility Surface</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','midcpnifty');">VIEW NOW →</button>
@@ -2613,7 +2604,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         </span>
         <div class="premium-callout-copy">
           <div class="premium-callout-title">PREMIUM RECOMMENDATIONS</div>
-          <div class="premium-callout-desc">Auto trade setups from dealer flow & key metrics</div>
         </div>
       </div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('recom','midcpnifty');">VIEW NOW →</button>
