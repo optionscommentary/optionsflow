@@ -503,7 +503,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 1px; font-weight: 700; }
 .pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--t1); }
 
-.sub-tabs { display: flex; flex-wrap: nowrap; justify-content: center; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .sub-tabs::-webkit-scrollbar { height: 3px; }
 .sub-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .stab {
@@ -690,7 +690,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     display: block;
     margin: 0 !important;
   }
-  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; justify-content: center; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 8px -10px 0; padding: 0 10px; }
+  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 8px -10px 0; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 6px 6px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
@@ -1084,7 +1084,7 @@ html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobil
 }
 html[data-theme] .tabs-scroll{flex:0 1 auto;max-width:100%}
 @media(min-width:761px){html[data-theme] .tabs-scroll{overflow:visible}}
-html[data-theme] .sub-tabs{gap:3px;justify-content:center;scrollbar-width:none}
+html[data-theme] .sub-tabs{gap:3px;scrollbar-width:none}
 html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
 html[data-theme] .tab{
   position:relative;z-index:1;border:0;border-radius:999px;padding:7px 20px;font-size:.74rem;
@@ -1349,7 +1349,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
   html[data-theme] .tab:active .tab-live{background:rgba(var(--gl-acc),.14)}
 
   /* ---------- Sticky chart-type chips ---------- */
-  html[data-theme] .sub-tabs{position:sticky;top:var(--app-bar-h,48px);z-index:850;display:flex;flex-wrap:nowrap;justify-content:center;gap:8px;margin:6px -8px 0;padding:6px 8px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:var(--bg);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  html[data-theme] .sub-tabs{position:sticky;top:var(--app-bar-h,48px);z-index:850;display:flex;flex-wrap:nowrap;gap:8px;margin:6px -8px 0;padding:6px 8px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:var(--bg);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
   html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
   html[data-theme] .sub-tabs .glass-flow{display:none}
   html[data-theme] .sub-tabs::after{flex:0 0 4px}
@@ -1550,17 +1550,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('nifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('nifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('nifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-nifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1630,8 +1629,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the GEX chart:</strong> The x‑axis shows strike prices. The y‑axis shows GEX in crores. Positive bars (above zero) mean dealers are long gamma at that strike – price is magnetically attracted to that level. Negative bars (below zero) mean dealers are short gamma – price tends to move quickly away from that level. The <strong>GEX Pin</strong> is the strike with the highest absolute GEX; it acts as a gravitational centre. The <strong>Zero Gamma Line (ZGL)</strong> is the price where aggregate dealer gamma flips from positive to negative; crossing below the ZGL changes the entire market character from dampening to amplifying.</p>
         <p>Before each trading session, check whether net GEX is positive or negative, and where the ZGL is relative to spot. This one number tells you what kind of market you are walking into.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-nifty-gex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-nifty-gex', jsonUrl:'/data/nifty/gex_history.json', title:'NIFTY — GEX (intraday)'});</script>
     </div>
     <div id="sp-nifty-vex" class="stab-panel">
       <div class="edu-box">
@@ -1641,8 +1638,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the VEX chart:</strong> The chart shows VEX across strikes, similar to GEX. Positive VEX means: if IV falls, dealers sell. Negative VEX means: if IV falls, dealers buy. The magnitude tells you how strong the flow will be. VEX is most significant in the last 5 days before expiry, because near‑term options have the highest vanna sensitivity. Always check VEX before any overnight position, especially before known volatility events.</p>
         <p><strong>Practical use:</strong> If you see a large positive VEX and you expect IV to drop (e.g., after an event, or simply because the market is calming down), you can anticipate selling pressure. Conversely, large negative VEX combined with a rising VIX suggests mechanical buying support. Combine VEX with GEX to confirm whether the market is likely to range or trend.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-nifty-vex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-nifty-vex', jsonUrl:'/data/nifty/vex_history.json', title:'NIFTY — VEX (intraday)'});</script>
     </div>
     <div id="sp-nifty-cex" class="stab-panel">
       <div class="edu-box">
@@ -1651,14 +1646,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>The charm effect in practice:</strong> On Wednesday morning (Nifty expiry week), there may be a large open interest in 24,200 calls (a call wall). As time passes toward Thursday expiry, the delta of those OTM calls decays. The market makers who wrote those calls were buying Nifty futures to hedge the positive delta. Now, as charm reduces that delta, they must sell those futures back. The result is systematic selling pressure that tends to keep the market below the call wall, even if the underlying wants to rise. This is why so many weekly expiries end with Nifty pinned just below a heavy call strike.</p>
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-nifty-cex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-nifty-cex', jsonUrl:'/data/nifty/cex_history.json', title:'NIFTY — CEX (intraday)'});</script>
     </div>
-        <div id="sp-nifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-nifty"></div>
-      <script>renderIvTracker("ivtrack-mount-nifty", "/data/nifty/iv_snapshots.json", "NIFTY");</script>
-    </div>
-
         <div id="sp-nifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – NIFTY</h3>
@@ -1709,7 +1697,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests. This is the most sophisticated output on the dashboard and requires practice to interpret – start by comparing it to the raw GEX chart.</p>
       </div>
-      <div class="gcard" id="posprem-slider-nifty" style="margin-top:16px;display:none"><div id="slider-nifty-prob"></div></div>
       <div id="posprem-sales-nifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
@@ -1821,17 +1808,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('banknifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('banknifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('banknifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-banknifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1903,8 +1889,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p>Before each trading session, check whether net GEX is positive or negative, and where the ZGL is relative to spot. This one number tells you what kind of market you are walking into.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty’s notional value is higher (one point = ₹100 vs ₹50 for Nifty), so GEX magnitudes are larger. The GEX pin is often a round number like 48,000 or 49,000, and the magnetic pull can be extremely strong in the final hours of expiry. Compare BankNifty GEX to Nifty GEX – if they diverge, BankNifty may trend while Nifty ranges.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-banknifty-gex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-banknifty-gex', jsonUrl:'/data/banknifty/gex_history.json', title:'BANKNIFTY — GEX (intraday)'});</script>
     </div>
     <div id="sp-banknifty-vex" class="stab-panel">
       <div class="edu-box">
@@ -1915,8 +1899,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> If you see a large positive VEX and you expect IV to drop (e.g., after an event, or simply because the market is calming down), you can anticipate selling pressure. Conversely, large negative VEX combined with a rising VIX suggests mechanical buying support. Combine VEX with GEX to confirm whether the market is likely to range or trend.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty options have higher vega, so VEX flows can be disproportionately large relative to OI. When India VIX spikes, BankNifty VEX often becomes highly positive, meaning dealers are forced to sell BankNifty futures if IV falls. This is one reason why BankNifty sometimes falls faster than Nifty after a volatility event.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-banknifty-vex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-banknifty-vex', jsonUrl:'/data/banknifty/vex_history.json', title:'BANKNIFTY — VEX (intraday)'});</script>
     </div>
     <div id="sp-banknifty-cex" class="stab-panel">
       <div class="edu-box">
@@ -1926,14 +1908,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty options have higher theta (time decay), so the charm effect is stronger. In the final two days of expiry, CEX can create persistent directional pressure that overrides other signals. When CEX and GEX agree (both positive on calls, both negative on puts), the structural level is extremely reliable.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-banknifty-cex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-banknifty-cex', jsonUrl:'/data/banknifty/cex_history.json', title:'BANKNIFTY — CEX (intraday)'});</script>
     </div>
-        <div id="sp-banknifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-banknifty"></div>
-      <script>renderIvTracker("ivtrack-mount-banknifty", "/data/banknifty/iv_snapshots.json", "BANKNIFTY");</script>
-    </div>
-
         <div id="sp-banknifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – BANKNIFTY</h3>
@@ -1988,7 +1963,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty dealer positioning is often more polarised than Nifty. The chart can show large blue bars at round numbers where put writers are active, and large orange bars at strikes where call writers are active. When a cluster of blue bars sits just below spot, that is a strong support zone. A cluster of orange bars just above spot is a weak resistance zone – price is likely to break through it.</p>
       </div>
-      <div class="gcard" id="posprem-slider-banknifty" style="margin-top:16px;display:none"><div id="slider-banknifty-prob"></div></div>
       <div id="posprem-sales-banknifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
@@ -2102,17 +2076,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('sensex','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('sensex','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('sensex','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-sensex-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2184,8 +2157,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p>Before each trading session, check whether net GEX is positive or negative, and where the ZGL is relative to spot. This one number tells you what kind of market you are walking into.</p>
         <p><strong>Sensex‑specific note:</strong> Sensex GEX is calculated using the same methodology as Nifty, but with lower liquidity and wider bid‑ask spreads. As a result, GEX signals in Sensex are often more “sticky” – once a level is established, it tends to hold longer. However, when a Sensex GEX level breaks, the move can be larger because of the thinner order book. Use Sensex GEX as a secondary confirmation after checking Nifty and BankNifty. If all three indices show the same GEX regime, the signal is extremely robust.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-sensex-gex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-sensex-gex', jsonUrl:'/data/sensex/gex_history.json', title:'SENSEX — GEX (intraday)'});</script>
     </div>
     <div id="sp-sensex-vex" class="stab-panel">
       <div class="edu-box">
@@ -2196,8 +2167,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> If you see a large positive VEX and you expect IV to drop (e.g., after an event, or simply because the market is calming down), you can anticipate selling pressure. Conversely, large negative VEX combined with a rising VIX suggests mechanical buying support. Combine VEX with GEX to confirm whether the market is likely to range or trend.</p>
         <p><strong>Sensex‑specific note:</strong> Sensex VEX is smaller in magnitude than Nifty or BankNifty, but still meaningful. Because Sensex options are less traded, the vanna flows are less likely to be drowned out by other noise. A large positive VEX in Sensex, combined with a falling India VIX, is a reliable signal for selling pressure. Use Sensex VEX primarily when you are trading Sensex options directly, rather than using it as a proxy for Nifty.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-sensex-vex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-sensex-vex', jsonUrl:'/data/sensex/vex_history.json', title:'SENSEX — VEX (intraday)'});</script>
     </div>
     <div id="sp-sensex-cex" class="stab-panel">
       <div class="edu-box">
@@ -2207,14 +2176,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
         <p><strong>Sensex‑specific note:</strong> Charm in Sensex behaves similarly to Nifty, but the effect is less pronounced because Sensex options have lower open interest. However, on monthly expiry day, the charm unwind can still be significant. Check Sensex CEX in the final 48 hours before expiry to understand whether there is systematic buying or selling pressure from time decay.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-sensex-cex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-sensex-cex', jsonUrl:'/data/sensex/cex_history.json', title:'SENSEX — CEX (intraday)'});</script>
     </div>
-        <div id="sp-sensex-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-sensex"></div>
-      <script>renderIvTracker("ivtrack-mount-sensex", "/data/sensex/iv_snapshots.json", "SENSEX");</script>
-    </div>
-
         <div id="sp-sensex-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – SENSEX</h3>
@@ -2269,7 +2231,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Sensex‑specific note:</strong> The probable positioning engine works the same for Sensex, but the lower OI means the conviction level is often MODERATE or LOW. Use the Sensex probable positioning chart to identify strikes where dealers are long gamma – these levels are more reliable because thin markets tend to respect dealer hedging more strongly. Short gamma signals are less reliable because dealers may not have enough hedging volume to move price.</p>
       </div>
-      <div class="gcard" id="posprem-slider-sensex" style="margin-top:16px;display:none"><div id="slider-sensex-prob"></div></div>
       <div id="posprem-sales-sensex" class="posprem-outer" style="display:none">
         <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
@@ -2383,17 +2344,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('finnifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('finnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('finnifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-finnifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2465,8 +2425,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p>Before each trading session, check whether net GEX is positive or negative, and where the ZGL is relative to spot. This one number tells you what kind of market you are walking into.</p>
         <p><strong>FinNifty‑specific note:</strong> FinNifty GEX is often more volatile than Nifty because the underlying financial stocks are highly correlated. Positive GEX regimes in FinNifty can produce very tight pinning at round numbers. Negative GEX regimes can produce sudden, sharp moves. Because the index is newer, historical patterns are less reliable – always use the latest data and watch for changes in the GEX regime throughout the day.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-finnifty-gex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-finnifty-gex', jsonUrl:'/data/finnifty/gex_history.json', title:'FINNIFTY — GEX (intraday)'});</script>
     </div>
     <div id="sp-finnifty-vex" class="stab-panel">
       <div class="edu-box">
@@ -2477,8 +2435,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> If you see a large positive VEX and you expect IV to drop (e.g., after an event, or simply because the market is calming down), you can anticipate selling pressure. Conversely, large negative VEX combined with a rising VIX suggests mechanical buying support. Combine VEX with GEX to confirm whether the market is likely to range or trend.</p>
         <p><strong>FinNifty‑specific note:</strong> FinNifty VEX is driven by the same mechanics as other indices, but the smaller OI base means that even moderate VEX values can have a large percentage impact. A VEX reading above 200 crores in FinNifty is significant. Monitor VEX ahead of RBI policy statements – financial sector options are particularly sensitive to interest rate expectations, and IV moves can be large.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-finnifty-vex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-finnifty-vex', jsonUrl:'/data/finnifty/vex_history.json', title:'FINNIFTY — VEX (intraday)'});</script>
     </div>
     <div id="sp-finnifty-cex" class="stab-panel">
       <div class="edu-box">
@@ -2488,14 +2444,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
         <p><strong>FinNifty‑specific note:</strong> Charm in FinNifty is most noticeable on expiry day. Because FinNifty has weekly expiries (currently on Tuesdays), the charm unwind happens on Monday and Tuesday. Use CEX to understand whether the market is likely to be pulled toward a strike or pushed away. A large positive CEX on calls above spot is a strong resistance signal.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-finnifty-cex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-finnifty-cex', jsonUrl:'/data/finnifty/cex_history.json', title:'FINNIFTY — CEX (intraday)'});</script>
     </div>
-        <div id="sp-finnifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-finnifty"></div>
-      <script>renderIvTracker("ivtrack-mount-finnifty", "/data/finnifty/iv_snapshots.json", "FINNIFTY");</script>
-    </div>
-
         <div id="sp-finnifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – FINNIFTY</h3>
@@ -2550,7 +2499,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>FinNifty‑specific note:</strong> The probable positioning engine for FinNifty uses the same logic as Nifty, but with lower OI the conviction levels are often MODERATE. Use the chart to identify strikes where the estimated dealer gamma is large in magnitude relative to OI – those are the most important levels. Because FinNifty is less liquid, dealer positioning can change quickly; refresh the data frequently.</p>
       </div>
-      <div class="gcard" id="posprem-slider-finnifty" style="margin-top:16px;display:none"><div id="slider-finnifty-prob"></div></div>
       <div id="posprem-sales-finnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
@@ -2664,17 +2612,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('midcpnifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('midcpnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('midcpnifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-midcpnifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2746,8 +2693,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p>Before each trading session, check whether net GEX is positive or negative, and where the ZGL is relative to spot. This one number tells you what kind of market you are walking into.</p>
         <p><strong>Midcap‑specific note:</strong> Midcap Nifty GEX is more sensitive to large trades because the options market is thinner. A single institutional order can change the GEX profile significantly. Check the GEX chart frequently – if you see a sudden large positive or negative bar appear at a new strike, that is likely a fresh institutional position. Respect those levels even if the magnitude seems small relative to Nifty.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-midcpnifty-gex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-midcpnifty-gex', jsonUrl:'/data/midcpnifty/gex_history.json', title:'MIDCPNIFTY — GEX (intraday)'});</script>
     </div>
     <div id="sp-midcpnifty-vex" class="stab-panel">
       <div class="edu-box">
@@ -2758,8 +2703,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> If you see a large positive VEX and you expect IV to drop (e.g., after an event, or simply because the market is calming down), you can anticipate selling pressure. Conversely, large negative VEX combined with a rising VIX suggests mechanical buying support. Combine VEX with GEX to confirm whether the market is likely to range or trend.</p>
         <p><strong>Midcap‑specific note:</strong> Midcap VEX is often overlooked, but it can be very meaningful. Because midcap stocks are less correlated, the VEX flows from midcap index options can be uncorrelated with Nifty. This creates hedging opportunities. A large positive VEX in Midcap Nifty with a falling VIX suggests selling pressure that may not affect Nifty – useful for pair trades.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-midcpnifty-vex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-midcpnifty-vex', jsonUrl:'/data/midcpnifty/vex_history.json', title:'MIDCPNIFTY — VEX (intraday)'});</script>
     </div>
     <div id="sp-midcpnifty-cex" class="stab-panel">
       <div class="edu-box">
@@ -2769,14 +2712,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
         <p><strong>Midcap‑specific note:</strong> Charm in Midcap Nifty is less predictable because open interest is lower and positions are often held by retail traders rather than institutions. The charm effect may be less systematic. Use CEX only as a secondary check – if both Midcap and Nifty show positive CEX on calls, the selling pressure is likely real. If they diverge, trust the Nifty signal.</p>
       </div>
-      <div class="gcard" style="margin-top:16px"><div id="slider-midcpnifty-cex"></div></div>
-      <script>renderIntradaySlider({mountId:'slider-midcpnifty-cex', jsonUrl:'/data/midcpnifty/cex_history.json', title:'MIDCPNIFTY — CEX (intraday)'});</script>
     </div>
-        <div id="sp-midcpnifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-midcpnifty"></div>
-      <script>renderIvTracker("ivtrack-mount-midcpnifty", "/data/midcpnifty/iv_snapshots.json", "MIDCPNIFTY");</script>
-    </div>
-
         <div id="sp-midcpnifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – MIDCAP NIFTY</h3>
@@ -2831,7 +2767,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Midcap‑specific note:</strong> The probable positioning engine works less reliably on Midcap Nifty because of lower OI and fewer strikes. Conviction is almost always MODERATE or LOW. Use the chart to identify large blue bars (long gamma) – those are the most reliable levels. Orange bars (short gamma) should be treated with skepticism unless they are very large.</p>
       </div>
-      <div class="gcard" id="posprem-slider-midcpnifty" style="margin-top:16px;display:none"><div id="slider-midcpnifty-prob"></div></div>
       <div id="posprem-sales-midcpnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
@@ -3025,7 +2960,7 @@ function toggleTheme(){
   if (window._syncThemeColor) _syncThemeColor();
 }
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS = ['gex','oi','topgex','totalgex','prob','pcr','volsurf','vex','skew','cex','ivtrack','analysis','premium'];
+const STABS = ['gex','oi','topgex','totalgex','prob','pcr','volsurf','vex','skew','cex','analysis','premium'];
 const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',probmain:'prob', probcall:'prob_call_matrix', probput:'prob_put_matrix', probnet:'prob_net_matrix', volsurfchart:'vol_surface', atmiv:'atm_iv_table'};
 const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',probmain:'Probable Positioning Analysis',probcall:'Call Probable GEX — Strike (ATM ±10) × Time',probput:'Put Probable GEX — Strike (ATM ±10) × Time',probnet:'Net Probable GEX — Strike (ATM ±10) × Time',volsurfchart:'Implied Volatility Surface',atmiv:'ATM Volatility'};
 const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',probmain:'GEX + Candles · PCR + OI Synthesised',probcall:'₹ Cr',probput:'₹ Cr',probnet:'₹ Cr',volsurfchart:'',atmiv:'Synthetic Futures ATM · Call +1/+2% · Put -1/-2%'};
@@ -3255,247 +3190,6 @@ async function switchIdx(idx){
   window.scrollTo({top:0,behavior:'smooth'});
   renderIndex(idx, await fetchData(idx));
 }
-// ── INTRADAY SLIDER WIDGET (shared by GEX/VEX/CEX Intraday tabs) ──
-function renderIntradaySlider(opts) {
-  var mount = document.getElementById(opts.mountId);
-  if (!mount) return;
-
-  mount.innerHTML =
-    '<div style="font-family:\'IBM Plex Mono\',monospace">' +
-      '<div style="color:#F8FAFC;font-size:13px;font-weight:700;margin-bottom:8px">' + opts.title + '</div>' +
-      '<canvas id="' + opts.mountId + '-canvas" style="width:100%;height:280px;display:block"></canvas>' +
-      '<div style="display:flex;align-items:center;gap:10px;margin-top:10px">' +
-        '<input type="range" id="' + opts.mountId + '-slider" min="0" max="0" value="0" style="flex:1">' +
-        '<span id="' + opts.mountId + '-time" style="color:#94A3B8;font-size:11px;min-width:110px;text-align:right">--</span>' +
-      '</div>' +
-    '</div>';
-
-  fetch(opts.jsonUrl)
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var entries = data.entries || [];
-      if (!entries.length) {
-        mount.querySelector('div').innerHTML += '<div style="color:#5F5E5A;font-size:12px;margin-top:8px">No snapshots yet today.</div>';
-        return;
-      }
-
-      var canvas = document.getElementById(opts.mountId + '-canvas');
-      var slider = document.getElementById(opts.mountId + '-slider');
-      var timeLbl = document.getElementById(opts.mountId + '-time');
-      slider.max = entries.length - 1;
-      slider.value = entries.length - 1;
-
-      function draw(idx2) {
-        var e = entries[idx2];
-        timeLbl.textContent = e.ts_label;
-
-        var strikes = Object.keys(e.call || {}).map(Number).sort(function (a, b) { return a - b; });
-        var calls = strikes.map(function (s) { var v = (e.call || {})[s]; return v === undefined ? 0 : v; });
-        var puts = strikes.map(function (s) { var v = (e.put || {})[s]; return v === undefined ? 0 : v; });
-
-        var ctx = canvas.getContext('2d');
-        var dpr = window.devicePixelRatio || 1;
-        var w = canvas.clientWidth, h = canvas.clientHeight;
-        canvas.width = w * dpr; canvas.height = h * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, w, h);
-
-        var allVals = calls.concat(puts).map(Math.abs).concat([1]);
-        var maxAbs = Math.max.apply(null, allVals);
-        var padL = 50, padB = 24, padT = 8;
-        var plotW = w - padL - 10, plotH = h - padB - padT;
-        var zeroY = padT + plotH / 2;
-        var barW = plotW / strikes.length;
-
-        ctx.strokeStyle = '#1B2B42';
-        ctx.beginPath();
-        ctx.moveTo(padL, zeroY); ctx.lineTo(w - 10, zeroY);
-        ctx.stroke();
-
-        strikes.forEach(function (sk, i) {
-          var x = padL + i * barW + barW * 0.15;
-          var bw = barW * 0.7;
-          var cH = (calls[i] / maxAbs) * (plotH / 2);
-          var pH = (puts[i] / maxAbs) * (plotH / 2);
-          ctx.fillStyle = calls[i] >= 0 ? 'rgba(52,211,153,0.75)' : 'rgba(239,68,68,0.75)';
-          ctx.fillRect(x, zeroY - Math.max(cH, 0), bw / 2, Math.abs(cH));
-          if (cH < 0) ctx.fillRect(x, zeroY, bw / 2, -cH);
-          ctx.fillStyle = puts[i] >= 0 ? 'rgba(52,211,153,0.45)' : 'rgba(239,68,68,0.45)';
-          ctx.fillRect(x + bw / 2, zeroY - Math.max(pH, 0), bw / 2, Math.abs(pH));
-          if (pH < 0) ctx.fillRect(x + bw / 2, zeroY, bw / 2, -pH);
-        });
-
-        ctx.fillStyle = '#94A3B8';
-        ctx.font = '10px monospace';
-        ctx.textAlign = 'center';
-        strikes.forEach(function (sk, i) {
-          if (i % Math.ceil(strikes.length / 10 || 1) === 0) {
-            ctx.fillText(sk, padL + i * barW + barW / 2, h - 6);
-          }
-        });
-      }
-
-      draw(entries.length - 1);
-      slider.addEventListener('input', function () { draw(Number(slider.value)); });
-      window.addEventListener('resize', function () { draw(Number(slider.value)); });
-    })
-    .catch(function () {
-      mount.innerHTML += '<div style="color:#5F5E5A;font-size:12px">Could not load snapshot data.</div>';
-    });
-}
-
-// ── IV TRACKING WIDGET (public site — static iv_snapshots.json, ports the
-// same expiry/strike/call-put selection localhost's live IV Tracking tab
-// already has, just reading one static file instead of live Flask routes) ──
-function renderIvTracker(mountId, jsonUrl, label) {
-  var mount = document.getElementById(mountId);
-  if (!mount) return;
-  mount.innerHTML = '<div style="color:#94A3B8;font-size:12px;font-family:\'IBM Plex Mono\',monospace">Loading IV snapshots…</div>';
-
-  fetch(jsonUrl)
-    .then(function (r) { return r.json(); })
-    .then(function (snapshots) {
-      if (!snapshots || !snapshots.length) {
-        mount.innerHTML = '<div style="color:#5F5E5A;font-size:12px">No IV snapshots yet today.</div>';
-        return;
-      }
-
-      var expirySet = {};
-      snapshots.forEach(function (s) { Object.keys(s.expiries || {}).forEach(function (e) { expirySet[e] = true; }); });
-      var expiries = Object.keys(expirySet).sort();
-
-      mount.innerHTML =
-        '<div style="font-family:\'IBM Plex Mono\',monospace">' +
-          '<div style="color:#F8FAFC;font-size:13px;font-weight:700;margin-bottom:10px">' + label + ' — IV Tracking</div>' +
-          '<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px">' +
-            '<div><div style="color:#94A3B8;font-size:.62rem;margin-bottom:5px">EXPIRY</div>' +
-              '<select id="' + mountId + '-expiry" style="padding:6px 10px;background:#0C1626;color:#F8FAFC;border:1px solid #1B2B42;border-radius:6px"></select></div>' +
-            '<div><div style="color:#94A3B8;font-size:.62rem;margin-bottom:5px">STRIKES (multi-select)</div>' +
-              '<select id="' + mountId + '-strikes" multiple size="5" style="padding:6px 10px;background:#0C1626;color:#F8FAFC;border:1px solid #1B2B42;border-radius:6px;min-width:140px"></select></div>' +
-            '<div><div style="color:#94A3B8;font-size:.62rem;margin-bottom:5px">SHOW</div>' +
-              '<div style="display:flex;gap:5px">' +
-                '<button id="' + mountId + '-call" style="padding:6px 12px;font-size:.7rem;border-radius:6px;border:1px solid #34D399;background:#34D39922;color:#34D399;cursor:pointer">Call IV</button>' +
-                '<button id="' + mountId + '-put" style="padding:6px 12px;font-size:.7rem;border-radius:6px;border:1px solid #1B2B42;background:transparent;color:#94A3B8;cursor:pointer">Put IV</button>' +
-              '</div></div>' +
-            '<button id="' + mountId + '-load" style="padding:8px 20px;font-size:.72rem;border-radius:6px;border:none;background:#00E5FF;color:#08080F;font-weight:700;cursor:pointer">▶ LOAD CHART</button>' +
-          '</div>' +
-          '<canvas id="' + mountId + '-canvas" style="width:100%;height:320px;display:block"></canvas>' +
-        '</div>';
-
-      var expirySelect = document.getElementById(mountId + '-expiry');
-      var strikeSelect = document.getElementById(mountId + '-strikes');
-      var callBtn = document.getElementById(mountId + '-call');
-      var putBtn = document.getElementById(mountId + '-put');
-      var canvas = document.getElementById(mountId + '-canvas');
-      var showType = 'call';
-
-      expiries.forEach(function (e) {
-        var o = document.createElement('option'); o.value = e; o.textContent = e;
-        expirySelect.appendChild(o);
-      });
-
-      function populateStrikes() {
-        var exp = expirySelect.value;
-        var latest = null;
-        for (var i = snapshots.length - 1; i >= 0; i--) {
-          if (snapshots[i].expiries && snapshots[i].expiries[exp]) { latest = snapshots[i]; break; }
-        }
-        strikeSelect.innerHTML = '';
-        if (!latest) return;
-        var strikes = Object.keys(latest.expiries[exp]).map(Number).sort(function (a, b) { return a - b; });
-        strikes.forEach(function (s, i) {
-          var o = document.createElement('option'); o.value = s; o.textContent = s;
-          if (i >= Math.floor(strikes.length / 2) - 2 && i <= Math.floor(strikes.length / 2) + 2) o.selected = true;
-          strikeSelect.appendChild(o);
-        });
-      }
-      expirySelect.addEventListener('change', populateStrikes);
-      populateStrikes();
-
-      function setType(t) {
-        showType = t;
-        callBtn.style.background = t === 'call' ? '#34D39922' : 'transparent';
-        callBtn.style.color = t === 'call' ? '#34D399' : '#94A3B8';
-        callBtn.style.borderColor = t === 'call' ? '#34D399' : '#1B2B42';
-        putBtn.style.background = t === 'put' ? '#FB923C22' : 'transparent';
-        putBtn.style.color = t === 'put' ? '#FB923C' : '#94A3B8';
-        putBtn.style.borderColor = t === 'put' ? '#FB923C' : '#1B2B42';
-      }
-      callBtn.addEventListener('click', function () { setType('call'); });
-      putBtn.addEventListener('click', function () { setType('put'); });
-
-      function drawChart() {
-        var exp = expirySelect.value;
-        var selStrikes = Array.from(strikeSelect.selectedOptions).map(function (o) { return o.value; });
-        if (!selStrikes.length) return;
-
-        var series = selStrikes.map(function (sk) {
-          var pts = [];
-          snapshots.forEach(function (s) {
-            var e = (s.expiries || {})[exp];
-            if (e && e[sk]) {
-              var v = showType === 'call' ? e[sk].call_iv : e[sk].put_iv;
-              if (v !== undefined && v !== null) pts.push({ ts: s.timestamp, v: v });
-            }
-          });
-          return { strike: sk, pts: pts };
-        }).filter(function (s) { return s.pts.length > 0; });
-
-        if (!series.length) return;
-
-        var ctx = canvas.getContext('2d');
-        var dpr = window.devicePixelRatio || 1;
-        var w = canvas.clientWidth, h = canvas.clientHeight;
-        canvas.width = w * dpr; canvas.height = h * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, w, h);
-
-        var allVals = [];
-        series.forEach(function (s) { s.pts.forEach(function (p) { allVals.push(p.v); }); });
-        var minV = Math.min.apply(null, allVals), maxV = Math.max.apply(null, allVals);
-        if (minV === maxV) { minV -= 1; maxV += 1; }
-        var padL = 50, padB = 24, padT = 12, padR = 10;
-        var plotW = w - padL - padR, plotH = h - padB - padT;
-        var maxN = Math.max.apply(null, series.map(function (s) { return s.pts.length; }));
-
-        var colors = ['#00E5FF', '#34D399', '#FB923C', '#F472B6', '#A78BFA', '#FBBF24'];
-        ctx.strokeStyle = '#1B2B42';
-        ctx.beginPath(); ctx.moveTo(padL, padT); ctx.lineTo(padL, h - padB); ctx.lineTo(w - padR, h - padB); ctx.stroke();
-
-        series.forEach(function (s, si) {
-          ctx.strokeStyle = colors[si % colors.length];
-          ctx.lineWidth = 1.6;
-          ctx.beginPath();
-          s.pts.forEach(function (p, i) {
-            var x = padL + (i / Math.max(maxN - 1, 1)) * plotW;
-            var y = padT + (1 - (p.v - minV) / (maxV - minV)) * plotH;
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          });
-          ctx.stroke();
-        });
-
-        ctx.font = '10px monospace';
-        ctx.textAlign = 'left';
-        series.forEach(function (s, si) {
-          ctx.fillStyle = colors[si % colors.length];
-          ctx.fillText(s.strike, padL + 6 + si * 60, padT + 10);
-        });
-        ctx.fillStyle = '#94A3B8';
-        ctx.textAlign = 'right';
-        ctx.fillText(maxV.toFixed(1) + '%', padL - 6, padT + 8);
-        ctx.fillText(minV.toFixed(1) + '%', padL - 6, h - padB);
-      }
-
-      document.getElementById(mountId + '-load').addEventListener('click', drawChart);
-      window.addEventListener('resize', drawChart);
-      setType('call');
-      drawChart();
-    })
-    .catch(function () {
-      mount.innerHTML = '<div style="color:#5F5E5A;font-size:12px">Could not load IV snapshot data.</div>';
-    });
-}
-
 function switchStab(idx, key, btn){
   sessionStorage.setItem('_of_stab_' + idx, key);
   const panel = document.getElementById(`panel-${idx}`);
@@ -4256,19 +3950,6 @@ function _posPremShowContent(idx, html) {
   // Drop the lock badge from the "PREMIUM PROBABLE POSITIONING" tab now
   // that this index's content is unlocked.
   document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
-
-  // Intraday Probable-Positioning slider is gated the same as the rest of
-  // this tab — only reveal + render it once the password has actually
-  // succeeded, not before.
-  var sliderWrap = document.getElementById('posprem-slider-' + idx);
-  if (sliderWrap && sliderWrap.style.display === 'none') {
-    sliderWrap.style.display = '';
-    renderIntradaySlider({
-      mountId: 'slider-' + idx + '-prob',
-      jsonUrl: 'data/' + idx + '/prob_history.json',
-      title:   idx.toUpperCase() + ' — Probable Positioning (intraday)',
-    });
-  }
 
   // Grab the outgoing iframe's active tab + zoom state (if any) before
   // it's replaced, so a refresh can restore it instead of resetting to
