@@ -503,7 +503,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .pill .pl { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t4); margin-bottom: 1px; font-weight: 700; }
 .pill .pv { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--t1); }
 
-.sub-tabs { display: flex; flex-wrap: nowrap; justify-content: center; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sub-tabs { display: flex; flex-wrap: nowrap; gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .sub-tabs::-webkit-scrollbar { height: 3px; }
 .sub-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .stab {
@@ -690,7 +690,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     display: block;
     margin: 0 !important;
   }
-  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; justify-content: center; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 8px -10px 0; padding: 0 10px; }
+  .sub-tabs { overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 8px -10px 0; padding: 0 10px; }
   .sub-tabs::-webkit-scrollbar { display: none; }
   .stab { padding: 6px 6px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .kv-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
@@ -1084,7 +1084,7 @@ html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobil
 }
 html[data-theme] .tabs-scroll{flex:0 1 auto;max-width:100%}
 @media(min-width:761px){html[data-theme] .tabs-scroll{overflow:visible}}
-html[data-theme] .sub-tabs{gap:3px;justify-content:center;scrollbar-width:none}
+html[data-theme] .sub-tabs{gap:3px;scrollbar-width:none}
 html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
 html[data-theme] .tab{
   position:relative;z-index:1;border:0;border-radius:999px;padding:7px 20px;font-size:.74rem;
@@ -1349,7 +1349,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
   html[data-theme] .tab:active .tab-live{background:rgba(var(--gl-acc),.14)}
 
   /* ---------- Sticky chart-type chips ---------- */
-  html[data-theme] .sub-tabs{position:sticky;top:var(--app-bar-h,48px);z-index:850;display:flex;flex-wrap:nowrap;justify-content:center;gap:8px;margin:6px -8px 0;padding:6px 8px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:var(--bg);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  html[data-theme] .sub-tabs{position:sticky;top:var(--app-bar-h,48px);z-index:850;display:flex;flex-wrap:nowrap;gap:8px;margin:6px -8px 0;padding:6px 8px;border:0;border-bottom:1px solid var(--border);border-radius:0;background:var(--bg);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
   html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
   html[data-theme] .sub-tabs .glass-flow{display:none}
   html[data-theme] .sub-tabs::after{flex:0 0 4px}
@@ -1550,17 +1550,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('nifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('nifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('nifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('nifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('nifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('nifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('nifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('nifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('nifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('nifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-nifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1648,11 +1647,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>How to read the CEX chart:</strong> Positive CEX means dealers will need to reduce long delta hedges as time passes – i.e., selling pressure. Negative CEX means dealers will need to cover short delta hedges – i.e., buying pressure. The magnitude of CEX is most meaningful in the final 2‑5 days before expiry. Use CEX to understand whether the market is likely to be pulled toward a strike (if CEX is large and positive on the call side) or pushed away from it. CEX, combined with VEX and GEX, gives you a complete picture of the mechanical flows driving the market.</p>
       </div>
     </div>
-        <div id="sp-nifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-nifty"></div>
-      <script>renderIvTracker("ivtrack-mount-nifty", "/data/nifty/iv_snapshots.json", "NIFTY");</script>
-    </div>
-
         <div id="sp-nifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – NIFTY</h3>
@@ -1814,17 +1808,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('banknifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('banknifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('banknifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('banknifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('banknifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('banknifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('banknifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('banknifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('banknifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('banknifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-banknifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -1916,11 +1909,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>BankNifty‑specific note:</strong> BankNifty options have higher theta (time decay), so the charm effect is stronger. In the final two days of expiry, CEX can create persistent directional pressure that overrides other signals. When CEX and GEX agree (both positive on calls, both negative on puts), the structural level is extremely reliable.</p>
       </div>
     </div>
-        <div id="sp-banknifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-banknifty"></div>
-      <script>renderIvTracker("ivtrack-mount-banknifty", "/data/banknifty/iv_snapshots.json", "BANKNIFTY");</script>
-    </div>
-
         <div id="sp-banknifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – BANKNIFTY</h3>
@@ -2088,17 +2076,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('sensex','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('sensex','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('sensex','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('sensex','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('sensex','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('sensex','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('sensex','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('sensex','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('sensex','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('sensex','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-sensex-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2190,11 +2177,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Sensex‑specific note:</strong> Charm in Sensex behaves similarly to Nifty, but the effect is less pronounced because Sensex options have lower open interest. However, on monthly expiry day, the charm unwind can still be significant. Check Sensex CEX in the final 48 hours before expiry to understand whether there is systematic buying or selling pressure from time decay.</p>
       </div>
     </div>
-        <div id="sp-sensex-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-sensex"></div>
-      <script>renderIvTracker("ivtrack-mount-sensex", "/data/sensex/iv_snapshots.json", "SENSEX");</script>
-    </div>
-
         <div id="sp-sensex-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – SENSEX</h3>
@@ -2362,17 +2344,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('finnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('finnifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('finnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('finnifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('finnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('finnifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('finnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('finnifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('finnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('finnifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-finnifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2464,11 +2445,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>FinNifty‑specific note:</strong> Charm in FinNifty is most noticeable on expiry day. Because FinNifty has weekly expiries (currently on Tuesdays), the charm unwind happens on Monday and Tuesday. Use CEX to understand whether the market is likely to be pulled toward a strike or pushed away. A large positive CEX on calls above spot is a strong resistance signal.</p>
       </div>
     </div>
-        <div id="sp-finnifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-finnifty"></div>
-      <script>renderIvTracker("ivtrack-mount-finnifty", "/data/finnifty/iv_snapshots.json", "FINNIFTY");</script>
-    </div>
-
         <div id="sp-finnifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – FINNIFTY</h3>
@@ -2636,17 +2612,16 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 <div class="sub-tabs">
       <button class="stab on" data-key="gex" onclick="switchStab('midcpnifty','gex',this)">RAW GEX</button>
       <button class="stab" data-key="oi" onclick="switchStab('midcpnifty','oi',this)">GEX OI Monitor (LCSP)</button>
-      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">Top GEX+ VOR</button>
+      <button class="stab" data-key="topgex" onclick="switchStab('midcpnifty','topgex',this)">TOP GEX+Volume</button>
       <button class="stab" data-key="totalgex" onclick="switchStab('midcpnifty','totalgex',this)">Total Abs GEX</button>
       <button class="stab stab-prob stab-premium" data-key="prob" onclick="switchStab('midcpnifty','prob',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM PROBABLE POSITIONING</button>
       <button class="stab" data-key="pcr" onclick="switchStab('midcpnifty','pcr',this)">PCR</button>
       <button class="stab stab-volsurf stab-premium" data-key="volsurf" onclick="switchStab('midcpnifty','volsurf',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Volatility Surface</button>
       <button class="stab" data-key="vex" onclick="switchStab('midcpnifty','vex',this)">RAW VEX</button>
-      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">VOLATILITY SKEW</button>
+      <button class="stab" data-key="skew" onclick="switchStab('midcpnifty','skew',this)">Volatility Skew</button>
       <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
-      <button class="stab" data-key="ivtrack" onclick="switchStab('midcpnifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>PREMIUM RECOMMENDATIONS</button>
     </div>
     <div id="sp-midcpnifty-premium" class="stab-panel">
   <div class="prem-outer">
@@ -2738,11 +2713,6 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
         <p><strong>Midcap‑specific note:</strong> Charm in Midcap Nifty is less predictable because open interest is lower and positions are often held by retail traders rather than institutions. The charm effect may be less systematic. Use CEX only as a secondary check – if both Midcap and Nifty show positive CEX on calls, the selling pressure is likely real. If they diverge, trust the Nifty signal.</p>
       </div>
     </div>
-        <div id="sp-midcpnifty-ivtrack" class="stab-panel">
-      <div id="ivtrack-mount-midcpnifty"></div>
-      <script>renderIvTracker("ivtrack-mount-midcpnifty", "/data/midcpnifty/iv_snapshots.json", "MIDCPNIFTY");</script>
-    </div>
-
         <div id="sp-midcpnifty-skew" class="stab-panel">
       <div class="edu-box">
         <h3>📉 Volatility Skew – MIDCAP NIFTY</h3>
@@ -2989,525 +2959,8 @@ function toggleTheme(){
   });
   if (window._syncThemeColor) _syncThemeColor();
 }
-/* ofs_core.js — in-plot time slider (embedded, single-file deployable) */
-/* ofs_core.js — OptionsFlow "time-travel" plots.
- *
- * Draws GEXMA's plots from small per-run scene files and puts a 0.5 cm slider
- * belt INSIDE the plot (top strip of the canvas), so scrubbing through the day
- * never adds page height and every number on the plot moves with the slider.
- *
- *   <div class="ofs" data-src="/history/nifty/gex" data-kind="panels">
- *      <img src="...static png...">          <- fallback, kept in the DOM (hidden)
- *   </div>
- *
- * kinds: panels (GEX/VEX/CEX 4-panel) | prob (Positioning Chart) | table (PCR,
- * Top GEX+VOR) | skew (Vol Skew / OTM Skew)
- * Inline data (premium bundle): data-inline="<id of a <script type=application/json>>"
- * Same file is inlined in index.html, index_localhost.html and the bundle.
- */
-(function (root) {
-  'use strict';
-  if (root.OFS) return;
-
-  var BELT = 22;                                     // px reserved at the top of every plot for the belt (~0.5 cm)
-  var C = {
-    bg: '#FFFFFF', surf: '#F4F7FB', alt: '#E9EEF5', border: '#C9D5E3',
-    call: '#1565C0', put: '#C62828', sf: '#00897B', synth: '#AD1457',
-    pos: '#1B5E20', neg: '#B71C1C', neu: '#546E7A',
-    txt: '#0D1B2A', txt2: '#2C3E50', dim: '#546E7A',
-    hdr: '#1565C0', atmbg: '#E8F5E9', atmb: '#2E7D32',
-    callIV: '#0288D1', putIV: '#E65100', net: '#6A1B9A'
-  };
-  var FONT = "'DejaVu Sans','IBM Plex Sans',Arial,sans-serif";
-
-  /* ---------- small helpers ---------- */
-  function num(v) { return (v === null || v === undefined || !isFinite(v)) ? null : +v; }
-  function f(n, d) { n = num(n); return n === null ? '—' : n.toFixed(d); }
-  function fint(n) { n = num(n); return n === null ? '—' : Math.round(n).toLocaleString('en-US'); }
-  function fsign(n, d) { n = num(n); return n === null ? '—' : (n >= 0 ? '+' : '') + n.toFixed(d); }
-  function medDiff(a) {
-    if (a.length < 2) return 50;
-    var d = []; for (var i = 1; i < a.length; i++) d.push(a[i] - a[i - 1]);
-    d.sort(function (x, y) { return x - y; }); return d[d.length >> 1] || 50;
-  }
-  function niceStep(range, target) {
-    var raw = range / target; if (!(raw > 0)) return 1;
-    var p = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), m = raw / p;
-    return (m < 1.5 ? 1 : m < 3 ? 2 : m < 7 ? 5 : 10) * p;
-  }
-  function ticks(lo, hi, target) {
-    var st = niceStep(hi - lo, target), t = [];
-    for (var v = Math.ceil(lo / st - 1e-9) * st; v <= hi + st * 1e-6; v += st) t.push(+v.toFixed(10));
-    return t;
-  }
-  function fmtLarge(x) {
-    var a = Math.abs(x);
-    if (a >= 1e7) return (x / 1e7).toFixed(1) + 'Cr';
-    if (a >= 1e5) return (x / 1e5).toFixed(1) + 'L';
-    if (a >= 1e3) return (x / 1e3).toFixed(0) + 'K';
-    return x.toFixed(0);
-  }
-  function T(ctx, s, x, y, size, color, align, weight, style) {
-    ctx.font = (style || '') + ' ' + (weight || 400) + ' ' + Math.max(size, 6) + 'px ' + FONT;
-    ctx.fillStyle = color; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic';
-    ctx.fillText(String(s), x, y);
-  }
-  function rr(ctx, x, y, w, h, r) {
-    r = Math.min(r, w / 2, h / 2);
-    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
-  }
-  function dash(ctx, a) { if (ctx.setLineDash) ctx.setLineDash(a); }
-
-  /* ---------- horizontal-bar panel (strikes on Y, values on X) ---------- */
-  function barPanel(ctx, R, P, o) {
-    var u = o.u, k = P.k || [], c = P.c || [], q = P.q || [], n = k.length, dec = P.d == null ? 2 : P.d;
-    ctx.save();
-    ctx.fillStyle = C.surf; ctx.fillRect(R.x, R.y, R.w, R.h);
-    if (!n) {
-      T(ctx, 'No data', R.x + R.w / 2, R.y + R.h / 2, 13 * u, C.dim, 'center');
-      ctx.strokeStyle = C.border; ctx.strokeRect(R.x, R.y, R.w, R.h); ctx.restore(); return;
-    }
-    var step = medDiff(k), lo = k[0], hi = k[n - 1], pad = (o.pad == null ? 0.8 : o.pad) * step;
-    var ylo = lo - pad, yhi = hi + pad;
-    [o.sf, o.zgl].forEach(function (v) {
-      v = num(v); if (v === null) return;
-      if (v < ylo) ylo = v - step * 0.4; if (v > yhi) yhi = v + step * 0.4;
-    });
-    var xlo = 0, xhi = 0, i, v;
-    for (i = 0; i < n; i++) { v = num(c[i]); if (v !== null) { xlo = Math.min(xlo, v); xhi = Math.max(xhi, v); } v = num(q[i]); if (v !== null) { xlo = Math.min(xlo, v); xhi = Math.max(xhi, v); } }
-    if (xhi - xlo < 1e-12) { xlo = -1; xhi = 1; }
-    var xp = (xhi - xlo) * 0.07; xlo -= xp; xhi += xp;
-    function X(val) { return R.x + (val - xlo) / (xhi - xlo) * R.w; }
-    function Y(val) { return R.y + R.h - (val - ylo) / (yhi - ylo) * R.h; }
-
-    // grid + x tick labels
-    var xt = ticks(xlo, xhi, Math.max(3, Math.round(R.w / (95 * u))));
-    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(201,213,227,.9)';
-    xt.forEach(function (t) {
-      ctx.beginPath(); ctx.moveTo(X(t), R.y); ctx.lineTo(X(t), R.y + R.h); ctx.stroke();
-      T(ctx, f(t, dec) + 'Cr', X(t), R.y + R.h + 14 * u, 8.5 * u, C.txt2, 'center');
-    });
-    var range = hi - lo, base = range > 5000 ? 500 : (range > 1000 ? 200 : 50);
-    while ((yhi - ylo) / base * (11 * u) > R.h) base *= 2;
-    for (var yv = Math.ceil(ylo / base) * base; yv <= yhi; yv += base) {
-      ctx.beginPath(); ctx.moveTo(R.x, Y(yv)); ctx.lineTo(R.x + R.w, Y(yv)); ctx.stroke();
-      T(ctx, fint(yv), R.x - 6 * u, Y(yv) + 3 * u, 8.5 * u, C.txt2, 'right');
-    }
-    // bars
-    var bw = step * (P.bw || 0.5), off = P.o ? bw / 2 : 0;
-    var bpx = Math.max(1.2, bw * R.h / (yhi - ylo));
-    function bar(val, key, col, al) {
-      val = num(val); if (val === null || val === 0) return;
-      var yc = Y(key);
-      ctx.globalAlpha = al; ctx.fillStyle = col;
-      ctx.fillRect(Math.min(X(0), X(val)), yc - bpx / 2, Math.abs(X(val) - X(0)), bpx);
-      ctx.globalAlpha = 1;
-    }
-    if (P.o) {                                       // VEX / CEX: call below, put above the strike
-      for (i = 0; i < n; i++) { bar(c[i], k[i] - off, C.call, 0.85); bar(q[i], k[i] + off, C.put, 0.85); }
-    } else {                                         // GEX / Probable: put then call over it
-      for (i = 0; i < n; i++) bar(q[i], k[i], C.put, 0.82);
-      for (i = 0; i < n; i++) bar(c[i], k[i], C.call, 0.82);
-    }
-    // zero line
-    ctx.strokeStyle = 'rgba(84,110,122,.7)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(X(0), R.y); ctx.lineTo(X(0), R.y + R.h); ctx.stroke();
-    // synthetic-future line + label
-    var sf = num(o.sf);
-    if (sf !== null) {
-      ctx.strokeStyle = C.sf; ctx.lineWidth = 1.3; dash(ctx, [5 * u, 4 * u]);
-      ctx.beginPath(); ctx.moveTo(R.x, Y(sf)); ctx.lineTo(R.x + R.w, Y(sf)); ctx.stroke(); dash(ctx, []);
-      T(ctx, fint(sf), R.x + R.w + 5 * u, Y(sf) + 3 * u, 9.5 * u, C.sf, 'left', 700);
-    }
-    var zg = num(o.zgl);
-    if (zg !== null) {
-      ctx.strokeStyle = C.neu; ctx.lineWidth = 1.4; dash(ctx, [2 * u, 3 * u]);
-      ctx.beginPath(); ctx.moveTo(R.x, Y(zg)); ctx.lineTo(R.x + R.w, Y(zg)); ctx.stroke(); dash(ctx, []);
-      T(ctx, 'ZGL ' + fint(zg), R.x + 6 * u, Y(zg) - 4 * u, 9.5 * u, C.neu, 'left', 700);
-    }
-    ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(R.x, R.y, R.w, R.h);
-    if (P.x) T(ctx, P.x, R.x + R.w / 2, R.y + R.h + 29 * u, 9.5 * u, C.txt2, 'center');
-    // legend
-    var lg = P.cn ? [[P.cn, C.call], [P.pn, C.put]] : null;
-    if (lg) {
-      var lw = 92 * u, lh = 34 * u, lx = (o.legend === 'l') ? R.x + 6 * u : R.x + R.w - lw - 6 * u, ly = R.y + 6 * u;
-      ctx.fillStyle = 'rgba(255,255,255,.93)'; rr(ctx, lx, ly, lw, lh, 3 * u); ctx.fill();
-      ctx.strokeStyle = C.border; ctx.stroke();
-      lg.forEach(function (e, j) {
-        ctx.fillStyle = e[1]; ctx.fillRect(lx + 6 * u, ly + (7 + j * 13) * u, 12 * u, 7 * u);
-        T(ctx, e[0], lx + 23 * u, ly + (14 + j * 13) * u, 8.5 * u, C.txt, 'left');
-      });
-    }
-    // badge (net box)
-    if (P.b) {
-      var bc = P.bs > 0 ? C.pos : C.neg, bwid = (P.b.length * 6.6 + 14) * u, bx = R.x + R.w - bwid - 6 * u, by = R.y + 6 * u;
-      ctx.fillStyle = C.surf; rr(ctx, bx, by, bwid, 20 * u, 4 * u); ctx.fill();
-      ctx.strokeStyle = bc; ctx.lineWidth = 1.2; ctx.stroke();
-      T(ctx, P.b, bx + bwid / 2, by + 14 * u, 10 * u, bc, 'center', 700);
-    }
-    ctx.restore();
-  }
-
-  /* ---------- 4-panel scenes: GEX / VEX / CEX ---------- */
-  function drawPanels(ctx, W, H, E) {
-    var u = W / 1400, t = BELT;
-    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    T(ctx, E.t, W / 2, t + 30 * u, 22 * u, C.txt, 'center', 700);
-    T(ctx, E.s || '', W / 2, t + 53 * u, 12.5 * u, C.txt2, 'center');
-    T(ctx, E.n || '', W / 2, t + 70 * u, 10.5 * u, C.dim, 'center', 400, 'italic');
-    var gx0 = W * 0.03, gx1 = W * 0.985, gy0 = t + 84 * u, gy1 = H - 10 * u;
-    var pw = (gx1 - gx0) / 2.18, gapX = pw * 0.18, ph = (gy1 - gy0) / 2.3, gapY = ph * 0.3;
-    (E.p || []).forEach(function (p, i) {
-      var px = gx0 + (i % 2) * (pw + gapX), py = gy0 + (i >> 1) * (ph + gapY);
-      T(ctx, p.t, px + pw / 2, py + 12 * u, 13 * u, C.txt, 'center', 700);
-      T(ctx, p.h || '', px + pw / 2, py + 32 * u, 14 * u, C.txt, 'center', 700);
-      if (p.sb) T(ctx, p.sb, px + pw / 2, py + 47 * u, 10 * u, p.bs > 0 ? C.pos : C.neg, 'center', 700);
-      var R = { x: px + 60 * u, y: py + (p.sb ? 54 : 44) * u, w: pw - 60 * u - 58 * u, h: ph - (p.sb ? 54 : 44) * u - 36 * u };
-      barPanel(ctx, R, { k: E.k, c: p.c, q: p.q, d: E.d, o: E.o, bw: E.o ? (E.d === 4 && /CEX/.test(E.t) ? 0.55 : 0.42) : 0.55,
-        cn: E.cn, pn: E.pn, x: E.x, b: p.b, bs: p.bs },
-        { u: u, sf: E.sf, legend: p.b ? 'l' : 'r' });
-    });
-  }
-
-  /* ---------- Positioning Chart ---------- */
-  function drawProb(ctx, W, H, E, entries, idx) {
-    var u = W / 1300, t = BELT;
-    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    T(ctx, E.t, W / 2, t + 30 * u, 22 * u, C.txt, 'center', 700);
-    if (E.cf) {
-      var cc = E.cf[1] >= 68 ? C.pos : (E.cf[1] >= 42 ? C.neu : C.neg), ct = 'CONFIDENCE: ' + E.cf[0] + '  ' + E.cf[1] + '%';
-      var cw = (ct.length * 7.4 + 18) * u;
-      ctx.fillStyle = C.surf; rr(ctx, W - cw - 12 * u, t + 8 * u, cw, 24 * u, 5 * u); ctx.fill();
-      ctx.strokeStyle = cc; ctx.lineWidth = 1.2; ctx.stroke();
-      T(ctx, ct, W - cw / 2 - 12 * u, t + 25 * u, 11.5 * u, cc, 'center', 700);
-    }
-    T(ctx, E.s || '', W / 2, t + 52 * u, 12 * u, C.txt2, 'center');
-    T(ctx, E.n || '', W / 2, t + 69 * u, 10.5 * u, C.pos, 'center', 400, 'italic');
-    var avail = H - t - 84 * u - 12 * u, unit = avail / 3.6, y = t + 84 * u, m = 96 * u;
-    function head(P, x, w, yy) {
-      T(ctx, P.t || '', x + w / 2, yy + 14 * u, 15 * u, C.txt, 'center', 700);
-      T(ctx, P.sub || '', x + w / 2, yy + 33 * u, 11 * u, C.txt2, 'center', 700);
-    }
-    // row 0 — Probable GEX (full width)
-    var g = E.g, h0 = unit * 1.6;
-    head(g, 0, W, y);
-    barPanel(ctx, { x: 70 * u, y: y + 42 * u, w: W - 70 * u - 70 * u, h: h0 - m + 22 * u },
-      { k: g.k, c: g.c, q: g.q, d: g.d, cn: 'Call GEX', pn: 'Put GEX', x: g.x, bw: 0.55 }, { u: u, sf: E.sf, zgl: E.zgl, pad: 3 });
-    y += h0;
-    // row 1 — Probable VEX | Probable CEX
-    var cw2 = (W - 60 * u - 260 * u) / 2, h1 = unit;
-    [E.v, E.x].forEach(function (P, j) {
-      var x0 = 30 * u + j * (cw2 + 130 * u) + 70 * u;
-      if (!P) {
-        ctx.fillStyle = C.surf; ctx.fillRect(x0, y + 42 * u, cw2, h1 - m + 22 * u);
-        T(ctx, 'VEX not available', x0 + cw2 / 2, y + 42 * u + (h1 - m) / 2, 13 * u, C.dim, 'center'); return;
-      }
-      head(P, x0 - 70 * u, cw2 + 140 * u, y);
-      var net = num(P.net);
-      barPanel(ctx, { x: x0, y: y + 42 * u, w: cw2, h: h1 - m + 22 * u },
-        { k: P.k, c: P.c, q: P.q, d: P.d, o: 0, bw: 0.55, cn: P.cn, pn: P.pn, x: P.x,
-          b: net === null ? null : 'Net: ' + fsign(net, 4) + ' Cr', bs: net > 0 ? 1 : -1 },
-        { u: u, sf: E.sf, legend: 'l', pad: 3 });
-    });
-    y += h1;
-    // row 2 — history of totals up to the selected moment
-    drawHist(ctx, { x: 70 * u, y: y + 30 * u, w: W - 70 * u - 90 * u, h: unit - 96 * u + 22 * u }, entries, idx, u);
-  }
-
-  function drawHist(ctx, R, entries, idx, u) {
-    var n = idx + 1, i, cs = [], ps = [], ns = [], sfs = [], lab = [];
-    for (i = 0; i < n; i++) {
-      var e = entries[i], tt = e.tot || [null, null, null];
-      cs.push(num(tt[0])); ps.push(num(tt[1])); ns.push(num(tt[2])); sfs.push(num(e.sf)); lab.push(e.ts_label || '');
-    }
-    T(ctx, 'Probable GEX — Call / Put / Net', R.x + R.w / 2, R.y - 22 * u, 15 * u, C.txt, 'center', 700);
-    T(ctx, 'Total Probable GEX (₹ Cr) vs Synthetic Future', R.x + R.w / 2, R.y - 6 * u, 11 * u, C.txt2, 'center', 700);
-    ctx.fillStyle = C.surf; ctx.fillRect(R.x, R.y, R.w, R.h);
-    var all = cs.concat(ps, ns, [0]).filter(function (v) { return v !== null; });
-    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
-    if (hi - lo < 1e-9) { lo -= 1; hi += 1; } var p = (hi - lo) * 0.08; lo -= p; hi += p;
-    var sv = sfs.filter(function (v) { return v !== null; }), slo = sv.length ? Math.min.apply(null, sv) : 0, shi = sv.length ? Math.max.apply(null, sv) : 1;
-    if (shi - slo < 1e-9) { slo -= 1; shi += 1; } var sp = (shi - slo) * 0.1; slo -= sp; shi += sp;
-    var span = Math.max(n - 1, 1);
-    function X(j) { return R.x + (n === 1 ? R.w / 2 : (j / span) * R.w * 0.985 + R.w * 0.007); }
-    function Y(v) { return R.y + R.h - (v - lo) / (hi - lo) * R.h; }
-    function Y2(v) { return R.y + R.h - (v - slo) / (shi - slo) * R.h; }
-    ctx.strokeStyle = 'rgba(201,213,227,.9)'; ctx.lineWidth = 1;
-    ticks(lo, hi, 5).forEach(function (t) { ctx.beginPath(); ctx.moveTo(R.x, Y(t)); ctx.lineTo(R.x + R.w, Y(t)); ctx.stroke(); T(ctx, f(t, 2) + 'Cr', R.x - 6 * u, Y(t) + 3 * u, 8.5 * u, C.txt2, 'right'); });
-    ticks(slo, shi, 5).forEach(function (t) { T(ctx, fint(t), R.x + R.w + 6 * u, Y2(t) + 3 * u, 8.5 * u, C.synth, 'left'); });
-    ctx.strokeStyle = 'rgba(84,110,122,.7)'; ctx.beginPath(); ctx.moveTo(R.x, Y(0)); ctx.lineTo(R.x + R.w, Y(0)); ctx.stroke();
-    function line(arr, Yf, col, lw, dsh, mk) {
-      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw; dash(ctx, dsh || []);
-      ctx.beginPath(); var st = false;
-      arr.forEach(function (v, j) { if (v === null) { st = false; return; } if (!st) { ctx.moveTo(X(j), Yf(v)); st = true; } else ctx.lineTo(X(j), Yf(v)); });
-      ctx.stroke(); dash(ctx, []);
-      if (n <= 120) arr.forEach(function (v, j) { if (v !== null) { ctx.beginPath(); ctx.arc(X(j), Yf(v), mk * u, 0, 6.2832); ctx.fill(); } });
-    }
-    line(sfs, Y2, C.synth, 1.6 * u, [5 * u, 3 * u], 2.2);
-    line(cs, Y, C.call, 2 * u, null, 2.6); line(ps, Y, C.put, 2 * u, null, 2.6); line(ns, Y, C.net, 2.6 * u, null, 2.8);
-    var cx = X(n - 1);                                   // cursor at the selected moment
-    ctx.strokeStyle = 'rgba(13,27,42,.35)'; ctx.lineWidth = 1; dash(ctx, [3 * u, 3 * u]);
-    ctx.beginPath(); ctx.moveTo(cx, R.y); ctx.lineTo(cx, R.y + R.h); ctx.stroke(); dash(ctx, []);
-    var step = Math.max(1, Math.floor(n / 14));
-    for (i = 0; i < n; i += step) {
-      ctx.save(); ctx.translate(X(i), R.y + R.h + 12 * u); ctx.rotate(-Math.PI / 4);
-      T(ctx, lab[i], 0, 0, 8 * u, C.txt2, 'right'); ctx.restore();
-    }
-    var ln = ns[n - 1], lc = ln > 0 ? C.pos : C.neg, bt = 'Latest Net: ' + fsign(ln, 3) + ' Cr', bwid = (bt.length * 7.4 + 16) * u;
-    ctx.fillStyle = C.surf; rr(ctx, R.x + R.w - bwid - 8 * u, R.y + 8 * u, bwid, 24 * u, 5 * u); ctx.fill();
-    ctx.strokeStyle = C.border; ctx.lineWidth = 1.2; ctx.stroke();
-    T(ctx, bt, R.x + R.w - bwid / 2 - 8 * u, R.y + 25 * u, 12 * u, lc, 'center', 700);
-    var lg = [['Call Probable GEX (Total)', C.call], ['Put Probable GEX (Total)', C.put], ['Net Probable GEX', C.net], ['Synthetic Future', C.synth]], lx = R.x + 8 * u;
-    lg.forEach(function (e) {
-      ctx.fillStyle = e[1]; ctx.fillRect(lx, R.y + 12 * u, 14 * u, 4 * u); T(ctx, e[0], lx + 19 * u, R.y + 18 * u, 9 * u, C.txt, 'left');
-      lx += (e[0].length * 6 + 40) * u;
-    });
-    ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(R.x, R.y, R.w, R.h);
-  }
-
-  /* ---------- tables: PCR + Top GEX/VOR ---------- */
-  function drawTable(ctx, W, H, E) {
-    var t = BELT, three = (E.w || []).length === 3, sc = W / (three ? 900 : 1000);
-    var fs = (three ? 13 : 11) * sc * 1.05;
-    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    T(ctx, E.t, W / 2, t + 28 * sc, 14 * sc * 1.15, C.txt, 'center', 700);
-    T(ctx, E.s || '', W / 2, t + 49 * sc, 9 * sc * 1.15, C.txt2, 'center');
-
-    var padX = W * (three ? 0.06 : 0.04);
-    var top = t + 68 * sc, bottom = H - 14 * sc, headH = 34 * sc, gap = 6 * sc;
-    var nRows = Math.max(1, (E.r || []).length);
-    var rowH = Math.max(20 * sc, (bottom - top - headH - gap - nRows * gap) / nRows);
-    var tableW = W - 2 * padX;
-
-    var x = padX;
-    (E.h || []).forEach(function (lab, i) {
-      var w = tableW * E.w[i];
-      ctx.fillStyle = C.hdr; rr(ctx, x, top, w - 4 * sc, headH, 5 * sc); ctx.fill();
-      ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.stroke();
-      T(ctx, lab, x + w / 2 - 2 * sc, top + headH / 2 + fs * 0.35, fs, '#FFFFFF', 'center', 700);
-      x += w;
-    });
-
-    (E.r || []).forEach(function (row, ri) {
-      var y = top + headH + gap + ri * (rowH + gap), cx = padX, atm = row.a === 1;
-      var bg = atm ? C.atmbg : (ri % 2 === 0 ? C.alt : C.surf);
-      (row.v || []).forEach(function (val, ci) {
-        var w = tableW * E.w[ci];
-        ctx.fillStyle = bg; rr(ctx, cx, y, w - 4 * sc, rowH, 5 * sc); ctx.fill();
-        ctx.strokeStyle = atm ? C.atmb : C.border; ctx.lineWidth = atm ? 1.4 : 1; ctx.stroke();
-        T(ctx, val, cx + w / 2 - 2 * sc, y + rowH / 2 + fs * 0.35, fs, row.c[ci] || C.txt, 'center', row.b && row.b[ci] ? 700 : 400);
-        cx += w;
-      });
-    });
-  }
-
-  /* ---------- Vol Skew / OTM Skew ---------- */
-  function drawSkew(ctx, W, H, E) {
-    var u = W / 1400, t = BELT;
-    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    T(ctx, E.t, W / 2, t + 28 * u, 21 * u, C.txt, 'center', 700);
-    T(ctx, E.s || '', W / 2, t + 49 * u, 12.5 * u, C.txt2, 'center');
-    var R = { x: W * 0.07, y: t + 78 * u, w: W * 0.86, h: H - t - 78 * u - 70 * u };
-    var k = E.k || [], ik = E.ik || [];
-    if (!k.length) { T(ctx, 'No data', W / 2, H / 2, 14 * u, C.dim, 'center'); return; }
-    var all = k.concat(ik), xlo = Math.min.apply(null, all), xhi = Math.max.apply(null, all), step = medDiff(k);
-    var sf = num(E.sf); if (sf !== null) { xlo = Math.min(xlo, sf); xhi = Math.max(xhi, sf); }
-    xlo -= step; xhi += step;
-    var ymax = num(E.y) || 1;
-    for (var _si = 0; _si < k.length; _si++) {
-      var _st = (num(E.co && E.co[_si]) || 0) + (num(E.po && E.po[_si]) || 0);
-      if (_st > ymax) ymax = _st * 1.06;
-    }
-    var iv = [];
-    (E.ci || []).concat(E.pi || []).forEach(function (v) { v = num(v); if (v !== null) iv.push(v); });
-    var vlo = iv.length ? Math.min.apply(null, iv) : 0, vhi = iv.length ? Math.max.apply(null, iv) : 1;
-    if (vhi - vlo < 1e-6) { vlo -= 1; vhi += 1; } var vp = (vhi - vlo) * 0.08; vlo -= vp; vhi += vp;
-    function X(v) { return R.x + (v - xlo) / (xhi - xlo) * R.w; }
-    function Yo(v) { return R.y + R.h - v / ymax * R.h; }
-    function Yv(v) { return R.y + R.h - (v - vlo) / (vhi - vlo) * R.h; }
-    ctx.fillStyle = C.surf; ctx.fillRect(R.x, R.y, R.w, R.h);
-    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(201,213,227,.9)';
-    ticks(0, ymax, 6).forEach(function (v) { ctx.beginPath(); ctx.moveTo(R.x, Yo(v)); ctx.lineTo(R.x + R.w, Yo(v)); ctx.stroke(); T(ctx, fmtLarge(v), R.x - 6 * u, Yo(v) + 3 * u, 9 * u, C.txt2, 'right'); });
-    ticks(vlo, vhi, 6).forEach(function (v) { T(ctx, f(v, 1) + '%', R.x + R.w + 6 * u, Yv(v) + 3 * u, 9 * u, C.txt2, 'left'); });
-    var bw = Math.max(2, step * 0.6 * R.w / (xhi - xlo)), i;
-    for (i = 0; i < k.length; i++) {                   // stacked OI bars
-      var c = num(E.co && E.co[i]) || 0, p = num(E.po && E.po[i]) || 0, x0 = X(k[i]) - bw / 2;
-      ctx.fillStyle = C.call; ctx.globalAlpha = 0.85; ctx.fillRect(x0, Yo(c), bw, Yo(0) - Yo(c));
-      ctx.fillStyle = C.put; ctx.fillRect(x0, Yo(c + p), bw, Yo(c) - Yo(c + p)); ctx.globalAlpha = 1;
-    }
-    function ivLine(arr, col, sq) {
-      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 2.1 * u; ctx.beginPath(); var st = false;
-      for (var j = 0; j < ik.length; j++) { var v = num(arr && arr[j]); if (v === null) { st = false; continue; } if (!st) { ctx.moveTo(X(ik[j]), Yv(v)); st = true; } else ctx.lineTo(X(ik[j]), Yv(v)); }
-      ctx.stroke();
-      for (j = 0; j < ik.length; j++) { v = num(arr && arr[j]); if (v === null) continue; if (sq) ctx.fillRect(X(ik[j]) - 3 * u, Yv(v) - 3 * u, 6 * u, 6 * u); else { ctx.beginPath(); ctx.arc(X(ik[j]), Yv(v), 3.2 * u, 0, 6.2832); ctx.fill(); } }
-    }
-    ivLine(E.ci, C.callIV, false); ivLine(E.pi, C.putIV, true);
-    if (sf !== null) {
-      ctx.strokeStyle = C.sf; ctx.lineWidth = 1.3; dash(ctx, [5 * u, 4 * u]);
-      ctx.beginPath(); ctx.moveTo(X(sf), R.y); ctx.lineTo(X(sf), R.y + R.h); ctx.stroke(); dash(ctx, []);
-      T(ctx, 'SF ' + fint(sf), X(sf), R.y - 5 * u, 10 * u, C.sf, 'center', 700);
-    }
-    var xs = Math.max(1, Math.ceil(k.length / Math.max(6, Math.round(R.w / (16 * u)))));
-    for (i = 0; i < k.length; i += xs) { ctx.save(); ctx.translate(X(k[i]) + 3 * u, R.y + R.h + 8 * u); ctx.rotate(-Math.PI / 2); T(ctx, fint(k[i]), 0, 0, 8 * u, C.txt2, 'right'); ctx.restore(); }
-    ctx.strokeStyle = C.border; ctx.strokeRect(R.x, R.y, R.w, R.h);
-    T(ctx, 'Open Interest', R.x - 46 * u, R.y - 8 * u, 9.5 * u, C.txt2, 'left');
-    T(ctx, 'Implied Volatility (%)', R.x + R.w, R.y - 8 * u, 9.5 * u, C.txt2, 'right');
-    function leg(items, lx) { items.forEach(function (e, j) { T(ctx, e[0], lx + 18 * u, R.y + (16 + j * 14) * u, 9 * u, C.txt, 'left'); ctx.fillStyle = e[1]; ctx.fillRect(lx + 4 * u, R.y + (9 + j * 14) * u, 11 * u, 7 * u); }); }
-    leg([['Call OI', C.call], ['Put OI', C.put]], R.x + 8 * u); leg([['Call IV', C.callIV], ['Put IV', C.putIV]], R.x + R.w - 78 * u);
-    if (E.a) {                                          // ATM readout box
-      var lines = String(E.a).split('\n'), bwid = 190 * u, bh = (lines.length * 12 + 10) * u, bx = R.x + R.w - bwid, by = t + 4 * u;
-      ctx.fillStyle = C.surf; rr(ctx, bx, by, bwid, bh, 4 * u); ctx.fill(); ctx.strokeStyle = C.sf; ctx.lineWidth = 1; ctx.stroke();
-      lines.forEach(function (ln, j) { T(ctx, ln, bx + bwid - 6 * u, by + (13 + j * 12) * u, 8 * u, C.txt, 'right'); });
-    }
-  }
-
-  var KINDS = {
-    panels: { aspect: 1.5,  min: 760, draw: function (c, W, H, en, i) { drawPanels(c, W, H, en[i]); } },
-    prob:   { aspect: 0.98, min: 760, draw: function (c, W, H, en, i) { drawProb(c, W, H, en[i], en, i); } },
-    table:  { aspect: 1.9,  min: 620, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
-    skew:   { aspect: 2.05, min: 760, draw: function (c, W, H, en, i) { drawSkew(c, W, H, en[i]); } }
-  };
-
-  /* ---------- the mount: fetch, belt, canvas ---------- */
-  var styled = false;
-  function addStyle() {
-    if (styled) return; styled = true;
-    var s = document.createElement('style');
-    s.textContent =
-      '.ofs{position:relative;width:100%}' +
-      '.ofs-stage{position:relative;width:100%;background:#fff;overflow:hidden;line-height:0}' +
-      '.ofs-belt{position:absolute;left:0;right:0;top:0;height:20px;z-index:5;display:flex;align-items:center;gap:6px;padding:0 8px;background:rgba(13,27,42,.95);color:#E8F4FD;font:600 10px/20px "IBM Plex Mono",ui-monospace,monospace;box-sizing:border-box;line-height:20px}' +
-      '.ofs-rng{flex:1;min-width:40px;height:12px;margin:0;accent-color:#00E5FF;cursor:pointer}' +
-      '.ofs-btn{background:none;border:0;padding:0 3px;margin:0;color:#00E5FF;font:700 10px/20px inherit;cursor:pointer}' +
-      '.ofs-lbl{min-width:112px;text-align:right;white-space:nowrap;font-size:10px}' +
-      '.ofs-live{background:none;border:1px solid #00E5FF;color:#00E5FF;border-radius:9px;padding:0 7px;font:700 9px/14px inherit;cursor:pointer}' +
-      '.ofs-live.on{background:#00E5FF;color:#08080F}' +
-      '.ofs-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}' +
-      '.ofs canvas{display:block}';
-    document.head.appendChild(s);
-  }
-
-  function Mount(el) {
-    this.el = el; this.kind = el.getAttribute('data-kind') || 'panels';
-    this.src = el.getAttribute('data-src'); this.inline = el.getAttribute('data-inline');
-    this.entries = []; this.idx = -1; this.live = true; this.built = false;
-    var self = this;
-    this.load(true);
-    if (this.src) this.timer = setInterval(function () {
-      if (document.hidden || !self.el.isConnected || !self.el.offsetWidth) return; self.load(false);
-    }, 30000);
-    if (root.ResizeObserver) { this.ro = new root.ResizeObserver(function () { self.draw(); }); this.ro.observe(el); }
-  }
-  Mount.prototype.load = function (first) {
-    var self = this;
-    function got(entries) {
-      if (!entries || !entries.length) return;
-      var last = self.entries.length ? self.entries[self.entries.length - 1].ts : null;
-      var changed = entries.length !== self.entries.length || entries[entries.length - 1].ts !== last;
-      self.entries = entries;
-      if (!self.built) self.build();
-      if (self.live || self.idx < 0 || self.idx >= entries.length) self.idx = entries.length - 1;
-      if (changed || first) { self.syncBelt(); self.draw(); }
-    }
-    if (this.inline) {
-      var n = document.getElementById(this.inline);
-      try { got((JSON.parse(n.textContent) || {}).entries); } catch (e) { }
-      return;
-    }
-    if (!this.src) return;
-    fetch(this.src + (this.src.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : { entries: [] }; })
-      .then(function (j) { got((j && j.entries) || []); })
-      .catch(function () { });
-  };
-  Mount.prototype.build = function () {
-    addStyle(); var self = this, el = this.el;
-    Array.prototype.forEach.call(el.children, function (c) { if (!c.classList.contains('ofs-stage')) c.style.display = 'none'; });
-    var st = document.createElement('div'); st.className = 'ofs-stage';
-    st.innerHTML = '<div class="ofs-belt"><button class="ofs-btn" data-a="p" title="Previous">◀</button>' +
-      '<input class="ofs-rng" type="range" min="0" max="0" value="0" step="1" aria-label="Time slider">' +
-      '<button class="ofs-btn" data-a="n" title="Next">▶</button><span class="ofs-lbl"></span>' +
-      '<button class="ofs-live on" data-a="l" title="Jump to latest">LIVE</button></div>' +
-      '<div class="ofs-scroll"><canvas></canvas></div>';
-    el.appendChild(st);
-    this.stage = st; this.rng = st.querySelector('.ofs-rng'); this.lbl = st.querySelector('.ofs-lbl');
-    this.liveBtn = st.querySelector('.ofs-live'); this.scroll = st.querySelector('.ofs-scroll'); this.cv = st.querySelector('canvas');
-    this.rng.addEventListener('input', function () { self.go(+self.rng.value); });
-    st.querySelector('[data-a=p]').addEventListener('click', function () { self.go(self.idx - 1); });
-    st.querySelector('[data-a=n]').addEventListener('click', function () { self.go(self.idx + 1); });
-    this.liveBtn.addEventListener('click', function () { self.go(self.entries.length - 1); });
-    // Same click-to-zoom your static chart images already had (openLbx's
-    // pinch/wheel-zoom + drag-to-pan lightbox) — redraw the current moment
-    // at a much larger fixed size first, so zooming in stays sharp instead
-    // of blowing up the on-page canvas's normal display resolution.
-    this.cv.style.cursor = 'zoom-in';
-    this.cv.addEventListener('click', function () { self.zoomOpen(); });
-    this.built = true;
-  };
-  Mount.prototype.zoomOpen = function () {
-    var lbx = (typeof root.openLbx === 'function') ? root.openLbx
-      : (typeof root.__ofsLbx === 'function') ? root.__ofsLbx : null;
-    if (!lbx || this.idx < 0) return;
-    var K = KINDS[this.kind]; if (!K) return;
-    var ZW = Math.max(2200, this.scroll.clientWidth * 2);
-    var ZH = Math.round(ZW / (parseFloat(this.el.getAttribute('data-aspect')) || K.aspect));
-    var zc = document.createElement('canvas');
-    zc.width = ZW; zc.height = ZH;
-    try {
-      K.draw(zc.getContext('2d'), ZW, ZH, this.entries, this.idx);
-      lbx(zc.toDataURL('image/png'));
-    } catch (err) { if (root.console) console.warn('OFS zoom', this.kind, err); }
-  };
-  Mount.prototype.go = function (i) {
-    i = Math.max(0, Math.min(this.entries.length - 1, i));
-    this.idx = i; this.live = (i === this.entries.length - 1);
-    this.syncBelt(); this.draw();
-  };
-  Mount.prototype.syncBelt = function () {
-    var n = this.entries.length, e = this.entries[this.idx]; if (!e) return;
-    this.rng.max = Math.max(0, n - 1); this.rng.value = this.idx; this.rng.disabled = n < 2;
-    this.lbl.textContent = (e.ts_label || '') + (n > 1 ? '  ' + (this.idx + 1) + '/' + n : '  · 1 snapshot');
-    this.liveBtn.classList.toggle('on', this.live);
-  };
-  Mount.prototype.draw = function () {
-    if (!this.built || this.idx < 0) return;
-    var K = KINDS[this.kind]; if (!K) return;
-    var W = this.scroll.clientWidth; if (!W) return;
-    var CW = Math.max(W, K.min), asp = parseFloat(this.el.getAttribute('data-aspect')) || K.aspect, CH = Math.round(CW / asp);
-    var dpr = Math.min(root.devicePixelRatio || 1, 2.5), cv = this.cv;
-    if (cv.width !== Math.round(CW * dpr) || cv.height !== Math.round(CH * dpr)) {
-      cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr); cv.style.width = CW + 'px'; cv.style.height = CH + 'px';
-    }
-    var ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, CW, CH);
-    try { K.draw(ctx, CW, CH, this.entries, this.idx); } catch (err) { if (root.console) console.warn('OFS draw', this.kind, err); }
-  };
-
-  function scan(rootEl) {
-    var list = (rootEl || document).querySelectorAll ? (rootEl || document).querySelectorAll('.ofs:not([data-ofs-on])') : [];
-    Array.prototype.forEach.call(list, function (el) { el.setAttribute('data-ofs-on', '1'); new Mount(el); });
-    if (rootEl && rootEl.classList && rootEl.classList.contains('ofs') && !rootEl.hasAttribute('data-ofs-on')) { rootEl.setAttribute('data-ofs-on', '1'); new Mount(rootEl); }
-  }
-  // wrap an existing <img> (fallback) in a mount — used where markup is built by JS
-  function wrapImg(img, src, kind) {
-    if (!img || (img.parentNode && img.parentNode.classList && img.parentNode.classList.contains('ofs'))) return;
-    var w = document.createElement('div'); w.className = 'ofs'; w.setAttribute('data-src', src); w.setAttribute('data-kind', kind);
-    img.parentNode.insertBefore(w, img); w.appendChild(img); scan(w);
-  }
-
-  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS, _draw: { panels: drawPanels, prob: drawProb, table: drawTable, skew: drawSkew }, BELT: BELT };
-
-  function start() {
-    scan(document);
-    if (root.MutationObserver) new root.MutationObserver(function (ms) {
-      ms.forEach(function (m) { Array.prototype.forEach.call(m.addedNodes, function (n) { if (n.nodeType === 1) scan(n); }); });
-    }).observe(document.documentElement, { childList: true, subtree: true });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})(typeof window !== 'undefined' ? window : this);
-
 const INDICES = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-const STABS = ['gex','oi','topgex','totalgex','prob','pcr','volsurf','vex','skew','cex','ivtrack','analysis','premium'];
+const STABS = ['gex','oi','topgex','totalgex','prob','pcr','volsurf','vex','skew','cex','analysis','premium'];
 const PLOT_KEY = {oi:'oi_gex_combined', gex:'gamma_exp', vex:'vanna_exp', cex:'cex_exp', skew:'vol_skew', pcrtable:'pcr_table', pcrhist:'pcr_history', topgex:'top_gamma',totalgex:'total_abs_gex',probmain:'prob', probcall:'prob_call_matrix', probput:'prob_put_matrix', probnet:'prob_net_matrix', volsurfchart:'vol_surface', atmiv:'atm_iv_table'};
 const CHART_TITLE = {oi:'OI & GEX Change Monitor', gex:'Gamma Exposure — All 4 Dealer Scenarios',vex:'Vanna Exposure — All 4 Dealer Scenarios', cex:'Charm Exposure — All 4 Dealer Scenarios', skew:'Volatility Skew & Open Interest',pcrtable:'Put / Call Ratio Analysis', pcrhist:'PCR History (ATM ±3/±6/±10/All) vs Synthetic Futures', topgex:'Top 6 Absolute GEX Strikes + Volume + VOR',totalgex:'Total Absolute GEX (All Strikes) vs Synthetic Futures',probmain:'Probable Positioning Analysis',probcall:'Call Probable GEX — Strike (ATM ±10) × Time',probput:'Put Probable GEX — Strike (ATM ±10) × Time',probnet:'Net Probable GEX — Strike (ATM ±10) × Time',volsurfchart:'Implied Volatility Surface',atmiv:'ATM Volatility'};
 const CHART_BADGE = {oi:'ATM ± 6 · Green=▲ Red=▼', gex:'GEX · 4 Scenarios', vex:'VEX · 4 Scenarios',cex:'CEX · 4 Scenarios', skew:'All Strikes',pcrtable:'OI PCR + Volume PCR', pcrhist:'ATM ±3/±6/±10/All · Intraday', topgex:'Abs GEX · Volume · VOR',totalgex:'All Strikes · Intraday · Full Day',probmain:'GEX + Candles · PCR + OI Synthesised',probcall:'₹ Cr',probput:'₹ Cr',probnet:'₹ Cr',volsurfchart:'',atmiv:'Synthetic Futures ATM · Call +1/+2% · Put -1/-2%'};
@@ -3600,7 +3053,6 @@ function _fsToggle(btn){
     (card.requestFullscreen || card.webkitRequestFullscreen || function(){}).call(card);
   }
 }
-const OFS_MAP = {gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table']};
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf];
@@ -3713,11 +3165,6 @@ function renderIndex(idx, data){
       chartDiv.innerHTML = data ? chartHtml(idx,data,key) : EMPTY;
       sp.appendChild(chartDiv.firstElementChild);
       sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
-      const _om = OFS_MAP[key];
-      if(_om){
-        const _img = sp.querySelector('.gcard img');
-        if(_img) window.OFS.wrapImg(_img, `data/${idx}/${_om[0]}_history.json`, _om[1]);
-      }
     } else {
       sp.dataset.stale = '1';
     }
@@ -3766,11 +3213,6 @@ function switchStab(idx, key, btn){
       chartDiv.innerHTML = chartHtml(idx, d, key);
       sp.appendChild(chartDiv.firstElementChild);
       sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
-      const _om2 = OFS_MAP[key];
-      if(_om2){
-        const _img2 = sp.querySelector('.gcard img');
-        if(_img2) window.OFS.wrapImg(_img2, `data/${idx}/${_om2[0]}_history.json`, _om2[1]);
-      }
     } else {
       const emptyDiv = document.createElement('div');
       emptyDiv.innerHTML = EMPTY;
@@ -4508,7 +3950,6 @@ function _posPremShowContent(idx, html) {
   // Drop the lock badge from the "PREMIUM PROBABLE POSITIONING" tab now
   // that this index's content is unlocked.
   document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
-
 
   // Grab the outgoing iframe's active tab + zoom state (if any) before
   // it's replaced, so a refresh can restore it instead of resetting to
