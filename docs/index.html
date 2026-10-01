@@ -1650,7 +1650,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
     </div>
         <div id="sp-nifty-ivtrack" class="stab-panel">
       <div id="ivtrack-mount-nifty"></div>
-      <script>renderIvTracker("ivtrack-mount-nifty", "/data/nifty/iv_snapshots.json", "NIFTY");</script>
+      <script>document.addEventListener('DOMContentLoaded', function(){ renderIvTracker("ivtrack-mount-nifty", "/data/nifty/iv_snapshots.json", "NIFTY"); });</script>
     </div>
 
         <div id="sp-nifty-skew" class="stab-panel">
@@ -1918,7 +1918,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
     </div>
         <div id="sp-banknifty-ivtrack" class="stab-panel">
       <div id="ivtrack-mount-banknifty"></div>
-      <script>renderIvTracker("ivtrack-mount-banknifty", "/data/banknifty/iv_snapshots.json", "BANKNIFTY");</script>
+      <script>document.addEventListener('DOMContentLoaded', function(){ renderIvTracker("ivtrack-mount-banknifty", "/data/banknifty/iv_snapshots.json", "BANKNIFTY"); });</script>
     </div>
 
         <div id="sp-banknifty-skew" class="stab-panel">
@@ -2192,7 +2192,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
     </div>
         <div id="sp-sensex-ivtrack" class="stab-panel">
       <div id="ivtrack-mount-sensex"></div>
-      <script>renderIvTracker("ivtrack-mount-sensex", "/data/sensex/iv_snapshots.json", "SENSEX");</script>
+      <script>document.addEventListener('DOMContentLoaded', function(){ renderIvTracker("ivtrack-mount-sensex", "/data/sensex/iv_snapshots.json", "SENSEX"); });</script>
     </div>
 
         <div id="sp-sensex-skew" class="stab-panel">
@@ -2466,7 +2466,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
     </div>
         <div id="sp-finnifty-ivtrack" class="stab-panel">
       <div id="ivtrack-mount-finnifty"></div>
-      <script>renderIvTracker("ivtrack-mount-finnifty", "/data/finnifty/iv_snapshots.json", "FINNIFTY");</script>
+      <script>document.addEventListener('DOMContentLoaded', function(){ renderIvTracker("ivtrack-mount-finnifty", "/data/finnifty/iv_snapshots.json", "FINNIFTY"); });</script>
     </div>
 
         <div id="sp-finnifty-skew" class="stab-panel">
@@ -2740,7 +2740,7 @@ html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
     </div>
         <div id="sp-midcpnifty-ivtrack" class="stab-panel">
       <div id="ivtrack-mount-midcpnifty"></div>
-      <script>renderIvTracker("ivtrack-mount-midcpnifty", "/data/midcpnifty/iv_snapshots.json", "MIDCPNIFTY");</script>
+      <script>document.addEventListener('DOMContentLoaded', function(){ renderIvTracker("ivtrack-mount-midcpnifty", "/data/midcpnifty/iv_snapshots.json", "MIDCPNIFTY"); });</script>
     </div>
 
         <div id="sp-midcpnifty-skew" class="stab-panel">
@@ -3944,6 +3944,9 @@ function switchStab(idx, key, btn){
     const sp = document.getElementById(`sp-${idx}-${k}`);
     if(sp) sp.classList.toggle('on', k===key);
   });
+  // IV Tracking draws onto a <canvas> that is 0px wide while its panel is display:none;
+  // renderIvTracker registers drawChart as a resize listener, so re-fire it now that the panel is visible.
+  if(key === 'ivtrack') window.dispatchEvent(new Event('resize'));
   const sp = document.getElementById(`sp-${idx}-${key}`);
   if(sp && sp.dataset.stale === '1'){
     sp.dataset.stale = '0';
