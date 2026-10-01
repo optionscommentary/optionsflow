@@ -545,6 +545,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 [data-theme="light"] .stab-vol { color: #00695C !important; }
 .stab-panel { display: none; padding: 16px 0 0; }
 .stab-panel.on { display: block; }
+/* ── IV TRACKING (ported 1:1 from localhost) ── */
+.ivt-fl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);margin-bottom:4px;font-weight:500}
+.ivt-pill{padding:6px 12px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;border:none;background:transparent;color:var(--t2);cursor:pointer;border-right:1px solid var(--border);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.ivt-pill:last-child{border-right:none}
+.ivt-pill:hover{background:var(--hover);color:var(--t2)}
+.ivt-pill.on{background:var(--raised);color:var(--call);border-bottom-color:var(--call)}
+.ivt-load-btn{width:100%;padding:9px 24px;border:none;border-radius:var(--radius);font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;letter-spacing:.08em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;background:linear-gradient(135deg,#2196F3,#1565C0);color:#fff;box-shadow:0 4px 14px rgba(33,150,243,.3)}
+.ivt-load-btn:hover{background:linear-gradient(135deg,#42A5F5,#2196F3);box-shadow:0 4px 22px rgba(33,150,243,.5);transform:translateY(-1px)}
+.ivt-exp-toggle{background:transparent;border:1px solid rgba(255,255,255,.18);border-radius:3px;color:var(--t3);cursor:pointer;font-size:.6rem;padding:2px 5px;flex-shrink:0;transition:background .15s,color .15s}
+.ivt-exp-toggle:hover{background:rgba(255,255,255,.1);color:var(--t1)}
+[data-theme="light"] .ivt-exp-toggle{border-color:rgba(0,0,0,.18);color:#3D6482}
+[data-theme="light"] .ivt-exp-toggle:hover{background:rgba(0,0,0,.07);color:#08192A}
+[data-theme="light"] .ivt-fl{color:#0D47A1}
+[data-theme="light"] .ivt-load-btn{background:linear-gradient(135deg,#0D47A1,#1565C0)!important;color:#FFFFFF!important;border:none!important}
+[data-theme="light"] .ivt-dd-btn{background:#F8FAFC!important;color:#08192A!important;border-color:#B8CCDE!important}
+[data-theme="light"] .ivt-dd-panel{background:#F0F6FF!important;border-color:#B8CCDE!important}
 
 /* Educational content boxes above charts */
 .edu-box {
@@ -3748,188 +3764,411 @@ async function switchIdx(idx){
   window.scrollTo({top:0,behavior:'smooth'});
   renderIndex(idx, await fetchData(idx));
 }
-// ── IV TRACKING WIDGET (public site — static iv_snapshots.json, ports the
-// same expiry/strike/call-put selection localhost's live IV Tracking tab
-// already has, just reading one static file instead of live Flask routes) ──
+// ── IV TRACKING WIDGET (public site) ─────────────────────────────────────
+// Same UI/behaviour as localhost's IV Tracking tab: custom multi-select
+// dropdowns (expiry rows with nested per-expiry strikes + All/None, global
+// strikes with ATM badge), Call / Put / Both, Chart.js chart with the
+// synthetic future on a right-hand axis. Symbol is fixed per mount (one
+// widget per index panel). Data = static iv_snapshots.json pushed by
+// push_to_web.py; expiries/strikes/ATM are derived client-side from the
+// latest snapshot exactly like GEXMA.py's /iv_strikes route.
 function renderIvTracker(mountId, jsonUrl, label) {
-  var mount = document.getElementById(mountId);
+  const mount = document.getElementById(mountId);
   if (!mount) return;
-  mount.innerHTML = '<div style="color:#94A3B8;font-size:12px;font-family:\'IBM Plex Mono\',monospace">Loading IV snapshots…</div>';
+  const P = mountId + '-';
+  const $ = id => document.getElementById(P + id);
 
-  fetch(jsonUrl)
-    .then(function (r) { return r.json(); })
-    .then(function (snapshots) {
-      if (!snapshots || !snapshots.length) {
-        mount.innerHTML = '<div style="color:#5F5E5A;font-size:12px">No IV snapshots yet today.</div>';
-        return;
-      }
+  let ivType = 'call', chart = null, openKey = null;
+  let strikes = [], expiries = [], atm = null;
 
-      var expirySet = {};
-      snapshots.forEach(function (s) { Object.keys(s.expiries || {}).forEach(function (e) { expirySet[e] = true; }); });
-      var expiries = Object.keys(expirySet).sort();
-
-      mount.innerHTML =
-        '<div style="font-family:\'IBM Plex Mono\',monospace">' +
-          '<div style="color:#F8FAFC;font-size:13px;font-weight:700;margin-bottom:10px">' + label + ' — IV Tracking</div>' +
-          '<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px">' +
-            '<div><div style="color:#94A3B8;font-size:.62rem;margin-bottom:5px">EXPIRY</div>' +
-              '<select id="' + mountId + '-expiry" style="padding:6px 10px;background:#0C1626;color:#F8FAFC;border:1px solid #1B2B42;border-radius:6px"></select></div>' +
-            '<div><div style="color:#94A3B8;font-size:.62rem;margin-bottom:5px">STRIKES (multi-select)</div>' +
-              '<select id="' + mountId + '-strikes" multiple size="5" style="padding:6px 10px;background:#0C1626;color:#F8FAFC;border:1px solid #1B2B42;border-radius:6px;min-width:140px"></select></div>' +
-            '<div><div style="color:#94A3B8;font-size:.62rem;margin-bottom:5px">SHOW</div>' +
-              '<div style="display:flex;gap:5px">' +
-                '<button id="' + mountId + '-call" style="padding:6px 12px;font-size:.7rem;border-radius:6px;border:1px solid #34D399;background:#34D39922;color:#34D399;cursor:pointer">Call IV</button>' +
-                '<button id="' + mountId + '-put" style="padding:6px 12px;font-size:.7rem;border-radius:6px;border:1px solid #1B2B42;background:transparent;color:#94A3B8;cursor:pointer">Put IV</button>' +
-              '</div></div>' +
-            '<button id="' + mountId + '-load" style="padding:8px 20px;font-size:.72rem;border-radius:6px;border:none;background:#00E5FF;color:#08080F;font-weight:700;cursor:pointer">▶ LOAD CHART</button>' +
-          '</div>' +
-          '<canvas id="' + mountId + '-canvas" style="width:100%;height:320px;display:block"></canvas>' +
-        '</div>';
-
-      var expirySelect = document.getElementById(mountId + '-expiry');
-      var strikeSelect = document.getElementById(mountId + '-strikes');
-      var callBtn = document.getElementById(mountId + '-call');
-      var putBtn = document.getElementById(mountId + '-put');
-      var canvas = document.getElementById(mountId + '-canvas');
-      var showType = 'call';
-
-      expiries.forEach(function (e) {
-        var o = document.createElement('option'); o.value = e; o.textContent = e;
-        expirySelect.appendChild(o);
+  // ---------- helpers (same as localhost) ----------
+  function ivtColor(idx) {
+    const hues = [210,145,45,0,275,185,25,330,100,240,60,315,165,200,350,80,260,15,130,295];
+    const hue = hues[idx % hues.length];
+    const lits = [63, 47, 78];
+    const lit = lits[Math.floor(idx / hues.length) % lits.length];
+    return `hsl(${hue},80%,${lit}%)`;
+  }
+  const SYNTH_COLOR = '#EC4899';
+  const fmt = v => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const inr = s => parseInt(s).toLocaleString('en-IN');
+  function parseTs(ts) {
+    if (!ts || ts.length < 13) return ts || '?';
+    const h = ts.substring(9, 11), m = ts.substring(11, 13);
+    return (/^\d{2}$/.test(h) && /^\d{2}$/.test(m)) ? h + ':' + m : ts.substring(9);
+  }
+  function findStrike(dict, key) {
+    if (!dict) return null;
+    const sk = dict[key];
+    if (sk) return sk;
+    const match = Object.keys(dict).find(k => Math.round(parseFloat(k)) === parseInt(key));
+    return match ? dict[match] : null;
+  }
+  function parseIv(val) {
+    if (val == null) return null;
+    const v = parseFloat(val);
+    return isNaN(v) ? null : (v < 1.5 ? v * 100 : v);
+  }
+  function expTime(e) {
+    const m = /^(\d{2})-(\d{2})-(\d{4})$/.exec(e);
+    return m ? new Date(+m[3], +m[2] - 1, +m[1]).getTime() : Infinity;
+  }
+  function loadChartJs() {
+    if (window.Chart) return Promise.resolve();
+    if (!window._ivtChartJsP) {
+      window._ivtChartJsP = new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+        s.onload = res;
+        s.onerror = () => { window._ivtChartJsP = null; rej(new Error('Chart.js failed to load')); };
+        document.head.appendChild(s);
       });
-
-      function populateStrikes() {
-        var exp = expirySelect.value;
-        var latest = null;
-        for (var i = snapshots.length - 1; i >= 0; i--) {
-          if (snapshots[i].expiries && snapshots[i].expiries[exp]) { latest = snapshots[i]; break; }
-        }
-        strikeSelect.innerHTML = '';
-        if (!latest) return;
-        var strikes = Object.keys(latest.expiries[exp]).map(Number).sort(function (a, b) { return a - b; });
-        strikes.forEach(function (s, i) {
-          var o = document.createElement('option'); o.value = s; o.textContent = s;
-          if (i >= Math.floor(strikes.length / 2) - 2 && i <= Math.floor(strikes.length / 2) + 2) o.selected = true;
-          strikeSelect.appendChild(o);
-        });
-      }
-      expirySelect.addEventListener('change', populateStrikes);
-      populateStrikes();
-
-      function setType(t) {
-        showType = t;
-        callBtn.style.background = t === 'call' ? '#34D39922' : 'transparent';
-        callBtn.style.color = t === 'call' ? '#34D399' : '#94A3B8';
-        callBtn.style.borderColor = t === 'call' ? '#34D399' : '#1B2B42';
-        putBtn.style.background = t === 'put' ? '#FB923C22' : 'transparent';
-        putBtn.style.color = t === 'put' ? '#FB923C' : '#94A3B8';
-        putBtn.style.borderColor = t === 'put' ? '#FB923C' : '#1B2B42';
-      }
-      callBtn.addEventListener('click', function () { setType('call'); });
-      putBtn.addEventListener('click', function () { setType('put'); });
-
-      function drawChart() {
-        var exp = expirySelect.value;
-        var selStrikes = Array.from(strikeSelect.selectedOptions).map(function (o) { return o.value; });
-        if (!selStrikes.length) return;
-
-        var series = selStrikes.map(function (sk) {
-          var pts = [];
-          snapshots.forEach(function (s) {
-            var e = (s.expiries || {})[exp];
-            if (e && e[sk]) {
-              var v = showType === 'call' ? e[sk].call_iv : e[sk].put_iv;
-              if (v !== undefined && v !== null) pts.push({ ts: s.timestamp, v: v });
-            }
-          });
-          return { strike: sk, pts: pts };
-        }).filter(function (s) { return s.pts.length > 0; });
-
-        // Synthetic future — its own right-hand axis, dashed, same as every
-        // other chart on the site uses for this reference line.
-        var sfPts = [];
-        snapshots.forEach(function (s) {
-          var v = parseFloat(s.synth || s.spot || 0);
-          if (v) sfPts.push(v);
-        });
-
-        if (!series.length) return;
-
-        var ctx = canvas.getContext('2d');
-        var dpr = window.devicePixelRatio || 1;
-        var w = canvas.clientWidth, h = canvas.clientHeight;
-        canvas.width = w * dpr; canvas.height = h * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, w, h);
-
-        var allVals = [];
-        series.forEach(function (s) { s.pts.forEach(function (p) { allVals.push(p.v); }); });
-        var minV = Math.min.apply(null, allVals), maxV = Math.max.apply(null, allVals);
-        if (minV === maxV) { minV -= 1; maxV += 1; }
-        var padL = 50, padB = 24, padT = 12, padR = sfPts.length ? 56 : 10;
-        var plotW = w - padL - padR, plotH = h - padB - padT;
-        var maxN = Math.max.apply(null, series.map(function (s) { return s.pts.length; }).concat([sfPts.length]));
-
-        var sfLo = 0, sfHi = 1;
-        if (sfPts.length) {
-          sfLo = Math.min.apply(null, sfPts); sfHi = Math.max.apply(null, sfPts);
-          if (sfHi - sfLo < 1e-6) { sfLo -= 1; sfHi += 1; }
-          var sfPad = (sfHi - sfLo) * 0.1; sfLo -= sfPad; sfHi += sfPad;
-        }
-
-        var colors = ['#00E5FF', '#34D399', '#FB923C', '#F472B6', '#A78BFA', '#FBBF24'];
-        ctx.strokeStyle = '#1B2B42';
-        ctx.beginPath(); ctx.moveTo(padL, padT); ctx.lineTo(padL, h - padB); ctx.lineTo(w - padR, h - padB); ctx.stroke();
-
-        series.forEach(function (s, si) {
-          ctx.strokeStyle = colors[si % colors.length];
-          ctx.lineWidth = 1.6;
-          ctx.beginPath();
-          s.pts.forEach(function (p, i) {
-            var x = padL + (i / Math.max(maxN - 1, 1)) * plotW;
-            var y = padT + (1 - (p.v - minV) / (maxV - minV)) * plotH;
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          });
-          ctx.stroke();
-        });
-
-        // Synthetic future — dotted, same visual language as every other
-        // chart's SF/ZGL reference lines on the site.
-        if (sfPts.length > 1) {
-          ctx.strokeStyle = '#00897B'; ctx.lineWidth = 1.6;
-          if (ctx.setLineDash) ctx.setLineDash([5, 4]);
-          ctx.beginPath();
-          sfPts.forEach(function (v, i) {
-            var x = padL + (i / Math.max(maxN - 1, 1)) * plotW;
-            var y = padT + (1 - (v - sfLo) / (sfHi - sfLo)) * plotH;
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          });
-          ctx.stroke();
-          if (ctx.setLineDash) ctx.setLineDash([]);
-          ctx.fillStyle = '#00897B'; ctx.font = '700 9px monospace'; ctx.textAlign = 'left';
-          ctx.fillText('SF', w - padR + 6, padT + 8);
-        }
-
-        ctx.font = '10px monospace';
-        ctx.textAlign = 'left';
-        series.forEach(function (s, si) {
-          ctx.fillStyle = colors[si % colors.length];
-          ctx.fillText(s.strike, padL + 6 + si * 60, padT + 10);
-        });
-        ctx.fillStyle = '#94A3B8';
-        ctx.textAlign = 'right';
-        ctx.fillText(maxV.toFixed(1) + '%', padL - 6, padT + 8);
-        ctx.fillText(minV.toFixed(1) + '%', padL - 6, h - padB);
-      }
-
-      document.getElementById(mountId + '-load').addEventListener('click', drawChart);
-      window.addEventListener('resize', drawChart);
-      setType('call');
-      drawChart();
-    })
-    .catch(function () {
-      mount.innerHTML = '<div style="color:#5F5E5A;font-size:12px">Could not load IV snapshot data.</div>';
+    }
+    return window._ivtChartJsP;
+  }
+  function fetchSnaps() {
+    return fetch(jsonUrl + '?t=' + Date.now(), { cache: 'no-store' }).then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
     });
+  }
+  // Same derivation as GEXMA.py /iv_strikes: latest snapshot only
+  function buildMeta(snaps) {
+    const last = snaps[snaps.length - 1];
+    const spot = parseFloat(last.spot || 0);
+    const synth = parseFloat(last.synth || 0) || spot;
+    const ks = new Set();
+    Object.values(last.expiries || {}).forEach(es => Object.keys(es).forEach(k => {
+      const n = parseInt(k, 10); if (!isNaN(n)) ks.add(n);
+    }));
+    strikes = Array.from(ks).sort((a, b) => a - b);
+    const ref = synth > 0 ? synth : spot;
+    atm = (strikes.length && ref)
+      ? strikes.reduce((b, x) => Math.abs(x - ref) < Math.abs(b - ref) ? x : b, strikes[0])
+      : (strikes.length ? strikes[Math.floor(strikes.length / 2)] : null);
+    expiries = Object.keys(last.expiries || {}).sort((a, b) => expTime(a) - expTime(b));
+  }
+
+  // ---------- skeleton (mirrors localhost panel-ivtrack) ----------
+  const ddBtnStyle = "background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);padding:8px 32px 8px 12px;color:var(--t1);font-family:'IBM Plex Mono',monospace;font-size:.78rem;min-width:160px;cursor:pointer;user-select:none;position:relative";
+  const ddPanelStyle = "display:none;position:absolute;z-index:999;top:calc(100% + 4px);left:0;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:6px 0;box-shadow:0 8px 24px rgba(0,0,0,.4)";
+  const arrow = '<span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);opacity:.6">▾</span>';
+  mount.innerHTML =
+    '<div style="padding:16px 0 10px 0">' +
+      '<div class="ivt-fl" style="color:var(--accent);font-size:.7rem;letter-spacing:.12em;margin-bottom:16px">IV TRACKING — IMPLIED VOLATILITY BEHAVIOUR BY STRIKE · ' + label + '</div>' +
+      '<div style="display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px">' +
+        '<div style="position:relative">' +
+          '<div class="ivt-fl" style="color:var(--t3);font-size:.62rem;margin-bottom:5px">EXPIRY DATE</div>' +
+          '<div class="ivt-dd-btn" id="' + P + 'expiry-btn" style="' + ddBtnStyle + '"><span id="' + P + 'expiry-label">Loading…</span>' + arrow + '</div>' +
+          '<div class="ivt-dd-panel" id="' + P + 'expiry-panel" style="' + ddPanelStyle + '"><div id="' + P + 'expiry-checks" style="max-height:220px;overflow-y:auto;padding:4px 0"></div></div>' +
+        '</div>' +
+        '<div style="position:relative">' +
+          '<div class="ivt-fl" style="color:var(--t3);font-size:.62rem;margin-bottom:5px">STRIKES</div>' +
+          '<div class="ivt-dd-btn" id="' + P + 'strike-btn" style="' + ddBtnStyle + '"><span id="' + P + 'strike-label">Loading…</span>' + arrow + '</div>' +
+          '<div class="ivt-dd-panel" id="' + P + 'strike-panel" style="' + ddPanelStyle + '"><div id="' + P + 'strike-checks" style="max-height:280px;overflow-y:auto;padding:4px 0"></div></div>' +
+        '</div>' +
+        '<div>' +
+          '<div class="ivt-fl" style="color:var(--t3);font-size:.62rem;margin-bottom:5px">SHOW</div>' +
+          '<div style="display:flex;gap:5px">' +
+            '<button class="ivt-pill on" id="' + P + 'call">Call IV</button>' +
+            '<button class="ivt-pill" id="' + P + 'put">Put IV</button>' +
+            '<button class="ivt-pill" id="' + P + 'both">Both</button>' +
+          '</div>' +
+        '</div>' +
+        '<button class="ivt-load-btn" id="' + P + 'load">▶ LOAD CHART</button>' +
+      '</div>' +
+      '<div class="gcard" id="' + P + 'chart-card" style="display:none">' +
+        '<div class="gcard-hdr"><span class="gcard-title" id="' + P + 'chart-title">IV Behaviour</span>' +
+        '<span class="gcard-badge" id="' + P + 'chart-badge" style="color:var(--accent)">—</span></div>' +
+        '<div style="padding:16px;position:relative"><canvas id="' + P + 'canvas" style="width:100%;max-height:440px"></canvas></div>' +
+        '<div id="' + P + 'status" style="padding:6px 18px 12px;font-size:.67rem;color:var(--t3);font-family:\'IBM Plex Mono\',monospace"></div>' +
+      '</div>' +
+      '<div class="empty" id="' + P + 'no-data" style="display:none"><p>No IV snapshot data for this symbol, expiry &amp; strike.</p>' +
+        '<span class="hint" style="font-size:.7rem;color:var(--t3)">IV snapshots appear once the analysis has run.</span></div>' +
+    '</div>';
+
+  // ---------- dropdown open/close (stays open while ticking boxes) ----------
+  function toggleDropdown(key) {
+    const panel = $(key + '-panel');
+    if (!panel) return;
+    const isOpen = panel.style.display !== 'none';
+    if (openKey && openKey !== key) { const op = $(openKey + '-panel'); if (op) op.style.display = 'none'; }
+    panel.style.display = isOpen ? 'none' : '';
+    openKey = isOpen ? null : key;
+    if (!isOpen) {
+      requestAnimationFrame(() => {
+        const sc = panel.querySelector('[style*="overflow-y"]');
+        const atmEl = sc && sc.querySelector('[data-is-atm]');
+        if (atmEl) atmEl.scrollIntoView({ block: 'center' });
+      });
+    }
+  }
+  $('expiry-btn').addEventListener('click', () => toggleDropdown('expiry'));
+  $('strike-btn').addEventListener('click', () => toggleDropdown('strike'));
+  document.addEventListener('click', function (e) {
+    if (!openKey) return;
+    const panel = $(openKey + '-panel'), btn = $(openKey + '-btn');
+    if (panel && btn && !panel.contains(e.target) && !btn.contains(e.target)) {
+      panel.style.display = 'none'; openKey = null;
+    }
+  }, true);
+
+  function updateLabels() {
+    const expSel = Array.from(mount.querySelectorAll('.ivt-expiry-chk:checked')).map(c => c.value);
+    const stkSel = Array.from(mount.querySelectorAll('.ivt-strike-chk:checked')).map(c => c.value);
+    $('expiry-label').textContent = expSel.length ? expSel.join(', ') : '— none selected —';
+    $('strike-label').textContent = stkSel.length ? stkSel.map(inr).join(', ') : '— none selected —';
+  }
+
+  // ---------- expiry row with nested per-expiry strike list ----------
+  function toggleExpStrikes(tog) {
+    const row = tog.closest('.ivt-exp-row'); if (!row) return;
+    const sub = row.querySelector('.ivt-exp-strikes'); if (!sub) return;
+    const open = sub.style.display !== 'none';
+    sub.style.display = open ? 'none' : '';
+    tog.textContent = open ? '▶' : '▼';
+    tog.title = open ? 'Show per-expiry strike selection' : 'Hide strike selection';
+    if (!open) {
+      requestAnimationFrame(() => {
+        const atmRow = sub.querySelector('[data-is-atm]');
+        if (!atmRow) return;
+        const sc = row.closest('[style*="overflow-y"]');
+        if (sc) {
+          const center = sub.offsetTop + atmRow.offsetTop - sc.clientHeight / 2 + atmRow.clientHeight / 2;
+          sc.scrollTo({ top: center, behavior: 'smooth' });
+        } else atmRow.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      });
+    }
+  }
+  function expRow(expiry, checked, expColor) {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'ivt-exp-row'; rowDiv.dataset.expiry = expiry;
+    rowDiv.style.cssText = 'border-bottom:1px solid rgba(255,255,255,.04)';
+    const hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;align-items:center;gap:8px;padding:6px 14px;cursor:pointer;transition:background .15s';
+    hdr.onmouseover = () => hdr.style.background = 'rgba(255,255,255,.06)';
+    hdr.onmouseout = () => hdr.style.background = '';
+    const chk = document.createElement('input');
+    chk.type = 'checkbox'; chk.value = expiry; chk.className = 'ivt-expiry-chk'; chk.checked = checked;
+    chk.style.cssText = 'accent-color:' + expColor + ';width:14px;height:14px;flex-shrink:0;cursor:pointer';
+    chk.addEventListener('click', e => e.stopPropagation());
+    chk.addEventListener('change', updateLabels);
+    const lbl = document.createElement('span');
+    lbl.textContent = expiry;
+    lbl.style.cssText = "color:" + expColor + ";font-family:'IBM Plex Mono',monospace;font-size:.72rem;flex:1;min-width:0";
+    const tog = document.createElement('button');
+    tog.className = 'ivt-exp-toggle'; tog.textContent = '▶'; tog.title = 'Show per-expiry strike selection';
+    tog.addEventListener('click', e => { e.stopPropagation(); toggleExpStrikes(tog); });
+    hdr.appendChild(chk); hdr.appendChild(lbl); hdr.appendChild(tog);
+    hdr.addEventListener('click', e => { if (e.target !== chk) { chk.checked = !chk.checked; chk.dispatchEvent(new Event('change')); } });
+
+    const sub = document.createElement('div');
+    sub.className = 'ivt-exp-strikes';
+    sub.style.cssText = 'display:none;padding:2px 0 6px 12px;border-left:2px solid ' + expColor + '50;margin:0 10px 4px 20px';
+    if (strikes.length) {
+      const qRow = document.createElement('div');
+      qRow.style.cssText = 'display:flex;gap:6px;padding:4px 6px 5px';
+      ['All', 'None'].forEach(l => {
+        const b = document.createElement('button');
+        b.textContent = l;
+        b.style.cssText = "background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:3px;color:var(--t2);cursor:pointer;font-size:.58rem;padding:2px 7px;font-family:'IBM Plex Mono',monospace;transition:background .15s";
+        b.onmouseover = () => b.style.background = 'rgba(255,255,255,.14)';
+        b.onmouseout = () => b.style.background = 'rgba(255,255,255,.07)';
+        b.addEventListener('click', e => { e.stopPropagation(); sub.querySelectorAll('.ivt-exp-strike-chk').forEach(c => { c.checked = l === 'All'; }); });
+        qRow.appendChild(b);
+      });
+      sub.appendChild(qRow);
+      strikes.forEach(sk => {
+        const isAtm = sk === atm;
+        const skRow = document.createElement('div');
+        skRow.style.cssText = 'display:flex;align-items:center;gap:8px;padding:3px 8px;cursor:pointer;transition:background .15s';
+        skRow.onmouseover = () => skRow.style.background = 'rgba(255,255,255,.05)';
+        skRow.onmouseout = () => skRow.style.background = '';
+        if (isAtm) skRow.dataset.isAtm = '1';
+        const skChk = document.createElement('input');
+        skChk.type = 'checkbox'; skChk.value = String(sk); skChk.className = 'ivt-exp-strike-chk';
+        skChk.dataset.expiry = expiry; skChk.checked = false;
+        skChk.style.cssText = 'accent-color:' + expColor + ';width:12px;height:12px;flex-shrink:0;cursor:pointer';
+        skChk.addEventListener('click', e => e.stopPropagation());
+        const skLbl = document.createElement('span');
+        skLbl.style.cssText = "font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:" + (isAtm ? expColor : 'var(--t2)');
+        skLbl.textContent = inr(sk);
+        if (isAtm) {
+          const badge = document.createElement('span');
+          badge.textContent = ' ATM';
+          badge.style.cssText = 'font-size:.55rem;font-weight:700;letter-spacing:.06em;padding:1px 4px;border-radius:3px;margin-left:5px;background:' + expColor + '33;color:' + expColor + ';vertical-align:middle';
+          skLbl.appendChild(badge);
+        }
+        skRow.appendChild(skChk); skRow.appendChild(skLbl);
+        skRow.addEventListener('click', e => { if (e.target !== skChk) skChk.checked = !skChk.checked; });
+        sub.appendChild(skRow);
+      });
+    }
+    rowDiv.appendChild(hdr); rowDiv.appendChild(sub);
+    $('expiry-checks').appendChild(rowDiv);
+  }
+
+  // ---------- plain checkbox row for the global strike dropdown ----------
+  function checkRow(value, labelTxt, checked, colorHex, isAtm) {
+    const div = document.createElement('div');
+    div.style.cssText = "display:flex;align-items:center;gap:8px;padding:5px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:" + colorHex + ";transition:background .15s";
+    div.onmouseover = () => div.style.background = 'rgba(255,255,255,.06)';
+    div.onmouseout = () => div.style.background = '';
+    if (isAtm) div.dataset.isAtm = '1';
+    const chk = document.createElement('input');
+    chk.type = 'checkbox'; chk.value = value; chk.className = 'ivt-strike-chk'; chk.checked = checked;
+    chk.style.cssText = 'accent-color:' + colorHex + ';width:14px;height:14px;cursor:pointer';
+    chk.addEventListener('click', e => e.stopPropagation());
+    chk.addEventListener('change', updateLabels);
+    const sp = document.createElement('span');
+    sp.textContent = labelTxt;
+    if (isAtm) {
+      const badge = document.createElement('span');
+      badge.textContent = ' ATM';
+      badge.style.cssText = 'font-size:.56rem;font-weight:700;letter-spacing:.06em;padding:1px 5px;border-radius:3px;margin-left:6px;background:' + colorHex + '33;color:' + colorHex + ';vertical-align:middle';
+      sp.appendChild(badge);
+    }
+    div.appendChild(chk); div.appendChild(sp);
+    div.addEventListener('click', e => { if (e.target !== chk) { chk.checked = !chk.checked; chk.dispatchEvent(new Event('change')); } });
+    $('strike-checks').appendChild(div);
+  }
+
+  // per-expiry sub-selection wins; otherwise fall back to the global strikes
+  function getCombinations() {
+    const combos = [];
+    const globalStrikes = Array.from(mount.querySelectorAll('.ivt-strike-chk:checked')).map(c => c.value);
+    mount.querySelectorAll('.ivt-expiry-chk:checked').forEach(expChk => {
+      const row = expChk.closest('.ivt-exp-row');
+      const perExp = row ? Array.from(row.querySelectorAll('.ivt-exp-strike-chk:checked')).map(c => c.value) : [];
+      (perExp.length ? perExp : globalStrikes).forEach(sk => combos.push({ expiry: expChk.value, strike: sk }));
+    });
+    return combos;
+  }
+
+  function populate() {
+    const ec = $('expiry-checks'), sc = $('strike-checks');
+    ec.innerHTML = ''; sc.innerHTML = '';
+    if (!expiries.length) ec.innerHTML = '<div style="padding:8px 14px;color:var(--t3);font-size:.65rem">No expiries found</div>';
+    else expiries.forEach((exp, i) => expRow(exp, i === 0, ivtColor(i * 3)));
+    if (!strikes.length) sc.innerHTML = '<div style="padding:8px 14px;color:var(--t3);font-size:.65rem">No strikes found</div>';
+    else strikes.forEach((s, i) => checkRow(String(s), inr(s), s === atm, ivtColor(i), s === atm));
+    updateLabels();
+  }
+
+  // ---------- Call / Put / Both ----------
+  ['call', 'put', 'both'].forEach(t => {
+    $(t).addEventListener('click', () => {
+      ivType = t;
+      ['call', 'put', 'both'].forEach(k => $(k).classList.toggle('on', k === t));
+    });
+  });
+
+  // ---------- chart ----------
+  async function loadChart() {
+    const combos = getCombinations();
+    if (!combos.length) { alert('Please select at least one expiry + strike combination'); return; }
+    const card = $('chart-card'), nodata = $('no-data'), status = $('status');
+    card.style.display = 'none'; nodata.style.display = 'none';
+    status.textContent = 'Fetching IV data…';
+    try {
+      await loadChartJs();
+      const snaps = await fetchSnaps();
+      if (!snaps || !snaps.length) { status.textContent = 'No snapshots for ' + label; nodata.style.display = ''; return; }
+
+      const labels = snaps.map(s => parseTs(s.timestamp));
+      const synths = snaps.map(s => parseFloat(s.synth || s.spot || 0));
+      const getDict = (snap, exp) => {
+        if (exp && snap.expiries && snap.expiries[exp]) return snap.expiries[exp];
+        if (exp && snap.expiry === exp) return snap.strikes;
+        return null;
+      };
+
+      const datasets = [];
+      let colorIdx = 0, anyFound = false;
+      for (const { expiry: exp, strike: sk } of combos) {
+        const skey = String(Math.round(parseFloat(sk)));
+        const callArr = [], putArr = [];
+        let found = false;
+        for (const snap of snaps) {
+          const sd = getDict(snap, exp);
+          const d = sd ? findStrike(sd, skey) : null;
+          if (!d) { callArr.push(null); putArr.push(null); continue; }
+          found = true;
+          callArr.push(parseIv(d.call_iv)); putArr.push(parseIv(d.put_iv));
+        }
+        if (!found) continue;
+        anyFound = true;
+        const skLabel = inr(skey), expShort = ' (' + exp + ')';
+        const c = ivtColor(colorIdx++);
+        if (ivType === 'call' || ivType === 'both')
+          datasets.push({ label: 'Call IV ' + skLabel + expShort, data: callArr, borderColor: c, backgroundColor: 'transparent', yAxisID: 'y', tension: 0.35, pointRadius: 3.5, fill: false, borderWidth: 2.2 });
+        if (ivType === 'put' || ivType === 'both')
+          datasets.push({ label: 'Put IV ' + skLabel + expShort, data: putArr, borderColor: c, backgroundColor: 'transparent', yAxisID: 'y', tension: 0.35, pointRadius: 3.5, fill: false, borderWidth: 2.2, borderDash: [6, 3] });
+      }
+      if (!anyFound) { status.textContent = 'No data found for selected expiry/strike combinations.'; nodata.style.display = ''; return; }
+
+      datasets.push({ label: 'Synthetic Futures', data: synths, borderColor: SYNTH_COLOR, backgroundColor: 'transparent', yAxisID: 'y2', tension: 0.3, pointRadius: 2.5, borderDash: [8, 4], borderWidth: 1.8 });
+
+      const allIvs = datasets.filter(d => d.yAxisID === 'y').flatMap(d => d.data).filter(v => v !== null);
+      const ivMin = allIvs.length ? Math.min(...allIvs).toFixed(1) : '—';
+      const ivMax = allIvs.length ? Math.max(...allIvs).toFixed(1) : '—';
+      $('chart-title').textContent = 'IV Behaviour — ' + label;
+      $('chart-badge').textContent = labels.length + ' snapshots  ·  IV: ' + ivMin + '%–' + ivMax + '%';
+      status.textContent = labels.length + ' data points  ·  ' + (datasets.length - 1) + ' IV line(s)';
+
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      const gridCol = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,30,60,0.07)';
+      const textCol = isDark ? '#C9D1D9' : '#1A3A52';
+      const subCol  = isDark ? '#8892A4' : '#3D6482';
+      const ttBg    = isDark ? '#1A2035' : '#FFFFFF';
+      const ttBord  = isDark ? '#30364A' : '#B8CCDE';
+
+      // card must be visible BEFORE Chart.js measures the canvas
+      card.style.display = '';
+      if (chart) { chart.destroy(); chart = null; }
+      chart = new Chart($('canvas').getContext('2d'), {
+        type: 'line',
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textCol, font: { family: "'IBM Plex Mono', monospace", size: 10 }, boxWidth: 20, padding: 12 } },
+            tooltip: {
+              backgroundColor: ttBg, borderColor: ttBord, borderWidth: 1, titleColor: textCol, bodyColor: textCol,
+              callbacks: { label: c => {
+                const v = c.parsed.y; if (v == null) return null;
+                return ' ' + c.dataset.label + ': ' + (c.dataset.yAxisID === 'y2' ? fmt(v) : v.toFixed(2) + '%');
+              } }
+            }
+          },
+          scales: {
+            x: { ticks: { color: subCol, font: { size: 9 } }, grid: { color: gridCol } },
+            y: { type: 'linear', position: 'left', title: { display: true, text: 'Implied Volatility (%)', color: subCol, font: { size: 10 } }, ticks: { color: subCol, font: { size: 9 }, callback: v => v.toFixed(1) + '%' }, grid: { color: gridCol } },
+            y2: { type: 'linear', position: 'right', title: { display: true, text: 'Synthetic Futures', color: SYNTH_COLOR, font: { size: 10 } }, ticks: { color: SYNTH_COLOR, font: { size: 9 }, callback: v => fmt(v) }, grid: { drawOnChartArea: false } }
+          }
+        }
+      });
+    } catch (err) {
+      console.error('IV tracking error:', err);
+      status.textContent = 'Error: ' + err.message;
+      card.style.display = ''; // so the error text is visible
+    }
+  }
+  $('load').addEventListener('click', loadChart);
+
+  // ---------- initial meta load (expiries / strikes / ATM) ----------
+  loadChartJs().catch(() => {});   // preload so LOAD CHART is instant
+  fetchSnaps().then(snaps => {
+    if (!snaps || !snaps.length) {
+      mount.innerHTML = '<div style="color:var(--t3);font-size:12px;font-family:\'IBM Plex Mono\',monospace">No IV snapshots yet today.</div>';
+      return;
+    }
+    buildMeta(snaps);
+    populate();
+  }).catch(() => {
+    mount.innerHTML = '<div style="color:var(--t3);font-size:12px;font-family:\'IBM Plex Mono\',monospace">Could not load IV snapshot data.</div>';
+  });
 }
 
 function switchStab(idx, key, btn){
@@ -3944,9 +4183,6 @@ function switchStab(idx, key, btn){
     const sp = document.getElementById(`sp-${idx}-${k}`);
     if(sp) sp.classList.toggle('on', k===key);
   });
-  // IV Tracking draws onto a <canvas> that is 0px wide while its panel is display:none;
-  // renderIvTracker registers drawChart as a resize listener, so re-fire it now that the panel is visible.
-  if(key === 'ivtrack') window.dispatchEvent(new Event('resize'));
   const sp = document.getElementById(`sp-${idx}-${key}`);
   if(sp && sp.dataset.stale === '1'){
     sp.dataset.stale = '0';
