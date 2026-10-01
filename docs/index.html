@@ -3750,7 +3750,7 @@ function toggleTheme(){
     // dense bar/positioning charts do, plain number tables don't (nothing
     // to "zoom into" on a table — it's already full-size text).
     // Zoom behaviour per chart:
-    //   prob (Positioning Chart) on desktop -> scroll-wheel zoom + drag-pan + double-click reset, in place
+    //   prob (Positioning Chart) on desktop -> BOTH: scroll-wheel zoom + drag-pan + double-click reset in place, AND a single click opens the zoom lightbox
     //   every other chart (incl. PCR / Top GEX tables, OI & GEX Monitor) -> click opens the zoom lightbox
     //   (no wheel zoom on the page itself).  Mobile: click-to-zoom for all (the page itself pinch-zooms).
     if (this.kind === 'prob' && !isMobileTop()) {
@@ -3769,7 +3769,7 @@ function toggleTheme(){
   // live refreshes; the canvas is re-rendered at higher resolution after zooming so it stays sharp.
   Mount.prototype.initWheelZoom = function () {
     var self = this, sc = this.scroll, cv = this.cv, S = 1, PX = 0, PY = 0, MAX = 6;
-    var drag = false, lx = 0, ly = 0, qt = null;
+    var drag = false, lx = 0, ly = 0, qt = null, moved = false, travel = 0, ct = null;
     sc.style.overflow = 'hidden'; cv.style.transformOrigin = '0 0'; cv.style.cursor = 'zoom-in';
     function clamp() {
       var w = cv.clientWidth, h = cv.clientHeight;
@@ -3794,13 +3794,23 @@ function toggleTheme(){
       PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
     }, { passive: false });
     cv.addEventListener('mousedown', function (e) {
+      moved = false; travel = 0;
       if (S <= 1.001) return; drag = true; lx = e.clientX; ly = e.clientY; apply(); e.preventDefault();
     });
     root.addEventListener('mousemove', function (e) {
-      if (!drag) return; PX += e.clientX - lx; PY += e.clientY - ly; lx = e.clientX; ly = e.clientY; clamp(); apply();
+      if (!drag) return;
+      travel += Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly); if (travel > 4) moved = true;
+      PX += e.clientX - lx; PY += e.clientY - ly; lx = e.clientX; ly = e.clientY; clamp(); apply();
     });
     root.addEventListener('mouseup', function () { if (drag) { drag = false; apply(); } });
+    // Single click -> zoom lightbox (in addition to wheel zoom). Ignored when the click is the end of a
+    // drag-pan, and held back briefly so a double-click (in-place zoom / reset) doesn't also open it.
+    cv.addEventListener('click', function () {
+      if (moved) { moved = false; return; }
+      clearTimeout(ct); ct = setTimeout(function () { self.zoomOpen(); }, 260);
+    });
     cv.addEventListener('dblclick', function (e) {
+      clearTimeout(ct);
       if (S > 1.01) { reset(); return; }
       var r = sc.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
       var ix = mx, iy = my; S = 2.4; PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
