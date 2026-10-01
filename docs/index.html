@@ -3568,6 +3568,18 @@ function toggleTheme(){
 
     var padX = W * (three ? 0.06 : 0.04);
     var top = t + 68 * sc, bottom = H - 14 * sc, headH = 34 * sc, gap = 6 * sc;
+    var pl = E.pl || [];                               // optional pill row (OI & GEX Monitor: SPOT / SYNTH FUT)
+    if (pl.length) {
+      var pgap = 10 * sc, pw2 = (W - 2 * padX - pgap * (pl.length - 1)) / pl.length, ph2 = 28 * sc, py2 = t + 58 * sc;
+      pl.forEach(function (p, i) {
+        var px2 = padX + i * (pw2 + pgap);
+        ctx.fillStyle = C.surf; rr(ctx, px2, py2, pw2, ph2, 6 * sc); ctx.fill();
+        ctx.strokeStyle = p.e || C.border; ctx.lineWidth = 1.5; ctx.stroke();
+        T(ctx, p.l, px2 + 10 * sc, py2 + ph2 / 2 + 3 * sc, 8.5 * sc * 1.1, C.dim, 'left', 700);
+        T(ctx, p.v, px2 + pw2 / 2 + 24 * sc, py2 + ph2 / 2 + 5 * sc, 12.5 * sc, p.c || C.txt, 'center', 700);
+      });
+      top = py2 + ph2 + 10 * sc;
+    }
     var nRows = Math.max(1, (E.r || []).length);
     var rowH = Math.max(20 * sc, (bottom - top - headH - gap - nRows * gap) / nRows);
     var tableW = W - 2 * padX;
@@ -3658,6 +3670,7 @@ function toggleTheme(){
     panels: { aspect: 1.5,  min: 760, draw: function (c, W, H, en, i) { drawPanels(c, W, H, en[i]); } },
     prob:   { aspect: 0.98, min: 760, draw: function (c, W, H, en, i) { drawProb(c, W, H, en[i], en, i); } },
     table:  { aspect: 1.9,  min: 620, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
+    oi:     { aspect: 1.2,  min: 700, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
     skew:   { aspect: 2.05, min: 760, draw: function (c, W, H, en, i) { drawSkew(c, W, H, en[i]); } }
   };
 
@@ -3736,11 +3749,62 @@ function toggleTheme(){
     // Zoom-on-click matches what each chart type actually benefits from:
     // dense bar/positioning charts do, plain number tables don't (nothing
     // to "zoom into" on a table — it's already full-size text).
-    if (this.kind !== 'table') {
+    // Zoom behaviour per chart:
+    //   prob (Positioning Chart) on desktop -> scroll-wheel zoom + drag-pan + double-click reset, in place
+    //   every other chart (incl. PCR / Top GEX tables, OI & GEX Monitor) -> click opens the zoom lightbox
+    //   (no wheel zoom on the page itself).  Mobile: click-to-zoom for all (the page itself pinch-zooms).
+    if (this.kind === 'prob' && !isMobileTop()) {
+      this.initWheelZoom();
+    } else {
       this.cv.style.cursor = 'zoom-in';
       this.cv.addEventListener('click', function () { self.zoomOpen(); });
     }
     this.built = true;
+  };
+  function isMobileTop() {
+    try { return (root.top || root).innerWidth <= 760; } catch (e) { return root.innerWidth <= 760; }
+  }
+  // In-place scroll-wheel zoom + drag-to-pan for the Positioning Chart. The slider belt is a sibling
+  // overlay, so it stays put while the canvas scales underneath. Zoom survives slider scrubbing and
+  // live refreshes; the canvas is re-rendered at higher resolution after zooming so it stays sharp.
+  Mount.prototype.initWheelZoom = function () {
+    var self = this, sc = this.scroll, cv = this.cv, S = 1, PX = 0, PY = 0, MAX = 6;
+    var drag = false, lx = 0, ly = 0, qt = null;
+    sc.style.overflow = 'hidden'; cv.style.transformOrigin = '0 0'; cv.style.cursor = 'zoom-in';
+    function clamp() {
+      var w = cv.clientWidth, h = cv.clientHeight;
+      PX = Math.min(0, Math.max(w - w * S, PX)); PY = Math.min(0, Math.max(h - h * S, PY));
+    }
+    function apply() {
+      cv.style.transform = S <= 1.001 ? '' : 'translate(' + PX + 'px,' + PY + 'px) scale(' + S + ')';
+      cv.style.cursor = S > 1.01 ? (drag ? 'grabbing' : 'grab') : 'zoom-in';
+      clearTimeout(qt);
+      qt = setTimeout(function () {
+        var q = Math.max(1, Math.min(S, 3));
+        if (Math.abs(q - (self.zq || 1)) > 0.2) { self.zq = q; self.draw(); }
+      }, 160);
+    }
+    function reset() { S = 1; PX = 0; PY = 0; apply(); }
+    sc.addEventListener('wheel', function (e) {
+      if (S <= 1.001 && e.deltaY > 0) return;           // at 1x, scrolling down just scrolls the page
+      e.preventDefault();
+      var r = sc.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+      var ix = (mx - PX) / S, iy = (my - PY) / S;
+      S = Math.min(MAX, Math.max(1, S * (e.deltaY < 0 ? 1.18 : 1 / 1.18)));
+      PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
+    }, { passive: false });
+    cv.addEventListener('mousedown', function (e) {
+      if (S <= 1.001) return; drag = true; lx = e.clientX; ly = e.clientY; apply(); e.preventDefault();
+    });
+    root.addEventListener('mousemove', function (e) {
+      if (!drag) return; PX += e.clientX - lx; PY += e.clientY - ly; lx = e.clientX; ly = e.clientY; clamp(); apply();
+    });
+    root.addEventListener('mouseup', function () { if (drag) { drag = false; apply(); } });
+    cv.addEventListener('dblclick', function (e) {
+      if (S > 1.01) { reset(); return; }
+      var r = sc.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+      var ix = mx, iy = my; S = 2.4; PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
+    });
   };
   Mount.prototype.zoomOpen = function () {
     var lbx = (typeof root.openLbx === 'function') ? root.openLbx
@@ -3772,7 +3836,7 @@ function toggleTheme(){
     var K = KINDS[this.kind]; if (!K) return;
     var W = this.scroll.clientWidth; if (!W) return;
     var CW = Math.max(W, K.min), asp = parseFloat(this.el.getAttribute('data-aspect')) || K.aspect, CH = Math.round(CW / asp);
-    var dpr = Math.min(root.devicePixelRatio || 1, 2.5), cv = this.cv;
+    var dpr = Math.min(Math.min(root.devicePixelRatio || 1, 2.5) * (this.zq || 1), 4), cv = this.cv;
     if (cv.width !== Math.round(CW * dpr) || cv.height !== Math.round(CH * dpr)) {
       cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr); cv.style.width = CW + 'px'; cv.style.height = CH + 'px';
     }
@@ -3792,7 +3856,7 @@ function toggleTheme(){
     img.parentNode.insertBefore(w, img); w.appendChild(img); scan(w);
   }
 
-  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS, _draw: { panels: drawPanels, prob: drawProb, table: drawTable, skew: drawSkew }, BELT: BELT };
+  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS, _draw: { panels: drawPanels, prob: drawProb, table: drawTable, oi: drawTable, skew: drawSkew }, BELT: BELT };
 
   function start() {
     scan(document);
@@ -3897,7 +3961,7 @@ function _fsToggle(btn){
     (card.requestFullscreen || card.webkitRequestFullscreen || function(){}).call(card);
   }
 }
-const OFS_MAP = {gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table']};
+const OFS_MAP = {oi:['oi','oi'], gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table']};
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf];
