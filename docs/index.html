@@ -3749,16 +3749,12 @@ function toggleTheme(){
     // Zoom-on-click matches what each chart type actually benefits from:
     // dense bar/positioning charts do, plain number tables don't (nothing
     // to "zoom into" on a table — it's already full-size text).
-    // Zoom behaviour per chart:
-    //   prob (Positioning Chart) on desktop -> BOTH: scroll-wheel zoom + drag-pan + double-click reset in place, AND a single click opens the zoom lightbox
-    //   every other chart (incl. PCR / Top GEX tables, OI & GEX Monitor) -> click opens the zoom lightbox
-    //   (no wheel zoom on the page itself).  Mobile: click-to-zoom for all (the page itself pinch-zooms).
-    if (this.kind === 'prob' && !isMobileTop()) {
-      this.initWheelZoom();
-    } else {
-      this.cv.style.cursor = 'zoom-in';
-      this.cv.addEventListener('click', function () { self.zoomOpen(); });
-    }
+    // Zoom behaviour (every chart, Positioning Chart included): NO in-page wheel zoom — scrolling over a
+    // chart never zooms it. A click opens the zoom lightbox. Inside that popup the mouse wheel zooms in/out
+    // for the Positioning Chart, but is switched off for the OI & GEX Monitor, GEX, PCR table and Top GEX
+    // popups, which are view-only (see Mount.prototype.noWheelPopup + openLbx).
+    this.cv.style.cursor = 'zoom-in';
+    this.cv.addEventListener('click', function () { self.zoomOpen(); });
     this.built = true;
   };
   function isMobileTop() {
@@ -3769,7 +3765,7 @@ function toggleTheme(){
   // live refreshes; the canvas is re-rendered at higher resolution after zooming so it stays sharp.
   Mount.prototype.initWheelZoom = function () {
     var self = this, sc = this.scroll, cv = this.cv, S = 1, PX = 0, PY = 0, MAX = 6;
-    var drag = false, lx = 0, ly = 0, qt = null, moved = false, travel = 0, ct = null;
+    var drag = false, lx = 0, ly = 0, qt = null;
     sc.style.overflow = 'hidden'; cv.style.transformOrigin = '0 0'; cv.style.cursor = 'zoom-in';
     function clamp() {
       var w = cv.clientWidth, h = cv.clientHeight;
@@ -3794,23 +3790,13 @@ function toggleTheme(){
       PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
     }, { passive: false });
     cv.addEventListener('mousedown', function (e) {
-      moved = false; travel = 0;
       if (S <= 1.001) return; drag = true; lx = e.clientX; ly = e.clientY; apply(); e.preventDefault();
     });
     root.addEventListener('mousemove', function (e) {
-      if (!drag) return;
-      travel += Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly); if (travel > 4) moved = true;
-      PX += e.clientX - lx; PY += e.clientY - ly; lx = e.clientX; ly = e.clientY; clamp(); apply();
+      if (!drag) return; PX += e.clientX - lx; PY += e.clientY - ly; lx = e.clientX; ly = e.clientY; clamp(); apply();
     });
     root.addEventListener('mouseup', function () { if (drag) { drag = false; apply(); } });
-    // Single click -> zoom lightbox (in addition to wheel zoom). Ignored when the click is the end of a
-    // drag-pan, and held back briefly so a double-click (in-place zoom / reset) doesn't also open it.
-    cv.addEventListener('click', function () {
-      if (moved) { moved = false; return; }
-      clearTimeout(ct); ct = setTimeout(function () { self.zoomOpen(); }, 260);
-    });
     cv.addEventListener('dblclick', function (e) {
-      clearTimeout(ct);
       if (S > 1.01) { reset(); return; }
       var r = sc.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
       var ix = mx, iy = my; S = 2.4; PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
@@ -3827,9 +3813,15 @@ function toggleTheme(){
     zc.width = ZW; zc.height = ZH;
     try {
       K.draw(zc.getContext('2d'), ZW, ZH, this.entries, this.idx);
-      lbx(zc.toDataURL('image/png'));
+      lbx(zc.toDataURL('image/png'), this.noWheelPopup());
     } catch (err) { if (root.console) console.warn('OFS zoom', this.kind, err); }
   };
+
+  // OI & GEX Monitor / GEX / PCR table / Top GEX popups are click-only (no wheel zoom inside the popup).
+  Mount.prototype.noWheelPopup = function () {
+    return /(?:^|\/)(?:oi|gex|pcr|topgex)(?:_history\.json)?(?:[?#]|$)/.test(this.src || '');
+  };
+
   Mount.prototype.go = function (i) {
     i = Math.max(0, Math.min(this.entries.length - 1, i));
     this.idx = i; this.live = (i === this.entries.length - 1);
@@ -4631,7 +4623,7 @@ function switchProbSub(idx, sub, btn){
     }
   }
 }
-function openLbx(src){ document.getElementById('lbx-img').src=src; lbxReset(false); document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
+function openLbx(src, noWheel){ window.__lbxNoWheel = (noWheel === undefined) ? (typeof src === 'string' && src.slice(0,5) !== 'data:' && /(?:oi_gex_combined|gamma_exposure|pcr_table|top_gamma)\.png/.test(src)) : !!noWheel; document.getElementById('lbx-img').src=src; lbxReset(false); document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; lbxReset(false); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
@@ -4664,6 +4656,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
   lbx.addEventListener('wheel', function(e){
     if(!lbx.classList.contains('open')) return;
     e.preventDefault();
+    if(window.__lbxNoWheel) return;   // OI & GEX / GEX / PCR table / Top GEX popups: click-only, no wheel zoom
     const rect = lbxImg.getBoundingClientRect();
     const mx = e.clientX - rect.left - rect.width / 2;
     const my = e.clientY - rect.top - rect.height / 2;
