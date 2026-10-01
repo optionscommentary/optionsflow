@@ -3751,7 +3751,7 @@ function toggleTheme(){
     // to "zoom into" on a table — it's already full-size text).
     // Zoom behaviour (every chart, Positioning Chart included): NO in-page wheel zoom — scrolling over a
     // chart never zooms it. A click opens the zoom lightbox. Inside that popup the mouse wheel zooms in/out
-    // for the Positioning Chart, but is switched off for the OI & GEX Monitor, GEX, PCR table and Top GEX
+    // for the Positioning Chart and GEX / VEX / CEX, but is switched off for the OI & GEX Monitor, PCR table and Top GEX
     // popups, which are view-only (see Mount.prototype.noWheelPopup + openLbx).
     this.cv.style.cursor = 'zoom-in';
     this.cv.addEventListener('click', function () { self.zoomOpen(); });
@@ -3817,9 +3817,9 @@ function toggleTheme(){
     } catch (err) { if (root.console) console.warn('OFS zoom', this.kind, err); }
   };
 
-  // OI & GEX Monitor / GEX / PCR table / Top GEX popups are click-only (no wheel zoom inside the popup).
+  // OI & GEX Monitor / PCR table / Top GEX popups are click-only (no wheel zoom inside the popup).
   Mount.prototype.noWheelPopup = function () {
-    return /(?:^|\/)(?:oi|gex|pcr|topgex)(?:_history\.json)?(?:[?#]|$)/.test(this.src || '');
+    return /(?:^|\/)(?:oi|pcr|topgex)(?:_history\.json)?(?:[?#]|$)/.test(this.src || '');
   };
 
   Mount.prototype.go = function (i) {
@@ -4623,7 +4623,7 @@ function switchProbSub(idx, sub, btn){
     }
   }
 }
-function openLbx(src, noWheel){ window.__lbxNoWheel = (noWheel === undefined) ? (typeof src === 'string' && src.slice(0,5) !== 'data:' && /(?:oi_gex_combined|gamma_exposure|pcr_table|top_gamma)\.png/.test(src)) : !!noWheel; document.getElementById('lbx-img').src=src; lbxReset(false); document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
+function openLbx(src, noWheel){ window.__lbxNoWheel = (noWheel === undefined) ? (typeof src === 'string' && src.slice(0,5) !== 'data:' && /(?:oi_gex_combined|pcr_table|top_gamma)\.png/.test(src)) : !!noWheel; document.getElementById('lbx-img').src=src; lbxReset(false); document.getElementById('lbx').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeLbx(){ document.getElementById('lbx').classList.remove('open'); document.getElementById('lbx-img').src=''; document.body.style.overflow=''; lbxReset(false); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
 
@@ -4656,7 +4656,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
   lbx.addEventListener('wheel', function(e){
     if(!lbx.classList.contains('open')) return;
     e.preventDefault();
-    if(window.__lbxNoWheel) return;   // OI & GEX / GEX / PCR table / Top GEX popups: click-only, no wheel zoom
+    if(window.__lbxNoWheel) return;   // OI & GEX / PCR table / Top GEX popups: click-only, no wheel zoom
     const rect = lbxImg.getBoundingClientRect();
     const mx = e.clientX - rect.left - rect.width / 2;
     const my = e.clientY - rect.top - rect.height / 2;
@@ -5313,6 +5313,9 @@ function _posPremShowContent(idx, html) {
   }
 
   frame.onload = function() {
+    // Click-to-zoom on the Positioning Chart opens THIS page's full-screen lightbox (the same popup RAW VEX /
+    // RAW CEX use) instead of an overlay inside the auto-sized iframe. ofs_core's zoomOpen() picks up root.openLbx.
+    try { frame.contentWindow.openLbx = window.openLbx; } catch (e) {}
     _fitHeight();
     _posPremRestoreScroll(idx, frame);
     URL.revokeObjectURL(url);
