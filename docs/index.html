@@ -3293,7 +3293,7 @@ function toggleTheme(){
  *   </div>
  *
  * kinds: panels (GEX/VEX/CEX 4-panel) | prob (Positioning Chart) | table (PCR,
- * Top GEX+VOR) | oi (GEX OI Monitor strike table) | skew (Vol Skew / OTM Skew)
+ * Top GEX+VOR) | skew (Vol Skew / OTM Skew)
  * Inline data (premium bundle): data-inline="<id of a <script type=application/json>>"
  * Same file is inlined in index.html, index_localhost.html and the bundle.
  */
@@ -3658,10 +3658,6 @@ function toggleTheme(){
     panels: { aspect: 1.5,  min: 760, draw: function (c, W, H, en, i) { drawPanels(c, W, H, en[i]); } },
     prob:   { aspect: 0.98, min: 760, draw: function (c, W, H, en, i) { drawProb(c, W, H, en[i], en, i); } },
     table:  { aspect: 1.9,  min: 620, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
-    // GEX OI Monitor — 9-column × ~21-row strike table, so it needs more
-    // height per width than the compact 3-column PCR/Top-GEX tables and a
-    // wider minimum before horizontal scrolling kicks in.
-    oi:     { aspect: 1.3,  min: 900, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
     skew:   { aspect: 2.05, min: 760, draw: function (c, W, H, en, i) { drawSkew(c, W, H, en[i]); } }
   };
 
@@ -3737,14 +3733,13 @@ function toggleTheme(){
     // pinch/wheel-zoom + drag-to-pan lightbox) — redraw the current moment
     // at a much larger fixed size first, so zooming in stays sharp instead
     // of blowing up the on-page canvas's normal display resolution.
-    // Click-to-zoom applies to EVERY kind now, tables included: the Top GEX,
-    // PCR and GEX OI Monitor tables are dense multi-column grids where a
-    // full-screen re-render genuinely helps readability. Mouse-wheel zoom is
-    // deliberately NOT added on the canvas itself — click-to-open is the
-    // only zoom gesture on these plots (wheel zoom lives inside the
-    // lightbox, which the Positioning Chart relies on).
-    this.cv.style.cursor = 'zoom-in';
-    this.cv.addEventListener('click', function () { self.zoomOpen(); });
+    // Zoom-on-click matches what each chart type actually benefits from:
+    // dense bar/positioning charts do, plain number tables don't (nothing
+    // to "zoom into" on a table — it's already full-size text).
+    if (this.kind !== 'table') {
+      this.cv.style.cursor = 'zoom-in';
+      this.cv.addEventListener('click', function () { self.zoomOpen(); });
+    }
     this.built = true;
   };
   Mount.prototype.zoomOpen = function () {
@@ -3902,7 +3897,7 @@ function _fsToggle(btn){
     (card.requestFullscreen || card.webkitRequestFullscreen || function(){}).call(card);
   }
 }
-const OFS_MAP = {oi:['oi','oi'], gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table']};
+const OFS_MAP = {gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table']};
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf];
