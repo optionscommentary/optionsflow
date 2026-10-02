@@ -150,7 +150,7 @@
 }
 .stab-premium.unlocked .stab-lock { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  .prem-price-card.prem-mentor, .mentor-cta-tab { animation: none; }
+  .mentor-cta-tab { animation: none; }
 }
 /* Higher specificity than either .stab-prob or .stab-premium alone, so the
    gold "premium" color always wins on the tab that carries both classes
@@ -272,21 +272,23 @@
 .prem-price-card { flex:1; min-width:200px; background:var(--raised); border:1px solid var(--border); border-radius:12px; padding:20px 24px; text-align:center; }
 .prem-price-card.prem-first { border-color:#FFD700; box-shadow:0 0 18px rgba(255,215,0,.12); }
 .prem-price-card.prem-renewal { border-color:var(--accent); box-shadow:0 0 18px rgba(100,181,246,.10); }
-/* Mentorship bonus card — deliberately the loudest thing in the pricing
-   row: bigger price text than Monthly Access, a floating "bonus" ribbon,
-   and a slow pulsing glow so it draws the eye without being obnoxious.
-   The idea is impulse-clickable — its own WhatsApp button lives inside
-   the card so there's zero friction between "notice it" and "ask about
-   it", and it's NOT gated behind the T&C checkbox below (that gate is
-   for the paid subscription flow; this is just pointing people at a
-   different, already-known offering). */
-.prem-price-card.prem-mentor { position:relative; overflow:visible; border-color:rgba(var(--gl-pos),.55); background:linear-gradient(160deg, var(--raised), rgba(var(--gl-pos),.08)); box-shadow:0 0 14px rgba(var(--gl-pos),.18); animation:premMentorGlow 3.4s ease-in-out infinite; }
-.prem-price-card.prem-mentor .prem-price-amt.prem-mentor-amt { color:var(--pos); font-size:1.15rem; letter-spacing:.02em; text-transform:uppercase; overflow-wrap:anywhere; }
-.prem-mentor-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--pos); color:#04180d; font-family:'IBM Plex Mono',monospace; font-size:.62rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:5px 14px; border-radius:20px; white-space:nowrap; box-shadow:0 2px 10px rgba(var(--gl-pos),.35); }
-@keyframes premMentorGlow { 0%,100%{ box-shadow:0 0 14px rgba(var(--gl-pos),.18);} 50%{ box-shadow:0 0 22px rgba(var(--gl-pos),.32);} }
-.prem-mentor-wa-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--pos), rgba(var(--gl-pos),.8)); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700; letter-spacing:.03em; text-decoration:none; padding:9px 16px; border-radius:8px; margin-top:12px; transition:opacity .18s,transform .15s; box-shadow:0 3px 10px rgba(var(--gl-pos),.3); }
-.prem-mentor-wa-btn:hover { opacity:.9; transform:translateY(-1px); }
-.prem-mentor-wa-btn svg { width:16px; height:16px; flex-shrink:0; }
+/* Two plans side by side with an OR between them: ₹2,499 monthly, or ₹19,999
+   for 6 months with the one-on-one mentorship included. The 6-month card only
+   opens the T&C; mentorship details + WhatsApp appear after T&C is accepted. */
+.prem-or { flex:0 0 auto; align-self:center; display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:var(--raised); border:2px solid var(--t3); color:var(--t1); font-family:'IBM Plex Mono',monospace; font-size:.9rem; font-weight:800; letter-spacing:.04em; box-shadow:0 2px 8px rgba(0,0,0,.18); }
+.prem-price-card.prem-bundle { border-color:rgba(var(--gl-pos),.55); background:linear-gradient(160deg, var(--raised), rgba(var(--gl-pos),.06)); box-shadow:0 0 14px rgba(var(--gl-pos),.12); }
+.prem-price-card.prem-bundle .prem-price-amt { color:var(--pos); }
+.prem-price-details-btn { display:inline-flex; align-items:center; gap:6px; background:var(--pos); color:#04180d; font-family:'IBM Plex Mono',monospace; font-size:.68rem; font-weight:800; letter-spacing:.04em; padding:9px 16px; border-radius:999px; border:none; cursor:pointer; margin-top:12px; transition:opacity .18s,transform .15s; }
+.prem-price-details-btn:hover { opacity:.9; transform:translateY(-1px); }
+.prem-mdet { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px 24px; margin:0 0 20px; }
+.prem-mdet-badge { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:.6rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--pos); background:rgba(var(--gl-pos),.12); border:1px solid rgba(var(--gl-pos),.35); border-radius:4px; padding:3px 10px; margin-bottom:12px; }
+.prem-mdet-price { font-family:'IBM Plex Mono',monospace; font-size:1.4rem; font-weight:700; color:var(--t1); line-height:1.2; margin-bottom:10px; }
+.prem-mdet-price span { font-size:.7rem; font-weight:400; color:var(--t3); margin-left:6px; }
+.prem-mdet h4 { font-family:'Inter',sans-serif; font-size:1rem; font-weight:700; color:var(--t1); line-height:1.35; margin:0 0 8px; }
+.prem-mdet-desc { font-size:.82rem; color:var(--t3); line-height:1.7; margin:0 0 12px; }
+.prem-mdet ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+.prem-mdet ul li { font-size:.8rem; color:var(--t2); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+.prem-mdet ul li::before { content:'\2713'; color:var(--pos); flex-shrink:0; font-weight:700; margin-top:1px; }
 .prem-price-tag { font-family:'IBM Plex Mono',monospace; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--t4); margin-bottom:8px; }
 .prem-price-amt { font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:800; color:var(--t1); line-height:1; margin-bottom:6px; }
 .prem-price-card.prem-first .prem-price-amt { color:#FFD700; }
@@ -308,6 +310,27 @@
 .prem-tnc-check-row { padding:14px 18px; border-top:1px solid var(--border); background:var(--raised); display:flex; align-items:flex-start; gap:12px; }
 .prem-tnc-check-row input[type=checkbox] { width:17px; height:17px; flex-shrink:0; margin-top:2px; accent-color:var(--accent); cursor:pointer; }
 .prem-tnc-check-label { font-size:.8rem; color:var(--t2); line-height:1.5; cursor:pointer; }
+.posprem-outer .prem-tnc-check-row { background:rgba(255,193,7,.14); border-top:2px solid #E0A800; transition:background .2s,border-color .2s; }
+.posprem-outer .prem-tnc-check-row input[type=checkbox] { width:22px; height:22px; margin-top:0; accent-color:var(--pos); }
+.posprem-outer .prem-tnc-check-label { color:var(--t1); font-weight:600; }
+.posprem-outer .prem-tnc-check-row:has(input:checked) { background:rgba(var(--gl-pos),.12); border-top-color:var(--pos); }
+[data-theme="light"] .posprem-outer .prem-tnc-check-row { background:rgba(245,158,11,.16); border-top-color:#D97706; }
+[data-theme="light"] .posprem-outer .prem-tnc-check-row:has(input:checked) { background:rgba(var(--gl-pos),.12); border-top-color:var(--pos); }
+/* Pricing cards: brighter plan labels + notes */
+.prem-price-tag { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:.95rem; font-weight:700; letter-spacing:normal; text-transform:none; color:#FFFFFF; text-shadow:0 0 8px rgba(255,255,255,.25); }
+.prem-price-note { color:#F1F5F9; }
+[data-theme="light"] .prem-price-tag { color:#000000; text-shadow:none; }
+[data-theme="light"] .prem-price-note { color:#000000; font-weight:600; }
+/* Light theme: T&C checkbox = white fill, black border, black tick */
+[data-theme="light"] .prem-tnc-check-row input[type=checkbox] {
+  -webkit-appearance:none; appearance:none;
+  background-color:#FFFFFF; border:2px solid #000000; border-radius:4px;
+  background-repeat:no-repeat; background-position:center; background-size:80% 80%;
+}
+[data-theme="light"] .prem-tnc-check-row input[type=checkbox]:checked {
+  background-color:#FFFFFF; border-color:#000000;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
 .prem-tnc-check-label strong { color:var(--t1); }
 .prem-wa-section { text-align:center; padding:4px 0 8px; }
 .prem-wa-btn { display:inline-flex; align-items:center; gap:12px; background:linear-gradient(135deg,#25D366,#128C7E); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:.92rem; font-weight:700; letter-spacing:.04em; text-decoration:none; padding:15px 36px; border-radius:10px; border:none; cursor:pointer; transition:opacity .18s,transform .15s; box-shadow:0 4px 20px rgba(37,211,102,.3); margin-bottom:12px; }
@@ -1055,6 +1078,10 @@ html[data-theme] .mentor-cta-tab:hover{
 }
 html[data-theme="light"] .mentor-cta-tab{border-color:#065F46}
 html[data-theme="light"] .mentor-cta-tab:hover{border-color:#064E3B}
+html[data-theme="light"] .mentor-cta-tab,
+html[data-theme="light"] .mentor-cta-tab:hover,
+html[data-theme="light"] .app-quick-links a,
+html[data-theme="light"] .app-quick-links a:hover{color:#011C15 !important;font-weight:800}
 html[data-theme] .tb-nav #theme-btn,html[data-theme] .topbar-nav #theme-btn{margin-left:4px}
 html[data-theme] .tb-more-menu{
   top:calc(100% + 14px);min-width:212px;padding:8px;border-radius:22px;
@@ -1160,7 +1187,7 @@ html[data-theme] .mobile-nav-strip a.is-current,html[data-theme] .mobile-nav-str
   background:rgba(var(--gl-acc),.16);color:var(--accent);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.30),inset 0 0 0 1px rgba(var(--gl-acc),.40);
 }
-html[data-theme] .what-card,html[data-theme] .connect-card,html[data-theme] .blog-card,html[data-theme] .m-card,html[data-theme] .step,html[data-theme] .contact-card,html[data-theme] .response-note,html[data-theme] .toc,html[data-theme] .author-box,html[data-theme] .gcard,html[data-theme] .edu-box,html[data-theme] .prem-feat-item,html[data-theme] .prem-tnc-wrap,html[data-theme] .prem-pw-section,html[data-theme] .prem-gallery-item,html[data-theme] .prem-gallery-single,html[data-theme] .ai-strat-box,html[data-theme] .prem-price-card:not(.prem-first):not(.prem-renewal):not(.prem-mentor){
+html[data-theme] .what-card,html[data-theme] .connect-card,html[data-theme] .blog-card,html[data-theme] .m-card,html[data-theme] .step,html[data-theme] .contact-card,html[data-theme] .response-note,html[data-theme] .toc,html[data-theme] .author-box,html[data-theme] .gcard,html[data-theme] .edu-box,html[data-theme] .prem-feat-item,html[data-theme] .prem-tnc-wrap,html[data-theme] .prem-pw-section,html[data-theme] .prem-gallery-item,html[data-theme] .prem-gallery-single,html[data-theme] .ai-strat-box,html[data-theme] .prem-price-card:not(.prem-first):not(.prem-renewal):not(.prem-bundle){
   background:
     radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,calc(var(--gl-spot) * 1)),transparent 65%),
     linear-gradient(135deg,var(--gl-glare) 0%,transparent 42%),
@@ -1205,7 +1232,7 @@ html[data-theme] .gcard-badge,html[data-theme] .index-chip,html[data-theme] .cou
 }
 html[data-theme] .contact-card-icon{border-radius:14px}
 html[data-theme] .ai-strat-box{border-radius:20px}
-html[data-theme] .disclaimer,html[data-theme] .course-card,html[data-theme] .premium-callout,html[data-theme] .prem-price-card.prem-first,html[data-theme] .prem-price-card.prem-renewal,html[data-theme] .prem-price-card.prem-mentor,html[data-theme] .featured-card,html[data-theme] .g-card{border-radius:24px}
+html[data-theme] .disclaimer,html[data-theme] .course-card,html[data-theme] .premium-callout,html[data-theme] .prem-price-card.prem-first,html[data-theme] .prem-price-card.prem-renewal,html[data-theme] .prem-price-card.prem-bundle,html[data-theme] .featured-card,html[data-theme] .g-card{border-radius:24px}
 html[data-theme] .disclaimer,html[data-theme] .course-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),var(--gl-shadow-sm)}
 html[data-theme] .premium-callout{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 14px 30px -16px rgba(var(--gl-gold),.45);
@@ -1213,6 +1240,7 @@ html[data-theme] .premium-callout{
 }
 html[data-theme] .prem-price-card.prem-first{border-color:rgba(var(--gl-gold),.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(var(--gl-gold),.14)}
 html[data-theme] .prem-price-card.prem-renewal{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(100,181,246,.10)}
+html[data-theme] .prem-price-card.prem-bundle{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 14px rgba(var(--gl-pos),.12)}
 html[data-theme] .featured-card{box-shadow:inset 0 1px 0 var(--gl-hi),var(--gl-shadow)}
 html[data-theme] .group-teaser{box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
 html[data-theme] [style*="rgba(255,215,0,0.08)"]{border-radius:16px !important}
@@ -1223,17 +1251,11 @@ html[data-theme] .author-box{background:
 html[data-theme] .m-cta.prog,html[data-theme] .m-cta.intro,html[data-theme] .course-cta,html[data-theme] .article-course-cta a:not(.inline-link),html[data-theme] .prem-pw-btn,html[data-theme] .premium-callout-btn{
   background-image:linear-gradient(180deg,rgba(255,255,255,.44),rgba(255,255,255,0) 52%,rgba(0,0,0,.10));
 }
-html[data-theme] .m-cta,html[data-theme] .course-cta,html[data-theme] .article-course-cta a:not(.inline-link),html[data-theme] .prem-pw-btn,html[data-theme] .premium-callout-btn,html[data-theme] .g-cta,html[data-theme] .prem-getstarted-btn,html[data-theme] .prem-price-getstarted-btn,html[data-theme] .prem-wa-btn,html[data-theme] .prem-mentor-wa-btn,html[data-theme] .prem-pw-nokey a{
+html[data-theme] .m-cta,html[data-theme] .course-cta,html[data-theme] .article-course-cta a:not(.inline-link),html[data-theme] .prem-pw-btn,html[data-theme] .premium-callout-btn,html[data-theme] .g-cta,html[data-theme] .prem-getstarted-btn,html[data-theme] .prem-price-getstarted-btn,html[data-theme] .prem-price-details-btn,html[data-theme] .prem-wa-btn,html[data-theme] .prem-pw-nokey a{
   border-radius:999px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -10px 16px -10px rgba(0,0,0,.30),0 10px 24px -12px rgba(0,0,0,.55);
 }
-html[data-theme] .prem-mentor-wa-btn{
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -6px 10px -8px rgba(0,0,0,.22),0 6px 16px -10px rgba(var(--gl-pos),.45);
-}
-/* Dark theme's --pos green (#34D399) is too light for white text to read
-   clearly against; light theme's --pos (#059669) is dark enough that white
-   still works there, so only override for dark. */
-html[data-theme="dark"] .prem-mentor-wa-btn{ color:#0D1520; }
+html[data-theme] .prem-price-details-btn{ color:#04180d; background:var(--pos); }
 html[data-theme] .prem-pw-input{
   border-radius:999px;border-color:var(--gl-line);
   background:linear-gradient(180deg,rgba(0,0,0,.18),transparent),var(--input-bg);
@@ -1575,10 +1597,12 @@ html[data-theme] .premium-callout {
 .prem-pricing-row { gap: 10px; margin-bottom: 18px; }
 .prem-price-card { min-width: 0; padding: 14px 12px; border-radius: 14px; }
 .prem-price-amt { font-size: 1.55rem; }
-.prem-price-tag { font-size: .60rem; }
+.prem-price-tag { font-size: .82rem; }
 .prem-price-note { font-size: .68rem; }
-.prem-price-card.prem-mentor { padding-top: 22px; }
-.prem-mentor-badge { font-size: .58rem; padding: 4px 12px; }
+.prem-pricing-row:has(.prem-bundle) { flex-direction: column; flex-wrap: nowrap; gap: 6px; }
+.prem-pricing-row:has(.prem-bundle) .prem-price-card { flex: 0 0 auto; width: 100%; box-sizing: border-box; }
+.prem-or { width:36px; height:36px; font-size:.82rem; }
+.prem-mdet { padding: 16px 14px; border-radius: 14px; }
 .prem-pricing-row:has(.prem-renewal) { flex-wrap: nowrap; gap: 10px; }
 .prem-pricing-row:has(.prem-renewal) .prem-price-card { flex: 1 1 0; min-width: 0; padding: 14px 8px; }
 .prem-pricing-row:has(.prem-renewal) .prem-price-amt { font-size: 1.55rem; }
@@ -1998,7 +2022,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-nifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('nifty')">&#128640; Get Started</button></div><div class="prem-price-card prem-mentor"><div class="prem-mentor-badge">&#127873; Mentorship Bonus</div><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt prem-mentor-amt">Complimentary</div><div class="prem-price-note">Included when you join OptionsFlow Mentorship</div><a class="prem-mentor-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%27m%20interested%20in%20the%20OptionsFlow%20Mentorship%20%28%E2%82%B919%2C999%29%20%E2%80%94%20I%20saw%20it%20includes%206%20months%20of%20free%20Premium%20Probable%20Positioning%20access.%20Please%20share%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Ask About Mentorship</a></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('nifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('nifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-nifty"></div>
         <div class="prem-feat-row">
@@ -2018,6 +2042,28 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
           </a><br>
           <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access key.</div>
+        </div>
+        <div id="posbundle-nifty" style="display:none">
+          <div class="prem-mdet">
+            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
+            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
+            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
+            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
+            <ul>
+              <li>~10 private sessions × 2 hours — completely one-on-one</li>
+              <li>Structured from basics to live dealer flow analysis</li>
+              <li>Every session grounded in real charts and current market context</li>
+              <li>Real trade structuring — condors, straddles, directional setups</li>
+              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
+              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
+            </ul>
+          </div>
+          <div class="prem-wa-section">
+            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
+            </a><br>
+            <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details, your 6-month access key and the mentorship scheduling.</div>
+          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -2270,7 +2316,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-banknifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('banknifty')">&#128640; Get Started</button></div><div class="prem-price-card prem-mentor"><div class="prem-mentor-badge">&#127873; Mentorship Bonus</div><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt prem-mentor-amt">Complimentary</div><div class="prem-price-note">Included when you join OptionsFlow Mentorship</div><a class="prem-mentor-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%27m%20interested%20in%20the%20OptionsFlow%20Mentorship%20%28%E2%82%B919%2C999%29%20%E2%80%94%20I%20saw%20it%20includes%206%20months%20of%20free%20Premium%20Probable%20Positioning%20access.%20Please%20share%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Ask About Mentorship</a></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('banknifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('banknifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-banknifty"></div>
         <div class="prem-feat-row">
@@ -2290,6 +2336,28 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
           </a><br>
           <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access key.</div>
+        </div>
+        <div id="posbundle-banknifty" style="display:none">
+          <div class="prem-mdet">
+            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
+            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
+            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
+            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
+            <ul>
+              <li>~10 private sessions × 2 hours — completely one-on-one</li>
+              <li>Structured from basics to live dealer flow analysis</li>
+              <li>Every session grounded in real charts and current market context</li>
+              <li>Real trade structuring — condors, straddles, directional setups</li>
+              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
+              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
+            </ul>
+          </div>
+          <div class="prem-wa-section">
+            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
+            </a><br>
+            <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details, your 6-month access key and the mentorship scheduling.</div>
+          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -2544,7 +2612,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-sensex" class="posprem-outer" style="display:none">
         <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('sensex')">&#128640; Get Started</button></div><div class="prem-price-card prem-mentor"><div class="prem-mentor-badge">&#127873; Mentorship Bonus</div><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt prem-mentor-amt">Complimentary</div><div class="prem-price-note">Included when you join OptionsFlow Mentorship</div><a class="prem-mentor-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%27m%20interested%20in%20the%20OptionsFlow%20Mentorship%20%28%E2%82%B919%2C999%29%20%E2%80%94%20I%20saw%20it%20includes%206%20months%20of%20free%20Premium%20Probable%20Positioning%20access.%20Please%20share%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Ask About Mentorship</a></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('sensex')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('sensex')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-sensex"></div>
         <div class="prem-feat-row">
@@ -2564,6 +2632,28 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
           </a><br>
           <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access key.</div>
+        </div>
+        <div id="posbundle-sensex" style="display:none">
+          <div class="prem-mdet">
+            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
+            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
+            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
+            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
+            <ul>
+              <li>~10 private sessions × 2 hours — completely one-on-one</li>
+              <li>Structured from basics to live dealer flow analysis</li>
+              <li>Every session grounded in real charts and current market context</li>
+              <li>Real trade structuring — condors, straddles, directional setups</li>
+              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
+              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
+            </ul>
+          </div>
+          <div class="prem-wa-section">
+            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
+            </a><br>
+            <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details, your 6-month access key and the mentorship scheduling.</div>
+          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -2818,7 +2908,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-finnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('finnifty')">&#128640; Get Started</button></div><div class="prem-price-card prem-mentor"><div class="prem-mentor-badge">&#127873; Mentorship Bonus</div><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt prem-mentor-amt">Complimentary</div><div class="prem-price-note">Included when you join OptionsFlow Mentorship</div><a class="prem-mentor-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%27m%20interested%20in%20the%20OptionsFlow%20Mentorship%20%28%E2%82%B919%2C999%29%20%E2%80%94%20I%20saw%20it%20includes%206%20months%20of%20free%20Premium%20Probable%20Positioning%20access.%20Please%20share%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Ask About Mentorship</a></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('finnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('finnifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-finnifty"></div>
         <div class="prem-feat-row">
@@ -2838,6 +2928,28 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
           </a><br>
           <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access key.</div>
+        </div>
+        <div id="posbundle-finnifty" style="display:none">
+          <div class="prem-mdet">
+            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
+            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
+            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
+            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
+            <ul>
+              <li>~10 private sessions × 2 hours — completely one-on-one</li>
+              <li>Structured from basics to live dealer flow analysis</li>
+              <li>Every session grounded in real charts and current market context</li>
+              <li>Real trade structuring — condors, straddles, directional setups</li>
+              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
+              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
+            </ul>
+          </div>
+          <div class="prem-wa-section">
+            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
+            </a><br>
+            <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details, your 6-month access key and the mentorship scheduling.</div>
+          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -3092,7 +3204,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-midcpnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('midcpnifty')">&#128640; Get Started</button></div><div class="prem-price-card prem-mentor"><div class="prem-mentor-badge">&#127873; Mentorship Bonus</div><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt prem-mentor-amt">Complimentary</div><div class="prem-price-note">Included when you join OptionsFlow Mentorship</div><a class="prem-mentor-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%27m%20interested%20in%20the%20OptionsFlow%20Mentorship%20%28%E2%82%B919%2C999%29%20%E2%80%94%20I%20saw%20it%20includes%206%20months%20of%20free%20Premium%20Probable%20Positioning%20access.%20Please%20share%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Ask About Mentorship</a></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('midcpnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('midcpnifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-midcpnifty"></div>
         <div class="prem-feat-row">
@@ -3112,6 +3224,28 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
           </a><br>
           <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details and your monthly access key.</div>
+        </div>
+        <div id="posbundle-midcpnifty" style="display:none">
+          <div class="prem-mdet">
+            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
+            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
+            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
+            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
+            <ul>
+              <li>~10 private sessions × 2 hours — completely one-on-one</li>
+              <li>Structured from basics to live dealer flow analysis</li>
+              <li>Every session grounded in real charts and current market context</li>
+              <li>Real trade structuring — condors, straddles, directional setups</li>
+              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
+              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
+            </ul>
+          </div>
+          <div class="prem-wa-section">
+            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
+            </a><br>
+            <div class="prem-wa-note">Tap above to open WhatsApp with a pre-filled message.<br>We will share payment details, your 6-month access key and the mentorship scheduling.</div>
+          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -5105,10 +5239,24 @@ function _premShowContent(idx, html) {
 
 var _posPremDecrypted = {};
 
+// Two flows share one T&C: 'monthly' (₹2,499 -> subscribe WhatsApp) and
+// 'bundle' (₹19,999 / 6 months -> mentorship details + bonus-framed WhatsApp).
+// Ticking the T&C box reveals only the section for the flow that was opened.
+var _posPremMode = {};
 function posPremTnc(idx) {
   var cb = document.getElementById('postnc-' + idx);
+  var ok = !!(cb && cb.checked), mode = _posPremMode[idx] || 'monthly';
   var wa = document.getElementById('poswa-' + idx);
-  if (wa) wa.style.display = cb.checked ? 'block' : 'none';
+  var bw = document.getElementById('posbundle-' + idx);
+  if (wa) wa.style.display = (ok && mode === 'monthly') ? 'block' : 'none';
+  if (bw) bw.style.display = (ok && mode === 'bundle') ? 'block' : 'none';
+}
+function _posPremSetMode(idx, mode) {
+  var cb = document.getElementById('postnc-' + idx);
+  // switching between the two offers asks for a fresh T&C confirmation
+  if (cb && _posPremMode[idx] && _posPremMode[idx] !== mode) cb.checked = false;
+  _posPremMode[idx] = mode;
+  posPremTnc(idx);
 }
 
 async function _posPremDecryptFile(idx, pwd) {
@@ -5684,6 +5832,7 @@ function scrollToTnc(btn) {
   var m = /^(posprem-offerslot|premrecom-offerslot)-(.+)$/.exec(slot.id);
   if (!m) return;
   var containerId = m[1] === 'premrecom-offerslot' ? ('prem-sub-' + m[2]) : ('posprem-sales-' + m[2]);
+  if (m[1] === 'posprem-offerslot') _posPremSetMode(m[2], 'monthly');
   _revealAndScrollToTnc(containerId);
 }
 // "Get Started" button placed directly inside the ₹2,499/month pricing card
@@ -5691,6 +5840,13 @@ function scrollToTnc(btn) {
 // gives one-tap access to the T&C + subscribe flow without scrolling past
 // the gallery and comparison table first.
 function posPremQuickStart(idx) {
+  _posPremSetMode(idx, 'monthly');
+  _revealAndScrollToTnc('posprem-sales-' + idx);
+}
+// "Click here for more details" on the ₹19,999 / 6-month card: same T&C,
+// then (after the box is ticked) the one-on-one mentorship details + WhatsApp.
+function posPremBundleStart(idx) {
+  _posPremSetMode(idx, 'bundle');
   _revealAndScrollToTnc('posprem-sales-' + idx);
 }
 
