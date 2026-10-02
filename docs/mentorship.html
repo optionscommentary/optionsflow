@@ -29,6 +29,37 @@
   --t1:#0F172A;--t2:#1F2937;--t3:#475569;--t4:#64748B;
   --pos:#059669;--neg:#E11D48;--accent:#2563EB;--put:#EA580C;
 }
+/* ── BONUS NOTE (theme-aware) ── */
+:root,[data-theme="dark"]{
+  --bonus-fg:#FFD700;
+  --bonus-bg:rgba(255,215,0,.08);
+  --bonus-bd:rgba(255,215,0,.35);
+}
+[data-theme="light"]{
+  --bonus-fg:#A16207;
+  --bonus-bg:rgba(217,119,6,.10);
+  --bonus-bd:rgba(180,83,9,.35);
+}
+.bonus-note{
+  margin:4px 0 16px;
+  padding:10px 14px;
+  border-radius:16px;
+  font-family:'Inter',sans-serif;
+  font-size:.792rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  line-height:1.5;
+  color:var(--bonus-fg);
+  background:var(--bonus-bg);
+  border:1px solid var(--bonus-bd);
+}
+.bonus-note.sm{
+  margin:0 0 10px;
+  padding:6px 10px;
+  font-size:.682rem;
+  line-height:1.4;
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;scroll-behavior:smooth}
 body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t2);min-height:100vh;display:flex;flex-direction:column}
@@ -452,7 +483,6 @@ html[data-theme] .prem-price-card.prem-first{border-color:rgba(var(--gl-gold),.6
 html[data-theme] .prem-price-card.prem-renewal{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(100,181,246,.10)}
 html[data-theme] .featured-card{box-shadow:inset 0 1px 0 var(--gl-hi),var(--gl-shadow)}
 html[data-theme] .group-teaser{box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
-html[data-theme] [style*="rgba(255,215,0,0.08)"]{border-radius:16px !important}
 html[data-theme] .author-box{background:
     linear-gradient(135deg,var(--gl-glare) 0%,transparent 42%),
     linear-gradient(180deg,var(--gl-fill-a),var(--gl-fill-b)) !important;
@@ -668,7 +698,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
       <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
 
     </ul>
-    <div style="margin:4px 0 16px;padding:10px 14px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.35);border-radius:8px;font-family:'Inter',sans-serif;font-size:0.792rem;color:#FFD700;font-weight:600;letter-spacing:.02em;line-height:1.5">
+    <div class="bonus-note">
       🎁 Bonus: 6 months of Premium Probable Positioning access, free
     </div>
     <a class="m-cta prog"
@@ -710,7 +740,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
         <div class="g-price-label">Optionsflow Mentorship</div>
         <div class="g-price">₹18,000 <span>/ person</span></div>
         <div class="g-price-sub">~10 sessions · ₹36,000 total for both · 10% off individual pricing</div>
-        <div style="margin:0 0 10px;padding:6px 10px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.35);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.682rem;color:#FFD700;font-weight:600;line-height:1.4">
+        <div class="bonus-note sm">
           🎁 Bonus: 6 months Premium Probable Positioning, free
         </div>
         <a class="m-cta prog g-cta"
@@ -742,7 +772,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
         <div class="g-price-label">Optionsflow Mentorship</div>
         <div class="g-price">₹16,000 <span>/ person</span></div>
         <div class="g-price-sub">~10 sessions · ₹48,000 total for all three · 20% off individual pricing</div>
-        <div style="margin:0 0 10px;padding:6px 10px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.35);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.682rem;color:#FFD700;font-weight:600;line-height:1.4">
+        <div class="bonus-note sm">
           🎁 Bonus: 6 months Premium Probable Positioning, free
         </div>
         <a class="m-cta prog g-cta"
@@ -774,7 +804,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
         <div class="g-price-label">Optionsflow Mentorship</div>
         <div class="g-price">₹15,000 <span>/ person</span></div>
         <div class="g-price-sub">~10 sessions · ₹60,000 total for all four · 25% off individual pricing</div>
-        <div style="margin:0 0 10px;padding:6px 10px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.35);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.682rem;color:#FFD700;font-weight:600;line-height:1.4">
+        <div class="bonus-note sm">
           🎁 Bonus: 6 months Premium Probable Positioning, free
         </div>
         <a class="m-cta prog g-cta"
