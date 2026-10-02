@@ -318,9 +318,10 @@
 [data-theme="light"] .posprem-outer .prem-tnc-check-row:has(input:checked) { background:rgba(var(--gl-pos),.12); border-top-color:var(--pos); }
 /* Pricing cards: brighter plan labels + notes */
 .prem-price-tag { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:.95rem; font-weight:700; letter-spacing:normal; text-transform:none; color:#FFFFFF; text-shadow:0 0 8px rgba(255,255,255,.25); }
-.prem-price-note { color:#F1F5F9; }
+.prem-price-note { color:#F1F5F9; font-size:1.05rem; font-weight:600; line-height:1.4; }
 [data-theme="light"] .prem-price-tag { color:#000000; text-shadow:none; }
 [data-theme="light"] .prem-price-note { color:#000000; font-weight:600; }
+.prem-price-card.prem-bundle .prem-price-note { white-space:nowrap; }
 /* Light theme: T&C checkbox = white fill, black border, black tick */
 [data-theme="light"] .prem-tnc-check-row input[type=checkbox] {
   -webkit-appearance:none; appearance:none;
@@ -1598,7 +1599,8 @@ html[data-theme] .premium-callout {
 .prem-price-card { min-width: 0; padding: 14px 12px; border-radius: 14px; }
 .prem-price-amt { font-size: 1.55rem; }
 .prem-price-tag { font-size: .82rem; }
-.prem-price-note { font-size: .68rem; }
+.prem-price-note { font-size: .92rem; }
+.prem-price-card.prem-bundle .prem-price-note { font-size: clamp(.72rem, 3.7vw, .92rem); }
 .prem-pricing-row:has(.prem-bundle) { flex-direction: column; flex-wrap: nowrap; gap: 6px; }
 .prem-pricing-row:has(.prem-bundle) .prem-price-card { flex: 0 0 auto; width: 100%; box-sizing: border-box; }
 .prem-or { width:36px; height:36px; font-size:.82rem; }
@@ -1606,7 +1608,7 @@ html[data-theme] .premium-callout {
 .prem-pricing-row:has(.prem-renewal) { flex-wrap: nowrap; gap: 10px; }
 .prem-pricing-row:has(.prem-renewal) .prem-price-card { flex: 1 1 0; min-width: 0; padding: 14px 8px; }
 .prem-pricing-row:has(.prem-renewal) .prem-price-amt { font-size: 1.55rem; }
-.prem-pricing-row:has(.prem-renewal) .prem-price-note { font-size: .64rem; }
+.prem-pricing-row:has(.prem-renewal) .prem-price-note { font-size: .78rem; }
 .prem-feat-row { grid-template-columns: 1fr; gap: 8px; margin-bottom: 18px; }
 .prem-feat-item { padding: 10px 12px; border-radius: 12px; }
 .prem-feat-title { font-size: .80rem; }
@@ -2022,7 +2024,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-nifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('nifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('nifty')">Click here for more details &rarr;</button></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('nifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('nifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-nifty"></div>
         <div class="prem-feat-row">
@@ -2316,7 +2318,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-banknifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('banknifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('banknifty')">Click here for more details &rarr;</button></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('banknifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('banknifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-banknifty"></div>
         <div class="prem-feat-row">
@@ -2612,7 +2614,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-sensex" class="posprem-outer" style="display:none">
         <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('sensex')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('sensex')">Click here for more details &rarr;</button></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('sensex')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('sensex')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-sensex"></div>
         <div class="prem-feat-row">
@@ -2908,7 +2910,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-finnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('finnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('finnifty')">Click here for more details &rarr;</button></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('finnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('finnifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-finnifty"></div>
         <div class="prem-feat-row">
@@ -3204,7 +3206,7 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <div id="posprem-sales-midcpnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
         <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('midcpnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">For 6 months, with full mentorship included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('midcpnifty')">Click here for more details &rarr;</button></div>
+          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('midcpnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('midcpnifty')">Click here for more details &rarr;</button></div>
         </div>
         <div class="prem-offer-slot" id="posprem-offerslot-midcpnifty"></div>
         <div class="prem-feat-row">
