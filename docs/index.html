@@ -3685,9 +3685,9 @@ function toggleTheme(){
       T(ctx, lab[i], 0, 0, 8 * u, C.txt2, 'right'); ctx.restore();
     }
     var ln = ns[n - 1], lc = ln > 0 ? C.pos : C.neg, bt = 'Latest Net: ' + fsign(ln, 3) + ' Cr', bwid = (bt.length * 7.4 + 16) * u;
-    ctx.fillStyle = C.surf; rr(ctx, R.x + R.w - bwid - 8 * u, R.y + 8 * u, bwid, 24 * u, 5 * u); ctx.fill();
+        ctx.fillStyle = C.surf; rr(ctx, R.x - 8 * u, R.y - 30 * u, bwid, 24 * u, 5 * u); ctx.fill();
     ctx.strokeStyle = C.border; ctx.lineWidth = 1.2; ctx.stroke();
-    T(ctx, bt, R.x + R.w - bwid / 2 - 8 * u, R.y + 25 * u, 12 * u, lc, 'center', 700);
+        T(ctx, bt, R.x - 8 * u + bwid / 2, R.y - 13 * u, 12 * u, lc, 'center', 700);
     var lg = [['Call Probable GEX (Total)', C.call], ['Put Probable GEX (Total)', C.put], ['Net Probable GEX', C.net], ['Synthetic Future', C.synth]], lx = R.x + 8 * u;
     lg.forEach(function (e) {
       ctx.fillStyle = e[1]; ctx.fillRect(lx, R.y + 12 * u, 14 * u, 4 * u); T(ctx, e[0], lx + 19 * u, R.y + 18 * u, 9 * u, C.txt, 'left');
@@ -3838,7 +3838,8 @@ function toggleTheme(){
     var self = this;
     this.load(true);
     if (this.src) this.timer = setInterval(function () {
-      if (document.hidden || !self.el.isConnected || !self.el.offsetWidth) return; self.load(false);
+      if (!self.el.isConnected) { clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }   // page rebuilt this chart: stop the old copy
+      if (document.hidden || !self.el.offsetWidth) return; self.load(false);
     }, 30000);
     if (root.ResizeObserver) { this.ro = new root.ResizeObserver(function () { self.draw(); }); this.ro.observe(el); }
   }
