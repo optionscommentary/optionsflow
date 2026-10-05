@@ -4526,15 +4526,43 @@ function renderIvTracker(mountId, jsonUrl, label) {
     return combos;
   }
 
-  function populate() {
+  function populate(prevExp, prevStk) {
     const ec = $('expiry-checks'), sc = $('strike-checks');
     ec.innerHTML = ''; sc.innerHTML = '';
+    // keep the user's ticks only if at least one still exists; otherwise fall back to first expiry / ATM
+    const keepExp = !!prevExp && expiries.some(e => prevExp.has(e));
+    const keepStk = !!prevStk && strikes.some(k => prevStk.has(String(k)));
     if (!expiries.length) ec.innerHTML = '<div style="padding:8px 14px;color:var(--t3);font-size:.65rem">No expiries found</div>';
-    else expiries.forEach((exp, i) => expRow(exp, i === 0, ivtColor(i * 3)));
+    else expiries.forEach((exp, i) => expRow(exp, keepExp ? prevExp.has(exp) : i === 0, ivtColor(i * 3)));
     if (!strikes.length) sc.innerHTML = '<div style="padding:8px 14px;color:var(--t3);font-size:.65rem">No strikes found</div>';
-    else strikes.forEach((s, i) => checkRow(String(s), inr(s), s === atm, ivtColor(i), s === atm));
+    else strikes.forEach((k, i) => checkRow(String(k), inr(k), keepStk ? prevStk.has(String(k)) : k === atm, ivtColor(i), k === atm));
     updateLabels();
   }
+
+  // Re-derive expiries/strikes/ATM from the newest snapshot file and rebuild the
+  // dropdowns only if they actually changed (e.g. expiry rolled over, new session).
+  let metaSig = null;
+  function applyMeta(snaps) {
+    if (!snaps || !snaps.length) {
+      if (metaSig !== 'empty') {
+        metaSig = 'empty'; strikes = []; expiries = []; atm = null;
+        populate();
+        $('expiry-label').textContent = 'No snapshots yet';
+        $('strike-label').textContent = 'No snapshots yet';
+      }
+      return;
+    }
+    buildMeta(snaps);
+    const sig = expiries.join('|') + '#' + strikes.join(',');
+    if (sig === metaSig) return;
+    const first = metaSig === null;
+    const prevExp = first ? null : new Set(Array.from(mount.querySelectorAll('.ivt-expiry-chk:checked')).map(c => c.value));
+    const prevStk = first ? null : new Set(Array.from(mount.querySelectorAll('.ivt-strike-chk:checked')).map(c => c.value));
+    metaSig = sig;
+    populate(prevExp, prevStk);
+  }
+  function refreshMeta() { return fetchSnaps().then(applyMeta).catch(() => {}); }
+  mount._ivtRefresh = refreshMeta;
 
   // ---------- Call / Put / Both ----------
   ['call', 'put', 'both'].forEach(t => {
@@ -4546,15 +4574,16 @@ function renderIvTracker(mountId, jsonUrl, label) {
 
   // ---------- chart ----------
   async function loadChart() {
-    const combos = getCombinations();
-    if (!combos.length) { alert('Please select at least one expiry + strike combination'); return; }
     const card = $('chart-card'), nodata = $('no-data'), status = $('status');
     card.style.display = 'none'; nodata.style.display = 'none';
     status.textContent = 'Fetching IV data…';
     try {
       await loadChartJs();
       const snaps = await fetchSnaps();
+      applyMeta(snaps);   // expiry list may have rolled over since the page was opened
       if (!snaps || !snaps.length) { status.textContent = 'No snapshots for ' + label; nodata.style.display = ''; return; }
+      const combos = getCombinations();
+      if (!combos.length) { status.textContent = ''; alert('Please select at least one expiry + strike combination'); return; }
 
       const labels = snaps.map(s => parseTs(s.timestamp));
       const synths = snaps.map(s => parseFloat(s.synth || s.spot || 0));
@@ -4640,20 +4669,15 @@ function renderIvTracker(mountId, jsonUrl, label) {
 
   // ---------- initial meta load (expiries / strikes / ATM) ----------
   loadChartJs().catch(() => {});   // preload so LOAD CHART is instant
-  fetchSnaps().then(snaps => {
-    if (!snaps || !snaps.length) {
-      mount.innerHTML = '<div style="color:var(--t3);font-size:13.2px;font-family:\'Inter\',sans-serif">No IV snapshots yet today.</div>';
-      return;
-    }
-    buildMeta(snaps);
-    populate();
-  }).catch(() => {
-    mount.innerHTML = '<div style="color:var(--t3);font-size:13.2px;font-family:\'Inter\',sans-serif">Could not load IV snapshot data.</div>';
+  fetchSnaps().then(applyMeta).catch(() => {
+    $('expiry-label').textContent = 'Could not load'; $('strike-label').textContent = 'Could not load';
   });
+  setInterval(() => { if (!document.hidden && mount.isConnected && mount.offsetParent !== null) refreshMeta(); }, 60000);
 }
 
 function switchStab(idx, key, btn){
   sessionStorage.setItem('_of_stab_' + idx, key);
+  if(key==='ivtrack'){ const _ivm=document.getElementById('ivtrack-mount-'+idx); if(_ivm && _ivm._ivtRefresh) _ivm._ivtRefresh(); }
   const panel = document.getElementById(`panel-${idx}`);
   if(!panel) return;
   // Close all collapsible edu-boxes whenever a stab switch happens
