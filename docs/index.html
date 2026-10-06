@@ -8,6 +8,17 @@
 <meta name="theme-color" content="#070B12" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
 <script>
+/* ── PREMIUM RECOMMENDATIONS switch ───────────────────────────────────────────
+   false = the "Premium RECO" tab, its "PREMIUM RECOMMENDATIONS" promo banner and every
+           recommendation fetch are OFF. Nothing is deleted: all of that markup and JS is
+           still further down this file, it is just not used.
+   true  = everything works exactly as it did before.
+   To bring it back: set this to true AND set PREMIUM_RECOMMENDATION_ENABLED = True in
+   gexma_features.py, then run an analysis so premium.html is generated and pushed. */
+window.PREMIUM_RECO_ENABLED = false;
+if (!window.PREMIUM_RECO_ENABLED) document.documentElement.classList.add('reco-off');
+</script>
+<script>
 (() => {
   try {
     const saved = localStorage.getItem('oc-theme');
@@ -1332,6 +1343,30 @@ html[data-theme="dark"] .topbar-nav>a:hover,
 html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
 
 /* GLASS-LAYER:END */
+
+/* ── Premium Recommendations switched OFF (window.PREMIUM_RECO_ENABLED in <head>) ────────────
+   The tab, its panel and its promo banner are still in the page — just not shown. Setting the
+   flag to true brings all of it back exactly as it was. */
+html.reco-off [data-reco],
+html.reco-off .cta-trade { display: none !important; }   /* .cta-trade = "Trade This Setup" button that can still be sitting in an older synopsis.html */
+@media (min-width: 761px) {
+  /* the one remaining promo banner now has the whole row: keep its title and button together */
+  html.reco-off .premium-callout-row .premium-callout { justify-content: center; gap: 36px; }
+  /* MAIN sub-tab strip of each index (not the small nested strips): centre the tabs when they fit, but never
+     clip the first/last one when they don't. (plain "justify-content:center" cuts off an overflowing strip
+     on BOTH sides and the left part can't be scrolled to; these spacers collapse to 0 when there is no free
+     space, so the strip simply starts at the left edge and scrolls.) */
+  html[data-theme] .idx-panel > .sub-tabs { justify-content: flex-start; }
+  html[data-theme] .idx-panel > .sub-tabs::before,
+  html[data-theme] .idx-panel > .sub-tabs::after { content: ''; flex: 1 1 0; min-width: 0; }
+}
+@media (min-width: 761px) and (max-width: 1400px) {
+  /* narrower desktop windows: tighten the main strip's pills a little so every tab (incl. SYNOPSIS) stays on screen */
+  html[data-theme] .idx-panel > .sub-tabs { gap: 2px; }
+  html[data-theme] .idx-panel > .sub-tabs > .stab { padding-left: 6px; padding-right: 6px; letter-spacing: .03em; }
+  html[data-theme] .idx-panel > .sub-tabs > .stab-premium { padding-left: 6px !important; padding-right: 6px !important; }
+  html[data-theme] .idx-panel > .sub-tabs > .stab[data-key="pcr"] { min-width: 62px; padding-left: 12px; padding-right: 12px; }
+}
 </style>
 <style id="app-mobile-layout">
 /* =====================================================================
@@ -1753,6 +1788,85 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
   gtag('js', new Date());
   gtag('config', 'G-TVCKEZ01PR');
 </script>
+<style id="desktop-polish">
+/* BANNER LINE + TAB STRIP POLISH */
+@keyframes pchShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.premium-callout-highlight{
+  display:block;font-family:'Inter',sans-serif;font-weight:800;text-transform:uppercase;
+  color:var(--t1);text-align:center;
+}
+html[data-theme="dark"] .premium-callout-highlight .pch-q{
+  color:#7DD3FC;
+  background:linear-gradient(100deg,#4FC0F7 0%,#7DD3FC 30%,#D4F0FF 50%,#7DD3FC 70%,#4FC0F7 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:pchShine 6s linear infinite;
+  filter:drop-shadow(0 0 5px rgba(56,189,248,.2));
+}
+.premium-callout-highlight .pch-a{
+  color:#FFD700;
+  background:linear-gradient(100deg,#FFC21A 0%,#FFD84D 30%,#FFF1B8 50%,#FFD84D 70%,#FFC21A 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:pchShine 6s linear infinite;
+  filter:drop-shadow(0 0 5px rgba(255,200,0,.18));
+}
+html[data-theme="light"] .premium-callout-highlight .pch-a{
+  background-image:linear-gradient(100deg,#7A4C00 0%,#9A6400 30%,#C08000 50%,#9A6400 70%,#7A4C00 100%);
+  filter:none;
+}
+@media (prefers-reduced-motion:reduce){.premium-callout-highlight .pch-a,.premium-callout-highlight .pch-q{animation:none}}
+
+/* MOBILE: line sits on its own row under the title/button, wrapping to two centred lines */
+@media (max-width:760px){
+  html.reco-off .premium-callout-row .premium-callout{flex-wrap:wrap;row-gap:0}
+  html.reco-off .premium-callout-highlight{
+    order:3;flex:1 1 100%;font-size:.68rem;letter-spacing:.045em;line-height:1.35;
+    margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,215,0,.22);
+  }
+  html[data-theme="light"].reco-off .premium-callout-highlight{border-top-color:rgba(138,90,0,.25)}
+  html.reco-off .premium-callout-highlight .pch-q,
+  html.reco-off .premium-callout-highlight .pch-a{display:block;white-space:nowrap}
+}
+
+@media (min-width:761px){
+  /* main sub-tab strip: tabs share the free width evenly -> no empty gutters, still scrolls if too narrow */
+  html[data-theme] .idx-panel > .sub-tabs{justify-content:stretch}
+  html[data-theme] .idx-panel > .sub-tabs::before,
+  html[data-theme] .idx-panel > .sub-tabs::after{content:none;display:none}
+  html[data-theme] .idx-panel > .sub-tabs > .stab{flex:1 1 auto}
+
+  /* premium banner (original size): title left, catch line in the middle, button right */
+  html.reco-off .premium-callout-row .premium-callout{justify-content:space-between;gap:20px}
+  html.reco-off .premium-callout-row .premium-callout .premium-callout-text{flex:0 0 auto}
+  html.reco-off .premium-callout-highlight{
+    flex:1 1 auto;min-width:0;font-size:1.012rem;letter-spacing:.04em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+}
+@media (min-width:761px) and (max-width:1250px){
+  html.reco-off .premium-callout-highlight{font-size:.9rem}
+}
+@media (min-width:761px) and (max-width:1050px){
+  html.reco-off .premium-callout-highlight{display:none}
+}
+
+/* LIGHT THEME: lighter fills for the subscriber-access buttons */
+html[data-theme="light"] .prem-pw-btn{
+  background-color:#74B4FF;color:#0A1F44;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -8px 14px -10px rgba(10,31,68,.14),0 8px 18px -10px rgba(37,99,235,.40);
+}
+html[data-theme="light"] .prem-pw-nokey a{
+  background:linear-gradient(135deg,#CDEFFF,#94DDFB);color:#0A2A44;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -8px 14px -10px rgba(10,42,68,.12),0 8px 18px -10px rgba(14,116,184,.35);
+}
+html[data-theme="light"] .prem-pw-nokey a:hover{color:#0A2A44;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 10px 22px -10px rgba(14,116,184,.45)}
+</style>
+
+
+
+
 </head>
 
 <body>
@@ -1851,9 +1965,10 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
           <div class="premium-callout-title">PREMIUM FEATURES</div>
         </div>
       </div>
+      <div class="premium-callout-highlight"><span class="pch-q">Why pay for assumptions?</span> <span class="pch-a">Get closer to actual dealer positioning.</span></div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','nifty');">VIEW NOW →</button>
     </div>
-    <div class="premium-callout" onclick="showPremiumOffer('recom','nifty')">
+    <div class="premium-callout" data-reco onclick="showPremiumOffer('recom','nifty')">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1880,9 +1995,9 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <button class="stab" data-key="cex" onclick="switchStab('nifty','cex',this)">RAW CEX</button>
       <button class="stab" data-key="ivtrack" onclick="switchStab('nifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('nifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" data-reco onclick="switchStab('nifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
     </div>
-    <div id="sp-nifty-premium" class="stab-panel">
+    <div id="sp-nifty-premium" class="stab-panel" data-reco>
   <div class="prem-outer">
     <div id="prem-sub-nifty" style="display:none">
     <div class="prem-section-title">NIFTY <em>Premium Recommendations</em></div>
@@ -2137,9 +2252,10 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
           <div class="premium-callout-title">PREMIUM FEATURES</div>
         </div>
       </div>
+      <div class="premium-callout-highlight"><span class="pch-q">Why pay for assumptions?</span> <span class="pch-a">Get closer to actual dealer positioning.</span></div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','banknifty');">VIEW NOW →</button>
     </div>
-    <div class="premium-callout" onclick="showPremiumOffer('recom','banknifty')">
+    <div class="premium-callout" data-reco onclick="showPremiumOffer('recom','banknifty')">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2166,9 +2282,9 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <button class="stab" data-key="cex" onclick="switchStab('banknifty','cex',this)">RAW CEX</button>
       <button class="stab" data-key="ivtrack" onclick="switchStab('banknifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('banknifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" data-reco onclick="switchStab('banknifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
     </div>
-    <div id="sp-banknifty-premium" class="stab-panel">
+    <div id="sp-banknifty-premium" class="stab-panel" data-reco>
   <div class="prem-outer">
     <div id="prem-sub-banknifty" style="display:none">
     <div class="prem-section-title">BANKNIFTY <em>Premium Recommendations</em></div>
@@ -2433,9 +2549,10 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
           <div class="premium-callout-title">PREMIUM FEATURES</div>
         </div>
       </div>
+      <div class="premium-callout-highlight"><span class="pch-q">Why pay for assumptions?</span> <span class="pch-a">Get closer to actual dealer positioning.</span></div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','sensex');">VIEW NOW →</button>
     </div>
-    <div class="premium-callout" onclick="showPremiumOffer('recom','sensex')">
+    <div class="premium-callout" data-reco onclick="showPremiumOffer('recom','sensex')">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2462,9 +2579,9 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <button class="stab" data-key="cex" onclick="switchStab('sensex','cex',this)">RAW CEX</button>
       <button class="stab" data-key="ivtrack" onclick="switchStab('sensex','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('sensex','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" data-reco onclick="switchStab('sensex','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
     </div>
-    <div id="sp-sensex-premium" class="stab-panel">
+    <div id="sp-sensex-premium" class="stab-panel" data-reco>
   <div class="prem-outer">
     <div id="prem-sub-sensex" style="display:none">
     <div class="prem-section-title">SENSEX <em>Premium Recommendations</em></div>
@@ -2729,9 +2846,10 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
           <div class="premium-callout-title">PREMIUM FEATURES</div>
         </div>
       </div>
+      <div class="premium-callout-highlight"><span class="pch-q">Why pay for assumptions?</span> <span class="pch-a">Get closer to actual dealer positioning.</span></div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','finnifty');">VIEW NOW →</button>
     </div>
-    <div class="premium-callout" onclick="showPremiumOffer('recom','finnifty')">
+    <div class="premium-callout" data-reco onclick="showPremiumOffer('recom','finnifty')">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2758,9 +2876,9 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <button class="stab" data-key="cex" onclick="switchStab('finnifty','cex',this)">RAW CEX</button>
       <button class="stab" data-key="ivtrack" onclick="switchStab('finnifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('finnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" data-reco onclick="switchStab('finnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
     </div>
-    <div id="sp-finnifty-premium" class="stab-panel">
+    <div id="sp-finnifty-premium" class="stab-panel" data-reco>
   <div class="prem-outer">
     <div id="prem-sub-finnifty" style="display:none">
     <div class="prem-section-title">FINNIFTY <em>Premium Recommendations</em></div>
@@ -3025,9 +3143,10 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
           <div class="premium-callout-title">PREMIUM FEATURES</div>
         </div>
       </div>
+      <div class="premium-callout-highlight"><span class="pch-q">Why pay for assumptions?</span> <span class="pch-a">Get closer to actual dealer positioning.</span></div>
       <button class="premium-callout-btn" onclick="event.stopPropagation(); showPremiumOffer('features','midcpnifty');">VIEW NOW →</button>
     </div>
-    <div class="premium-callout" onclick="showPremiumOffer('recom','midcpnifty')">
+    <div class="premium-callout" data-reco onclick="showPremiumOffer('recom','midcpnifty')">
       <div class="premium-callout-text">
         <span class="premium-callout-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3054,9 +3173,9 @@ html { scroll-padding-top: calc(var(--app-bar-h, 52px) + 56px); }
       <button class="stab" data-key="cex" onclick="switchStab('midcpnifty','cex',this)">RAW CEX</button>
       <button class="stab" data-key="ivtrack" onclick="switchStab('midcpnifty','ivtrack',this)">IV Tracking</button>
       <button class="stab stab-synopsis" data-key="analysis" onclick="switchStab('midcpnifty','analysis',this)">SYNOPSIS</button>
-      <button class="stab stab-premium" data-key="premium" onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
+      <button class="stab stab-premium" data-key="premium" data-reco onclick="switchStab('midcpnifty','premium',this)"><span class="stab-lock" aria-hidden="true">🔒</span>Premium RECO</button>
     </div>
-    <div id="sp-midcpnifty-premium" class="stab-panel">
+    <div id="sp-midcpnifty-premium" class="stab-panel" data-reco>
   <div class="prem-outer">
     <div id="prem-sub-midcpnifty" style="display:none">
     <div class="prem-section-title">MIDCAP <em>Premium Recommendations</em></div>
@@ -4676,6 +4795,7 @@ function renderIvTracker(mountId, jsonUrl, label) {
 }
 
 function switchStab(idx, key, btn){
+  if(key==='premium' && !window.PREMIUM_RECO_ENABLED) return;   // Premium RECO is switched off (see <head>)
   sessionStorage.setItem('_of_stab_' + idx, key);
   if(key==='ivtrack'){ const _ivm=document.getElementById('ivtrack-mount-'+idx); if(_ivm && _ivm._ivtRefresh) _ivm._ivtRefresh(); }
   const panel = document.getElementById(`panel-${idx}`);
@@ -4921,7 +5041,7 @@ function _refreshDataAndPremium() {
     // Recommendations (or vice versa). Each premium feature gets its own
     // independent `if` block instead.
     var pwd = localStorage.getItem('_of_pw');
-    if (pwd && _premDecrypted[idx] && _premRawHash[idx + '_init']) {
+    if (window.PREMIUM_RECO_ENABLED && pwd && _premDecrypted[idx] && _premRawHash[idx + '_init']) {
       fetch('data/' + idx + '/premium.html?t=' + Date.now())
         .then(function(r) { return r.ok ? r.text() : null; })
         .then(function(text) {
@@ -5820,7 +5940,7 @@ function showPremiumOffer(which, idx) {
     var sales = document.getElementById('posprem-sales-' + idx);
     if (sales) sales.style.display = 'block';
     setTimeout(function(){ _scrollOfferIntoView(sales); }, 60);
-  } else if (which === 'recom') {
+  } else if (which === 'recom' && window.PREMIUM_RECO_ENABLED) {   // no-op while Premium RECO is switched off
     var btn2 = document.querySelector('#panel-' + idx + ' .stab-premium[data-key="premium"]');
     switchStab(idx, 'premium', btn2);
     _fillOfferSlot('premrecom-offerslot-' + idx, 'tmpl-recom-offer');
@@ -5936,7 +6056,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ── Auto-unlock premium if password saved ──
   var saved = localStorage.getItem('_of_pw');
   var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-  if (saved) {
+  if (window.PREMIUM_RECO_ENABLED && saved) {   // skipped while Premium RECO is switched off
     all.forEach(function(idx) {
       _premDecryptFile(idx, saved)
         .then(function(dec) {
