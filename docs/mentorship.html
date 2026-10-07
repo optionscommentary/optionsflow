@@ -16,6 +16,12 @@
 </script>
 <title>Optionsflow Mentorship</title>
 <meta name="description" content="Learn options flow analysis directly with the OptionsFlow analyst. Individual or group sessions covering GEX, VEX, PCR, dealer positioning and live market structure.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Optionsflow Mentorship">
+<meta property="og:description" content="Learn options flow analysis directly with the OptionsFlow analyst. Individual or group sessions covering GEX, VEX, PCR, dealer positioning and live market structure.">
+<meta property="og:url" content="https://optionsflow.in/mentorship">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://optionsflow.in/mentorship">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -217,6 +223,8 @@ body{
 /* GLASS-LAYER:START — liquid-glass restyle (colours unchanged). Delete this block and the GLASS-LAYER script to revert. */
 :root,html[data-theme="dark"]{
   --gl-acc:125,211,252; --gl-pos:52,211,153; --gl-put:251,146,60;
+  --gl-silver:203,213,225;
+  --gl-cta:52,211,153;
   --gl-amb-a:.20; --gl-amb-b:.11; --gl-amb-c:.10;
   --gl-line:rgba(255,255,255,.11);
   --gl-line-soft:rgba(255,255,255,.06);
@@ -231,17 +239,19 @@ body{
   --gl-shadow:0 20px 46px -16px rgba(0,0,0,.62),0 2px 8px rgba(0,0,0,.22);
   --gl-shadow-sm:0 10px 22px -12px rgba(0,0,0,.55);
   --gl-tint:rgba(255,255,255,.05);
-  --gl-gold:255,215,0;
+  --gl-gold:212,175,55;
   --gl-line-strong:rgba(255,255,255,.15);
   --gl-inset-dark:rgba(0,0,0,.30);
 }
 html[data-theme="light"]{
   --gl-acc:37,99,235; --gl-pos:5,150,105; --gl-put:234,88,12;
+  --gl-silver:71,85,105;
+  --gl-cta:5,150,105;
   --gl-amb-a:.14; --gl-amb-b:.10; --gl-amb-c:.08;
-  --gl-line:rgba(15,23,42,.09);
-  --gl-line-soft:rgba(15,23,42,.05);
-  --gl-hi:rgba(255,255,255,.95);
-  --gl-glare:rgba(255,255,255,.75);
+  --gl-line:rgba(15,23,42,.16);
+  --gl-line-soft:rgba(15,23,42,.09);
+  --gl-hi:rgba(255,255,255,.85);
+  --gl-glare:rgba(255,255,255,.6);
   --gl-shade:rgba(15,23,42,.07);
   --gl-fill-a:rgba(255,255,255,.80);
   --gl-fill-b:rgba(238,242,255,.62);
@@ -253,7 +263,7 @@ html[data-theme="light"]{
   --gl-tint:rgba(15,23,42,.045);
   --gl-gold:184,134,11;
   --t2:#0A0F1C; --t3:#1B2433; --t4:#3B4657;
-  --gl-line-strong:rgba(15,23,42,.17);
+  --gl-line-strong:rgba(15,23,42,.26);
   --gl-inset-dark:rgba(15,23,42,.10);
 }
 @property --gl-spot{syntax:'<number>';inherits:false;initial-value:0}
@@ -278,9 +288,7 @@ html[data-theme] #topbar{
 }
 html[data-theme] #topbar::before{
   content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
-  background:
-    linear-gradient(118deg,var(--gl-glare) 0%,transparent 36%),
-    linear-gradient(180deg,var(--gl-fill-a),var(--gl-nav));
+  background:var(--bg);
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),inset 0 -1px 0 var(--gl-shade),var(--gl-shadow);
   -webkit-backdrop-filter:blur(22px) saturate(1.7);backdrop-filter:blur(22px) saturate(1.7);
@@ -321,10 +329,28 @@ html[data-theme] #theme-btn{
   transition:border-color .2s,color .2s,box-shadow .2s;
 }
 html[data-theme] #theme-btn:hover{border-color:rgba(var(--gl-acc),.5);color:var(--t1);transform:none;box-shadow:inset 0 1px 0 var(--gl-hi),0 0 0 3px rgba(var(--gl-acc),.10)}
+html[data-theme] .mentor-cta-tab{
+  background:linear-gradient(150deg,rgba(var(--gl-cta),.30),rgba(var(--gl-cta),.10) 60%,rgba(var(--gl-cta),.18));
+  border:1.5px solid rgba(var(--gl-cta),.65);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 0 0 1px rgba(var(--gl-cta),.12),0 4px 18px -6px rgba(var(--gl-cta),.5);
+  -webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  animation: mentorCtaGlow 2.8s ease-in-out infinite;
+}
+html[data-theme] .mentor-cta-tab:hover{
+  background:linear-gradient(150deg,rgba(var(--gl-cta),.42),rgba(var(--gl-cta),.16) 60%,rgba(var(--gl-cta),.26));
+  border-color:rgba(var(--gl-cta),.9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 0 0 1px rgba(var(--gl-cta),.2),0 6px 22px -6px rgba(var(--gl-cta),.65);
+}
+html[data-theme="light"] .mentor-cta-tab{border-color:#065F46}
+html[data-theme="light"] .mentor-cta-tab:hover{border-color:#064E3B}
+html[data-theme="light"] .mentor-cta-tab,
+html[data-theme="light"] .mentor-cta-tab:hover,
+html[data-theme="light"] .app-quick-links a,
+html[data-theme="light"] .app-quick-links a:hover{color:#011C15 !important;font-weight:800}
 html[data-theme] .tb-nav #theme-btn,html[data-theme] .topbar-nav #theme-btn{margin-left:4px}
 html[data-theme] .tb-more-menu{
   top:calc(100% + 14px);min-width:212px;padding:8px;border-radius:22px;
-  background:linear-gradient(135deg,var(--gl-glare),transparent 46%),var(--gl-menu);
+  background:var(--bg);
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),0 26px 60px -14px rgba(0,0,0,.55);
   -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);
@@ -359,16 +385,14 @@ html[data-theme] .tabs-bar{
 }
 html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip{
   position:relative;padding:4px;gap:2px;border-radius:999px;--fl-inset:4px;
-  background:
-    linear-gradient(118deg,var(--gl-glare) 0%,transparent 42%),
-    linear-gradient(180deg,var(--gl-fill-a),var(--gl-nav));
+  background:var(--bg);
   border:1px solid var(--gl-line);
   box-shadow:inset 0 1px 0 var(--gl-hi),inset 0 -1px 0 var(--gl-shade),var(--gl-shadow-sm);
   -webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);
 }
 html[data-theme] .tabs-scroll{flex:0 1 auto;max-width:100%}
 @media(min-width:761px){html[data-theme] .tabs-scroll{overflow:visible}}
-html[data-theme] .sub-tabs{gap:3px;scrollbar-width:none}
+html[data-theme] .sub-tabs{gap:3px;justify-content:center;scrollbar-width:none}
 html[data-theme] .sub-tabs::-webkit-scrollbar{display:none}
 html[data-theme] .tab{
   position:relative;z-index:1;border:0;border-radius:999px;padding:7px 20px;font-size:.74rem;
@@ -380,7 +404,7 @@ html[data-theme] .tabs-scroll:not(.flow-ready) .tab.on{background:rgba(var(--gl-
 html[data-theme] .flow-ready>.tab.on:hover{background:transparent}
 html[data-theme] .stab{
   position:relative;z-index:1;border:0;border-radius:999px;
-  min-height:32px;min-width:0;padding:5px 10px;font-size:.64rem;letter-spacing:.03em;
+  min-height:38px;min-width:0;padding:7px 12px;font-size:.64rem;letter-spacing:.03em;
   flex-direction:row;gap:5px;max-width:none;
   background:var(--gl-tint);
   box-shadow:inset 0 0 0 1px var(--gl-line-strong),inset 0 1px 0 var(--gl-hi);
@@ -428,7 +452,7 @@ html[data-theme] .mobile-nav-strip a.is-current,html[data-theme] .mobile-nav-str
   background:rgba(var(--gl-acc),.16);color:var(--accent);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.30),inset 0 0 0 1px rgba(var(--gl-acc),.40);
 }
-html[data-theme] .what-card,html[data-theme] .connect-card,html[data-theme] .blog-card,html[data-theme] .m-card,html[data-theme] .step,html[data-theme] .contact-card,html[data-theme] .response-note,html[data-theme] .toc,html[data-theme] .author-box,html[data-theme] .gcard,html[data-theme] .edu-box,html[data-theme] .prem-feat-item,html[data-theme] .prem-tnc-wrap,html[data-theme] .prem-pw-section,html[data-theme] .prem-gallery-item,html[data-theme] .prem-gallery-single,html[data-theme] .ai-strat-box,html[data-theme] .prem-price-card:not(.prem-first):not(.prem-renewal):not(.prem-mentor){
+html[data-theme] .what-card,html[data-theme] .connect-card,html[data-theme] .blog-card,html[data-theme] .m-card,html[data-theme] .step,html[data-theme] .contact-card,html[data-theme] .response-note,html[data-theme] .toc,html[data-theme] .author-box,html[data-theme] .gcard,html[data-theme] .edu-box,html[data-theme] .prem-feat-item,html[data-theme] .prem-tnc-wrap,html[data-theme] .prem-pw-section,html[data-theme] .prem-gallery-item,html[data-theme] .prem-gallery-single,html[data-theme] .ai-strat-box,html[data-theme] .prem-price-card:not(.prem-first):not(.prem-renewal):not(.prem-bundle){
   background:
     radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,calc(var(--gl-spot) * 1)),transparent 65%),
     linear-gradient(135deg,var(--gl-glare) 0%,transparent 42%),
@@ -448,7 +472,7 @@ html[data-theme] .metric,html[data-theme] .kv-item,html[data-theme] .pill,html[d
   box-shadow:inset 0 1px 0 var(--gl-hi),var(--gl-shadow-sm);
   border-radius:16px;
 }
-html[data-theme] .pill{border-radius:28px;padding:10px 22px}
+html[data-theme] .pill{border-radius:22px;padding:6px 16px}
 html[data-theme] .kv-item:hover,html[data-theme] .pill:hover{border-color:rgba(var(--gl-acc),.40)}
 html[data-theme] .edu-box{
   border-left:1px solid var(--gl-line);border-radius:20px;
@@ -473,7 +497,7 @@ html[data-theme] .gcard-badge,html[data-theme] .index-chip,html[data-theme] .cou
 }
 html[data-theme] .contact-card-icon{border-radius:14px}
 html[data-theme] .ai-strat-box{border-radius:20px}
-html[data-theme] .disclaimer,html[data-theme] .course-card,html[data-theme] .premium-callout,html[data-theme] .prem-price-card.prem-first,html[data-theme] .prem-price-card.prem-renewal,html[data-theme] .prem-price-card.prem-mentor,html[data-theme] .featured-card,html[data-theme] .g-card{border-radius:24px}
+html[data-theme] .disclaimer,html[data-theme] .course-card,html[data-theme] .premium-callout,html[data-theme] .prem-price-card.prem-first,html[data-theme] .prem-price-card.prem-renewal,html[data-theme] .prem-price-card.prem-bundle,html[data-theme] .featured-card,html[data-theme] .g-card{border-radius:24px}
 html[data-theme] .disclaimer,html[data-theme] .course-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),var(--gl-shadow-sm)}
 html[data-theme] .premium-callout{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 14px 30px -16px rgba(var(--gl-gold),.45);
@@ -481,8 +505,10 @@ html[data-theme] .premium-callout{
 }
 html[data-theme] .prem-price-card.prem-first{border-color:rgba(var(--gl-gold),.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(var(--gl-gold),.14)}
 html[data-theme] .prem-price-card.prem-renewal{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(100,181,246,.10)}
+html[data-theme] .prem-price-card.prem-bundle{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 14px rgba(var(--gl-pos),.12)}
 html[data-theme] .featured-card{box-shadow:inset 0 1px 0 var(--gl-hi),var(--gl-shadow)}
 html[data-theme] .group-teaser{box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+html[data-theme] [style*="rgba(255,215,0,0.08)"]{border-radius:16px !important}
 html[data-theme] .author-box{background:
     linear-gradient(135deg,var(--gl-glare) 0%,transparent 42%),
     linear-gradient(180deg,var(--gl-fill-a),var(--gl-fill-b)) !important;
@@ -490,10 +516,11 @@ html[data-theme] .author-box{background:
 html[data-theme] .m-cta.prog,html[data-theme] .m-cta.intro,html[data-theme] .course-cta,html[data-theme] .article-course-cta a:not(.inline-link),html[data-theme] .prem-pw-btn,html[data-theme] .premium-callout-btn{
   background-image:linear-gradient(180deg,rgba(255,255,255,.44),rgba(255,255,255,0) 52%,rgba(0,0,0,.10));
 }
-html[data-theme] .m-cta,html[data-theme] .course-cta,html[data-theme] .article-course-cta a:not(.inline-link),html[data-theme] .prem-pw-btn,html[data-theme] .premium-callout-btn,html[data-theme] .g-cta,html[data-theme] .prem-getstarted-btn,html[data-theme] .prem-wa-btn,html[data-theme] .prem-mentor-wa-btn,html[data-theme] .prem-pw-nokey a{
+html[data-theme] .m-cta,html[data-theme] .course-cta,html[data-theme] .article-course-cta a:not(.inline-link),html[data-theme] .prem-pw-btn,html[data-theme] .premium-callout-btn,html[data-theme] .g-cta,html[data-theme] .prem-getstarted-btn,html[data-theme] .prem-price-getstarted-btn,html[data-theme] .prem-price-details-btn,html[data-theme] .prem-wa-btn,html[data-theme] .prem-pw-nokey a{
   border-radius:999px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -10px 16px -10px rgba(0,0,0,.30),0 10px 24px -12px rgba(0,0,0,.55);
 }
+html[data-theme] .prem-price-details-btn{ color:#04180d; background:var(--pos); }
 html[data-theme] .prem-pw-input{
   border-radius:999px;border-color:var(--gl-line);
   background:linear-gradient(180deg,rgba(0,0,0,.18),transparent),var(--input-bg);
@@ -516,12 +543,13 @@ html[data-theme] .page-hero::before{
 
 }
 html[data-theme] .policy-section{scroll-margin-top:96px}
+html[data-theme] .prem-pw-section,html[data-theme] .prem-pw-input{scroll-margin-top:126px}
 html[data-theme] .footer,html[data-theme] .blog-footer{
   background:linear-gradient(180deg,var(--gl-fill-a),var(--gl-fill-b));
   border-top:1px solid var(--gl-line);box-shadow:inset 0 1px 0 var(--gl-hi);
 }
-@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){html[data-theme] #topbar::before{background:linear-gradient(180deg,var(--gl-fill-a),var(--gl-menu))}
-html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip,html[data-theme] .tb-more-menu{background:var(--gl-menu)}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){html[data-theme] #topbar::before{background:var(--bg)}
+html[data-theme] .tabs-scroll,html[data-theme] .sub-tabs,html[data-theme] .mobile-nav-strip,html[data-theme] .tb-more-menu{background:var(--bg)}
 
 }
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.30s;animation-timing-function:cubic-bezier(.3,.7,.2,1)}
@@ -532,7 +560,7 @@ html[data-theme] .tabs-bar{top:66px;margin:6px 0 2px}
 html[data-theme] .tabs-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 html[data-theme] .tab{padding:7px 14px}
 html[data-theme] .sub-tabs{margin:8px 0 0;padding:3px}
-html[data-theme] .stab{padding:5px 10px;font-size:.6rem}
+html[data-theme] .stab{padding:6px 10px;font-size:.6rem;min-height:36px}
 html[data-theme] .contact-strip{margin:8px}
 html[data-theme] .glass-flow{--fl-inset:4px}
 
@@ -545,7 +573,27 @@ html[data-theme] .glass-flow,html[data-theme] .glass-flow::after,html[data-theme
 
 }
 
+/* Standard tab/sub-tab labels: pure white text in dark theme (special-colored
+   tabs — stab-prob, stab-volsurf, stab-synopsis, stab-premium — keep their
+   own !important colors and are unaffected). */
+html[data-theme="dark"] .tab,
+html[data-theme="dark"] .tab:hover,
+html[data-theme="dark"] .tab.on,
+html[data-theme="dark"] .stab,
+html[data-theme="dark"] .stab:hover,
+html[data-theme="dark"] .stab.on{color:#FFFFFF}
 
+/* Desktop topbar nav links (Learn / Mentorship / ...More) — pure white in dark theme */
+html[data-theme="dark"] .tb-nav>a,
+html[data-theme="dark"] .tb-nav>details>summary,
+html[data-theme="dark"] .tb-nav>a:hover,
+html[data-theme="dark"] .tb-nav>details>summary:hover,
+html[data-theme="dark"] .topbar-nav>a,
+html[data-theme="dark"] .topbar-nav>details>summary,
+html[data-theme="dark"] .topbar-nav>a:hover,
+html[data-theme="dark"] .topbar-nav>details>summary:hover{color:#FFFFFF}
+
+html[data-theme] [style*="rgba(255,215,0,0.08)"]{border-radius:16px !important}
 /* GLASS-LAYER:END */
 /* Normal font site-wide: keep digits aligned */
 body, table, td, th { font-variant-numeric: tabular-nums; }
@@ -608,9 +656,9 @@ html[data-theme="light"] .faq-a{color:#1F2937}
 
 <!-- NAV -->
 <nav id="topbar">
-  <a class="tb-brand" href="index_with_recommendations.html">OPTIONS<em>FLOW</em></a>
+  <a class="tb-brand" href="/">OPTIONS<em>FLOW</em></a>
   <div class="tb-nav">
-    <a href="index_with_recommendations.html" class="nav-btn">📊 Dashboard</a>
+    <a href="/" class="nav-btn">📊 Dashboard</a>
     <a href="blogs.html" class="nav-btn">📚 Learn</a>
     <a href="mentorship.html" class="nav-btn active">🎓 Mentorship</a>
     <details class="tb-more">
@@ -627,7 +675,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
 </nav>
 <div class="app-scrim" id="app-scrim"></div>
 <div class="mobile-nav-strip" id="app-sheet" role="menu" aria-label="Menu">
-  <a href="index_with_recommendations.html" role="menuitem">📊 Dashboard</a>
+  <a href="/" role="menuitem">📊 Dashboard</a>
   <a href="blogs.html" role="menuitem">📚 Learn</a>
   <a href="mentorship.html" role="menuitem">🎓 Mentorship</a>
   <a href="about.html" role="menuitem">ℹ️ About</a>
@@ -636,7 +684,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
   <button class="m-theme-toggle" id="theme-btn-m" type="button" onclick="toggleTheme()">🌙 Dark</button>
 </div>
 <nav class="app-bottom-nav" aria-label="Primary navigation">
-  <a href="index_with_recommendations.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>Dashboard</a>
+  <a href="/"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>Dashboard</a>
   <a href="blogs.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg></span>Learn</a>
   <a href="mentorship.html" aria-current="page"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>Mentorship</a>
   <a href="about.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span>About</a>
@@ -885,7 +933,7 @@ html[data-theme="light"] .faq-a{color:#1F2937}
 <!-- FOOTER -->
 <div class="footer">
   Educational sessions — not SEBI registered investment advice &nbsp;|&nbsp;
-  <a href="index_with_recommendations.html">← Back to Dashboard</a>
+  <a href="/">← Back to Dashboard</a>
 </div>
 
 <script>
