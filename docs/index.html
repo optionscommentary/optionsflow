@@ -5670,7 +5670,7 @@ function _posPremShowContent(idx, html) {
     try {
       frame.contentDocument.addEventListener('scroll', function(e) {
         var el = e.target;
-        if (!el.classList || !el.classList.contains('pp-scroll')) return;
+        if (!el.classList || !el.classList.contains('pp-matrix-viewport')) return;
         var panel = el.closest('.pp-panel');
         var key = panel && (panel.id || '').replace('pp-panel-', '');
         if (!key) return;
