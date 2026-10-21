@@ -4333,6 +4333,13 @@ function toggleTheme(){
     this.entries = []; this.idx = -1; this.live = true; this.built = false;
     MOUNTS.push(this);
     var self = this;
+    this.fallbacks = [];
+    Array.prototype.forEach.call(el.children, function (c) {
+      if (c.tagName === 'IMG') {
+        self.fallbacks.push({ el: c, visibility: c.style.visibility });
+        c.style.visibility = 'hidden';
+      }
+    });
     this.load(true);
     if (this.src) this.timer = setInterval(function () {
       if (!self.el.isConnected) { clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }   // page rebuilt this chart: stop the old copy
@@ -4340,10 +4347,16 @@ function toggleTheme(){
     }, 30000);
     if (root.ResizeObserver) { this.ro = new root.ResizeObserver(function () { self.draw(); }); this.ro.observe(el); }
   }
+  Mount.prototype.showFallback = function () {
+    if (this.built) return;
+    (this.fallbacks || []).forEach(function (f) {
+      if (f.el.isConnected) f.el.style.visibility = f.visibility;
+    });
+  };
   Mount.prototype.load = function (first) {
     var self = this;
     function got(entries) {
-      if (!entries || !entries.length) return;
+      if (!entries || !entries.length) { if (first) self.showFallback(); return; }
       var last = self.entries.length ? self.entries[self.entries.length - 1].ts : null;
       var changed = entries.length !== self.entries.length || entries[entries.length - 1].ts !== last;
       self.entries = entries;
@@ -4353,14 +4366,14 @@ function toggleTheme(){
     }
     if (this.inline) {
       var n = document.getElementById(this.inline);
-      try { got((JSON.parse(n.textContent) || {}).entries); } catch (e) { }
+      try { got((JSON.parse(n.textContent) || {}).entries); } catch (e) { self.showFallback(); }
       return;
     }
-    if (!this.src) return;
+    if (!this.src) { this.showFallback(); return; }
     fetch(this.src + (this.src.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : { entries: [] }; })
       .then(function (j) { got((j && j.entries) || []); })
-      .catch(function () { });
+      .catch(function () { self.showFallback(); });
   };
   Mount.prototype.build = function () {
     addStyle(); var self = this, el = this.el;
@@ -5399,6 +5412,9 @@ function switchPcrSub(idx, sub, btn){
       chartDiv.innerHTML = chartHtml(idx, d, sub);
       sp.appendChild(chartDiv.firstElementChild);
       sp.querySelectorAll('.gcard img').forEach(img=>{ img.addEventListener('click',()=>{ if(img.naturalWidth>0) openLbx(img.src); }); });
+      const _om = OFS_MAP[sub];
+      const _img = sp.querySelector('.gcard img');
+      if(_om && _img && window.OFS) window.OFS.wrapImg(_img, `data/${idx}/${_om[0]}_history.json`, _om[1]);
     } else {
       const emptyDiv = document.createElement('div');
       emptyDiv.innerHTML = EMPTY;
