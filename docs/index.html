@@ -4023,12 +4023,284 @@ function toggleTheme(){
     }
   }
 
+
+  /* ---------- OI / PCR: two stacked history panels (premium Probable Positioning tab) ---------- */
+  function fmtOI(x, step) {
+    var a = Math.abs(x);
+    if (a >= 1e7) return (x / 1e7).toFixed(step >= 5e6 ? 1 : (step >= 5e5 ? 2 : 3)) + 'Cr';
+    if (a >= 1e5) return (x / 1e5).toFixed(step >= 5e4 ? 1 : 2) + 'L';
+    if (a >= 1e3) return (x / 1e3).toFixed(0) + 'K';
+    return x.toFixed(0);
+  }
+  function band(arrs, pad, minSpan) {
+    var vals = [];
+    arrs.forEach(function (a) { a.forEach(function (v) { if (v !== null) vals.push(v); }); });
+    if (!vals.length) return null;
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    if (hi - lo < (minSpan || 1e-9)) {
+      var m = (hi + lo) / 2, h = (minSpan || Math.max(Math.abs(m) * 0.02, 1e-3)) / 2; lo = m - h; hi = m + h;
+    }
+    var p = (hi - lo) * pad; return [lo - p, hi + p];
+  }
+  function drawOiPcr(ctx, W, H, entries, idx) {
+    var u = W / 1300, t = BELT, n = idx + 1, i;
+    var co = [], po = [], pc = [], sf = [], vp = [], lab = [];
+    for (i = 0; i < n; i++) {
+      var e = entries[i] || {};
+      co.push(num(e.co)); po.push(num(e.po)); pc.push(num(e.pcr)); sf.push(num(e.sf)); vp.push(num(e.vp)); lab.push(e.ts_label || '');
+    }
+    var E = entries[idx] || {};
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+    T(ctx, (E.n ? E.n + '  —  ' : '') + 'OI / PCR', W / 2, t + 30 * u, 22 * u, C.txt, 'center', 700);
+    T(ctx, 'All-strike OI & PCR  •  Volume PCR = ATM ±10 strikes' + (E.x ? '  •  Expiry: ' + E.x : ''), W / 2, t + 52 * u, 12 * u, C.txt2, 'center');
+
+    var X0 = 82 * u, XW = W - 82 * u - 92 * u, hdr = 52 * u, gap = 10 * u, lblZone = 54 * u, top = t + 62 * u;
+    var ch = (H - top - 10 * u - 2 * hdr - gap - lblZone) / 2;
+    var R1 = { x: X0, y: top + hdr, w: XW, h: ch };
+    var R2 = { x: X0, y: R1.y + ch + gap + hdr, w: XW, h: ch };
+    var span = Math.max(n - 1, 1);
+    function X(j) { return X0 + (n === 1 ? XW / 2 : (j / span) * XW * 0.985 + XW * 0.007); }
+    function tw(s, size, wt) { ctx.font = (wt || 400) + ' ' + size + 'px ' + FONT; return ctx.measureText(s).width; }
+    function lastv(arr) { return arr[arr.length - 1]; }
+
+    // o: { title, L:{s:[{v,col,lw,dash,name,fmt}],axc,ttl,fmt}, R:{s:[...],axc,ttl,fmt,ref,minSpan}, labels }
+    function panel(Rc, o) {
+      var Lb = band(o.L.s.map(function (s) { return s.v; }), 0.08, 0);
+      var Rb = band(o.R.s.map(function (s) { return s.v; }), 0.10, o.R.minSpan || 0);
+      T(ctx, o.title, Rc.x + Rc.w / 2, Rc.y - hdr + 17 * u, 15 * u, C.txt, 'center', 700);
+      // legend row (centered) with the value at the selected moment
+      var items = o.L.s.concat(o.R.s).map(function (s) {
+        var v = lastv(s.v);
+        return { col: s.col, txt: s.name + '  ' + (v === null ? '—' : s.fmt(v)) };
+      }), tot = 0;
+      items.forEach(function (it) { it.w = 19 * u + tw(it.txt, 11 * u, 600); tot += it.w + 22 * u; });
+      var lx = Rc.x + Rc.w / 2 - (tot - 22 * u) / 2;
+      items.forEach(function (it) {
+        ctx.fillStyle = it.col; ctx.fillRect(lx, Rc.y - hdr + 31 * u, 14 * u, 4 * u);
+        T(ctx, it.txt, lx + 19 * u, Rc.y - hdr + 36 * u, 11 * u, C.txt, 'left', 600);
+        lx += it.w + 22 * u;
+      });
+      ctx.fillStyle = C.surf; ctx.fillRect(Rc.x, Rc.y, Rc.w, Rc.h);
+      if (!Lb || !Rb) {
+        T(ctx, 'No data yet for this panel', Rc.x + Rc.w / 2, Rc.y + Rc.h / 2, 13 * u, C.dim, 'center');
+        ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(Rc.x, Rc.y, Rc.w, Rc.h); return;
+      }
+      function YL(v) { return Rc.y + Rc.h - (v - Lb[0]) / (Lb[1] - Lb[0]) * Rc.h; }
+      function YR(v) { return Rc.y + Rc.h - (v - Rb[0]) / (Rb[1] - Rb[0]) * Rc.h; }
+      ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
+      var lt = ticks(Lb[0], Lb[1], 5), lstep = lt.length > 1 ? lt[1] - lt[0] : 1;
+      lt.forEach(function (v) {
+        ctx.beginPath(); ctx.moveTo(Rc.x, YL(v)); ctx.lineTo(Rc.x + Rc.w, YL(v)); ctx.stroke();
+        T(ctx, o.L.fmt(v, lstep), Rc.x - 6 * u, YL(v) + 3 * u, 9 * u, o.L.axc, 'right');
+      });
+      var rt = ticks(Rb[0], Rb[1], 5), rstep = rt.length > 1 ? rt[1] - rt[0] : 1;
+      rt.forEach(function (v) { T(ctx, o.R.fmt(v, rstep), Rc.x + Rc.w + 6 * u, YR(v) + 3 * u, 9 * u, o.R.axc, 'left'); });
+      if (o.R.ref != null && o.R.ref > Rb[0] && o.R.ref < Rb[1]) {
+        ctx.strokeStyle = C.zero; ctx.lineWidth = 1; dash(ctx, [2 * u, 4 * u]);
+        ctx.beginPath(); ctx.moveTo(Rc.x, YR(o.R.ref)); ctx.lineTo(Rc.x + Rc.w, YR(o.R.ref)); ctx.stroke(); dash(ctx, []);
+      }
+      function line(arr, Yf, col, lw, dsh, mk) {
+        ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw; dash(ctx, dsh || []);
+        ctx.beginPath(); var st = false;
+        arr.forEach(function (v, j) { if (v === null) { st = false; return; } if (!st) { ctx.moveTo(X(j), Yf(v)); st = true; } else ctx.lineTo(X(j), Yf(v)); });
+        ctx.stroke(); dash(ctx, []);
+        if (n <= 120) arr.forEach(function (v, j) { if (v !== null) { ctx.beginPath(); ctx.arc(X(j), Yf(v), mk * u, 0, 6.2832); ctx.fill(); } });
+      }
+      o.L.s.forEach(function (s) { line(s.v, YL, s.col, (s.lw || 2) * u, s.dash ? [6 * u, 3 * u] : null, 2.4); });
+      o.R.s.forEach(function (s) { line(s.v, YR, s.col, (s.lw || 2) * u, s.dash ? [6 * u, 3 * u] : null, 2.4); });
+      var cx = X(n - 1);                                   // cursor at the selected moment
+      ctx.strokeStyle = C.cursor; ctx.lineWidth = 1; dash(ctx, [3 * u, 3 * u]);
+      ctx.beginPath(); ctx.moveTo(cx, Rc.y); ctx.lineTo(cx, Rc.y + Rc.h); ctx.stroke(); dash(ctx, []);
+      ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(Rc.x, Rc.y, Rc.w, Rc.h);
+      // axis titles
+      ctx.save(); ctx.translate(13 * u, Rc.y + Rc.h / 2); ctx.rotate(-Math.PI / 2);
+      T(ctx, o.L.ttl, 0, 0, 10 * u, o.L.axc, 'center', 600); ctx.restore();
+      ctx.save(); ctx.translate(W - 12 * u, Rc.y + Rc.h / 2); ctx.rotate(Math.PI / 2);
+      T(ctx, o.R.ttl, 0, 0, 10 * u, o.R.axc, 'center', 600); ctx.restore();
+    }
+    function pcrFmt(v, st) { return v.toFixed(st && st < 0.02 ? 3 : 2); }
+    function sfFmt(v) { return fint(v); }
+
+    panel(R1, {
+      title: 'Call OI & Put OI vs Overall PCR',
+      L: { s: [{ v: co, col: C.call, name: 'Call OI', fmt: function (v) { return fmtOI(v, 5e5); } },
+               { v: po, col: C.put,  name: 'Put OI',  fmt: function (v) { return fmtOI(v, 5e5); } }],
+           axc: C.txt2, ttl: 'Open Interest (Contracts)', fmt: fmtOI },
+      R: { s: [{ v: pc, col: C.sf, name: 'PCR (All Strikes)', fmt: function (v) { return v.toFixed(2); }, dash: true, lw: 2.2 }],
+           axc: C.sf, ttl: 'PCR (OI, All Strikes)', fmt: pcrFmt, ref: 1, minSpan: 0.10 }
+    });
+    panel(R2, {
+      title: 'Synthetic Future vs Volume PCR (ATM ±10)',
+      L: { s: [{ v: sf, col: C.synth, name: 'Synthetic Future', fmt: sfFmt, lw: 2.2 }],
+           axc: C.synth, ttl: 'Synthetic Future', fmt: function (v) { return fint(v); } },
+      R: { s: [{ v: vp, col: C.putIV, name: 'Volume PCR (ATM ±10)', fmt: function (v) { return v.toFixed(2); }, dash: true, lw: 2.2 }],
+           axc: C.putIV, ttl: 'Volume PCR (ATM ±10 Strikes)', fmt: pcrFmt, ref: 1, minSpan: 0.10 }
+    });
+    // shared time axis labels under the bottom panel
+    var step = Math.max(1, Math.floor(n / 14));
+    for (i = 0; i < n; i += step) {
+      ctx.save(); ctx.translate(X(i), R2.y + R2.h + 12 * u); ctx.rotate(-Math.PI / 4);
+      T(ctx, lab[i], 0, 0, 8.5 * u, C.txt2, 'right'); ctx.restore();
+    }
+  }
+
+
+  /* ---------- Total Absolute GEX (stacked bars per iteration) + PCR History (lines) ---------- */
+  function textW(ctx, s, size, wt) { ctx.font = (wt || 400) + ' ' + size + 'px ' + FONT; return ctx.measureText(s).width; }
+  function fmtTick(v, step) {
+    var d = step >= 1 ? 0 : (step >= 0.1 ? 1 : 2);
+    return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+  function legendRow(ctx, items, cx, y, u) {                 // items: [{col, txt, dash}] centered on cx
+    var tot = 0, size = 11 * u;
+    items.forEach(function (it) { it.w = 19 * u + textW(ctx, it.txt, size, 600); tot += it.w + 22 * u; });
+    var lx = cx - (tot - 22 * u) / 2;
+    items.forEach(function (it) {
+      ctx.fillStyle = it.col; ctx.strokeStyle = it.col;
+      if (it.dash) { ctx.lineWidth = 2.2 * u; dash(ctx, [4 * u, 2.5 * u]); ctx.beginPath(); ctx.moveTo(lx, y - 4 * u); ctx.lineTo(lx + 14 * u, y - 4 * u); ctx.stroke(); dash(ctx, []); }
+      else ctx.fillRect(lx, y - 7 * u, 14 * u, it.sq ? 9 * u : 5 * u);
+      T(ctx, it.txt, lx + 19 * u, y, size, C.txt, 'left', 600);
+      lx += it.w + 22 * u;
+    });
+  }
+  function axisTitle(ctx, s, x, y, rot, size, col) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); T(ctx, s, 0, 0, size, col, 'center', 600); ctx.restore();
+  }
+  function timeLabels(ctx, lab, n, Xc, yb, u) {
+    var step = Math.max(1, Math.floor(n / 18));
+    for (var i = 0; i < n; i += step) {
+      ctx.save(); ctx.translate(Xc(i), yb + 12 * u); ctx.rotate(-Math.PI / 4);
+      T(ctx, lab[i], 0, 0, 8.5 * u, C.txt2, 'right'); ctx.restore();
+    }
+  }
+
+  function drawAbsGex(ctx, W, H, entries, idx) {
+    var u = W / 1300, t = BELT, n = idx + 1, i, E = entries[idx] || {};
+    var up = [], dn = [], sf = [], lab = [], mx = 1;
+    for (i = 0; i < n; i++) {
+      var e = entries[i] || {};
+      var a = num(e.up) || 0, b = num(e.dn) || 0;
+      up.push(a); dn.push(b); sf.push(num(e.sf)); lab.push(e.ts_label || '');
+      if (a + b > mx) mx = a + b;
+    }
+    var hiY = mx * 1.15;                                      // session ceiling only ever grows (same rule as before)
+    var cBelow = K('#0E7490'), cAbove = K('#B45309');
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+    T(ctx, (E.n ? E.n + ' — ' : '') + 'Total Absolute GEX (All Strikes) — Above vs At/Below Synthetic Futures', W / 2, t + 28 * u, 19 * u, C.txt, 'center', 700);
+    T(ctx, 'Expiry: ' + (E.x || '—') + '  •  In-bar label = Synthetic Futures price at that iteration', W / 2, t + 48 * u, 12 * u, C.txt2, 'center');
+    legendRow(ctx, [{ col: cAbove, txt: 'GEX at strikes ABOVE synthetic future', sq: 1 }, { col: cBelow, txt: 'GEX at strikes AT/BELOW synthetic future', sq: 1 }], W / 2, t + 72 * u, u);
+    var R = { x: 92 * u, y: t + 86 * u, w: W - 92 * u - 30 * u, h: H - (t + 86 * u) - 66 * u };
+    ctx.fillStyle = C.surf; ctx.fillRect(R.x, R.y, R.w, R.h);
+    function Y(v) { return R.y + R.h - v / hiY * R.h; }
+    var tk = ticks(0, hiY, 6), st = tk.length > 1 ? tk[1] - tk[0] : 1;
+    ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
+    tk.forEach(function (v) {
+      ctx.beginPath(); ctx.moveTo(R.x, Y(v)); ctx.lineTo(R.x + R.w, Y(v)); ctx.stroke();
+      T(ctx, fmtTick(v, st), R.x - 6 * u, Y(v) + 3 * u, 9 * u, C.txt2, 'right');
+    });
+    var slot = R.w / n, bw = Math.min(slot * 0.82, 70 * u), fs = Math.max(6, Math.min(14 * u, slot * 0.8));
+    function Xc(j) { return R.x + (j + 0.5) * slot; }
+    for (i = 0; i < n; i++) {
+      var cx = Xc(i), bl = dn[i], ab = up[i], tot = bl + ab, x0 = cx - bw / 2;
+      ctx.fillStyle = cBelow; ctx.fillRect(x0, Y(bl), bw, Y(0) - Y(bl));
+      if (ab > 0) { ctx.fillStyle = cAbove; ctx.fillRect(x0, Y(tot), bw, Y(bl) - Y(tot)); }
+      if (tot > 0) {                                           // dotted 50%-of-this-bar marker
+        var hc = ab <= bl ? cAbove : cBelow;
+        ctx.strokeStyle = hc; ctx.lineWidth = 2.3 * u; ctx.lineCap = 'round'; dash(ctx, [0.1, 4.6 * u]);
+        ctx.beginPath(); ctx.moveTo(x0, Y(tot / 2)); ctx.lineTo(x0 + bw, Y(tot / 2)); ctx.stroke(); dash(ctx, []); ctx.lineCap = 'butt';
+        if (sf[i] !== null) {                                  // synthetic-futures value, vertical near the bottom of the bar
+          var ly = Y(Math.min(tot * 0.5, hiY * 0.035)), tx = fint(sf[i]);
+          ctx.save(); ctx.translate(cx + fs * 0.27, ly); ctx.rotate(-Math.PI / 2);
+          ctx.font = '700 ' + fs + 'px ' + FONT; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+          ctx.lineJoin = 'round'; ctx.lineWidth = Math.max(1.2, fs * 0.2); ctx.strokeStyle = 'rgba(13,27,42,.92)'; ctx.strokeText(tx, 0, 0);
+          ctx.fillStyle = '#FFFFFF'; ctx.fillText(tx, 0, 0); ctx.restore();
+        }
+      }
+    }
+    ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(R.x, R.y, R.w, R.h);
+    axisTitle(ctx, 'Total Absolute GEX — All Strikes (₹ Cr)', 13 * u, R.y + R.h / 2, -Math.PI / 2, 10.5 * u, C.txt2);
+    timeLabels(ctx, lab, n, Xc, R.y + R.h, u);
+  }
+
+  function drawPcrHist(ctx, W, H, entries, idx) {
+    var u = W / 1300, t = BELT, n = idx + 1, i, E = entries[idx] || {};
+    var S = { p3: [], p6: [], p10: [], pa: [] }, sf = [], lab = [], bhs = [];
+    for (i = 0; i < n; i++) {
+      var e = entries[i] || {};
+      S.p3.push(num(e.p3)); S.p6.push(num(e.p6)); S.p10.push(num(e.p10)); S.pa.push(num(e.pa));
+      sf.push(num(e.sf)); lab.push(e.ts_label || ''); var bh = num(e.bh); bhs.push(bh);
+    }
+    // session-fixed bands, rebuilt run by run exactly like the old chart (they only ever widen)
+    var pad = 0.15, lo = null, hi = null, slo = null, shi = null, known = bhs.filter(function (v) { return v !== null; }).sort(function (a, b) { return a - b; });
+    var fbBH = known.length ? known[known.length >> 1] : 50;
+    for (i = 0; i < n; i++) {
+      var vs = [S.p3[i], S.p6[i], S.p10[i], S.pa[i]].filter(function (v) { return v !== null; });
+      var cl = vs.length ? Math.min.apply(null, vs) : 1, ch = vs.length ? Math.max.apply(null, vs) : 1;
+      if (lo === null) { lo = cl - pad; hi = ch + pad; }
+      lo = Math.max(0, Math.min(lo, cl - pad * 0.5)); hi = Math.max(hi, ch + pad * 0.5);
+      var b2 = bhs[i] === null ? fbBH : bhs[i];
+      if (sf[i] !== null) {
+        if (slo === null) { slo = sf[i] - b2; shi = sf[i] + b2; }
+        slo = Math.min(slo, sf[i] - b2 * 0.1); shi = Math.max(shi, sf[i] + b2 * 0.1);
+      }
+    }
+    if (lo === null) { lo = 0.8; hi = 1.2; }
+    if (slo === null) { slo = 0; shi = 1; }
+    if (hi - lo < 1e-9) { lo -= 0.1; hi += 0.1; } if (shi - slo < 1e-9) { slo -= 1; shi += 1; }
+    var openSf = null; for (i = 0; i < n; i++) if (sf[i] !== null) { openSf = sf[i]; break; }
+
+    var cols = { p3: K('#1565C0'), p6: K('#B45309'), p10: K('#6A1B9A'), pa: K('#00897B') }, cSf = K('#AD1457');
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+    T(ctx, (E.n ? E.n + ' — ' : '') + 'PCR History (ATM ±3 / ±6 / ±10 / All Strikes) vs Synthetic Futures', W / 2, t + 28 * u, 19 * u, C.txt, 'center', 700);
+    T(ctx, 'Expiry: ' + (E.x || '—'), W / 2, t + 48 * u, 12 * u, C.txt2, 'center');
+    function lv(arr, d) { var v = arr[arr.length - 1]; return v === null || v === undefined ? '—' : (d === 0 ? fint(v) : v.toFixed(d)); }
+    legendRow(ctx, [
+      { col: cols.p3, txt: 'PCR (ATM ±3)  ' + lv(S.p3, 2) }, { col: cols.p6, txt: 'PCR (ATM ±6)  ' + lv(S.p6, 2) },
+      { col: cols.p10, txt: 'PCR (ATM ±10)  ' + lv(S.p10, 2) }, { col: cols.pa, txt: 'PCR (All Strikes)  ' + lv(S.pa, 2) },
+      { col: cSf, txt: 'Synthetic Futures  ' + lv(sf, 0), dash: true }], W / 2, t + 72 * u, u);
+    var R = { x: 82 * u, y: t + 86 * u, w: W - 82 * u - 92 * u, h: H - (t + 86 * u) - 66 * u };
+    ctx.fillStyle = C.surf; ctx.fillRect(R.x, R.y, R.w, R.h);
+    var span = Math.max(n - 1, 1);
+    function Xc(j) { return R.x + (n === 1 ? R.w / 2 : (j / span) * R.w * 0.985 + R.w * 0.007); }
+    function YL(v) { return R.y + R.h - (v - lo) / (hi - lo) * R.h; }
+    function YR(v) { return R.y + R.h - (v - slo) / (shi - slo) * R.h; }
+    ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
+    var lt = ticks(lo, hi, 6), lst = lt.length > 1 ? lt[1] - lt[0] : 0.1;
+    lt.forEach(function (v) { ctx.beginPath(); ctx.moveTo(R.x, YL(v)); ctx.lineTo(R.x + R.w, YL(v)); ctx.stroke(); T(ctx, v.toFixed(lst < 0.1 ? 2 : 2), R.x - 6 * u, YL(v) + 3 * u, 9 * u, C.txt2, 'right'); });
+    var rt = ticks(slo, shi, 6);
+    rt.forEach(function (v) { T(ctx, fint(v), R.x + R.w + 6 * u, YR(v) + 3 * u, 9 * u, cSf, 'left'); });
+    if (1 > lo && 1 < hi) { ctx.strokeStyle = C.zero; ctx.lineWidth = 1; dash(ctx, [2 * u, 4 * u]); ctx.beginPath(); ctx.moveTo(R.x, YL(1)); ctx.lineTo(R.x + R.w, YL(1)); ctx.stroke(); dash(ctx, []); }
+    if (openSf !== null) { ctx.save(); ctx.globalAlpha = 0.5; ctx.strokeStyle = cSf; ctx.lineWidth = 1; dash(ctx, [2 * u, 4 * u]); ctx.beginPath(); ctx.moveTo(R.x, YR(openSf)); ctx.lineTo(R.x + R.w, YR(openSf)); ctx.stroke(); dash(ctx, []); ctx.restore(); }
+    function line(arr, Yf, col, lw, dsh, mk, alpha) {
+      ctx.save(); if (alpha) ctx.globalAlpha = alpha;
+      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw; dash(ctx, dsh || []);
+      ctx.beginPath(); var st = false;
+      arr.forEach(function (v, j) { if (v === null) { st = false; return; } if (!st) { ctx.moveTo(Xc(j), Yf(v)); st = true; } else ctx.lineTo(Xc(j), Yf(v)); });
+      ctx.stroke(); dash(ctx, []);
+      if (n <= 120) arr.forEach(function (v, j) { if (v !== null) { ctx.beginPath(); ctx.arc(Xc(j), Yf(v), mk * u, 0, 6.2832); ctx.fill(); } });
+      ctx.restore();
+    }
+    line(sf, YR, cSf, 1.6 * u, [6 * u, 3 * u], 2.2, 0.85);
+    line(S.p3, YL, cols.p3, 1.9 * u, null, 2.4); line(S.p6, YL, cols.p6, 1.9 * u, null, 2.4);
+    line(S.p10, YL, cols.p10, 1.9 * u, null, 2.4); line(S.pa, YL, cols.pa, 1.9 * u, null, 2.4);
+    var cx = Xc(n - 1);                                        // cursor at the selected moment
+    ctx.strokeStyle = C.cursor; ctx.lineWidth = 1; dash(ctx, [3 * u, 3 * u]);
+    ctx.beginPath(); ctx.moveTo(cx, R.y); ctx.lineTo(cx, R.y + R.h); ctx.stroke(); dash(ctx, []);
+    ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(R.x, R.y, R.w, R.h);
+    axisTitle(ctx, 'Put/Call Ratio (OI)', 13 * u, R.y + R.h / 2, -Math.PI / 2, 10.5 * u, C.txt2);
+    axisTitle(ctx, 'Synthetic Futures (Price)', W - 12 * u, R.y + R.h / 2, Math.PI / 2, 10.5 * u, cSf);
+    timeLabels(ctx, lab, n, Xc, R.y + R.h, u);
+  }
+
   var KINDS = {
     panels: { aspect: 1.5,  min: 760, draw: function (c, W, H, en, i) { drawPanels(c, W, H, en[i]); } },
     prob:   { aspect: 0.98, min: 760, draw: function (c, W, H, en, i) { drawProb(c, W, H, en[i], en, i); } },
     table:  { aspect: 1.9,  min: 620, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
     oi:     { aspect: 1.2,  min: 700, draw: function (c, W, H, en, i) { drawTable(c, W, H, en[i]); } },
-    skew:   { aspect: 2.05, min: 760, draw: function (c, W, H, en, i) { drawSkew(c, W, H, en[i]); } }
+    skew:   { aspect: 2.05, min: 760, draw: function (c, W, H, en, i) { drawSkew(c, W, H, en[i]); } },
+    oipcr:  { aspect: 1.3,  min: 760, draw: function (c, W, H, en, i) { drawOiPcr(c, W, H, en, i); } },
+    absgex: { aspect: 2.0,  min: 760, draw: function (c, W, H, en, i) { drawAbsGex(c, W, H, en, i); } },
+    pcrhist:{ aspect: 2.0,  min: 760, draw: function (c, W, H, en, i) { drawPcrHist(c, W, H, en, i); } }
   };
 
   /* ---------- the mount: fetch, belt, canvas ---------- */
@@ -4166,10 +4438,135 @@ function toggleTheme(){
       var ix = mx, iy = my; S = 2.4; PX = mx - ix * S; PY = my - iy * S; clamp(); apply();
     });
   };
+
+  /* ---------- sharp zoom viewer ----------
+   * Click-to-zoom used to show one fixed-size PNG that the browser then stretched (blurry beyond ~1.5x).
+   * This viewer keeps the chart as drawing instructions and RE-DRAWS it at every zoom/pan step at full device
+   * resolution, so lines and text stay crisp at any zoom. Opens over the whole browser window (also from inside
+   * the premium iframe). Same controls as the old popup: wheel / pinch = zoom, drag = pan, double-click = reset,
+   * click = close, Esc = close. */
+  var VIEWER = null;
+  function hostWin() {
+    try { if (root.top && root.top !== root && root.top.document && root.top.document.body) return root.top; } catch (e) { }
+    return root;
+  }
+  function openViewer(m) {
+    if (VIEWER) return true;
+    var KD = KINDS[m.kind]; if (!KD || m.idx < 0 || !m.entries.length) return false;
+    var HW = hostWin(), HD = HW.document, noWheel = m.noWheelPopup();
+    var entries = m.entries, idx = m.idx, asp = parseFloat(m.el.getAttribute('data-aspect')) || KD.aspect;
+    var LW = 1300, LH = LW / asp;                         // logical drawing size (the design size of every chart)
+    var MAX_S = 12, vw = 0, vh = 0, BW = 0, BH = 0, k = 1, dpr = 1, S = 1, Ox = 0, Oy = 0, raf = 0;
+    var ov = HD.createElement('div'), cv = HD.createElement('canvas'), xb = HD.createElement('div'), hint = HD.createElement('div');
+    ov.style.cssText = 'position:fixed;left:0;top:0;right:0;bottom:0;z-index:2147483000;background:rgba(0,0,0,.93);overflow:hidden;touch-action:none;cursor:zoom-out;-webkit-user-select:none;user-select:none';
+    cv.style.cssText = 'position:absolute;left:0;top:0;display:block;touch-action:none';
+    xb.textContent = '\u2715';
+    xb.style.cssText = 'position:absolute;top:12px;right:18px;color:#fff;font:700 28px/1 Arial,sans-serif;cursor:pointer;z-index:2;padding:2px 6px';
+    hint.textContent = 'Scroll / pinch to zoom \u00B7 drag to pan \u00B7 double-click to reset';
+    hint.style.cssText = 'position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#B8CCDE;font:600 12px Inter,Arial,sans-serif;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:5px 12px;border-radius:999px;pointer-events:none;z-index:2;transition:opacity .6s';
+    ov.appendChild(cv); ov.appendChild(xb); ov.appendChild(hint);
+    var prevOverflow = HD.body.style.overflow; HD.body.style.overflow = 'hidden';
+    HD.body.appendChild(ov);
+    var hintTimer = setTimeout(function () { hint.style.opacity = '0'; }, 4500);
+
+    function layout() {
+      vw = Math.max(200, HW.innerWidth); vh = Math.max(200, HW.innerHeight);
+      BW = Math.min(vw * 0.96, vh * 0.94 * asp); BH = BW / asp; k = BW / LW;
+      dpr = Math.max(1, Math.min(Math.min(Math.max(HW.devicePixelRatio || 1, 2), 3), Math.sqrt(16e6 / (vw * vh))));
+      cv.width = Math.round(vw * dpr); cv.height = Math.round(vh * dpr); cv.style.width = vw + 'px'; cv.style.height = vh + 'px';
+      S = 1; Ox = (vw - BW) / 2; Oy = (vh - BH) / 2;
+    }
+    function clamp() {
+      var cw = BW * S, ch = BH * S;
+      Ox = cw <= vw ? (vw - cw) / 2 : Math.min(0, Math.max(vw - cw, Ox));
+      Oy = ch <= vh ? (vh - ch) / 2 : Math.min(0, Math.max(vh - ch, Oy));
+    }
+    function paint() {
+      raf = 0;
+      var ctx = cv.getContext('2d');
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+      applyTheme();
+      var ks = dpr * k * S; ctx.setTransform(ks, 0, 0, ks, dpr * Ox, dpr * Oy);
+      try { KD.draw(ctx, LW, LH, entries, idx); } catch (err) { if (root.console) console.warn('OFS viewer', err); }
+      cv.style.cursor = S > 1.01 ? (drag ? 'grabbing' : 'grab') : 'zoom-out';
+    }
+    function sched() { if (!raf) raf = HW.requestAnimationFrame(paint); }
+    function setScale(ns, mx, my) {
+      ns = Math.min(MAX_S, Math.max(1, ns)); var r = ns / S;
+      Ox = mx - (mx - Ox) * r; Oy = my - (my - Oy) * r; S = ns; clamp(); sched();
+    }
+    function close() {
+      if (!VIEWER) return; VIEWER = null;
+      clearTimeout(hintTimer); if (raf) HW.cancelAnimationFrame(raf);
+      HW.removeEventListener('resize', onResize); HD.removeEventListener('keydown', onKey, true);
+      if (HD !== document) document.removeEventListener('keydown', onKey, true);
+      if (ov.parentNode) ov.parentNode.removeChild(ov);
+      HD.body.style.overflow = prevOverflow;
+    }
+    function onKey(e) { if (e.key === 'Escape') { e.stopPropagation(); close(); } }
+    function onResize() { layout(); sched(); }
+
+    var ptrs = {}, nptr = 0, drag = null, pinch = null, moved = false, downX = 0, downY = 0, lastTap = 0;
+    function pts() { var a = []; for (var id in ptrs) a.push(ptrs[id]); return a; }
+    ov.addEventListener('wheel', function (e) {
+      e.preventDefault(); e.stopPropagation(); if (noWheel) return;
+      var dy = Math.max(-120, Math.min(120, e.deltaY));
+      setScale(S * Math.exp(-dy * (e.ctrlKey ? 0.012 : 0.0016)), e.clientX, e.clientY);
+    }, { passive: false });
+    ov.addEventListener('pointerdown', function (e) {
+      e.stopPropagation(); ptrs[e.pointerId] = { x: e.clientX, y: e.clientY }; nptr++;
+      try { ov.setPointerCapture(e.pointerId); } catch (_) { }
+      if (nptr === 1) { moved = false; downX = e.clientX; downY = e.clientY; drag = { x: e.clientX, y: e.clientY }; }
+      if (nptr === 2) {
+        var p = pts(); drag = null;
+        pinch = { d: Math.hypot(p[1].x - p[0].x, p[1].y - p[0].y) || 1, s: S, cx: (p[0].x + p[1].x) / 2, cy: (p[0].y + p[1].y) / 2, ox: Ox, oy: Oy };
+      }
+    });
+    ov.addEventListener('pointermove', function (e) {
+      if (!ptrs[e.pointerId]) return;
+      ptrs[e.pointerId] = { x: e.clientX, y: e.clientY };
+      if (nptr >= 2 && pinch) {
+        var p = pts(), d = Math.hypot(p[1].x - p[0].x, p[1].y - p[0].y), cx = (p[0].x + p[1].x) / 2, cy = (p[0].y + p[1].y) / 2;
+        var ns = Math.min(MAX_S, Math.max(1, pinch.s * d / pinch.d)), r = ns / pinch.s;
+        Ox = cx - (pinch.cx - pinch.ox) * r; Oy = cy - (pinch.cy - pinch.oy) * r; S = ns; moved = true; clamp(); sched();
+      } else if (nptr === 1 && drag) {
+        if (Math.abs(e.clientX - downX) > 3 || Math.abs(e.clientY - downY) > 3) moved = true;
+        if (S > 1.001) { Ox += e.clientX - drag.x; Oy += e.clientY - drag.y; clamp(); sched(); }
+        drag.x = e.clientX; drag.y = e.clientY;
+      }
+    });
+    function up(e) {
+      if (!ptrs[e.pointerId]) return;
+      delete ptrs[e.pointerId]; nptr = Math.max(0, nptr - 1); if (nptr < 2) pinch = null;
+      if (nptr === 1) { var r = pts()[0]; drag = { x: r.x, y: r.y }; }
+      if (nptr > 0) return;
+      drag = null;
+      if (S <= 1.001) { S = 1; clamp(); sched(); }
+      if (e.type === 'pointercancel' || moved) return;
+      var inside = e.clientX >= Ox && e.clientX <= Ox + BW * S && e.clientY >= Oy && e.clientY <= Oy + BH * S, now = Date.now();
+      if (S > 1.01) {
+        if (now - lastTap < 320) { lastTap = 0; layoutReset(); }      // double click / double tap resets
+        else { lastTap = now; if (!inside) close(); }
+      } else close();                                                 // at 1x any click closes (as before)
+    }
+    function layoutReset() { S = 1; clamp(); sched(); }
+    ov.addEventListener('pointerup', up); ov.addEventListener('pointercancel', up);
+    xb.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+    xb.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    ov.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+    VIEWER = { close: close };
+    layout(); paint();
+    HW.addEventListener('resize', onResize); HD.addEventListener('keydown', onKey, true);
+    if (HD !== document) document.addEventListener('keydown', onKey, true);
+    return true;
+  }
   Mount.prototype.zoomOpen = function () {
+    if (this.idx < 0) return;
+    try { if (openViewer(this)) return; } catch (err) { if (root.console) console.warn('OFS viewer', err); }   // legacy bitmap popup below = fallback only
     var lbx = (typeof root.openLbx === 'function') ? root.openLbx
       : (typeof root.__ofsLbx === 'function') ? root.__ofsLbx : null;
-    if (!lbx || this.idx < 0) return;
+    if (!lbx) return;
     var KD = KINDS[this.kind]; if (!KD) return;
     applyTheme();
     var ZW = Math.max(2200, this.scroll.clientWidth * 2);
@@ -4201,10 +4598,12 @@ function toggleTheme(){
   Mount.prototype.draw = function () {
     if (!this.built || this.idx < 0) return;
     var KD = KINDS[this.kind]; if (!KD) return;
-    var W = this.scroll.clientWidth; if (!W) return;
+    var W = this.scroll.clientWidth;
+    if (!W) { if (this.cv.width > 1) { this.cv.width = 1; this.cv.height = 1; } return; }   // hidden panel: release its bitmap, redrawn when shown
     applyTheme(); this.stage.style.background = C.bg;
     var CW = Math.max(W, KD.min), asp = parseFloat(this.el.getAttribute('data-aspect')) || KD.aspect, CH = Math.round(CW / asp);
-    var dpr = Math.min(Math.min(root.devicePixelRatio || 1, 2.5) * (this.zq || 1), 4), cv = this.cv;
+    var dpr = Math.min(Math.min(Math.max(root.devicePixelRatio || 1, 2), 2.5) * (this.zq || 1), 4), cv = this.cv;
+    dpr = Math.max(1, Math.min(dpr, Math.sqrt(9e6 / (CW * CH))));        // always >=2x sharp, but one chart never holds more than ~9M pixels
     if (cv.width !== Math.round(CW * dpr) || cv.height !== Math.round(CH * dpr)) {
       cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr); cv.style.width = CW + 'px'; cv.style.height = CH + 'px';
     }
@@ -4224,7 +4623,7 @@ function toggleTheme(){
     img.parentNode.insertBefore(w, img); w.appendChild(img); scan(w);
   }
 
-  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS, _draw: { panels: drawPanels, prob: drawProb, table: drawTable, oi: drawTable, skew: drawSkew }, BELT: BELT };
+  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS, _draw: { panels: drawPanels, prob: drawProb, table: drawTable, oi: drawTable, skew: drawSkew, oipcr: drawOiPcr, absgex: drawAbsGex, pcrhist: drawPcrHist }, BELT: BELT };
 
   function start() {
     scan(document);
@@ -4334,7 +4733,7 @@ function _fsToggle(btn){
     (card.requestFullscreen || card.webkitRequestFullscreen || function(){}).call(card);
   }
 }
-const OFS_MAP = {oi:['oi','oi'], gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table']};
+const OFS_MAP = {oi:['oi','oi'], gex:['gex','panels'], vex:['vex','panels'], cex:['cex','panels'], skew:['skew','skew'], pcrtable:['pcr','table'], topgex:['topgex','table'], totalgex:['absgex','absgex'], pcrhist:['pcrhist','pcrhist']};
 function chartHtml(idx, data, key){
   const pf=PLOT_KEY[key]; if(!pf) return '';
   const fn=data?.plots?.[pf];
@@ -4350,12 +4749,9 @@ function chartHtml(idx, data, key){
     return `<div class="gcard vol-surface-card"><div class="volsurf-hdr" style="display:flex;align-items:center;padding:6px 12px;background:var(--raised);border-bottom:1px solid var(--border)"><span style="font-family:'Inter',sans-serif;font-size:0.748rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t1)">ATM Volatility (Synthetic Futures)</span>${_fsBtnHtml()}<a href="${src}" target="_blank" rel="noopener" style="margin-left:8px;font-family:'Inter',sans-serif;font-size:0.66rem;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;white-space:nowrap;flex-shrink:0">⤢ OPEN RAW</a></div><div class="vol-surface-wrap"><iframe src="${src}" class="vol-surface-frame" loading="lazy" title="ATM Volatility"></iframe></div></div>`;
   }
   const src=`data/${idx}/${fn}?t=${(data?.timestamp_iso||'').replace(/[^0-9]/g,'').slice(0,12)||Math.floor(Date.now()/1800000)}`;
-  // Total Abs GEX / PCR History: also load the dark copy (<name>_dark.png); CSS shows the one matching the theme.
+  // Every chart is now drawn by ofs_core.js from its history data (OFS_MAP); this PNG is only the fallback shown until that data loads.
   const _imgSt='width:100%;display:block;border-radius:0 0 8px 8px;image-rendering:auto';
   let _imgs=`<img class="th-light" src="${src}" alt="${CHART_TITLE[key]||key}" style="${_imgSt}">`;
-  if(key==='totalgex'||key==='pcrhist'){
-    _imgs+=`<img class="th-dark" src="${src.replace('.png?','_dark.png?')}" alt="${CHART_TITLE[key]||key}" style="${_imgSt}" onerror="this.remove()">`;
-  }
   return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div>${_imgs}</div>`;
 }
 function analysisHtml(idx, data){
