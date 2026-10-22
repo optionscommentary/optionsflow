@@ -4184,7 +4184,7 @@ function toggleTheme(){
       if (a + b > mx) mx = a + b;
     }
     var hiY = mx * 1.15;                                      // session ceiling only ever grows (same rule as before)
-    var cBelow = C.theme === "dark" ? "#60A5FA" : "#2563EB", cAbove = C.theme === "dark" ? "#FBBF24" : "#D97706";
+    var cBelow = C.theme === "dark" ? "#A8B7C9" : "#475569", cAbove = C.theme === "dark" ? "#45BCD0" : "#0891B2";
     ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
     T(ctx, (E.n ? E.n + ' — ' : '') + 'Total Absolute GEX (All Strikes) — Above vs At/Below Synthetic Futures', W / 2, t + 28 * u, 19 * u, C.txt, 'center', 700);
     T(ctx, 'Expiry: ' + (E.x || '—') + '  •  In-bar label = Synthetic Futures price at that iteration', W / 2, t + 48 * u, 12 * u, C.txt2, 'center');
@@ -4212,8 +4212,14 @@ function toggleTheme(){
           var ly = Y(Math.min(tot * 0.5, hiY * 0.035)), tx = fint(sf[i]);
           ctx.save(); ctx.translate(cx + fs * 0.27, ly); ctx.rotate(-Math.PI / 2);
           ctx.font = '700 ' + fs + 'px ' + FONT; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-          ctx.lineJoin = 'round'; ctx.lineWidth = Math.max(1.2, fs * 0.2); ctx.strokeStyle = 'rgba(13,27,42,.92)'; ctx.strokeText(tx, 0, 0);
-          ctx.fillStyle = '#FFFFFF'; ctx.fillText(tx, 0, 0); ctx.restore();
+          ctx.lineJoin = 'round';
+          if (C.theme === 'dark') {
+            ctx.fillStyle = '#0F172A'; ctx.fillText(tx, 0, 0);
+          } else {
+            ctx.lineWidth = Math.max(1.2, fs * 0.2); ctx.strokeStyle = 'rgba(13,27,42,.92)'; ctx.strokeText(tx, 0, 0);
+            ctx.fillStyle = '#FFFFFF'; ctx.fillText(tx, 0, 0);
+          }
+          ctx.restore();
         }
       }
     }
