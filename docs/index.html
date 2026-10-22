@@ -4184,7 +4184,7 @@ function toggleTheme(){
       if (a + b > mx) mx = a + b;
     }
     var hiY = mx * 1.15;                                      // session ceiling only ever grows (same rule as before)
-    var cBelow = C.theme === "dark" ? "#5EEAD4" : "#0F766E", cAbove = C.theme === "dark" ? "#FDBA74" : "#C2410C";
+    var cBelow = C.theme === "dark" ? "#60A5FA" : "#2563EB", cAbove = C.theme === "dark" ? "#FBBF24" : "#D97706";
     ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
     T(ctx, (E.n ? E.n + ' — ' : '') + 'Total Absolute GEX (All Strikes) — Above vs At/Below Synthetic Futures', W / 2, t + 28 * u, 19 * u, C.txt, 'center', 700);
     T(ctx, 'Expiry: ' + (E.x || '—') + '  •  In-bar label = Synthetic Futures price at that iteration', W / 2, t + 48 * u, 12 * u, C.txt2, 'center');
