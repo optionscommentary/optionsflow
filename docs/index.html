@@ -1910,6 +1910,27 @@ html[data-theme="light"] .prem-pw-nokey a:hover{color:#0A2A44;box-shadow:inset 0
 
 
 
+<style id="topbar-fit-fix">
+/* Clock sits under the OPEN/CLOSED badge (desktop). Nav + theme buttons keep their ORIGINAL size.
+   Quotes fill whatever space is left and scale with it — nothing hidden or clipped. */
+.tb-status{display:contents}   /* tablet/mobile: behaves exactly as before */
+@media (min-width:1140px){
+  html[data-theme] .tb-status{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:0 0 auto}
+  html[data-theme] .mkt-badge{white-space:nowrap;min-width:92px;padding:2px 11px;text-align:center}
+  html[data-theme] #tb-clock{white-space:nowrap;line-height:1;font-size:.9rem}
+  html[data-theme] .tb-right{flex:0 0 auto}
+  html[data-theme] .tb-pills{flex:1 1 0;min-width:0;container-type:inline-size}
+  html[data-theme] .tb-pill{--q:1rem;padding:0 calc(var(--q) * .85);white-space:nowrap}
+  html[data-theme] .tb-pill .val{font-size:var(--q)}
+  html[data-theme] .tb-pill .lbl{font-size:calc(var(--q) * .76)}
+  html[data-theme] .tb-pill .chg{font-size:calc(var(--q) * .76)}
+}
+@supports (width:1cqw){
+  @media (min-width:1140px){
+    html[data-theme] .tb-pill{--q:clamp(.68rem,2.35cqw,1.12rem)}
+  }
+}
+</style>
 </head>
 
 <body>
@@ -1934,8 +1955,7 @@ html[data-theme="light"] .prem-pw-nokey a:hover{color:#0A2A44;box-shadow:inset 0
     <div class="tb-pill"><span class="lbl">MIDCAP</span><span class="val" id="tpv-midcpnifty">—</span><div class="chg" id="tpc-midcpnifty"></div></div>
   </div>
   <div class="tb-right">
-    <span class="mkt-badge mkt-close" id="mkt-badge">● CLOSED</span>
-    <span id="tb-clock">—</span>
+    <div class="tb-status"><span class="mkt-badge mkt-close" id="mkt-badge">● CLOSED</span><span id="tb-clock">—</span></div>
     <div class="tb-nav">
     <a href="blogs.html" class="theme-btn" style="text-decoration:none">📚 Learn</a>
     <a href="mentorship.html" class="theme-btn" style="text-decoration:none">🎓 Mentorship</a>
