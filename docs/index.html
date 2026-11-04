@@ -143,6 +143,13 @@ if (!window.PREMIUM_RECO_ENABLED) document.documentElement.classList.add('reco-o
   [data-theme="dark"] .gcard img.th-dark{ display:block !important; }
   [data-theme="dark"] .gcard img.th-light:has(+ img.th-dark){ display:none !important; }
 }
+/* Pitch black / pitch white chart surfaces: card, image, canvas mount and positioning scroller */
+[data-theme="dark"] .gcard,[data-theme="dark"] .gcard img,[data-theme="dark"] .ofs,[data-theme="dark"] .pp-scroll-wrap{ background:#000 !important; }
+[data-theme="light"] .gcard,[data-theme="light"] .gcard img,[data-theme="light"] .ofs,[data-theme="light"] .pp-scroll-wrap{ background:#fff !important; }
+[data-theme="dark"] .gcard{ border-color:#2B2B2B; }
+[data-theme="light"] .gcard{ border-color:#D0D0D0; }
+[data-theme="dark"] .gcard-hdr{ background:#0B0B0B; border-color:#2B2B2B; }
+[data-theme="light"] .gcard-hdr{ background:#F5F5F5; border-color:#D0D0D0; }
 [data-theme="light"] .kv-item { background: var(--raised); border-color: var(--border); }
 [data-theme="light"] .kv-lbl { color: #2A5270; font-weight: 700; }
 [data-theme="light"] .kv-val { color: var(--t1); }
@@ -3625,22 +3632,22 @@ function toggleTheme(){
   // Two palettes. The chart picks one from <html data-theme="light|dark"> every time it draws.
   var PAL = {
     light: {
-      bg: '#FFFFFF', surf: '#F4F7FB', alt: '#E9EEF5', border: '#C9D5E3',
+      bg: '#FFFFFF', surf: '#FFFFFF', alt: '#F5F5F5', border: '#D0D0D0',
       call: '#1565C0', put: '#C62828', sf: '#00897B', synth: '#AD1457',
       pos: '#1B5E20', neg: '#B71C1C', neu: '#546E7A',
       txt: '#0D1B2A', txt2: '#2C3E50', dim: '#546E7A',
       hdr: '#1565C0', atmbg: '#E8F5E9', atmb: '#2E7D32',
       callIV: '#0288D1', putIV: '#E65100', net: '#6A1B9A',
-      grid: 'rgba(201,213,227,.9)', zero: 'rgba(84,110,122,.7)', legbg: 'rgba(255,255,255,.93)', cursor: 'rgba(13,27,42,.35)'
+      grid: 'rgba(0,0,0,.09)', zero: 'rgba(0,0,0,.5)', legbg: 'rgba(255,255,255,.93)', cursor: 'rgba(13,27,42,.35)'
     },
     dark: {                                          // brighter colours so everything stays readable on dark
-      bg: '#0C1626', surf: '#112038', alt: '#162A47', border: '#2F4A6B',
+      bg: '#000000', surf: '#000000', alt: '#0B0B0B', border: '#2B2B2B',
       call: '#4DA3FF', put: '#FF6B6B', sf: '#2EE6C5', synth: '#FF7EB6',
       pos: '#4ADE80', neg: '#FF6B81', neu: '#A8B7C7',
       txt: '#F1F5F9', txt2: '#D5DEE9', dim: '#9FB0C3',
       hdr: '#1F5FA8', atmbg: '#12382A', atmb: '#34D399',
       callIV: '#38BDF8', putIV: '#FFA45C', net: '#C084FC',
-      grid: 'rgba(130,160,195,.22)', zero: 'rgba(168,183,199,.6)', legbg: 'rgba(12,22,38,.92)', cursor: 'rgba(226,232,240,.5)'
+      grid: 'rgba(255,255,255,.10)', zero: 'rgba(255,255,255,.45)', legbg: 'rgba(0,0,0,.92)', cursor: 'rgba(226,232,240,.5)'
     }
   };
   var C = {};                                        // live palette (filled by applyTheme)
@@ -4338,13 +4345,14 @@ function toggleTheme(){
     s.textContent =
       '.ofs{position:relative;width:100%}' +
       '.ofs-stage{position:relative;width:100%;background:#fff;overflow:hidden;line-height:0}' +
-      '.ofs-belt{position:absolute;left:0;right:0;top:0;height:20px;z-index:5;display:flex;align-items:center;gap:6px;padding:0 8px;background:rgba(13,27,42,.95);color:#E8F4FD;font:600 11px/20px Inter,sans-serif;box-sizing:border-box;line-height:20px}' +
+      '[data-theme="dark"] .ofs-stage{background:#000}' +
+      '.ofs-belt{position:absolute;left:0;right:0;top:0;height:20px;z-index:5;display:flex;align-items:center;gap:6px;padding:0 8px;background:rgba(8,8,8,.95);color:#E8F4FD;font:600 11px/20px Inter,sans-serif;box-sizing:border-box;line-height:20px}' +
       '.ofs-rng{flex:1;min-width:40px;height:12px;margin:0;accent-color:#00E5FF;cursor:pointer}' +
       '.ofs-btn{background:none;border:0;padding:0 3px;margin:0;color:#00E5FF;font:700 10px/20px inherit;cursor:pointer}' +
       '.ofs-lbl{min-width:112px;text-align:right;white-space:nowrap;font-size:10px}' +
       '.ofs-live{background:none;border:1px solid #00E5FF;color:#00E5FF;border-radius:9px;padding:0 7px;font:700 9px/14px inherit;cursor:pointer}' +
       '.ofs-live.on{background:#00E5FF;color:#08080F}' +
-      '[data-theme="light"] .ofs-belt{background:rgba(233,238,245,.97);color:#0D1B2A}' +
+      '[data-theme="light"] .ofs-belt{background:rgba(240,240,240,.97);color:#0D1B2A}' +
       '[data-theme="light"] .ofs-rng{accent-color:#1565C0}' +
       '[data-theme="light"] .ofs-btn{color:#1565C0}' +
       '[data-theme="light"] .ofs-live{border-color:#1565C0;color:#1565C0}' +
