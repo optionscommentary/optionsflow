@@ -4212,7 +4212,7 @@ function toggleTheme(){
       if (a + b > mx) mx = a + b;
     }
     var hiY = mx * 1.15;                                      // session ceiling only ever grows (same rule as before)
-    var cBelow = C.theme === "dark" ? "#A8B7C9" : "#475569", cAbove = C.theme === "dark" ? "#45BCD0" : "#0891B2";
+    var cBelow = C.theme === "dark" ? "#A8B7C9" : "#334155", cAbove = C.theme === "dark" ? "#45BCD0" : "#0E7490";
     ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
     T(ctx, (E.n ? E.n + ' — ' : '') + 'Total Absolute GEX (All Strikes) — Above vs At/Below Synthetic Futures', W / 2, t + 28 * u, 19 * u, C.txt, 'center', 700);
     T(ctx, 'Expiry: ' + (E.x || '—') + '  •  In-bar label = Synthetic Futures price at that iteration', W / 2, t + 48 * u, 12 * u, C.txt2, 'center');
@@ -4251,7 +4251,7 @@ function toggleTheme(){
         }
       }
     }
-    ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.strokeRect(R.x, R.y, R.w, R.h);
+    ctx.strokeStyle = C.theme === 'dark' ? C.border : '#000000'; ctx.lineWidth = C.theme === 'dark' ? 1 : 1.6 * u; ctx.strokeRect(R.x, R.y, R.w, R.h);
     axisTitle(ctx, 'Total Absolute GEX — All Strikes (₹ Cr)', 13 * u, R.y + R.h / 2, -Math.PI / 2, 10.5 * u, C.txt2);
     timeLabels(ctx, lab, n, Xc, R.y + R.h, u);
   }
