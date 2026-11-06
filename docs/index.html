@@ -6248,6 +6248,12 @@ function _posPremShowContent(idx, html) {
   frame.scrolling     = 'no';
 
   function _fitHeight() {
+    // The embedded GEXMA simulator owns the viewport while its scrollable
+    // fullscreen mode is active. Auto-fitting here would replace its 100vh
+    // iframe height with the entire document height, making the bottom
+    // GEX history/chart unreachable and causing a ResizeObserver loop.
+    if (frame.style.position === 'fixed' ||
+        frame.getAttribute('data-pp-fullscreen') === '1') return;
     try {
       var h = frame.contentDocument.documentElement.scrollHeight;
       if (h > 50) frame.style.height = h + 'px';
