@@ -7283,6 +7283,13 @@ function _posPremShowContent(idx, html) {
   // that this index's content is unlocked.
   document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
 
+  // Subscribers should see their charts immediately under the Premium tab,
+  // not below the educational explanation or previously opened sales offer.
+  // Keep the explanation in the page after the charts for anyone who needs it.
+  var probPanel = document.getElementById('sp-' + idx + '-prob');
+  if (probPanel && contentEl.parentNode === probPanel && probPanel.firstElementChild !== contentEl) {
+    probPanel.insertBefore(contentEl, probPanel.firstElementChild);
+  }
 
   // Grab the outgoing iframe's active tab + zoom state (if any) before
   // it's replaced, so a refresh can restore it instead of resetting to
@@ -7705,26 +7712,98 @@ function _ofScrollToActiveModuleTabs(idx, behavior) {
   return true;
 }
 
+// The localStorage password is only a candidate key. Subscriber access is
+// confirmed by the existing AES-GCM decryptor, never by the presence of a key.
+var _ofSavedPremiumOpen = Object.create(null);
+function _ofPremiumChartFirst(idx) {
+  var holder = document.getElementById('sp-' + idx + '-prob');
+  var content = document.getElementById('posprem-content-' + idx);
+  if (holder && content && content.parentNode === holder && holder.firstElementChild !== content) {
+    holder.insertBefore(content, holder.firstElementChild);
+  }
+}
+function _ofScrollToSubscriberTab(idx) {
+  setTimeout(function() {
+    var panel = document.getElementById('panel-' + idx);
+    var active = panel && panel.classList.contains('on') &&
+      panel.querySelector('.sub-tabs > .stab[data-key="prob"].on');
+    if (active) _ofScrollToActiveModuleTabs(idx, 'smooth');
+  }, 60);
+}
 function showPremiumOffer(which, idx) {
   if (which === 'features' || which === 'volsurf') {
     var btn = document.querySelector('#panel-' + idx + ' .stab-prob');
-    switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
-    _fillOfferSlot('posprem-offerslot-' + idx, 'tmpl-features-offer');
-    _markOfferSeen('features', idx);
     var sales = document.getElementById('posprem-sales-' + idx);
-    if (sales) sales.style.display = 'block';
-    // From Explore Premium: display the offering and pricing first. Keep the
-    // one existing password form AFTER the offering ("Already subscribed?").
-    // Do not duplicate the key field or change decryption/password behavior.
     var lock = document.getElementById('posprem-lock-' + idx);
     var content = document.getElementById('posprem-content-' + idx);
-    if (sales && lock && !(content && content.querySelector('iframe') && content.style.display !== 'none')) {
-      sales.insertAdjacentElement('afterend', lock);
-      lock.style.display = 'block';
+    var holder = document.getElementById('sp-' + idx + '-prob');
+    var unlocked = !!(content && content.style.display !== 'none' && content.querySelector('iframe'));
+    var cached = _posPremDecrypted[idx]; // only set after successful decrypt
+    var savedKey = null;
+    try { savedKey = localStorage.getItem('_of_pw_pos'); } catch (e) {}
+
+    // Previously unlocked visitor: go directly to the charts. Never render
+    // the subscription offer in front of an already decrypted premium iframe.
+    if (unlocked || cached) {
+      switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
+      if (sales) sales.style.display = 'none';
+      if (lock) lock.style.display = 'none';
+      if (!unlocked && cached) _posPremShowContent(idx, cached);
+      _ofPremiumChartFirst(idx);
+      _ofScrollToSubscriberTab(idx);
+      return;
     }
-    // Show the Premium tab NAME as the entry point, not a lower sales card.
-    setTimeout(function(){ _ofScrollToActiveModuleTabs(idx, 'smooth'); }, 60);
-  } else if (which === 'recom' && window.PREMIUM_RECO_ENABLED) {   // no-op while Premium RECO is switched off
+
+    // A saved password may still be decrypting after a fresh browser-tab
+    // opening. Validate it asynchronously before choosing subscriber view.
+    // Do not flash the marketing page while a valid saved key is checked.
+    if (savedKey) {
+      switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
+      if (sales) sales.style.display = 'none';
+      if (lock) lock.style.display = 'none';
+      var pending = document.getElementById('of-premium-saved-check-' + idx);
+      if (!pending && holder) {
+        pending = document.createElement('div');
+        pending.id = 'of-premium-saved-check-' + idx;
+        pending.className = 'prem-pw-section';
+        pending.setAttribute('role', 'status');
+        pending.textContent = 'Opening your saved premium access…';
+        holder.insertBefore(pending, holder.firstElementChild);
+      }
+      _ofScrollToSubscriberTab(idx);
+      if (_ofSavedPremiumOpen[idx]) return;
+      _ofSavedPremiumOpen[idx] = _posPremDecryptFile(idx, savedKey)
+        .then(function(dec) {
+          // A background auto-unlock may already have mounted the same chart.
+          var already = content && content.style.display !== 'none' && content.querySelector('iframe');
+          if (!already) _posPremShowContent(idx, dec);
+          _posPremRawHash[idx + '_init'] = true;
+          if (sales) sales.style.display = 'none';
+          if (lock) lock.style.display = 'none';
+          _ofPremiumChartFirst(idx);
+          _ofScrollToSubscriberTab(idx);
+        })
+        .catch(function(e) {
+          if (e && e.message === 'wrong') {
+            try { localStorage.removeItem('_of_pw_pos'); } catch (ignore) {}
+          }
+          // Bad/expired/unavailable saved credentials must never bypass the
+          // existing locked sales and manual password-entry flow.
+          _ofShowPremiumOfferLocked(idx);
+        })
+        .finally(function() {
+          if (pending && pending.parentNode) pending.parentNode.removeChild(pending);
+          delete _ofSavedPremiumOpen[idx];
+        });
+      return;
+    }
+
+    // New/locked visitor: retain v18's offerings-first flow and place the
+    // existing password form after the sales details (no duplicate forms).
+    switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
+    _ofShowPremiumOfferLocked(idx);
+    return;
+  } else if (which === 'recom' && window.PREMIUM_RECO_ENABLED) {
     var btn2 = document.querySelector('#panel-' + idx + ' .stab-premium[data-key="premium"]');
     switchStab(idx, 'premium', btn2);
     _fillOfferSlot('premrecom-offerslot-' + idx, 'tmpl-recom-offer');
@@ -7733,6 +7812,18 @@ function showPremiumOffer(which, idx) {
     if (sales2) sales2.style.display = 'block';
     setTimeout(function(){ _scrollOfferIntoView(sales2); }, 60);
   }
+}
+function _ofShowPremiumOfferLocked(idx) {
+  _fillOfferSlot('posprem-offerslot-' + idx, 'tmpl-features-offer');
+  _markOfferSeen('features', idx);
+  var sales = document.getElementById('posprem-sales-' + idx);
+  var lock = document.getElementById('posprem-lock-' + idx);
+  if (sales) sales.style.display = 'block';
+  if (sales && lock) {
+    sales.insertAdjacentElement('afterend', lock);
+    lock.style.display = 'block';
+  }
+  _ofScrollToSubscriberTab(idx);
 }
 
 // "Get Started" button on either offer page — reveals the T&C block (it's
@@ -7862,7 +7953,14 @@ document.addEventListener('DOMContentLoaded', function() {
       _posPremDecryptFile(idx, savedPos)
         .then(function(dec) {
           _posPremRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
-          _posPremShowContent(idx, dec);
+          // If the visitor clicked Explore Premium during auto-unlock, that
+          // same verified chart may already be mounted. Avoid a second iframe
+          // rebuild, which would reset scenario scroll and cause a flash.
+          var alreadyVisible = document.getElementById('posprem-content-' + idx);
+          if (!(alreadyVisible && alreadyVisible.style.display !== 'none' &&
+                alreadyVisible.querySelector('iframe'))) {
+            _posPremShowContent(idx, dec);
+          }
         })
         .catch(function(e) {
           if (e.message === 'wrong') {
