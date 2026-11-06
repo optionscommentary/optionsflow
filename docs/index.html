@@ -2930,6 +2930,38 @@ html[data-theme] #main .tabs-scroll > .glass-flow {
   }
 }
 </style>
+<style id="of-floating-main-analytics-v21">
+/* V21: Quick-access strip for the MAIN analytics modules only.
+   Nested PCR/Volatility/Matrix tabs remain in their normal page positions. */
+html[data-theme] #main .idx-panel > .sub-tabs{position:relative!important;top:auto!important;z-index:auto!important}
+html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!important}
+.of-module-quicknav{position:fixed;left:10px;right:10px;top:0;z-index:875;
+ display:none;align-items:center;gap:5px;min-width:0;max-width:calc(100vw - 20px);
+ background:rgba(5,14,26,.96);border:1px solid var(--border);border-radius:11px;
+ box-shadow:0 9px 26px rgba(0,0,0,.38);padding:5px 7px;
+ -webkit-backdrop-filter:blur(15px);backdrop-filter:blur(15px)}
+.of-module-quicknav.of-visible{display:flex}
+[data-theme="light"] .of-module-quicknav{background:rgba(249,252,255,.97);box-shadow:0 6px 20px rgba(13,44,89,.12)}
+.of-module-quicknav-label{color:var(--t3);font:700 9px/1.1 Inter,sans-serif;
+ letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding:0 7px}
+.of-module-quicknav-scroller{display:flex;align-items:center;gap:4px;overflow-x:auto;
+ overflow-y:hidden;min-width:0;flex:1;scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+ -webkit-overflow-scrolling:touch}
+.of-module-quicknav .of-module-quicktab{flex:0 0 auto;min-height:34px;max-width:240px;
+ white-space:nowrap;display:inline-flex;align-items:center;gap:5px;padding:7px 11px;
+ border:1px solid transparent;border-radius:8px;
+ background:transparent;color:var(--t2);font:700 11px/1.25 Inter,sans-serif;cursor:pointer}
+.of-module-quicknav .of-module-quicktab:hover{background:var(--raised);border-color:var(--border)}
+.of-module-quicknav .of-module-quicktab.on{
+ background:var(--raised);color:var(--accent);border-color:var(--accent);
+ box-shadow:inset 0 -2px 0 var(--accent)}
+.of-module-quicknav .of-module-quicktab:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media(max-width:760px){
+ .of-module-quicknav{left:5px;right:5px;max-width:calc(100vw - 10px);border-radius:8px;padding:4px}
+ .of-module-quicknav-label{display:none}
+ .of-module-quicknav .of-module-quicktab{min-height:34px;font-size:10px;padding:6px 9px}
+}
+</style>
 </head>
 
 <body>
@@ -8181,5 +8213,87 @@ window.addEventListener('load',function(){
 });
 </script>
 
+<script id="of-floating-main-analytics-v21">
+/* V21 — Floating MAIN analytics tabs, with nested tabs left in place. */
+(function(){
+  'use strict';
+  var strip=document.createElement('nav');
+  strip.className='of-module-quicknav';
+  strip.setAttribute('aria-label','Floating analytics module tabs');
+  strip.innerHTML='<span class="of-module-quicknav-label">Analytics</span><div class="of-module-quicknav-scroller"></div>';
+  document.body.appendChild(strip);
+  var scroller=strip.querySelector('.of-module-quicknav-scroller');
+  var lastIndex='', lastKeys='', scheduled=false;
+  function pinnedBottom(){
+    var bottom=0;
+    ['#topbar','.tabs-bar'].forEach(function(sel){
+      var el=document.querySelector(sel);if(!el)return;
+      var st=getComputedStyle(el);if(!['sticky','fixed'].includes(st.position))return;
+      var r=el.getBoundingClientRect();
+      // Only account for bars that occupy the visible upper edge.
+      if(r.top>innerHeight/2||r.bottom<0)return;
+      if(st.position==='sticky'){
+        var t=parseFloat(st.top);if(!isFinite(t))t=0;
+        bottom=Math.max(bottom,t+r.height);
+      }else if(r.top<innerHeight*.4){bottom=Math.max(bottom,r.bottom);}
+    });
+    return Math.ceil(Math.max(0,bottom));
+  }
+  function activePanel(){return document.querySelector('#main .idx-panel.on');}
+  function refresh(){
+    scheduled=false;
+    var panel=activePanel();
+    var row=panel&&panel.querySelector(':scope > .sub-tabs');
+    if(!row){strip.classList.remove('of-visible');return;}
+    var idx=(panel.id||'').replace(/^panel-/,''),keys=Array.from(row.children)
+      .filter(function(b){return b.matches('button.stab')&&getComputedStyle(b).display!=='none';})
+      .map(function(b){return b.dataset.key||'';}).join('|');
+    if(idx!==lastIndex||keys!==lastKeys){
+      lastIndex=idx;lastKeys=keys;scroller.replaceChildren();
+      Array.from(row.children).filter(function(b){return b.matches('button.stab')&&getComputedStyle(b).display!=='none';})
+        .forEach(function(source){
+          var btn=document.createElement('button');btn.type='button';
+          btn.className='of-module-quicktab';btn.dataset.key=source.dataset.key||'';
+          btn.innerHTML=source.innerHTML;btn.title=source.textContent.trim();
+          btn.addEventListener('click',function(){
+            if(!panel.classList.contains('on'))return;
+            var real=Array.from(row.querySelectorAll(':scope > button.stab'))
+              .find(function(b){return b.dataset.key===btn.dataset.key;});
+            if(!real||typeof window.switchStab!=='function')return;
+            window.switchStab(idx,btn.dataset.key,real,{silent:true});
+            refresh();
+            var target=document.getElementById('sp-'+idx+'-'+btn.dataset.key);
+            if(target){
+              // Leave both the floating tabs and the new chart title visible.
+              var y=window.scrollY+target.getBoundingClientRect().top-pinnedBottom()-strip.offsetHeight-9;
+              window.scrollTo({top:Math.max(0,Math.round(y)),behavior:'auto'});
+            }
+            requestAnimationFrame(refresh);
+          });
+          scroller.appendChild(btn);
+        });
+    }
+    Array.from(scroller.children).forEach(function(b){
+      var source=Array.from(row.querySelectorAll(':scope > button.stab'))
+        .find(function(a){return a.dataset.key===b.dataset.key;});
+      var on=!!(source&&source.classList.contains('on'));
+      b.classList.toggle('on',on);b.setAttribute('aria-current',on?'true':'false');
+    });
+    var offset=pinnedBottom(),top=row.getBoundingClientRect().bottom;
+    var bottom=panel.getBoundingClientRect().bottom;
+    strip.style.top=(offset+3)+'px';
+    strip.classList.toggle('of-visible',top < offset+2 && bottom>offset+65);
+  }
+  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(refresh);}
+  window.addEventListener('scroll',schedule,{passive:true});
+  window.addEventListener('resize',schedule,{passive:true});
+  document.addEventListener('click',function(){setTimeout(schedule,0);},true);
+  window.addEventListener('load',schedule);
+  // Existing content/tab state can change without a scroll event.
+  var watch=document.getElementById('main');
+  if(watch)new MutationObserver(schedule).observe(watch,{attributes:true,subtree:true,attributeFilter:['class']});
+  schedule();
+})();
+</script>
 </body>
 </html>
