@@ -3020,6 +3020,93 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
 #main .of-premium-explain-body p{margin:0 0 10px}
 #main .of-premium-explain-body p:last-child{margin-bottom:0}
 </style>
+
+<style id="optionsflow-v29-usability">
+/* Only one analytics selector. No horizontally scrolling desktop tab bars. */
+@media(min-width:761px){
+  html #main .idx-panel.of29-tab-ready > .sub-tabs{display:none!important}
+  html #main .idx-panel .of29-analysis-switch{display:flex!important;position:sticky;top:calc(var(--app-bar-h,52px) + 2px);z-index:15}
+  html .of-module-quicknav{display:none!important}
+}
+.of29-analysis-switch{display:none;align-items:center;gap:12px;justify-content:space-between;min-width:0;margin:7px 0 11px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:9px;color:var(--t1)}
+.of29-analysis-switch label{font-size:12px;font-weight:750;white-space:nowrap;color:var(--t3)}
+.of29-analysis-switch select{appearance:auto;flex:1 1 auto;min-width:0;max-width:590px;font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:750;padding:9px 11px;min-height:42px;color:var(--t1);border:1px solid var(--border-lit);border-radius:8px;background:var(--raised);cursor:pointer}
+.of29-analysis-switch select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:760px){
+  html .of29-analysis-switch{display:none!important}
+  html .of-module-quicknav .of-module-quicknav-scroller{display:none!important}
+}
+/* The bottom chart timeline is the only snapshot slider. Scenario input panels
+   contain time/price/IV only, while original inputs remain mounted for calculations. */
+#main .ppf-host-grid .ppf-host-snapshot{display:none!important}
+#main .ppf-host-grid .ppf-host-desk{height:auto!important;max-height:calc(100dvh - var(--app-bar-h,52px) - 90px)!important}
+.ppf-portal [data-ppf-tab="snapshot"],.ppf-portal [data-ppf-field="snapshot"]{display:none!important}
+/* Premium cards already show charts at full width; don't force a second Expand step. */
+#main [id^="posprem-content-"] .prem-frame-hdr .fs-btn{display:none!important}
+</style>
+<style id="optionsflow-v30-usability">
+/* V30: real, always-visible desktop analysis tabs; no scrollbars or floating overlays. */
+@media (min-width:761px) {
+  html[data-theme] #main .idx-panel > .sub-tabs,
+  html #main .idx-panel.of29-tab-ready > .sub-tabs {
+    display:grid!important;
+    grid-template-columns:repeat(7,minmax(0,1fr));
+    gap:6px!important;overflow:visible!important;
+    overflow-x:visible!important;overflow-y:visible!important;
+    position:relative!important;top:auto!important;z-index:auto!important;
+    width:100%;padding:8px!important;margin:8px 0 14px!important;
+  }
+  html[data-theme] #main .idx-panel > .sub-tabs::before,
+  html[data-theme] #main .idx-panel > .sub-tabs::after {content:none!important;display:none!important;}
+  html[data-theme] #main .idx-panel > .sub-tabs > button.stab {
+    width:100%!important;min-width:0!important;max-width:none!important;
+    flex:none!important;box-sizing:border-box!important;
+    min-height:43px;padding:7px 5px!important;
+    white-space:normal!important;overflow-wrap:break-word!important;
+    line-height:1.2!important;text-align:center!important;
+    justify-content:center!important;
+  }
+  html[data-theme] .of-module-quicknav,
+  html[data-theme] #main .of29-analysis-switch {display:none!important;}
+}
+@media (min-width:761px) and (max-width:1579px) {
+  html[data-theme] #main .idx-panel > .sub-tabs {grid-template-columns:repeat(6,minmax(0,1fr));}
+}
+@media (min-width:761px) and (max-width:1199px) {
+  html[data-theme] #main .idx-panel > .sub-tabs {grid-template-columns:repeat(5,minmax(0,1fr));}
+}
+@media (min-width:761px) and (max-width:949px) {
+  html[data-theme] #main .idx-panel > .sub-tabs {grid-template-columns:repeat(4,minmax(0,1fr));}
+}
+/* The five desktop index tabs also remain visible without horizontal panning. */
+@media(min-width:761px){
+  html[data-theme] #main .tabs-bar .tabs-scroll,
+  html[data-theme] #main .tabs-scroll {
+    display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));
+    flex:1 1 auto!important;max-width:100%!important;min-width:0!important;
+    overflow:visible!important;overflow-x:visible!important;gap:4px!important;
+  }
+  html[data-theme] #main .tabs-scroll > button.tab {
+    width:100%!important;min-width:0!important;padding:9px 4px!important;
+    white-space:normal!important;overflow-wrap:break-word!important;
+    line-height:1.22!important;text-align:center!important;
+  }
+}
+/* All two- or three-choice nested analysis strips wrap rather than scroll. */
+html[data-theme] #main .idx-panel .stab-panel > .sub-tabs {
+  display:flex!important;flex-wrap:wrap!important;overflow:visible!important;
+  overflow-x:visible!important;max-width:100%;gap:6px!important;
+}
+html[data-theme] #main .idx-panel .stab-panel > .sub-tabs > button.stab {
+  flex:1 1 auto!important;white-space:normal!important;min-width:0!important;
+}
+@media(max-width:760px){
+  /* Keep the existing single mobile analytics selector and fixed index dock. */
+  html[data-theme] #main .idx-panel.on > .sub-tabs {display:none!important;}
+  html[data-theme] .of-module-quicknav .of-module-quicknav-select {display:flex!important;}
+  html[data-theme] .of-module-quicknav .of-module-quicknav-scroller {display:none!important;}
+}
+</style>
 </head>
 
 <body>
@@ -5648,7 +5735,7 @@ function toggleTheme(){
     // popups, which are view-only (see Mount.prototype.noWheelPopup + openLbx).
     this.cv.style.cursor = 'zoom-in';
     this.cv.addEventListener('click', function () { if (self.zoomState && (self.zoomState.s>1.001 || self.zoomState.moved)) { self.zoomState.moved=false; return; } self.zoomOpen(); });
-    if (/^(?:prob|panels|skew|pcrhist|absgex|oipcr)$/.test(this.kind)) this.initWheelZoom();
+    /* In-page zoom disabled. Open chart viewer to zoom. */
     this.built = true;
   };
   function isMobileTop() {
@@ -8682,6 +8769,25 @@ window.addEventListener('load',function(){
  // Tab switches can happen within another click handler in the same tick.
  document.addEventListener('click',schedule,true);
  schedule();
+})();
+</script>
+
+<script id="optionsflow-v30-usability-script">
+(function(){
+ 'use strict';
+ // Keep the original buttons and handlers. Desktop tabs are visible and wrap;
+ // mobile uses its one native analysis selector. No second desktop dropdown.
+ // Portals are created by the unchanged premium generator after unlocking.
+ // Move their initial tab away from Snapshot, since the chart has the only timeline.
+ function scenarioPortals(){
+   document.querySelectorAll('.ppf-portal:not([data-of29-init])').forEach(function(portal){
+     portal.setAttribute('data-of29-init','');
+     var time=portal.querySelector('[data-ppf-tab="time"]');if(time)time.click();
+   });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',scenarioPortals);else scenarioPortals();
+ var queued=false;
+ new MutationObserver(function(){if(queued)return;queued=true;requestAnimationFrame(function(){queued=false;scenarioPortals();});}).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
 </body>
