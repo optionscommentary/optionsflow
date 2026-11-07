@@ -7208,12 +7208,17 @@ function _posPremCaptureScroll(idx) {
     var activePanel = doc.querySelector('.pp-panel.on');
     var activeTab = activePanel ? (activePanel.id || '').replace('pp-panel-', '') : 'main';
     if (activeTab) sessionStorage.setItem('_of_posprem_tab_' + idx, activeTab);
+    // Save the nested GEX/VEX/CEX/History chart choice alongside the
+    // existing Positioning/Matrix tab. This survives polling and page reloads.
+    var chartView = doc.defaultView && typeof doc.defaultView.ppGetPositioningView === 'function'
+      ? doc.defaultView.ppGetPositioningView() : 'g';
+    sessionStorage.setItem('_of_posprem_view_' + idx, chartView);
     var zoom = null;
     if (activePanel) {
       var box = activePanel.querySelector('.zm-box');
       if (box && typeof box._zmGetState === 'function') zoom = box._zmGetState();
     }
-    _posPremScrollState[idx] = { activeTab: activeTab, zoom: zoom };
+    _posPremScrollState[idx] = { activeTab: activeTab, chartView: chartView, zoom: zoom };
   } catch (e) { /* cross-origin/blob edge cases — just skip restoring */ }
 }
 
@@ -7223,6 +7228,7 @@ function _posPremRestoreScroll(idx, frame) {
     var state = _posPremScrollState[idx];   // set only if an old iframe existed THIS page load → auto-refresh
     var isAutoRefresh = !!state;
     var savedTab = (state && state.activeTab) || sessionStorage.getItem('_of_posprem_tab_' + idx) || 'main';
+    var savedView = (state && state.chartView) || sessionStorage.getItem('_of_posprem_view_' + idx) || 'g';
 
     // Switch to the tab the user was actually on (works for both the
     // auto-refresh in-memory case and the manual/page-reload sessionStorage
@@ -7239,6 +7245,9 @@ function _posPremRestoreScroll(idx, frame) {
       if (typeof doc.defaultView.ppSwitchByKey === 'function') {
         doc.defaultView.ppSwitchByKey(savedTab);
       }
+    }
+    if (typeof doc.defaultView.ppSetPositioningView === 'function') {
+      doc.defaultView.ppSetPositioningView(savedView);
     }
 
     // Only reapply the exact zoom/pan on an auto-refresh, and only for the
@@ -7264,11 +7273,13 @@ function _posPremRestoreScroll(idx, frame) {
 function _posPremResetToMain(idx) {
   try {
     sessionStorage.setItem('_of_posprem_tab_' + idx, 'main');
+    sessionStorage.setItem('_of_posprem_view_' + idx, 'g');
     delete _posPremScrollState[idx];
     var contentEl = document.getElementById('posprem-content-' + idx);
     var frame = contentEl && contentEl.querySelector('iframe');
     var win = frame && frame.contentDocument && frame.contentDocument.defaultView;
     if (win && typeof win.ppSwitchByKey === 'function') win.ppSwitchByKey('main');
+    if (win && typeof win.ppSetPositioningView === 'function') win.ppSetPositioningView('g');
   } catch (e) {}
 }
 
@@ -7343,6 +7354,9 @@ function _posPremShowContent(idx, html) {
         var btn = e.target.closest && e.target.closest('.pp-tab');
         var key = btn && btn.dataset && btn.dataset.key;
         if (key) sessionStorage.setItem('_of_posprem_tab_' + idx, key);
+        var viewButton = e.target.closest && e.target.closest('[data-pp-view]');
+        var view = viewButton && viewButton.getAttribute('data-pp-view');
+        if (view) sessionStorage.setItem('_of_posprem_view_' + idx, view);
       });
     } catch (e) {}
     // Track the matrix tables' horizontal scroll position live (capture
