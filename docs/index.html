@@ -8587,5 +8587,54 @@ window.addEventListener('load',function(){
  schedule();
 })();
 </script>
+<script id="of-v27-scenario-rail-coordinator">
+/* V27: The parent page—not hidden premium iframes—owns which desktop
+   controller is active. This eliminates tab overlap and avoids background
+   preloaded indices affecting the selected chart. */
+(function(){
+ 'use strict';
+ var main=document.getElementById('main');if(!main)return;
+ var frameQueued=false;
+ function sync(){
+   frameQueued=false;
+   var active=window.innerWidth>=980?
+     main.querySelector('.idx-panel.on .stab-panel.on .prem-frame-card.ppf-host-grid'):null;
+   var cards=main.querySelectorAll('.prem-frame-card.ppf-host-grid');
+   cards.forEach(function(card){
+     var show=card===active,aside=card.querySelector(':scope > .ppf-host-desk');
+     if(card.classList.contains('ppf-host-grid-desktop')!==show)
+       card.classList.toggle('ppf-host-grid-desktop',show);
+     if(aside&&aside.classList.contains('is-visible')!==show)
+       aside.classList.toggle('is-visible',show);
+     // Model-side values remain untouched. Hide only the duplicate display
+     // controls in the iframe while the host grid owns the visible panel.
+     try{
+       var frame=card.querySelector(':scope > iframe');
+       var root=frame&&frame.contentDocument&&frame.contentDocument.getElementById('pp-sim');
+       if(root&&root.classList.contains('ppf-host-docked')!==show)
+         root.classList.toggle('ppf-host-docked',show);
+     }catch(_){}
+   });
+   var aside=active&&active.querySelector(':scope > .ppf-host-desk');
+   var rect=aside&&aside.getBoundingClientRect();
+   var available=!!(rect&&rect.width>100);
+   document.body.classList.toggle('ppf-scenario-docked',available);
+   if(available)
+     document.documentElement.style.setProperty('--ppf-scenario-nav-left',Math.ceil(rect.right+10)+'px');
+   else
+     document.documentElement.style.removeProperty('--ppf-scenario-nav-left');
+ }
+ function schedule(){
+   if(frameQueued)return;frameQueued=true;
+   requestAnimationFrame(sync);
+ }
+ window._ofSyncScenarioRail=sync;
+ new MutationObserver(schedule).observe(main,{attributes:true,childList:true,subtree:true,attributeFilter:['class']});
+ window.addEventListener('resize',schedule,{passive:true});
+ // Tab switches can happen within another click handler in the same tick.
+ document.addEventListener('click',schedule,true);
+ schedule();
+})();
+</script>
 </body>
 </html>
