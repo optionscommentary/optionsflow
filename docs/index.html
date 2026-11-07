@@ -2997,6 +2997,13 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
   html{scroll-padding-top:110px}
 }
 </style>
+<style id="of-premium-education-v25">
+/* V25: put a concise explanation BEFORE premium charts, no tall pre-chart essay. */
+#main .stab-panel > .edu-box:has(> .pp-education-details){margin-bottom:10px}
+#main .pp-education-details{margin-top:9px;border-top:1px solid var(--border);padding-top:8px}
+#main .pp-education-details > summary{cursor:pointer;color:var(--accent);font-weight:750;font-size:12px;line-height:1.45;list-style-position:inside;min-height:30px}
+#main .pp-education-details > p:first-of-type{margin-top:8px}
+</style>
 </head>
 
 <body>
@@ -3315,10 +3322,13 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
       <div class="edu-box">
         <h3>🎯 Probable Positioning – NIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
+        <details class="edu-collapsible pp-education-details"><summary>How it works and how to read the chart</summary>
+
         <p><strong>How the engine works:</strong> Probable Positioning runs a proprietary multi-factor model across the chain, strike by strike, to estimate whether dealers are more likely long or short gamma at that level. The specific inputs and weighting behind the model are not disclosed.</p>
         <p><strong>Now included in Premium:</strong> A historical timewise snapshot scroller and three linked future scenario controls &mdash; Future Time, Synthetic Future and <strong>IV Change (Parallel IV)</strong>. Explore model-calculated changes to probable GEX, VEX, CEX, strike-wise matrices and the intraday history chart using a recorded chain as the starting point. Hypothetical scenarios are not observed future market data.</p>
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests. This is the most sophisticated output on the dashboard and requires practice to interpret – start by comparing it to the raw GEX chart.</p>
+        </details>
       </div>
       <div id="posprem-sales-nifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
@@ -3616,11 +3626,14 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
       <div class="edu-box">
         <h3>🎯 Probable Positioning – BANKNIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
+        <details class="edu-collapsible pp-education-details"><summary>How it works and how to read the chart</summary>
+
         <p><strong>How the engine works:</strong> Probable Positioning runs a proprietary multi-factor model across the chain, strike by strike, to estimate whether dealers are more likely long or short gamma at that level. The specific inputs and weighting behind the model are not disclosed.</p>
         <p><strong>Now included in Premium:</strong> A historical timewise snapshot scroller and three linked future scenario controls &mdash; Future Time, Synthetic Future and <strong>IV Change (Parallel IV)</strong>. Explore model-calculated changes to probable GEX, VEX, CEX, strike-wise matrices and the intraday history chart using a recorded chain as the starting point. Hypothetical scenarios are not observed future market data.</p>
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>BankNifty‑specific note:</strong> BankNifty dealer positioning is often more polarised than Nifty. The chart can show large blue bars at round numbers where put writers are active, and large orange bars at strikes where call writers are active. When a cluster of blue bars sits just below spot, that is a strong support zone. A cluster of orange bars just above spot is a weak resistance zone – price is likely to break through it.</p>
+        </details>
       </div>
       <div id="posprem-sales-banknifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
@@ -3920,11 +3933,14 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
       <div class="edu-box">
         <h3>🎯 Probable Positioning – SENSEX</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
+        <details class="edu-collapsible pp-education-details"><summary>How it works and how to read the chart</summary>
+
         <p><strong>How the engine works:</strong> Probable Positioning runs a proprietary multi-factor model across the chain, strike by strike, to estimate whether dealers are more likely long or short gamma at that level. The specific inputs and weighting behind the model are not disclosed.</p>
         <p><strong>Now included in Premium:</strong> A historical timewise snapshot scroller and three linked future scenario controls &mdash; Future Time, Synthetic Future and <strong>IV Change (Parallel IV)</strong>. Explore model-calculated changes to probable GEX, VEX, CEX, strike-wise matrices and the intraday history chart using a recorded chain as the starting point. Hypothetical scenarios are not observed future market data.</p>
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Sensex‑specific note:</strong> The probable positioning engine works the same for Sensex, but the lower OI means the conviction level is often MODERATE or LOW. Use the Sensex probable positioning chart to identify strikes where dealers are long gamma – these levels are more reliable because thin markets tend to respect dealer hedging more strongly. Short gamma signals are less reliable because dealers may not have enough hedging volume to move price.</p>
+        </details>
       </div>
       <div id="posprem-sales-sensex" class="posprem-outer" style="display:none">
         <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
@@ -4224,11 +4240,14 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
       <div class="edu-box">
         <h3>🎯 Probable Positioning – FINNIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
+        <details class="edu-collapsible pp-education-details"><summary>How it works and how to read the chart</summary>
+
         <p><strong>How the engine works:</strong> Probable Positioning runs a proprietary multi-factor model across the chain, strike by strike, to estimate whether dealers are more likely long or short gamma at that level. The specific inputs and weighting behind the model are not disclosed.</p>
         <p><strong>Now included in Premium:</strong> A historical timewise snapshot scroller and three linked future scenario controls &mdash; Future Time, Synthetic Future and <strong>IV Change (Parallel IV)</strong>. Explore model-calculated changes to probable GEX, VEX, CEX, strike-wise matrices and the intraday history chart using a recorded chain as the starting point. Hypothetical scenarios are not observed future market data.</p>
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>FinNifty‑specific note:</strong> The probable positioning engine for FinNifty uses the same logic as Nifty, but with lower OI the conviction levels are often MODERATE. Use the chart to identify strikes where the estimated dealer gamma is large in magnitude relative to OI – those are the most important levels. Because FinNifty is less liquid, dealer positioning can change quickly; refresh the data frequently.</p>
+        </details>
       </div>
       <div id="posprem-sales-finnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
@@ -4528,11 +4547,14 @@ html[data-theme] #main .stab-panel .sub-tabs{position:static!important;top:auto!
       <div class="edu-box">
         <h3>🎯 Probable Positioning – MIDCAP NIFTY</h3>
         <p>The four GEX scenarios (Long Call/Short Put, Short Call/Short Put, etc.) are useful, but they assume the same dealer posture applies uniformly to every strike. In reality, dealers can be long gamma at some strikes and short gamma at others. The <strong>Probable Positioning</strong> chart attempts to resolve this strike‑by‑strike using a proprietary multi-factor model that estimates actual dealer positioning at each strike.</p>
+        <details class="edu-collapsible pp-education-details"><summary>How it works and how to read the chart</summary>
+
         <p><strong>How the engine works:</strong> Probable Positioning runs a proprietary multi-factor model across the chain, strike by strike, to estimate whether dealers are more likely long or short gamma at that level. The specific inputs and weighting behind the model are not disclosed.</p>
         <p><strong>Now included in Premium:</strong> A historical timewise snapshot scroller and three linked future scenario controls &mdash; Future Time, Synthetic Future and <strong>IV Change (Parallel IV)</strong>. Explore model-calculated changes to probable GEX, VEX, CEX, strike-wise matrices and the intraday history chart using a recorded chain as the starting point. Hypothetical scenarios are not observed future market data.</p>
         <p><strong>Reading the chart:</strong> Blue bars (positive) mean the dealer is estimated to be long gamma at that strike – price is attracted to that level, and moves away from it are dampened. Orange bars (negative) mean the dealer is estimated to be short gamma – price tends to accelerate away from that level. The size of the bar indicates the conviction of the estimate. The net total across all strikes tells you the aggregate dealer gamma (positive or negative).</p>
         <p><strong>Practical use:</strong> Look for strikes where the probable positioning disagrees with the raw OI picture. For example, a strike with high put OI (apparent support) but estimated short gamma (orange bar) is actually a weak floor – it may break more easily than expected. Conversely, a strike with moderate OI but estimated long gamma (blue bar) may act as stronger support than the OI alone suggests.</p>
         <p><strong>Midcap‑specific note:</strong> The probable positioning engine works less reliably on Midcap Nifty because of lower OI and fewer strikes. Conviction is almost always MODERATE or LOW. Use the chart to identify large blue bars (long gamma) – those are the most reliable levels. Orange bars (short gamma) should be treated with skepticism unless they are very large.</p>
+        </details>
       </div>
       <div id="posprem-sales-midcpnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
@@ -6873,6 +6895,9 @@ function _premHash(s) {
 // Runs once after DOM is ready; the OI panels already use <details> so they are skipped.
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.stab-panel .edu-box').forEach(function(box) {
+    // Premium positioning keeps a short, visible explanation ABOVE its charts.
+    // Do not wrap that card in a second, closed disclosure element.
+    if (box.parentElement && box.parentElement.matches('.stab-panel[id$="-prob"]')) return;
     if (box.tagName.toLowerCase() === 'details') return; // already converted
     var h3 = box.querySelector('h3');
     if (!h3) return; // no heading to use as summary title — leave as-is
@@ -7318,13 +7343,9 @@ function _posPremShowContent(idx, html) {
   // that this index's content is unlocked.
   document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
 
-  // Subscribers should see their charts immediately under the Premium tab,
-  // not below the educational explanation or previously opened sales offer.
-  // Keep the explanation in the page after the charts for anyone who needs it.
-  var probPanel = document.getElementById('sp-' + idx + '-prob');
-  if (probPanel && contentEl.parentNode === probPanel && probPanel.firstElementChild !== contentEl) {
-    probPanel.insertBefore(contentEl, probPanel.firstElementChild);
-  }
+  // Keep the positioning explanation ABOVE the unlocked chart, but compact
+  // on phones.  The full methodology and reading guide stays expandable.
+  _ofPremiumChartFirst(idx);
 
   // Grab the outgoing iframe's active tab + zoom state (if any) before
   // it's replaced, so a refresh can restore it instead of resetting to
@@ -7767,9 +7788,13 @@ var _ofSavedPremiumOpen = Object.create(null);
 function _ofPremiumChartFirst(idx) {
   var holder = document.getElementById('sp-' + idx + '-prob');
   var content = document.getElementById('posprem-content-' + idx);
-  if (holder && content && content.parentNode === holder && holder.firstElementChild !== content) {
-    holder.insertBefore(content, holder.firstElementChild);
-  }
+  var explanation = holder && holder.querySelector(':scope > .edu-box');
+  if (!holder || !content || content.parentNode !== holder) return;
+  // One compact explanatory card, then the live charts, then hidden sales/lock.
+  if (explanation) {
+    if (holder.firstElementChild !== explanation) holder.insertBefore(explanation,holder.firstElementChild);
+    if (explanation.nextElementSibling !== content) explanation.insertAdjacentElement('afterend',content);
+  } else if (holder.firstElementChild !== content) holder.insertBefore(content,holder.firstElementChild);
 }
 function _ofScrollToSubscriberTab(idx) {
   setTimeout(function() {
@@ -8341,10 +8366,25 @@ function ofOpenPremium(){
 /* Target a non-sticky heading to avoid hidden sections and tab-bar jumps. */
 function ofScrollToWorkspace(ev, behavior){
   if(ev && ev.preventDefault) ev.preventDefault();
+  window._ofMobileAnalyticsIntent = true;
   // The index selector is sticky on desktop; the actual chart-type tabs
   // should also be visible on arrival, including on phones.
   var active=document.querySelector('.idx-panel.on');
   var idx=active && active.id && active.id.indexOf('panel-')===0 ? active.id.slice(6) : 'nifty';
+  // On mobile the index tabs are FIXED TO THE BOTTOM, so scrolling to
+  // #of-workspace (their container) is incorrect. Target the actual active
+  // analytics chart and reserve room for the compact floating selector.
+  if(window.innerWidth<=760 && active){
+    var chart=active.querySelector(':scope > .stab-panel.on');
+    if(chart){
+      var appTop=parseFloat(getComputedStyle(document.documentElement)
+        .getPropertyValue('--app-bar-h'))||52;
+      var reserved=appTop+52;
+      var y=window.scrollY+chart.getBoundingClientRect().top-reserved;
+      window.scrollTo({top:Math.max(0,Math.round(y)),behavior:behavior||'smooth'});
+      return false;
+    }
+  }
   if(typeof _ofScrollToActiveModuleTabs==='function' &&
      _ofScrollToActiveModuleTabs(idx, behavior||'smooth')) return false;
   var target=document.getElementById('of-workspace');
@@ -8429,7 +8469,7 @@ window.addEventListener('load',function(){
     var offset=pinnedBottom(),top=row.getBoundingClientRect().bottom;
     var bottom=panel.getBoundingClientRect().bottom;
     strip.style.top=(offset+3)+'px';
-    strip.classList.toggle('of-visible',top < offset+2 && bottom>offset+65);
+    if(window.innerWidth>760) strip.classList.toggle('of-visible',top < offset+2 && bottom>offset+65);
   }
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(refresh);}
   window.addEventListener('scroll',schedule,{passive:true});
@@ -8472,10 +8512,20 @@ window.addEventListener('load',function(){
    if(chosen&&select.value!==chosen.dataset.key)select.value=chosen.dataset.key;
    if(mobile()){
      var panel=document.querySelector('#main .idx-panel.on');
-     var rect=panel&&panel.getBoundingClientRect();
-     var safe=window._stickyStackBottom?window._stickyStackBottom():52;
-     var visible=!!(rect&&rect.bottom>safe+75&&rect.top<window.innerHeight-80);
+     var activeChart=panel&&panel.querySelector(':scope > .stab-panel.on');
+     var chartRect=activeChart&&activeChart.getBoundingClientRect();
+     var panelRect=panel&&panel.getBoundingClientRect();
+     // Show ONLY inside Market Analytics: when the selected chart actually
+     // reaches the upper reading area or Open Analytics was explicitly tapped.
+     // The fixed 5-index dock at the bottom is NOT an entry marker.
+     var readingTop=Math.max(110,Math.min(175,window.innerHeight*0.22));
+     var atCharts=!!(chartRect&&chartRect.top<=readingTop&&chartRect.bottom>readingTop-12);
+     var fromCTA=!!(window._ofMobileAnalyticsIntent&&panelRect&&
+       panelRect.top<window.innerHeight-95&&panelRect.bottom>readingTop-12);
+     var visible=atCharts||fromCTA;
      strip.classList.toggle('of-visible',visible);
+     if(atCharts||!panelRect||panelRect.top>window.innerHeight-40)
+       window._ofMobileAnalyticsIntent=false;
    }
  }
  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(sync);}
