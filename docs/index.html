@@ -2676,6 +2676,9 @@ html[data-theme] #main .of-premium-feature-overview strong {
   display:block;font-size:clamp(1.05rem,1.5vw,1.38rem);line-height:1.45;
   font-weight:730;letter-spacing:-.025em;margin:10px 0 12px;
 }
+/* Match the premium section’s sky-blue highlight without altering its layout. */
+html[data-theme] #main .of-premium-feature-overview .of-positioning-accent { color:#7DD3FC; }
+html[data-theme="light"] #main .of-premium-feature-overview .of-positioning-accent { color:#a4e3fa; }
 html[data-theme] #main .of-premium-feature-overview {align-items:flex-start;text-align:left;}
 html[data-theme] #main .of-premium-feature-overview .of-premium-feature-hint {max-width:255px;font-size:.78rem;line-height:1.7;}
 /* Keep original logo CSS intact, restore adequate space and legibility to live quotes. */
@@ -3090,7 +3093,7 @@ html[data-theme] #main .stab-panel[id^="sp-"][id$="-prob"] > [id^="posprem-conte
     </div>
     <div class="of-premium-feature-action of-premium-feature-overview" aria-label="Premium feature overview">
       <span class="of-premium-feature-caption">POSITIONING · VOLATILITY · SCENARIOS</span>
-      <strong>Positioning in focus.<br>Possibilities in perspective.</strong>
+      <strong>Positioning in focus.<br><span class="of-positioning-accent">Possibilities in perspective.</span></strong>
       <span class="of-premium-feature-hint">Explore the full range of analytics in the sections below.</span>
     </div>
   </section>
