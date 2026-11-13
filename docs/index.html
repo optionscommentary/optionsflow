@@ -3746,6 +3746,21 @@ html[data-theme] body[data-of-premium-promise="subscriber"] #main > .of-premium-
   display:none!important;
 }
 </style>
+
+<style id="of-v24-light-cta-legibility">
+/* Only the saturated Premium pricing CTAs in LIGHT mode: white labels need
+   a deeper gold/green backdrop to remain readable, including at small sizes.
+   Dark mode colours, links, handlers and other buttons are unchanged. */
+html[data-theme="light"] #main .prem-getstarted-btn,
+html[data-theme="light"] #main .prem-price-getstarted-btn {
+  color:#FFFFFF!important;
+  background:linear-gradient(135deg,#9D6500 0%,#855400 100%)!important;
+}
+html[data-theme="light"] #main .prem-price-details-btn {
+  color:#FFFFFF!important;
+  background:linear-gradient(135deg,#0A815F 0%,#075E47 100%)!important;
+}
+</style>
 </head>
 
 <body data-of-view="home">
