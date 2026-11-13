@@ -3651,6 +3651,16 @@ html[data-theme] .pp-demo-preview.pp-demo-expanded .pp-demo-panel.on{min-height:
 </head>
 
 <body data-of-view="home">
+<script id="of-initial-view-restore">
+/* Choose the screen before the home or chart markup is parsed and painted. */
+(function () {
+  var h = window.location.hash.toLowerCase();
+  var view = (h === '#premium' || h === '#view-premium') ? 'premium'
+    : (h === '#analytics' || h === '#view-analytics' || h === '#of-analytics') ? 'analytics'
+    : 'home';
+  document.body.setAttribute('data-of-view', view);
+})();
+</script>
 
 <div class="contact-strip">
   <span class="cs-lbl">Connect</span>
@@ -6668,6 +6678,7 @@ function renderIndex(idx, data){
   if(spa) spa.innerHTML = analysisHtml(idx, data);
 }
 async function switchIdx(idx){
+  _ofCollapsePremiumScenarios();
   sessionStorage.setItem('_of_tab', idx);
   // Keep selection within this browser-tab session. A fresh website visit
   // starts at NIFTY / RAW GEX, while Open Analytics retains the current tab.
@@ -7947,6 +7958,41 @@ function _posPremRestoreScroll(idx, frame) {
 // it, so switching to a different index never carries over whatever
 // sub-tab was last viewed. Safe to call even if the widget isn't unlocked
 // yet or isn't built (no iframe) — it just no-ops in that case.
+// Keep the Premium Scenario Controller collapsed when leaving or re-entering
+// a Premium Analytics view, changing index, or restoring a previous page.
+// Use the existing controller action (not CSS): collapsing also resets the
+// scenario values and metrics to the selected recorded snapshot.
+function _ofCollapsePremiumScenarios() {
+  document.querySelectorAll('[id^="posprem-content-"] iframe').forEach(function(frame) {
+    try {
+      var win = frame.contentWindow;
+      if (!win) return;
+      // New GEXMA builds expose this idempotent entry point.
+      if (typeof win.ppCollapseScenario === 'function') {
+        win.ppCollapseScenario();
+        return;
+      }
+      // Compatibility with already-published encrypted GEXMA premium files:
+      // click the real Collapse/Expand control ONLY when currently expanded.
+      var doc = frame.contentDocument;
+      if (!doc) return;
+      var body = doc.getElementById('pp-scenario-body');
+      var toggle = doc.getElementById('pp-scenario-toggle');
+      if (body && !body.hidden && toggle) toggle.click();
+    } catch (e) {
+      // A not-yet-loaded or inaccessible iframe will start collapsed when loaded.
+    }
+  });
+}
+
+window.addEventListener('pagehide', _ofCollapsePremiumScenarios);
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted) _ofCollapsePremiumScenarios();
+});
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) _ofCollapsePremiumScenarios();
+});
+
 function _posPremResetToMain(idx) {
   try {
     sessionStorage.setItem('_of_posprem_tab_' + idx, 'main');
@@ -8018,6 +8064,7 @@ function _posPremShowContent(idx, html) {
     try { frame.contentWindow.openLbx = window.openLbx; } catch (e) {}
     _fitHeight();
     _posPremRestoreScroll(idx, frame);
+    _ofCollapsePremiumScenarios();
     URL.revokeObjectURL(url);
     // Keep sessionStorage current the instant the user actually clicks a
     // tab (not just at the next 30s poll) — covers switching tabs and
@@ -9035,6 +9082,7 @@ document.addEventListener('pointermove',function(e){
   function show(view,historyEvent){
     if(view!=='analytics'&&view!=='premium')view='home';
     var old=lastView,changed=old!==view;
+    if(changed) _ofCollapsePremiumScenarios();
     document.body.setAttribute('data-of-view',view);
     if(currentLabels[view]){
       document.getElementById('of-view-kicker').textContent=currentLabels[view][0];
@@ -9049,9 +9097,12 @@ document.addEventListener('pointermove',function(e){
       if(isCurrent)button.removeAttribute('aria-current');
       button.title=button.dataset.ofTarget==='analytics'?'Go to Analytics':'Go to Premium Analytics';
     });
-    if(changed){
+    if(changed && old){
       document.body.classList.remove('of-view-enter');void document.body.offsetWidth;
       document.body.classList.add('of-view-enter');
+    } else if(!old) {
+      // Refresh: do not fade the restored screen in after the first paint.
+      document.body.classList.remove('of-view-enter');
     }
     lastView=view;
     if(view==='analytics')ensureSelection('analytics',idx());
