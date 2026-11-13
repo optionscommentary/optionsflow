@@ -3779,11 +3779,11 @@ html[data-theme] .pp-demo-preview.pp-demo-expanded .pp-demo-panel.on{min-height:
 
   <div class="tabs-bar" id="of-analytics">
     <div class="tabs-scroll">
-      <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty')"><span class="tab-lbl">NIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-nifty">—</b><i class="tab-chg" id="tabchg-nifty"></i></span></button>
-      <button class="tab" id="tab-banknifty" onclick="switchIdx('banknifty')"><span class="tab-lbl">BANKNIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-banknifty">—</b><i class="tab-chg" id="tabchg-banknifty"></i></span></button>
-      <button class="tab" id="tab-sensex" onclick="switchIdx('sensex')"><span class="tab-lbl">SENSEX</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-sensex">—</b><i class="tab-chg" id="tabchg-sensex"></i></span></button>
-      <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty')"><span class="tab-lbl">FINNIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-finnifty">—</b><i class="tab-chg" id="tabchg-finnifty"></i></span></button>
-      <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty')"><span class="tab-lbl">MIDCAP</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-midcpnifty">—</b><i class="tab-chg" id="tabchg-midcpnifty"></i></span></button>
+      <button class="tab on" id="tab-nifty" onclick="switchIdx('nifty', event)"><span class="tab-lbl">NIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-nifty">—</b><i class="tab-chg" id="tabchg-nifty"></i></span></button>
+      <button class="tab" id="tab-banknifty" onclick="switchIdx('banknifty', event)"><span class="tab-lbl">BANKNIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-banknifty">—</b><i class="tab-chg" id="tabchg-banknifty"></i></span></button>
+      <button class="tab" id="tab-sensex" onclick="switchIdx('sensex', event)"><span class="tab-lbl">SENSEX</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-sensex">—</b><i class="tab-chg" id="tabchg-sensex"></i></span></button>
+      <button class="tab" id="tab-finnifty" onclick="switchIdx('finnifty', event)"><span class="tab-lbl">FINNIFTY</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-finnifty">—</b><i class="tab-chg" id="tabchg-finnifty"></i></span></button>
+      <button class="tab" id="tab-midcpnifty" onclick="switchIdx('midcpnifty', event)"><span class="tab-lbl">MIDCAP</span><span class="tab-live" aria-hidden="true"><b class="tab-px" id="tabpx-midcpnifty">—</b><i class="tab-chg" id="tabchg-midcpnifty"></i></span></button>
     </div>
     <a href="mentorship.html" class="mentor-cta-tab">🎓 <span class="mentor-cta-full">Learn to use these analytics?</span> Click here →</a>
   </div>
@@ -6677,8 +6677,13 @@ function renderIndex(idx, data){
   const spa = document.getElementById(`sp-${idx}-analysis`);
   if(spa) spa.innerHTML = analysisHtml(idx, data);
 }
-async function switchIdx(idx){
-  _ofCollapsePremiumScenarios();
+async function switchIdx(idx, clickEvent){
+  // Never collapse for background refreshes or programmatic index updates.
+  var activeIndex = document.querySelector('#main > .idx-panel.on');
+  var currentIndex = activeIndex && activeIndex.id.slice(6);
+  if(clickEvent && clickEvent.isTrusted && currentIndex !== idx) {
+    _ofCollapsePremiumScenarios();
+  }
   sessionStorage.setItem('_of_tab', idx);
   // Keep selection within this browser-tab session. A fresh website visit
   // starts at NIFTY / RAW GEX, while Open Analytics retains the current tab.
@@ -7962,7 +7967,9 @@ function _posPremRestoreScroll(idx, frame) {
 // a Premium Analytics view, changing index, or restoring a previous page.
 // Use the existing controller action (not CSS): collapsing also resets the
 // scenario values and metrics to the selected recorded snapshot.
+var _ofScenarioNavigationRevision = 0;
 function _ofCollapsePremiumScenarios() {
+  _ofScenarioNavigationRevision++;
   document.querySelectorAll('[id^="posprem-content-"] iframe').forEach(function(frame) {
     try {
       var win = frame.contentWindow;
@@ -7985,14 +7992,6 @@ function _ofCollapsePremiumScenarios() {
   });
 }
 
-window.addEventListener('pagehide', _ofCollapsePremiumScenarios);
-window.addEventListener('pageshow', function(event) {
-  if (event.persisted) _ofCollapsePremiumScenarios();
-});
-document.addEventListener('visibilitychange', function () {
-  if (document.hidden) _ofCollapsePremiumScenarios();
-});
-
 function _posPremResetToMain(idx) {
   try {
     sessionStorage.setItem('_of_posprem_tab_' + idx, 'main');
@@ -8004,6 +8003,52 @@ function _posPremResetToMain(idx) {
     if (win && typeof win.ppSwitchByKey === 'function') win.ppSwitchByKey('main');
     if (win && typeof win.ppSetPositioningView === 'function') win.ppSetPositioningView('g');
   } catch (e) {}
+}
+
+// A premium data refresh replaces the iframe DOM. Preserve the UI controls
+// of that *same index* across the replacement; never close another index.
+function _ofCaptureScenarioBeforeRefresh(contentEl) {
+  try {
+    var frame = contentEl && contentEl.querySelector('iframe');
+    var doc = frame && frame.contentDocument;
+    var body = doc && doc.getElementById('pp-scenario-body');
+    if (!body) return null;
+    var values = {};
+    ['pp-historical','pp-future-time','pp-forward','pp-parallel-iv'].forEach(function(id){
+      var el = doc.getElementById(id);
+      if (el) values[id] = el.value;
+    });
+    var hist = doc.getElementById('pp-historical');
+    return {expanded: !body.hidden, values: values,
+      historyAtLatest: !!(hist && Number(hist.value) >= Number(hist.max))};
+  } catch (e) { return null; }
+}
+function _ofRestoreScenarioAfterRefresh(frame, state) {
+  if (!state || !state.expanded) return;
+  try {
+    var doc = frame.contentDocument;
+    if (!doc || !doc.getElementById('pp-scenario-body')) return;
+    var toggle = doc.getElementById('pp-scenario-toggle');
+    if (!toggle) return;
+    if (doc.getElementById('pp-scenario-body').hidden) toggle.click();
+    var order = ['pp-historical','pp-future-time','pp-forward','pp-parallel-iv'];
+    order.forEach(function(id){
+      var el = doc.getElementById(id);
+      if (!el || !Object.prototype.hasOwnProperty.call(state.values || {}, id)) return;
+      var v = state.values[id];
+      if (id === 'pp-historical' && state.historyAtLatest) v = el.max;
+      if (el.type === 'range' || el.type === 'number') {
+        var n = Number(v);
+        if (!Number.isFinite(n)) return;
+        if (el.min !== '' && Number.isFinite(Number(el.min))) n = Math.max(n, Number(el.min));
+        if (el.max !== '' && Number.isFinite(Number(el.max))) n = Math.min(n, Number(el.max));
+        v = String(n);
+      }
+      el.value = v;
+      el.dispatchEvent(new Event('input', {bubbles:true}));
+      el.dispatchEvent(new Event('change', {bubbles:true}));
+    });
+  } catch (e) { /* Old premium bundles may expose fewer controls. */ }
 }
 
 function _posPremShowContent(idx, html) {
@@ -8025,6 +8070,8 @@ function _posPremShowContent(idx, html) {
   // it's replaced, so a refresh can restore it instead of resetting to
   // the first tab. See _posPremCaptureScroll for the auto vs manual
   // refresh distinction.
+  var priorScenarioState = _ofCaptureScenarioBeforeRefresh(contentEl);
+  var refreshNavigationRevision = _ofScenarioNavigationRevision;
   _posPremCaptureScroll(idx);
 
   // Same seamless-iframe-via-blob-URL approach as Recommendations — preserves
@@ -8064,8 +8111,22 @@ function _posPremShowContent(idx, html) {
     try { frame.contentWindow.openLbx = window.openLbx; } catch (e) {}
     _fitHeight();
     _posPremRestoreScroll(idx, frame);
-    _ofCollapsePremiumScenarios();
+    if(refreshNavigationRevision === _ofScenarioNavigationRevision)
+      _ofRestoreScenarioAfterRefresh(frame, priorScenarioState);
     URL.revokeObjectURL(url);
+    // Only a REAL user click on a different in-chart tab is navigation.
+    // Polling and automatic tab/iframe restoration never trigger collapse.
+    try {
+      frame.contentDocument.addEventListener('click', function(e) {
+        if (!e.isTrusted || !e.target.closest) return;
+        var nav = e.target.closest('.pp-tab, [data-pp-view]');
+        if (nav && !nav.classList.contains('on')) _ofCollapsePremiumScenarios();
+      }, true);
+      frame.contentDocument.addEventListener('keydown', function(e) {
+        if (!e.isTrusted || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+        if (e.target.closest && e.target.closest('[data-pp-view]')) _ofCollapsePremiumScenarios();
+      }, true);
+    } catch (e) {}
     // Keep sessionStorage current the instant the user actually clicks a
     // tab (not just at the next 30s poll) — covers switching tabs and
     // immediately hitting a manual page refresh before the poll fires.
@@ -9082,7 +9143,7 @@ document.addEventListener('pointermove',function(e){
   function show(view,historyEvent){
     if(view!=='analytics'&&view!=='premium')view='home';
     var old=lastView,changed=old!==view;
-    if(changed) _ofCollapsePremiumScenarios();
+    if(changed && old) _ofCollapsePremiumScenarios();
     document.body.setAttribute('data-of-view',view);
     if(currentLabels[view]){
       document.getElementById('of-view-kicker').textContent=currentLabels[view][0];
@@ -9135,7 +9196,9 @@ document.addEventListener('pointermove',function(e){
     if(typeof switchIdx!=='function'||switchIdx._ofGuarded)return;
     var oldSwitchIdx=switchIdx;
     var guarded=function(index){
-      var result=oldSwitchIdx(index);
+      // Forward the trusted click event as well as the index. The original
+      // guard discarded it, which masked intentional user navigation.
+      var result=oldSwitchIdx.apply(this, arguments);
       if(document.body.getAttribute('data-of-view')==='analytics')ensureSelection('analytics',index);
       if(document.body.getAttribute('data-of-view')==='premium'&&typeof showPremiumOffer==='function')showPremiumOffer('features',index);
       return result;
@@ -9151,6 +9214,11 @@ document.addEventListener('pointermove',function(e){
     }
   }
   function init(){installSwitchGuard();startQuoteSync();show(viewFromHash(),true);}
+  document.addEventListener('click',function(e){
+    if(!e.isTrusted || !e.target.closest)return;
+    var tab=e.target.closest('#main .idx-panel > .sub-tabs > .stab');
+    if(tab && !tab.classList.contains('on'))_ofCollapsePremiumScenarios();
+  },true);
   window.addEventListener('popstate',function(){show(viewFromHash(),true);});
   window.addEventListener('hashchange',function(){show(viewFromHash(),true);});
   document.addEventListener('click',function(event){
