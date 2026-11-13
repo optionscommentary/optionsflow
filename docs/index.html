@@ -3698,6 +3698,54 @@ html[data-theme] .foot-brand {
   }
 }
 </style>
+
+<style id="of-premium-promise-v20">
+/* Premium's value proposition belongs between view navigation and the index tabs,
+   NOT in a per-index sales offering or below the homepage chart. */
+html[data-theme] #main > .of-premium-promise {display:none!important}
+html[data-theme] body[data-of-view="premium"] #main > .of-premium-promise {
+  display:flex!important;align-items:center;justify-content:space-between;
+  gap:24px;padding:17px 22px;margin:0 0 20px;
+  border:1px solid var(--border);border-left:3px solid #7DD3FC;
+  border-radius:11px;background:var(--surface);
+}
+html[data-theme] #main .of-premium-promise-copy {min-width:0;flex:1}
+html[data-theme] #main .of-premium-promise h2 {
+  font:750 clamp(1rem,1.55vw,1.37rem)/1.38 Inter,Arial,sans-serif;
+  letter-spacing:-.032em;color:var(--t1);margin:0;
+}
+/* Two deliberate accents, without a promotional gradient or extra label. */
+html[data-theme] #main .of-premium-promise h2 .of-premium-question {color:#F3C979}
+html[data-theme] #main .of-premium-promise h2 .of-premium-answer {color:#7DD3FC}
+html[data-theme] #main .of-premium-promise p {
+  max-width:252px;min-width:190px;margin:0;
+  font-size:.69rem;line-height:1.6;color:var(--t3);
+}
+html[data-theme="dark"] #main > .of-premium-promise {
+  background:#0a1420;border-color:#243749;border-left-color:#7DD3FC;
+}
+
+html[data-theme="light"] #main > .of-premium-promise {
+  background:#f4f9fe;border-color:#c6d9eb;border-left-color:#2563EB;
+}
+html[data-theme="light"] #main .of-premium-promise h2 .of-premium-question {color:#8E4E10}
+html[data-theme="light"] #main .of-premium-promise h2 .of-premium-answer {color:#155E9C}
+@media(max-width:760px){
+  html[data-theme] body[data-of-view="premium"] #main > .of-premium-promise {
+    flex-direction:column;align-items:stretch;gap:8px;
+    padding:14px 16px;margin:0 0 14px;border-radius:10px;
+  }
+  html[data-theme] #main .of-premium-promise h2 {font-size:clamp(1.03rem,4.2vw,1.24rem);line-height:1.4}
+  html[data-theme] #main .of-premium-promise h2 .of-premium-answer {display:block}
+  html[data-theme] #main .of-premium-promise p {min-width:0;max-width:none;font-size:.65rem}
+}
+/* This is acquisition copy: not part of an unlocked subscriber's workspace.
+   Also conceal it while a saved key is being verified to prevent a flash. */
+html[data-theme] body[data-of-premium-promise="checking"] #main > .of-premium-promise,
+html[data-theme] body[data-of-premium-promise="subscriber"] #main > .of-premium-promise {
+  display:none!important;
+}
+</style>
 </head>
 
 <body data-of-view="home">
@@ -3709,6 +3757,13 @@ html[data-theme] .foot-brand {
     : (h === '#analytics' || h === '#view-analytics' || h === '#of-analytics') ? 'analytics'
     : 'home';
   document.body.setAttribute('data-of-view', view);
+  try {
+    var posCandidate = localStorage.getItem('_of_pw_pos');
+    var recoCandidate = window.PREMIUM_RECO_ENABLED && localStorage.getItem('_of_pw');
+    if (posCandidate || recoCandidate) {
+      document.body.setAttribute('data-of-premium-promise', 'checking');
+    }
+  } catch (e) { /* Private browsing can disable storage. */ }
 })();
 </script>
 
@@ -3781,6 +3836,14 @@ html[data-theme] .foot-brand {
       <button type="button" class="of-view-nav-btn of-btn-premium" data-of-target="premium" onclick="ofViewNavigate('premium')"><span class="of-view-btn-icon" aria-hidden="true">✦</span><span>Premium Analytics</span></button>
     </div>
   </nav>
+
+  <!-- Premium-only value statement. Deliberately outside the shared offerings template. -->
+  <section class="of-premium-promise" aria-label="Why choose Probable Positioning">
+    <div class="of-premium-promise-copy">
+      <h2><span class="of-premium-question">Why pay for assumptions?</span> <span class="of-premium-answer">Get closer to actual dealer positioning.</span></h2>
+    </div>
+    <p>Probable dealer positioning inferred through a proprietary multi-factor model, with strike-by-strike estimates updated throughout the trading session.</p>
+  </section>
 
   <!-- OPTIONSFLOW PREMIUM HOMEPAGE: Presentation layer only. The main analytics dashboard remains below. -->
   <section class="of-landing-hero of-refined-home" id="of-home" aria-label="OptionsFlow analytics overview">
@@ -7751,11 +7814,16 @@ async function _premDecryptFile(idx, pwd) {
   return dec;
 }
 
+function _ofPremiumSubscriberConfirmed() {
+  document.body.setAttribute('data-of-premium-promise', 'subscriber');
+}
+
 function _premShowContent(idx, html) {
   var lockEl    = document.getElementById('prem-lock-' + idx);
   var subEl     = document.getElementById('prem-sub-'  + idx);
   var contentEl = document.getElementById('prem-inline-content-' + idx);
   if (!lockEl || !contentEl) return;
+  _ofPremiumSubscriberConfirmed();
   if (lockEl) lockEl.style.display = 'none';
   if (subEl)  subEl.style.display  = 'none';  // hide T&C, pricing, WA — not needed for subscribers
   // Drop the lock badge from the "PREMIUM RECOMMENDATIONS" tab now that
@@ -8106,6 +8174,7 @@ function _posPremShowContent(idx, html) {
   var lockEl    = document.getElementById('posprem-lock-' + idx);
   var contentEl = document.getElementById('posprem-content-' + idx);
   if (!lockEl || !contentEl) return;
+  _ofPremiumSubscriberConfirmed();
   lockEl.style.display = 'none';
   if (salesEl) salesEl.style.display = 'none';
   // Drop the lock badge from the "PREMIUM PROBABLE POSITIONING" tab now
@@ -8353,6 +8422,7 @@ function _volsurfPremShowContent(idx, volHtml, atmHtml) {
   var lockEl    = document.getElementById('volsurfprem-lock-' + idx);
   var contentEl = document.getElementById('volsurfprem-content-' + idx);
   if (!contentEl) return;
+  _ofPremiumSubscriberConfirmed();
   if (lockEl) lockEl.style.display = 'none';
   contentEl.style.display = 'block';
   // Drop the lock badge from the "Volatility Surface" tab now that this
@@ -8795,11 +8865,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ── Auto-unlock premium if password saved ──
+  var _ofPremiumOpeningChecks = [];
   var saved = localStorage.getItem('_of_pw');
   var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
   if (window.PREMIUM_RECO_ENABLED && saved) {   // skipped while Premium RECO is switched off
     all.forEach(function(idx) {
-      _premDecryptFile(idx, saved)
+      _ofPremiumOpeningChecks.push(_premDecryptFile(idx, saved)
         .then(function(dec) {
           _premRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
           _premShowContent(idx, dec);
@@ -8808,7 +8879,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (e.message === 'wrong') {
             localStorage.removeItem('_of_pw'); // password changed — force re-entry
           }
-        });
+        }));
     });
   }
 
@@ -8816,7 +8887,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var savedPos = localStorage.getItem('_of_pw_pos');
   if (savedPos) {
     all.forEach(function(idx) {
-      _posPremDecryptFile(idx, savedPos)
+      _ofPremiumOpeningChecks.push(_posPremDecryptFile(idx, savedPos)
         .then(function(dec) {
           _posPremRawHash[idx + '_init'] = true; // baseline set — poll can now detect changes
           // If the visitor clicked Explore Premium during auto-unlock, that
@@ -8832,17 +8903,22 @@ document.addEventListener('DOMContentLoaded', function() {
           if (e.message === 'wrong') {
             localStorage.removeItem('_of_pw_pos');
           }
-        });
+        }));
       // Volatility Surface shares the exact same key/subscription.
-      volsurfPremUnlockInline(idx, savedPos).catch(function(){});
+      _ofPremiumOpeningChecks.push(volsurfPremUnlockInline(idx, savedPos).catch(function(){}));
     });
   }
+  Promise.allSettled(_ofPremiumOpeningChecks).then(function() {
+    if (document.body.getAttribute('data-of-premium-promise') === 'checking') {
+      document.body.removeAttribute('data-of-premium-promise');
+    }
+  });
 });
 </script>
 <template id="tmpl-features-offer"><div class="prem-diff-eyebrow">A Common Assumption, Corrected</div>
         <div class="prem-diff-headline">We Don't Assume. We calculate.</div>
         <p class="prem-diff-sub">Most options-flow analysis treats dealer positioning as fixed: every call assumed long-gamma, every put assumed short-gamma &mdash; the same rule applied to every strike, every stock, every day. It's a common shorthand, but it isn't how dealers actually behave. Probable Positioning throws that assumption out. It's a proprietary model that estimates actual dealer positioning per strike , recalculated through the session as real positioning shifts.</p>
-        <div class="of-offer-value"><span>Why pay for assumptions?</span><strong>Get closer to actual dealer positioning.</strong><small>Strike-by-strike model estimates—not observed dealer books.</small></div>
+        
 <div class="prem-diff-grid">
           <div class="prem-diff-card assumed">
             <div class="prem-diff-card-label">The Common Assumption</div>
