@@ -3648,6 +3648,56 @@ html[data-theme] .pp-demo-preview.pp-demo-expanded .pp-demo-panel.on{min-height:
 }
 </style>
 
+
+<style id="of-unified-wordmark-v19">
+/* The same white + sky-blue wordmark in both site themes and both placements.
+   A compact navy backing keeps the logo legible on light pages without forcing
+   a dark header/footer or adding a heavy promotional panel. */
+html[data-theme] #topbar .tb-brand .of-wordmark,
+html[data-theme] .foot-brand .of-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 0 !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 9px 6px;
+  border: 1px solid #23364B;
+  border-radius: 7px;
+  background: #0D1520 !important;
+  color: #FFFFFF !important;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: .015em;
+  line-height: 1.15;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .09);
+}
+html[data-theme] #topbar .tb-brand .of-wordmark em,
+html[data-theme] .foot-brand .of-wordmark em {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  color: #7DD3FC !important;
+  font: inherit;
+  font-style: normal;
+  letter-spacing: inherit;
+}
+/* Keep the footer wordmark as prominent as the header, but not oversized. */
+html[data-theme] .foot-brand {
+  font-size: 1.04rem;
+  letter-spacing: normal;
+}
+@media (max-width: 760px) {
+  html[data-theme] #topbar .tb-brand .of-wordmark {
+    padding: 5px 7px 5px;
+    border-radius: 6px;
+  }
+}
+</style>
 </head>
 
 <body data-of-view="home">
@@ -3673,7 +3723,7 @@ html[data-theme] .pp-demo-preview.pp-demo-expanded .pp-demo-panel.on{min-height:
 </div>
 
 <header id="topbar">
-  <a class="tb-brand" href="#of-home" style="text-decoration:none" aria-label="OptionsFlow homepage" title="OptionsFlow homepage"><div class="tb-dot"></div>OPTIONS<em>FLOW</em></a>
+  <a class="tb-brand" href="#of-home" style="text-decoration:none" aria-label="OptionsFlow homepage" title="OptionsFlow homepage"><div class="tb-dot" aria-hidden="true"></div><span class="of-wordmark">OPTIONS<em>FLOW</em></span></a>
   <div class="tb-pills">
     <div class="tb-pill"><span class="lbl">NIFTY</span><span class="val" id="tpv-nifty">—</span><div class="chg" id="tpc-nifty"></div></div>
     <div class="tb-pill"><span class="lbl">BANKNIFTY</span><span class="val" id="tpv-banknifty">—</span><div class="chg" id="tpc-banknifty"></div></div>
@@ -5329,7 +5379,7 @@ html[data-theme] .pp-demo-preview.pp-demo-expanded .pp-demo-panel.on{min-height:
     </div>
     <div id="footer-right" style="margin-left:auto;text-align:right">
       <div class="foot-brand">
-        OPTIONS<em>FLOW</em><br>
+        <span class="of-wordmark">OPTIONS<em>FLOW</em></span><br>
         <span style="font-family:'Inter',sans-serif;font-size:0.66rem;font-weight:400;letter-spacing:.08em;color:var(--t4)">DEALER FLOW · GEX ANALYTICS</span>
       </div>
       <div class="footer-links">
