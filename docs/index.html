@@ -3169,7 +3169,6 @@ html[data-theme] body[data-of-view="premium"] #main > .idx-panel > .sub-tabs > .
 html[data-theme] body[data-of-view="analytics"] #main > .idx-panel .premium-callout-row,
 html[data-theme] body[data-of-view="premium"] #main > .idx-panel .premium-callout-row{display:none!important}
 html[data-theme] body[data-of-view="premium"] #main > .idx-panel > .sub-tabs{display:flex!important;margin:16px 0 8px}
-html[data-theme] body[data-of-view="premium"] #main > .idx-panel .stab-panel[id$="-prob"] > .edu-box{display:none!important}
 /* Premium pricing and feature list both visible; existing T&C, WA, subscriber unlock unchanged. */
 html[data-theme] .posprem-outer{padding-top:18px!important}
 html[data-theme] body[data-of-view="premium"] .posprem-outer > .prem-section-title{display:none!important}
@@ -7672,7 +7671,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var body = document.createElement('div');
     body.className = 'edu-body';
-    // Move all children (including the h3) into the body div
+    // The h3 already supplies the summary text; remove it instead of
+    // showing the same title twice when visitors expand the explanation.
+    h3.remove();
     while (box.firstChild) { body.appendChild(box.firstChild); }
     details.appendChild(body);
 
