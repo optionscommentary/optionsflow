@@ -8507,6 +8507,25 @@ async function volsurfPremUnlockInline(idx, pwdOverride) {
     }
     localStorage.setItem('_of_pw_pos', pwd);  // shared key with Probable Positioning
     _volsurfPremShowContent(idx, volHtml, atmHtml);
+    // Reciprocal cross-unlock when the visitor ENTERS a key in Vol Surface.
+    // Positioning-first and saved-key flows already decrypt positioning;
+    // do not fan out another five requests from their silent cross-calls.
+    if (!pwdOverride) {
+      ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(i) {
+        if (_posPremDecrypted[i]) return;
+        _posPremDecryptFile(i, pwd).then(function(dec) {
+          _posPremRawHash[i + '_init'] = true;
+          var content = document.getElementById('posprem-content-' + i);
+          // Avoid replacing charts mounted by an overlapping saved-key check.
+          var alreadyMounted = content && content.style.display !== 'none' &&
+            content.querySelector('iframe');
+          if (!alreadyMounted) _posPremShowContent(i, dec);
+        }).catch(function() {
+          // Keep Vol Surface unlocked if an index's positioning file is
+          // unavailable; never bypass that file's own decrypt validation.
+        });
+      });
+    }
   } catch (e) {
     if (e.message === 'wrong') localStorage.removeItem('_of_pw_pos');
     if (pwdOverride) throw e;  // silent cross-unlock — let the caller's .catch swallow it
