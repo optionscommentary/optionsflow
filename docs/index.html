@@ -281,30 +281,19 @@ if (!window.PREMIUM_RECO_ENABLED) document.documentElement.classList.add('reco-o
 .prem-section-title { font-family:'Inter',sans-serif; font-size:1.495rem; font-weight:800; color:var(--t1); margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--border); }
 .prem-section-title em { color:#FFD700; font-style:normal; }
 .prem-pricing-row { display:flex; gap:16px; margin-bottom:28px; flex-wrap:wrap; }
+.posprem-outer .prem-pricing-row { justify-content:center; }
+.posprem-outer .prem-pricing-row .prem-price-card.prem-first { flex:0 1 360px; width:100%; }
 .prem-price-card { flex:1; min-width:200px; background:var(--raised); border:1px solid var(--border); border-radius:12px; padding:20px 24px; text-align:center; }
 .prem-price-card.prem-first { border-color:#FFD700; box-shadow:0 0 18px rgba(255,215,0,.12); }
 .prem-price-card.prem-renewal { border-color:var(--accent); box-shadow:0 0 18px rgba(100,181,246,.10); }
 
-.prem-or { flex:0 0 auto; align-self:center; display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:var(--raised); border:2px solid var(--t3); color:var(--t1); font-family:'Inter',sans-serif; font-size:0.99rem; font-weight:800; letter-spacing:.04em; box-shadow:0 2px 8px rgba(0,0,0,.18); }
-.prem-price-card.prem-bundle { border-color:rgba(var(--gl-pos),.55); background:linear-gradient(160deg, var(--raised), rgba(var(--gl-pos),.06)); box-shadow:0 0 14px rgba(var(--gl-pos),.12); }
-.prem-price-card.prem-bundle .prem-price-amt { color:var(--pos); }
-.prem-price-details-btn { display:inline-flex; align-items:center; gap:6px; background:var(--pos); color:#04180d; font-family:'Inter',sans-serif; font-size:0.748rem; font-weight:800; letter-spacing:.04em; padding:9px 16px; border-radius:999px; border:none; cursor:pointer; margin-top:12px; transition:opacity .18s,transform .15s; }
-.prem-price-details-btn:hover { opacity:.9; transform:translateY(-1px); }
-.prem-mdet { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px 24px; margin:0 0 20px; }
-.prem-mdet-badge { display:inline-block; font-family:'Inter',sans-serif; font-size:0.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--pos); background:rgba(var(--gl-pos),.12); border:1px solid rgba(var(--gl-pos),.35); border-radius:4px; padding:3px 10px; margin-bottom:12px; }
-.prem-mdet-price { font-family:'Inter',sans-serif; font-size:1.54rem; font-weight:700; color:var(--t1); line-height:1.2; margin-bottom:10px; }
-.prem-mdet-price span { font-size:.7rem; font-weight:400; color:var(--t3); margin-left:6px; }
-.prem-mdet h4 { font-family:'Inter',sans-serif; font-size:1rem; font-weight:700; color:var(--t1); line-height:1.35; margin:0 0 8px; }
-.prem-mdet-desc { font-size:.82rem; color:var(--t3); line-height:1.7; margin:0 0 12px; }
-.prem-mdet ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-.prem-mdet ul li { font-size:.8rem; color:var(--t2); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
-.prem-mdet ul li::before { content:'\2713'; color:var(--pos); flex-shrink:0; font-weight:700; margin-top:1px; }
 .prem-price-tag { font-family:'Inter',sans-serif; font-size:0.748rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--t4); margin-bottom:8px; }
 .prem-price-amt { font-family:'Inter',sans-serif; font-size:2.53rem; font-weight:800; color:var(--t1); line-height:1; margin-bottom:6px; }
 .prem-price-card.prem-first .prem-price-amt { color:#FFD700; }
 .prem-price-card.prem-renewal .prem-price-amt { color:var(--accent); }
 .prem-price-note { font-size:.75rem; color:var(--t3); }
 .prem-price-badge { display:inline-block; margin-top:8px; background:rgba(255,215,0,.12); color:#FFD700; border:1px solid rgba(255,215,0,.3); border-radius:4px; font-family:'Inter',sans-serif; font-size:0.66rem; font-weight:700; letter-spacing:.08em; padding:3px 8px; text-transform:uppercase; }
+
 .prem-feat-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:28px; }
 @media(max-width:520px){ .prem-feat-row { grid-template-columns:1fr; } }
 .prem-feat-item { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; }
@@ -333,7 +322,6 @@ body, table, td, th { font-variant-numeric: tabular-nums; }
 .prem-price-note { color:#F1F5F9; font-size:1.05rem; font-weight:600; line-height:1.4; }
 [data-theme="light"] .prem-price-tag { color:#000000; text-shadow:none; }
 [data-theme="light"] .prem-price-note { color:#000000; font-weight:600; }
-.prem-price-card.prem-bundle .prem-price-note { white-space:nowrap; }
 
 [data-theme="light"] .prem-tnc-check-row input[type=checkbox] {
   -webkit-appearance:none; appearance:none;
@@ -1209,7 +1197,7 @@ html[data-theme] .mobile-nav-strip a.is-current,html[data-theme] .mobile-nav-str
   background:rgba(var(--gl-acc),.16);color:var(--accent);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.30),inset 0 0 0 1px rgba(var(--gl-acc),.40);
 }
-html[data-theme] .what-card,html[data-theme] .connect-card,html[data-theme] .blog-card,html[data-theme] .m-card,html[data-theme] .step,html[data-theme] .contact-card,html[data-theme] .response-note,html[data-theme] .toc,html[data-theme] .author-box,html[data-theme] .gcard,html[data-theme] .edu-box,html[data-theme] .prem-feat-item,html[data-theme] .prem-tnc-wrap,html[data-theme] .prem-pw-section,html[data-theme] .prem-gallery-item,html[data-theme] .prem-gallery-single,html[data-theme] .ai-strat-box,html[data-theme] .prem-price-card:not(.prem-first):not(.prem-renewal):not(.prem-bundle){
+html[data-theme] .what-card,html[data-theme] .connect-card,html[data-theme] .blog-card,html[data-theme] .m-card,html[data-theme] .step,html[data-theme] .contact-card,html[data-theme] .response-note,html[data-theme] .toc,html[data-theme] .author-box,html[data-theme] .gcard,html[data-theme] .edu-box,html[data-theme] .prem-feat-item,html[data-theme] .prem-tnc-wrap,html[data-theme] .prem-pw-section,html[data-theme] .prem-gallery-item,html[data-theme] .prem-gallery-single,html[data-theme] .ai-strat-box,html[data-theme] .prem-price-card:not(.prem-first):not(.prem-renewal){
   background:
     radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,calc(var(--gl-spot) * 1)),transparent 65%),
     linear-gradient(135deg,var(--gl-glare) 0%,transparent 42%),
@@ -1254,7 +1242,7 @@ html[data-theme] .gcard-badge,html[data-theme] .index-chip,html[data-theme] .cou
 }
 html[data-theme] .contact-card-icon{border-radius:14px}
 html[data-theme] .ai-strat-box{border-radius:20px}
-html[data-theme] .disclaimer,html[data-theme] .course-card,html[data-theme] .premium-callout,html[data-theme] .prem-price-card.prem-first,html[data-theme] .prem-price-card.prem-renewal,html[data-theme] .prem-price-card.prem-bundle,html[data-theme] .featured-card,html[data-theme] .g-card{border-radius:24px}
+html[data-theme] .disclaimer,html[data-theme] .course-card,html[data-theme] .premium-callout,html[data-theme] .prem-price-card.prem-first,html[data-theme] .prem-price-card.prem-renewal,html[data-theme] .featured-card,html[data-theme] .g-card{border-radius:24px}
 html[data-theme] .disclaimer,html[data-theme] .course-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),var(--gl-shadow-sm)}
 html[data-theme] .premium-callout{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 14px 30px -16px rgba(var(--gl-gold),.45);
@@ -1262,7 +1250,6 @@ html[data-theme] .premium-callout{
 }
 html[data-theme] .prem-price-card.prem-first{border-color:rgba(var(--gl-gold),.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(var(--gl-gold),.14)}
 html[data-theme] .prem-price-card.prem-renewal{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(100,181,246,.10)}
-html[data-theme] .prem-price-card.prem-bundle{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 14px rgba(var(--gl-pos),.12)}
 html[data-theme] .featured-card{box-shadow:inset 0 1px 0 var(--gl-hi),var(--gl-shadow)}
 html[data-theme] .group-teaser{box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
 html[data-theme] [style*="rgba(255,215,0,0.08)"]{border-radius:16px !important}
@@ -1661,11 +1648,6 @@ html[data-theme] .premium-callout {
 .prem-price-amt { font-size: 1.782rem; }
 .prem-price-tag { font-size: .82rem; }
 .prem-price-note { font-size: .92rem; }
-.prem-price-card.prem-bundle .prem-price-note { font-size: clamp(.72rem, 3.7vw, .92rem); }
-.prem-pricing-row:has(.prem-bundle) { flex-direction: column; flex-wrap: nowrap; gap: 6px; }
-.prem-pricing-row:has(.prem-bundle) .prem-price-card { flex: 0 0 auto; width: 100%; box-sizing: border-box; }
-.prem-or { width:36px; height:36px; font-size:.82rem; }
-.prem-mdet { padding: 16px 14px; border-radius: 14px; }
 .prem-pricing-row:has(.prem-renewal) { flex-wrap: nowrap; gap: 10px; }
 .prem-pricing-row:has(.prem-renewal) .prem-price-card { flex: 1 1 0; min-width: 0; padding: 14px 8px; }
 .prem-pricing-row:has(.prem-renewal) .prem-price-amt { font-size: 1.55rem; }
@@ -3544,27 +3526,25 @@ html[data-theme] .foot-brand {
 <style id="of-premium-promise-v20">
 html[data-theme] #main > .of-premium-promise {display:none!important}
 html[data-theme] body[data-of-view="premium"] #main > .of-premium-promise {
-  display:flex!important;align-items:center;justify-content:space-between;
-  gap:24px;padding:17px 22px;margin:0 0 20px;
+  display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:5px;padding:12px 18px;margin:0 0 13px;
   border:1px solid var(--border);border-left:3px solid #7DD3FC;
   border-radius:11px;background:var(--surface);
 }
-html[data-theme] #main .of-premium-promise-copy {min-width:0;flex:1}
+html[data-theme] #main .of-premium-promise-copy {min-width:0;width:100%;flex:0 0 auto}
 html[data-theme] #main .of-premium-promise h2 {
-  font:750 clamp(1rem,1.55vw,1.37rem)/1.38 Inter,Arial,sans-serif;
+  font:750 clamp(1rem,1.3vw,1.28rem)/1.33 Inter,Arial,sans-serif;
   letter-spacing:-.032em;color:var(--t1);margin:0;
 }
-
 html[data-theme] #main .of-premium-promise h2 .of-premium-question {color:#F3C979}
 html[data-theme] #main .of-premium-promise h2 .of-premium-answer {color:#7DD3FC}
 html[data-theme] #main .of-premium-promise p {
-  max-width:252px;min-width:190px;margin:0;
-  font-size:.69rem;line-height:1.6;color:var(--t3);
+  width:100%;max-width:none;min-width:0;margin:0;
+  font-size:.75rem;line-height:1.5;color:var(--t3);
 }
 html[data-theme="dark"] #main > .of-premium-promise {
   background:#0a1420;border-color:#243749;border-left-color:#7DD3FC;
 }
-
 html[data-theme="light"] #main > .of-premium-promise {
   background:#f4f9fe;border-color:#c6d9eb;border-left-color:#2563EB;
 }
@@ -3572,14 +3552,11 @@ html[data-theme="light"] #main .of-premium-promise h2 .of-premium-question {colo
 html[data-theme="light"] #main .of-premium-promise h2 .of-premium-answer {color:#155E9C}
 @media(max-width:760px){
   html[data-theme] body[data-of-view="premium"] #main > .of-premium-promise {
-    flex-direction:column;align-items:stretch;gap:8px;
-    padding:14px 16px;margin:0 0 14px;border-radius:10px;
+    gap:5px;padding:11px 14px;margin:0 0 11px;border-radius:10px;
   }
-  html[data-theme] #main .of-premium-promise h2 {font-size:clamp(1.03rem,4.2vw,1.24rem);line-height:1.4}
-  html[data-theme] #main .of-premium-promise h2 .of-premium-answer {display:block}
-  html[data-theme] #main .of-premium-promise p {min-width:0;max-width:none;font-size:.65rem}
+  html[data-theme] #main .of-premium-promise h2 {font-size:clamp(1rem,4vw,1.2rem);line-height:1.35}
+  html[data-theme] #main .of-premium-promise p {font-size:.72rem;line-height:1.45}
 }
-
 html[data-theme] body[data-of-premium-promise="checking"] #main > .of-premium-promise,
 html[data-theme] body[data-of-premium-promise="subscriber"] #main > .of-premium-promise {
   display:none!important;
@@ -3636,6 +3613,127 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 @media(max-width:760px){
   html[data-theme] #main .of-premium-saved-status {padding:14px 12px;font-size:.82rem}
 }
+</style>
+
+<style id="of-two-plan-options">
+/* Two clearly separated plans; Option 2 is green, Option 1 is gold. */
+html[data-theme] #main .of-plan-heading { display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:4px 0 13px;color:var(--t1);font-size:.93rem;font-weight:800; }
+html[data-theme] #main .of-plan-heading span {font-size:.74rem;line-height:1.45;color:var(--t3);font-weight:500}
+html[data-theme] #main .of-plan-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:14px;}
+html[data-theme] #main .of-plan-card {display:flex;flex-direction:column;min-width:0;padding:18px 18px 16px;border:2px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:none;transition:border-color .16s,box-shadow .16s,transform .16s;}
+html[data-theme] #main .of-plan-card:hover {transform:translateY(-2px)}
+html[data-theme] #main .of-plan-card.of-plan-standard {border-color:rgba(var(--gl-gold),.42);background:linear-gradient(145deg,rgba(var(--gl-gold),.09),var(--surface) 70%);}
+html[data-theme] #main .of-plan-card.of-plan-training {border-color:rgba(var(--gl-pos),.42);background:linear-gradient(145deg,rgba(var(--gl-pos),.10),var(--surface) 70%);}
+html[data-theme] #main .of-plan-card.of-plan-standard.is-selected {border-color:#D4AF37;box-shadow:0 0 0 1px rgba(var(--gl-gold),.16),0 5px 22px rgba(var(--gl-gold),.13);}
+html[data-theme] #main .of-plan-card.of-plan-training.is-selected {border-color:var(--pos);box-shadow:0 0 0 1px rgba(var(--gl-pos),.2),0 5px 22px rgba(var(--gl-pos),.14);}
+html[data-theme] #main .of-plan-choice {display:flex;flex-direction:column;align-items:flex-start;flex:1;gap:7px;cursor:pointer;position:relative;padding-left:31px;min-height:175px;}
+html[data-theme] #main .of-plan-choice input[type="radio"] {position:absolute;top:2px;left:0;width:20px;height:20px;cursor:pointer;accent-color:#D4AF37;margin:0;}
+html[data-theme] #main .of-plan-training .of-plan-choice input[type="radio"] {accent-color:var(--pos);}
+html[data-theme] #main .of-plan-option-label {color:var(--t2);font-size:.69rem;letter-spacing:.1em;font-weight:900;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+html[data-theme] #main .of-plan-tag {font-size:.62rem;letter-spacing:normal;font-weight:800;padding:4px 9px;border-radius:100px;background:rgba(var(--gl-gold),.10);color:#D4AF37;border:1px solid rgba(var(--gl-gold),.3);}
+html[data-theme] #main .of-plan-training .of-plan-tag {background:rgba(var(--gl-pos),.11);color:var(--pos);border-color:rgba(var(--gl-pos),.3);}
+html[data-theme] #main .of-plan-price {font-size:1.95rem;line-height:1.15;font-weight:900;color:#D4AF37;letter-spacing:-.025em;}
+html[data-theme] #main .of-plan-training .of-plan-price {color:var(--pos);}
+html[data-theme] #main .of-plan-price small {font-size:.73rem;letter-spacing:normal;font-weight:600;color:var(--t2);white-space:nowrap;}
+html[data-theme] #main .of-plan-caption {font-weight:700;color:var(--t1);font-size:.78rem;line-height:1.5;}
+html[data-theme] #main .of-plan-details {font-size:.71rem;color:var(--t3);line-height:1.55;}
+html[data-theme] #main .of-plan-getstarted {width:100%;display:block;border:0;border-radius:10px;padding:11px 12px;margin-top:16px;font-size:.79rem;font-weight:800;letter-spacing:.01em;cursor:pointer;transition:filter .16s,transform .16s;background:linear-gradient(135deg,#FFD700,#B8860B);color:#111827;}
+html[data-theme] #main .of-plan-getstarted:hover {filter:brightness(1.1);transform:translateY(-1px)}
+html[data-theme] #main .of-plan-getstarted-training {background:linear-gradient(135deg,#34D399,#059669);color:#071A12;}
+html[data-theme] #main .of-plan-getstarted[style*="display:none"] {display:none !important;}
+html[data-theme] #main .of-plan-summary {display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;padding:13px 15px;border:1px solid var(--border);border-radius:10px;background:var(--raised);font-size:.78rem;color:var(--t2);}
+html[data-theme] #main .of-plan-summary strong {font-size:.95rem;font-weight:900;color:var(--t1);}
+html[data-theme] #main .of-plan-footnote {margin:10px 0 25px;font-size:.71rem;line-height:1.6;color:var(--t3);}
+html[data-theme="light"] #main .of-plan-standard .of-plan-tag,html[data-theme="light"] #main .of-plan-standard .of-plan-price {color:#9A6700;}
+html[data-theme="light"] #main .of-plan-standard.is-selected {border-color:#A77600;}
+@media (max-width:650px){
+  html[data-theme] #main .of-plan-grid {grid-template-columns:1fr;gap:12px;}
+  html[data-theme] #main .of-plan-choice {min-height:0;}
+  html[data-theme] #main .of-plan-card {padding:15px;}
+  html[data-theme] #main .of-plan-price {font-size:1.75rem;}
+  html[data-theme] #main .of-plan-getstarted {margin-top:13px;}
+}
+</style>
+
+<style id="of-premium-pricing-visibility-fix">
+/* Keep both premium prices fully legible, including at tablet widths. */
+html[data-theme] #main .of-plan-card {min-width:0;overflow:visible;}
+html[data-theme] #main .of-plan-price {
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 7px;
+  max-width:100%;overflow:visible;line-height:1.2;
+}
+html[data-theme] #main .of-plan-price small {white-space:normal;line-height:1.4;}
+@media(max-width:920px){
+  html[data-theme] #main .of-plan-grid {grid-template-columns:minmax(0,1fr);}
+  html[data-theme] #main .of-plan-choice {min-height:0;}
+}
+/* The mobile index switcher is fixed at the bottom; allow cards and CTAs
+   to scroll fully above it rather than disappearing behind the switcher. */
+@media(max-width:760px){
+  html[data-theme] #main .posprem-outer {padding-bottom:105px;}
+}
+</style>
+
+<style id="of-premium-access-navigation-v3">
+/* Existing-key access lives inside the same heading as the pricing options. */
+html[data-theme] #main .posprem-outer .of-plan-heading {
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:7px 13px;
+}
+html[data-theme] #main .of-plan-heading .of-plan-heading-title {
+  font-size:.94rem;line-height:1.4;font-weight:800;color:var(--t1);flex:1 1 auto;
+}
+html[data-theme] #main .of-plan-heading .of-plan-heading-description {
+  flex:1 0 100%;font-size:.75rem;line-height:1.5;color:var(--t3);font-weight:500;
+}
+html[data-theme] #main .of-premium-key-link {
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1.5px solid #7DD3FC;border-radius:10px;
+  background:#7DD3FC;padding:10px 17px;min-height:42px;
+  color:#082439;font:800 .83rem/1.35 Inter,sans-serif;
+  box-shadow:0 3px 14px rgba(125,211,252,.22);
+  cursor:pointer;text-align:center;white-space:normal;
+  transition:background .16s,box-shadow .16s,transform .16s;
+}
+html[data-theme] #main .of-premium-key-link:hover {
+  background:#A8E5FF;box-shadow:0 5px 19px rgba(125,211,252,.33);
+  transform:translateY(-1px);
+}
+html[data-theme="light"] #main .of-premium-key-link {
+  background:#135C96;border-color:#135C96;color:#fff;
+  box-shadow:0 3px 13px rgba(19,92,150,.20);
+}
+html[data-theme="light"] #main .of-premium-key-link:hover {
+  background:#0C4778;border-color:#0C4778;
+  box-shadow:0 5px 17px rgba(19,92,150,.28);
+}
+html[data-theme] #main .of-premium-key-link:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+html[data-theme] #main .of-premium-key-link.is-unlocked {display:none!important}
+html[data-theme] #main .posprem-outer {scroll-margin-top:140px}
+@media(max-width:640px){
+  html[data-theme] #main .posprem-outer .of-plan-heading {align-items:flex-start;flex-direction:column;gap:8px}
+  html[data-theme] #main .of-plan-heading .of-plan-heading-title,
+  html[data-theme] #main .of-plan-heading .of-plan-heading-description {flex:0 0 auto}
+  html[data-theme] #main .of-premium-key-link {align-self:flex-start;order:-1;max-width:100%}
+}
+</style>
+
+<style id="of-compact-offerings-theme-contrast">
+/* Bright CTAs on dark backgrounds, deeper CTAs with white text on light backgrounds. */
+html[data-theme="dark"] #main .of-plan-getstarted-standard {
+  background:linear-gradient(135deg,#FFD34F,#E6AB24)!important;color:#152030!important;
+}
+html[data-theme="dark"] #main .of-plan-getstarted-training {
+  background:linear-gradient(135deg,#4CE1A0,#13B980)!important;color:#09241A!important;
+}
+html[data-theme="light"] #main .of-plan-getstarted-standard {
+  background:linear-gradient(135deg,#966000,#704600)!important;color:#FFFFFF!important;
+}
+html[data-theme="light"] #main .of-plan-getstarted-training {
+  background:linear-gradient(135deg,#087B52,#07553E)!important;color:#FFFFFF!important;
+}
+html[data-theme] #main .of-plan-getstarted {text-shadow:none!important;}
+html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(--accent);outline-offset:3px}
 </style>
 </head>
 
@@ -3992,9 +4090,28 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 
       <div id="posprem-sales-nifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
-        <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('nifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('nifty')">Click here for more details &rarr;</button></div>
+        <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-nifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('nifty', _ofPremiumActiveKind('nifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
+        <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for NIFTY">
+          <div class="of-plan-card of-plan-standard is-selected" id="pos-plan-card-standard-nifty">
+            <label class="of-plan-choice" for="pos-plan-standard-nifty">
+              <input type="radio" name="pos-plan-nifty" id="pos-plan-standard-nifty" value="standard" checked onchange="posPremTrainingChoice('nifty')">
+              <span class="of-plan-option-label">OPTION 1 <span class="of-plan-tag">Premium subscription</span></span>
+              <span class="of-plan-price">&#8377;2,499 <small>/month</small></span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-standard" id="pos-getstarted-standard-nifty" onclick="posPremQuickStart('nifty','standard')">&#128640; Get Started &mdash; Option 1</button>
+          </div>
+          <div class="of-plan-card of-plan-training" id="pos-plan-card-training-nifty">
+            <label class="of-plan-choice" for="pos-plan-training-nifty">
+              <input type="radio" name="pos-plan-nifty" id="pos-plan-training-nifty" value="training" onchange="posPremTrainingChoice('nifty')">
+              <span class="of-plan-option-label">OPTION 2 <span class="of-plan-tag">One 2-hour session</span></span>
+              <span class="of-plan-price">&#8377;2,999 <small>first month</small></span>
+              <span class="of-plan-caption">&#8377;2,499 subscription + &#8377;500 for one training session</span>
+              <span class="of-plan-details">One-time 2-hour dashboard walkthrough. Choose an available session slot; subscription starts on the confirmed session date. Access key shared before the session. Renewals: &#8377;2,499/month.</span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-training" id="pos-getstarted-training-nifty" style="display:none" onclick="posPremQuickStart('nifty','training')">&#127891; Get Started &mdash; Option 2 + Book Session</button>
+          </div>
         </div>
+        <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
 <div class="prem-offer-slot" id="posprem-offerslot-nifty"></div>
@@ -4009,39 +4126,17 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 </div>
     <div class="prem-tnc-wrap">
           <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
-          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Subscription Options &amp; Training</h4><p><strong>These Terms &amp; Conditions apply to both options.</strong> <strong>Option 1 &mdash; Subscription only:</strong> Premium dashboard access costs &#8377;2,499 per month, with no training session included. <strong>Option 2 &mdash; Subscription with one-time training:</strong> The initial payment is &#8377;2,999 (&#8377;2,499 for the subscription plus &#8377;500 for a single 2-hour dashboard walkthrough). Customers request available session slots and confirm the training date and time with OptionsFlow. <strong>For Option 2, the subscription begins on the confirmed training session date, and the access key is shared before the session.</strong> Subsequent renewals are &#8377;2,499/month for dashboard access. The training session is one-time and is separate from the Mentorship program.</p><h4>16. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
           <div class="prem-tnc-check-row">
             <input type="checkbox" id="postnc-nifty" onchange="posPremTnc('nifty')">
             <label class="prem-tnc-check-label" for="postnc-nifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
           </div>
         </div>
         <div id="poswa-nifty" class="prem-wa-section" style="display:none">
-          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener" onclick="return posPremCanWhatsApp('nifty')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span class="of-wa-cta-copy">Subscribe &mdash; &#8377;2,499/month</span>
           </a><br>
           <div class="prem-wa-note">We will share payment details and your monthly access key.</div>
-        </div>
-        <div id="posbundle-nifty" style="display:none">
-          <div class="prem-mdet">
-            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
-            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
-            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
-            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
-            <ul>
-              <li>~10 private sessions × 2 hours — completely one-on-one</li>
-              <li>Structured from basics to live dealer flow analysis</li>
-              <li>Every session grounded in real charts and current market context</li>
-              <li>Real trade structuring — condors, straddles, directional setups</li>
-              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
-              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
-            </ul>
-          </div>
-          <div class="prem-wa-section">
-            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
-            </a><br>
-            <div class="prem-wa-note">We will share payment details, your 6-month access key and the mentorship scheduling.</div>
-          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -4299,9 +4394,28 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 
       <div id="posprem-sales-banknifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
-        <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('banknifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('banknifty')">Click here for more details &rarr;</button></div>
+        <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-banknifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('banknifty', _ofPremiumActiveKind('banknifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
+        <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for BANKNIFTY">
+          <div class="of-plan-card of-plan-standard is-selected" id="pos-plan-card-standard-banknifty">
+            <label class="of-plan-choice" for="pos-plan-standard-banknifty">
+              <input type="radio" name="pos-plan-banknifty" id="pos-plan-standard-banknifty" value="standard" checked onchange="posPremTrainingChoice('banknifty')">
+              <span class="of-plan-option-label">OPTION 1 <span class="of-plan-tag">Premium subscription</span></span>
+              <span class="of-plan-price">&#8377;2,499 <small>/month</small></span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-standard" id="pos-getstarted-standard-banknifty" onclick="posPremQuickStart('banknifty','standard')">&#128640; Get Started &mdash; Option 1</button>
+          </div>
+          <div class="of-plan-card of-plan-training" id="pos-plan-card-training-banknifty">
+            <label class="of-plan-choice" for="pos-plan-training-banknifty">
+              <input type="radio" name="pos-plan-banknifty" id="pos-plan-training-banknifty" value="training" onchange="posPremTrainingChoice('banknifty')">
+              <span class="of-plan-option-label">OPTION 2 <span class="of-plan-tag">One 2-hour session</span></span>
+              <span class="of-plan-price">&#8377;2,999 <small>first month</small></span>
+              <span class="of-plan-caption">&#8377;2,499 subscription + &#8377;500 for one training session</span>
+              <span class="of-plan-details">One-time 2-hour dashboard walkthrough. Choose an available session slot; subscription starts on the confirmed session date. Access key shared before the session. Renewals: &#8377;2,499/month.</span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-training" id="pos-getstarted-training-banknifty" style="display:none" onclick="posPremQuickStart('banknifty','training')">&#127891; Get Started &mdash; Option 2 + Book Session</button>
+          </div>
         </div>
+        <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
 <div class="prem-offer-slot" id="posprem-offerslot-banknifty"></div>
@@ -4316,39 +4430,17 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 </div>
     <div class="prem-tnc-wrap">
           <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
-          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Subscription Options &amp; Training</h4><p><strong>These Terms &amp; Conditions apply to both options.</strong> <strong>Option 1 &mdash; Subscription only:</strong> Premium dashboard access costs &#8377;2,499 per month, with no training session included. <strong>Option 2 &mdash; Subscription with one-time training:</strong> The initial payment is &#8377;2,999 (&#8377;2,499 for the subscription plus &#8377;500 for a single 2-hour dashboard walkthrough). Customers request available session slots and confirm the training date and time with OptionsFlow. <strong>For Option 2, the subscription begins on the confirmed training session date, and the access key is shared before the session.</strong> Subsequent renewals are &#8377;2,499/month for dashboard access. The training session is one-time and is separate from the Mentorship program.</p><h4>16. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
           <div class="prem-tnc-check-row">
             <input type="checkbox" id="postnc-banknifty" onchange="posPremTnc('banknifty')">
             <label class="prem-tnc-check-label" for="postnc-banknifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
           </div>
         </div>
         <div id="poswa-banknifty" class="prem-wa-section" style="display:none">
-          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener" onclick="return posPremCanWhatsApp('banknifty')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span class="of-wa-cta-copy">Subscribe &mdash; &#8377;2,499/month</span>
           </a><br>
           <div class="prem-wa-note">We will share payment details and your monthly access key.</div>
-        </div>
-        <div id="posbundle-banknifty" style="display:none">
-          <div class="prem-mdet">
-            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
-            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
-            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
-            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
-            <ul>
-              <li>~10 private sessions × 2 hours — completely one-on-one</li>
-              <li>Structured from basics to live dealer flow analysis</li>
-              <li>Every session grounded in real charts and current market context</li>
-              <li>Real trade structuring — condors, straddles, directional setups</li>
-              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
-              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
-            </ul>
-          </div>
-          <div class="prem-wa-section">
-            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
-            </a><br>
-            <div class="prem-wa-note">We will share payment details, your 6-month access key and the mentorship scheduling.</div>
-          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -4608,9 +4700,28 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 
       <div id="posprem-sales-sensex" class="posprem-outer" style="display:none">
         <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
-        <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('sensex')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('sensex')">Click here for more details &rarr;</button></div>
+        <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-sensex" class="of-premium-key-link" onclick="ofPremiumJumpToKey('sensex', _ofPremiumActiveKind('sensex') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
+        <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for SENSEX">
+          <div class="of-plan-card of-plan-standard is-selected" id="pos-plan-card-standard-sensex">
+            <label class="of-plan-choice" for="pos-plan-standard-sensex">
+              <input type="radio" name="pos-plan-sensex" id="pos-plan-standard-sensex" value="standard" checked onchange="posPremTrainingChoice('sensex')">
+              <span class="of-plan-option-label">OPTION 1 <span class="of-plan-tag">Premium subscription</span></span>
+              <span class="of-plan-price">&#8377;2,499 <small>/month</small></span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-standard" id="pos-getstarted-standard-sensex" onclick="posPremQuickStart('sensex','standard')">&#128640; Get Started &mdash; Option 1</button>
+          </div>
+          <div class="of-plan-card of-plan-training" id="pos-plan-card-training-sensex">
+            <label class="of-plan-choice" for="pos-plan-training-sensex">
+              <input type="radio" name="pos-plan-sensex" id="pos-plan-training-sensex" value="training" onchange="posPremTrainingChoice('sensex')">
+              <span class="of-plan-option-label">OPTION 2 <span class="of-plan-tag">One 2-hour session</span></span>
+              <span class="of-plan-price">&#8377;2,999 <small>first month</small></span>
+              <span class="of-plan-caption">&#8377;2,499 subscription + &#8377;500 for one training session</span>
+              <span class="of-plan-details">One-time 2-hour dashboard walkthrough. Choose an available session slot; subscription starts on the confirmed session date. Access key shared before the session. Renewals: &#8377;2,499/month.</span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-training" id="pos-getstarted-training-sensex" style="display:none" onclick="posPremQuickStart('sensex','training')">&#127891; Get Started &mdash; Option 2 + Book Session</button>
+          </div>
         </div>
+        <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
 <div class="prem-offer-slot" id="posprem-offerslot-sensex"></div>
@@ -4625,39 +4736,17 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 </div>
     <div class="prem-tnc-wrap">
           <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
-          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Subscription Options &amp; Training</h4><p><strong>These Terms &amp; Conditions apply to both options.</strong> <strong>Option 1 &mdash; Subscription only:</strong> Premium dashboard access costs &#8377;2,499 per month, with no training session included. <strong>Option 2 &mdash; Subscription with one-time training:</strong> The initial payment is &#8377;2,999 (&#8377;2,499 for the subscription plus &#8377;500 for a single 2-hour dashboard walkthrough). Customers request available session slots and confirm the training date and time with OptionsFlow. <strong>For Option 2, the subscription begins on the confirmed training session date, and the access key is shared before the session.</strong> Subsequent renewals are &#8377;2,499/month for dashboard access. The training session is one-time and is separate from the Mentorship program.</p><h4>16. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
           <div class="prem-tnc-check-row">
             <input type="checkbox" id="postnc-sensex" onchange="posPremTnc('sensex')">
             <label class="prem-tnc-check-label" for="postnc-sensex">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
           </div>
         </div>
         <div id="poswa-sensex" class="prem-wa-section" style="display:none">
-          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener" onclick="return posPremCanWhatsApp('sensex')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span class="of-wa-cta-copy">Subscribe &mdash; &#8377;2,499/month</span>
           </a><br>
           <div class="prem-wa-note">We will share payment details and your monthly access key.</div>
-        </div>
-        <div id="posbundle-sensex" style="display:none">
-          <div class="prem-mdet">
-            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
-            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
-            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
-            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
-            <ul>
-              <li>~10 private sessions × 2 hours — completely one-on-one</li>
-              <li>Structured from basics to live dealer flow analysis</li>
-              <li>Every session grounded in real charts and current market context</li>
-              <li>Real trade structuring — condors, straddles, directional setups</li>
-              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
-              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
-            </ul>
-          </div>
-          <div class="prem-wa-section">
-            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
-            </a><br>
-            <div class="prem-wa-note">We will share payment details, your 6-month access key and the mentorship scheduling.</div>
-          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -4917,9 +5006,28 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 
       <div id="posprem-sales-finnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
-        <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('finnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('finnifty')">Click here for more details &rarr;</button></div>
+        <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-finnifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('finnifty', _ofPremiumActiveKind('finnifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
+        <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for FINNIFTY">
+          <div class="of-plan-card of-plan-standard is-selected" id="pos-plan-card-standard-finnifty">
+            <label class="of-plan-choice" for="pos-plan-standard-finnifty">
+              <input type="radio" name="pos-plan-finnifty" id="pos-plan-standard-finnifty" value="standard" checked onchange="posPremTrainingChoice('finnifty')">
+              <span class="of-plan-option-label">OPTION 1 <span class="of-plan-tag">Premium subscription</span></span>
+              <span class="of-plan-price">&#8377;2,499 <small>/month</small></span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-standard" id="pos-getstarted-standard-finnifty" onclick="posPremQuickStart('finnifty','standard')">&#128640; Get Started &mdash; Option 1</button>
+          </div>
+          <div class="of-plan-card of-plan-training" id="pos-plan-card-training-finnifty">
+            <label class="of-plan-choice" for="pos-plan-training-finnifty">
+              <input type="radio" name="pos-plan-finnifty" id="pos-plan-training-finnifty" value="training" onchange="posPremTrainingChoice('finnifty')">
+              <span class="of-plan-option-label">OPTION 2 <span class="of-plan-tag">One 2-hour session</span></span>
+              <span class="of-plan-price">&#8377;2,999 <small>first month</small></span>
+              <span class="of-plan-caption">&#8377;2,499 subscription + &#8377;500 for one training session</span>
+              <span class="of-plan-details">One-time 2-hour dashboard walkthrough. Choose an available session slot; subscription starts on the confirmed session date. Access key shared before the session. Renewals: &#8377;2,499/month.</span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-training" id="pos-getstarted-training-finnifty" style="display:none" onclick="posPremQuickStart('finnifty','training')">&#127891; Get Started &mdash; Option 2 + Book Session</button>
+          </div>
         </div>
+        <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
 <div class="prem-offer-slot" id="posprem-offerslot-finnifty"></div>
@@ -4934,39 +5042,17 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 </div>
     <div class="prem-tnc-wrap">
           <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
-          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Subscription Options &amp; Training</h4><p><strong>These Terms &amp; Conditions apply to both options.</strong> <strong>Option 1 &mdash; Subscription only:</strong> Premium dashboard access costs &#8377;2,499 per month, with no training session included. <strong>Option 2 &mdash; Subscription with one-time training:</strong> The initial payment is &#8377;2,999 (&#8377;2,499 for the subscription plus &#8377;500 for a single 2-hour dashboard walkthrough). Customers request available session slots and confirm the training date and time with OptionsFlow. <strong>For Option 2, the subscription begins on the confirmed training session date, and the access key is shared before the session.</strong> Subsequent renewals are &#8377;2,499/month for dashboard access. The training session is one-time and is separate from the Mentorship program.</p><h4>16. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
           <div class="prem-tnc-check-row">
             <input type="checkbox" id="postnc-finnifty" onchange="posPremTnc('finnifty')">
             <label class="prem-tnc-check-label" for="postnc-finnifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
           </div>
         </div>
         <div id="poswa-finnifty" class="prem-wa-section" style="display:none">
-          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener" onclick="return posPremCanWhatsApp('finnifty')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span class="of-wa-cta-copy">Subscribe &mdash; &#8377;2,499/month</span>
           </a><br>
           <div class="prem-wa-note">We will share payment details and your monthly access key.</div>
-        </div>
-        <div id="posbundle-finnifty" style="display:none">
-          <div class="prem-mdet">
-            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
-            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
-            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
-            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
-            <ul>
-              <li>~10 private sessions × 2 hours — completely one-on-one</li>
-              <li>Structured from basics to live dealer flow analysis</li>
-              <li>Every session grounded in real charts and current market context</li>
-              <li>Real trade structuring — condors, straddles, directional setups</li>
-              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
-              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
-            </ul>
-          </div>
-          <div class="prem-wa-section">
-            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
-            </a><br>
-            <div class="prem-wa-note">We will share payment details, your 6-month access key and the mentorship scheduling.</div>
-          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -5226,9 +5312,28 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 
       <div id="posprem-sales-midcpnifty" class="posprem-outer" style="display:none">
         <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
-        <div class="prem-pricing-row">
-          <div class="prem-price-card prem-first"><div class="prem-price-tag">Monthly Access</div><div class="prem-price-amt">&#8377;2,499</div><div class="prem-price-note">Per Month</div><button type="button" class="prem-price-getstarted-btn" onclick="posPremQuickStart('midcpnifty')">&#128640; Get Started</button></div><div class="prem-or">OR</div><div class="prem-price-card prem-bundle"><div class="prem-price-tag">6 Months Access</div><div class="prem-price-amt">&#8377;19,999</div><div class="prem-price-note">With Full Concept Learning Included</div><button type="button" class="prem-price-details-btn" onclick="posPremBundleStart('midcpnifty')">Click here for more details &rarr;</button></div>
+        <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-midcpnifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('midcpnifty', _ofPremiumActiveKind('midcpnifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
+        <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for MIDCAP NIFTY">
+          <div class="of-plan-card of-plan-standard is-selected" id="pos-plan-card-standard-midcpnifty">
+            <label class="of-plan-choice" for="pos-plan-standard-midcpnifty">
+              <input type="radio" name="pos-plan-midcpnifty" id="pos-plan-standard-midcpnifty" value="standard" checked onchange="posPremTrainingChoice('midcpnifty')">
+              <span class="of-plan-option-label">OPTION 1 <span class="of-plan-tag">Premium subscription</span></span>
+              <span class="of-plan-price">&#8377;2,499 <small>/month</small></span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-standard" id="pos-getstarted-standard-midcpnifty" onclick="posPremQuickStart('midcpnifty','standard')">&#128640; Get Started &mdash; Option 1</button>
+          </div>
+          <div class="of-plan-card of-plan-training" id="pos-plan-card-training-midcpnifty">
+            <label class="of-plan-choice" for="pos-plan-training-midcpnifty">
+              <input type="radio" name="pos-plan-midcpnifty" id="pos-plan-training-midcpnifty" value="training" onchange="posPremTrainingChoice('midcpnifty')">
+              <span class="of-plan-option-label">OPTION 2 <span class="of-plan-tag">One 2-hour session</span></span>
+              <span class="of-plan-price">&#8377;2,999 <small>first month</small></span>
+              <span class="of-plan-caption">&#8377;2,499 subscription + &#8377;500 for one training session</span>
+              <span class="of-plan-details">One-time 2-hour dashboard walkthrough. Choose an available session slot; subscription starts on the confirmed session date. Access key shared before the session. Renewals: &#8377;2,499/month.</span>
+            </label>
+            <button type="button" class="of-plan-getstarted of-plan-getstarted-training" id="pos-getstarted-training-midcpnifty" style="display:none" onclick="posPremQuickStart('midcpnifty','training')">&#127891; Get Started &mdash; Option 2 + Book Session</button>
+          </div>
         </div>
+        <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
 <div class="prem-offer-slot" id="posprem-offerslot-midcpnifty"></div>
@@ -5243,39 +5348,17 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 </div>
     <div class="prem-tnc-wrap">
           <div class="prem-tnc-head">&#9888; Terms &amp; Conditions &mdash; Read carefully before subscribing</div>
-          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
+          <div class="prem-tnc-scroll"><h4>1. What This Service Is</h4><p>OptionsFlow is a personal, independently operated website that publishes <strong>automated, algorithm-generated options market structure analytics</strong> for educational and general informational purposes only. The Premium Probable Positioning section provides subscribers access to estimated dealer gamma/vanna/charm positioning charts by strike, a running net-GEX-through-session chart, and Call/Put/Net GEX tracking tables. <strong>This section contains no trade ideas, strike recommendations, entry/exit levels, stop-loss levels, target levels, or P&amp;L estimates of any kind &mdash; it is analytical/informational chart data only.</strong> <strong>This is not investment advice, financial advice, trading advice, research analysis, or any form of regulated financial service.</strong> OptionsFlow is operated in a personal capacity and is <strong>not registered with SEBI, AMFI, NSE, BSE, or any financial regulatory authority</strong> in any capacity whatsoever &mdash; not as an Investment Adviser, Research Analyst, Portfolio Manager, Stockbroker, or otherwise. Nothing on this platform should be construed as a regulated financial product or service.</p><h4>2. Subscriber's Voluntary Choice</h4><p>You are subscribing entirely of your own free will, based on your own independent research and judgment. You acknowledge that you have not been solicited, persuaded, or induced by OptionsFlow to subscribe. You are an adult of sound mind, fully capable of making independent decisions. <strong>You accept full and sole responsibility for any use you make of this analytics content</strong>, including any trading or investment decision it may indirectly inform.</p><h4>3. No Advice &mdash; Strictly Educational, Analytics Only</h4><p>All content in this section, including estimated dealer positioning charts, GEX tracking tables, and any accompanying commentary, is <strong>purely algorithmic analytical output generated for educational illustration only</strong>. It does not include any trade ideas, recommended strikes, expiry suggestions, stop-loss levels, target levels, or P&amp;L projections. It does not take into account your personal financial situation, risk profile, or investment objectives. <strong>None of it constitutes a personalised recommendation to you.</strong> Always consult a SEBI-registered Investment Adviser before making any financial decision.</p><h4>4. Errors, Mistakes &amp; Miscalculations</h4><p>The algorithm may produce outputs containing errors including but not limited to: incorrect or mislabeled strikes, stale or delayed data, chart or table rendering errors, and flawed estimation logic. <strong>OptionsFlow makes no representation that any output is accurate, complete, or suitable for any purpose.</strong> You must independently verify every detail before relying on anything shown. OptionsFlow bears zero responsibility for losses or consequences arising from errors in this analytics output.</p><h4>5. No Guarantee of Accuracy or Usefulness</h4><p><strong>Options trading carries an extremely high degree of risk, and any decision you make using this or any other analytics is entirely your own responsibility.</strong> OptionsFlow makes no promise, guarantee, or implication regarding the accuracy, completeness, or usefulness of this analytics content, nor any promise of profit, return, or positive outcome from using this service.</p><h4>6. Zero Liability</h4><p>To the fullest extent permissible, OptionsFlow shall not be held liable or responsible for any loss, damage, financial harm, or any other consequence &mdash; direct, indirect, or incidental &mdash; arising from your use of or reliance on any content in this section. <strong>This includes any losses arising from errors in the analytics, and losses during periods of service unavailability.</strong> By subscribing you unconditionally release OptionsFlow from all liability of any kind.</p><h4>7. Frequency &amp; Availability of Updates</h4><p>There is no commitment to any minimum frequency of chart updates per session, per day, per week, or per month. Updates may be delayed, infrequent, or unavailable at any time. <strong>The subscription fee is for access to the portal only &mdash; not for any guaranteed frequency or quality of updates.</strong></p><h4>8. Service Availability</h4><p>This service may be unavailable, delayed, or offline at any time without prior notice, including due to technical issues, network outages, personal commitments, illness, travel, market holidays, or any other reason entirely at OptionsFlow's discretion. <strong>No refund, credit, or compensation is payable for any period of unavailability.</strong></p><h4>9. No Refunds</h4><p>All subscription payments are <strong>strictly non-refundable under any and all circumstances</strong>. This includes dissatisfaction with content, trading losses incurred, service downtime, errors in the analytics, or any other reason. By making a payment you unconditionally waive any right to seek a refund.</p><h4>10. Service Withdrawal</h4><p>OptionsFlow reserves the right to discontinue, modify, or withdraw this service at any time. In the event of permanent discontinuation, OptionsFlow will make reasonable efforts to provide at least 30 days' notice via the website or WhatsApp. <strong>No refund or compensation shall be payable upon discontinuation.</strong></p><h4>11. Key Sharing &amp; Access Revocation</h4><p>Your monthly access key is strictly personal and non-transferable. Sharing or distributing your key to any third party is a breach of these terms. OptionsFlow reserves the right to immediately revoke your access without notice and <strong>without any refund</strong> if key sharing is detected or suspected. Revocation under this clause does not entitle you to any compensation or pro-rata refund.</p><h4>12. Indemnity</h4><p>You agree to fully indemnify and hold OptionsFlow harmless from any claim, complaint, demand, loss, damage, or expense raised by you or any third party arising from your use of this service or your breach of these terms.</p><h4>13. Subscriber's Independent Due Diligence</h4><p>Before making any trading or investment decision that this analytics content may indirectly inform, the subscriber confirms that they will independently conduct their own due diligence, including verifying current market conditions, reviewing the live option chain, assessing personal risk tolerance and financial capacity, and consulting a SEBI-registered investment adviser where appropriate. <strong>OptionsFlow bears no responsibility for any outcome arising from a subscriber's failure to conduct adequate independent research. Acting on any content from this platform without personal verification is entirely at the subscriber's own risk.</strong></p><h4>14. Dispute Resolution</h4><p>If you have any concern or grievance, you agree to contact OptionsFlow directly via the official WhatsApp number on this website and attempt to resolve the matter amicably before taking any other action. Subscribing constitutes your agreement that direct communication is the first and preferred mode of resolving any disagreement.</p><h4>15. Subscription Options &amp; Training</h4><p><strong>These Terms &amp; Conditions apply to both options.</strong> <strong>Option 1 &mdash; Subscription only:</strong> Premium dashboard access costs &#8377;2,499 per month, with no training session included. <strong>Option 2 &mdash; Subscription with one-time training:</strong> The initial payment is &#8377;2,999 (&#8377;2,499 for the subscription plus &#8377;500 for a single 2-hour dashboard walkthrough). Customers request available session slots and confirm the training date and time with OptionsFlow. <strong>For Option 2, the subscription begins on the confirmed training session date, and the access key is shared before the session.</strong> Subsequent renewals are &#8377;2,499/month for dashboard access. The training session is one-time and is separate from the Mentorship program.</p><h4>16. Acceptance</h4><p>By ticking the checkbox below you confirm that: you have read and fully understood every clause above; you are above 18 years of age; you are subscribing entirely of your own free will without any solicitation; you understand this is not a SEBI-regulated service and contains no trade recommendations; and you unconditionally agree to all terms stated herein. <strong>If you do not agree with any part of these terms, do not subscribe.</strong></p></div>
           <div class="prem-tnc-check-row">
             <input type="checkbox" id="postnc-midcpnifty" onchange="posPremTnc('midcpnifty')">
             <label class="prem-tnc-check-label" for="postnc-midcpnifty">I confirm I have read and fully understood all terms above. I am subscribing voluntarily, at my own risk, with full awareness that this is not a SEBI-registered service and that OptionsFlow bears no liability for any outcome.</label>
           </div>
         </div>
         <div id="poswa-midcpnifty" class="prem-wa-section" style="display:none">
-          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Subscribe Now &mdash; WhatsApp
+          <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning.%20Please%20share%20payment%20details." target="_blank" rel="noopener" onclick="return posPremCanWhatsApp('midcpnifty')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span class="of-wa-cta-copy">Subscribe &mdash; &#8377;2,499/month</span>
           </a><br>
           <div class="prem-wa-note">We will share payment details and your monthly access key.</div>
-        </div>
-        <div id="posbundle-midcpnifty" style="display:none">
-          <div class="prem-mdet">
-            <span class="prem-mdet-badge">&#127873; Bonus included &mdash; One-on-One Mentorship</span>
-            <div class="prem-mdet-price">&#8377;19,999 <span>/ 6 months Premium + ~10 sessions &middot; 2 hrs each</span></div>
-            <h4>One-on-One Mentorship in Options Flow Analysis</h4>
-            <p class="prem-mdet-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
-            <ul>
-              <li>~10 private sessions × 2 hours — completely one-on-one</li>
-              <li>Structured from basics to live dealer flow analysis</li>
-              <li>Every session grounded in real charts and current market context</li>
-              <li>Real trade structuring — condors, straddles, directional setups</li>
-              <li>WhatsApp access for follow-up questions — during and after the sessions</li>
-              <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
-            </ul>
-          </div>
-          <div class="prem-wa-section">
-            <a class="prem-wa-btn" href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20subscribe%20to%20OptionsFlow%20Premium%20Probable%20Positioning%20for%206%20months%20%28%E2%82%B919%2C999%29%2C%20which%20includes%20the%20One-on-One%20Mentorship%20as%20a%20bonus.%20Please%20share%20payment%20details%20and%20how%20to%20get%20started." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Get Started &mdash; WhatsApp
-            </a><br>
-            <div class="prem-wa-note">We will share payment details, your 6-month access key and the mentorship scheduling.</div>
-          </div>
         </div>
         <div class="prem-divider"><span class="prem-divider-text">Already subscribed? Access below</span></div>
       </div>
@@ -5327,7 +5410,7 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 
   <div class="footer">
     <div class="disc">
-      ⚠ <strong>Disclaimer:</strong> All scores, signals and structural data are generated by an automated rule-based system applied to publicly available NSE and BSE options data. This dashboard presents options market structure — gamma exposure, open interest positioning, volatility and flow data — for informational and educational purposes only. No directional views or investment recommendations are expressed or implied. Options trading involves substantial risk of loss. The operator is <strong>not SEBI-registered</strong>. Consult a SEBI-registered advisor before making any financial decisions. Past outputs do not guarantee future results. By accessing this platform you agree the operator bears no liability for any losses arising from use of this information.
+      ⚠ <strong>Disclaimer:</strong> All scores, signals and structural data are generated by an automated rule-based system applied to options market data. This dashboard presents options market structure — gamma exposure, open interest positioning, volatility and flow data — for informational and educational purposes only. No directional views or investment recommendations are expressed or implied. Options trading involves substantial risk of loss. The operator is <strong>not SEBI-registered</strong>. Consult a SEBI-registered advisor before making any financial decisions. Past outputs do not guarantee future results. By accessing this platform you agree the operator bears no liability for any losses arising from use of this information.
     </div>
     <div id="footer-right" style="margin-left:auto;text-align:right">
       <div class="foot-brand">
@@ -6619,7 +6702,7 @@ async function switchIdx(idx, clickEvent){
   else window.scrollTo({top:0,behavior:'smooth'});
   renderIndex(idx, await fetchData(idx));
   if (document.body.getAttribute('data-of-view') === 'premium' && typeof showPremiumOffer === 'function') {
-    showPremiumOffer('features', idx);
+    showPremiumOffer(_ofPremiumActiveKind(idx) === 'volsurf' ? 'volsurf' : 'features', idx);
   }
 }
 
@@ -7104,12 +7187,11 @@ function switchStab(idx, key, btn, options){
     }
   }
 
-  if (key === 'prob') {
-
-    _ofPremiumExplanationFirst(idx);
-  }
-  if (key === 'prob' && !(options && options.fromOffer)) {
-    _ofRestoreProbLock(idx);
+  if (key === 'prob') _ofPremiumExplanationFirst(idx);
+  // A visitor without a validated key keeps the same sales offer on both Premium tabs.
+  // This only relocates the ONE existing sales node; selections and T&C stay intact.
+  if (key === 'prob' || key === 'volsurf') {
+    _ofPremiumSyncLockedTab(idx, key);
   }
 
   if (!(options && options.silent)) {
@@ -7614,21 +7696,95 @@ function _premShowContent(idx, html) {
 
 var _posPremDecrypted = {};
 
-var _posPremMode = {};
+// Both options use the same Terms & Conditions, with option-specific pricing and
+// training conditions in clause 15. Acceptance is tied to the selected option.
+function posPremSelectedPlan(idx) {
+  var training = document.getElementById('pos-plan-training-' + idx);
+  return (training && training.checked) ? 'training' : 'standard';
+}
+
+function posPremTrainingChoice(idx) {
+  var plan = posPremSelectedPlan(idx);
+  var selected = plan === 'training';
+  var sales = document.getElementById('posprem-sales-' + idx);
+  var cb = document.getElementById('postnc-' + idx);
+  var whatsappSection = document.getElementById('poswa-' + idx);
+
+  // Crucial: changing plans revokes acceptance of the previous plan's terms.
+  var previousPlan = sales && sales.dataset.selectedPlan;
+  if (previousPlan && previousPlan !== plan) {
+    if (cb) {
+      cb.checked = false;
+      delete cb.dataset.acceptedPlan;
+    }
+    if (whatsappSection) whatsappSection.style.display = 'none';
+  }
+  if (sales) sales.dataset.selectedPlan = plan;
+
+  var standardCard = document.getElementById('pos-plan-card-standard-' + idx);
+  var trainingCard = document.getElementById('pos-plan-card-training-' + idx);
+  if (standardCard) standardCard.classList.toggle('is-selected', !selected);
+  if (trainingCard) trainingCard.classList.toggle('is-selected', selected);
+  var standardBtn = document.getElementById('pos-getstarted-standard-' + idx);
+  var trainingBtn = document.getElementById('pos-getstarted-training-' + idx);
+  if (standardBtn) standardBtn.style.display = selected ? 'none' : 'block';
+  if (trainingBtn) trainingBtn.style.display = selected ? 'block' : 'none';
+
+  // Tell visitors explicitly which option they are agreeing to.
+  var head = sales && sales.querySelector('.prem-tnc-head');
+  if (head) head.textContent = '⚠ Terms & Conditions — ' + (selected ? 'Option 2 (Subscription + One-Time Training)' : 'Option 1 (Subscription Only)');
+  var label = sales && sales.querySelector('label[for="postnc-' + idx + '"]');
+  if (label) {
+    label.textContent = 'I confirm I have read, understood and agree to the Terms & Conditions for ' +
+      (selected ? 'Option 2 (subscription + one-time training)' : 'Option 1 (subscription only)') +
+      '. I am subscribing voluntarily, at my own risk, aware that OptionsFlow is not SEBI-registered and subject to the limitations of liability stated above.';
+  }
+
+  var wa = document.querySelector('#poswa-' + idx + ' .prem-wa-btn');
+  if (!wa) return;
+  var message = selected
+    ? 'Hi, I want to subscribe to OptionsFlow Premium Probable Positioning with a one-time 2-hour training session. Please share available session slots and payment details.'
+    : 'Hi, I want to subscribe to OptionsFlow Premium Probable Positioning. Please share payment details.';
+  wa.href = 'https://wa.me/919041156082?text=' + encodeURIComponent(message);
+  var copy = wa.querySelector('.of-wa-cta-copy');
+  if (copy) copy.textContent = selected ? 'Continue on WhatsApp — Rs 2,999 + Book Slot' : 'Subscribe on WhatsApp — Rs 2,499/month';
+  wa.setAttribute('aria-label', selected ? 'WhatsApp to request training slots and payment details' : 'WhatsApp for subscription payment details');
+  var note = document.querySelector('#poswa-' + idx + ' .prem-wa-note');
+  if (note) note.textContent = selected
+    ? 'Ask for available session slots and payment details.'
+    : 'We will share payment details and your access key.';
+
+  // Ensure a stale checkbox can never leave an actionable WhatsApp link visible.
+  if (whatsappSection && (!cb || !cb.checked || cb.dataset.acceptedPlan !== plan)) {
+    whatsappSection.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(posPremTrainingChoice);
+});
+
 function posPremTnc(idx) {
   var cb = document.getElementById('postnc-' + idx);
-  var ok = !!(cb && cb.checked), mode = _posPremMode[idx] || 'monthly';
   var wa = document.getElementById('poswa-' + idx);
-  var bw = document.getElementById('posbundle-' + idx);
-  if (wa) wa.style.display = (ok && mode === 'monthly') ? 'block' : 'none';
-  if (bw) bw.style.display = (ok && mode === 'bundle') ? 'block' : 'none';
+  posPremTrainingChoice(idx);
+  var plan = posPremSelectedPlan(idx);
+  if (cb) {
+    if (cb.checked) cb.dataset.acceptedPlan = plan;
+    else delete cb.dataset.acceptedPlan;
+  }
+  if (wa) wa.style.display = (cb && cb.checked && cb.dataset.acceptedPlan === plan) ? 'block' : 'none';
 }
-function _posPremSetMode(idx, mode) {
-  var cb = document.getElementById('postnc-' + idx);
 
-  if (cb && _posPremMode[idx] && _posPremMode[idx] !== mode) cb.checked = false;
-  _posPremMode[idx] = mode;
-  posPremTnc(idx);
+// The WhatsApp CTA also validates consent at click time, not just at render time.
+function posPremCanWhatsApp(idx) {
+  var cb = document.getElementById('postnc-' + idx);
+  var plan = posPremSelectedPlan(idx);
+  if (cb && cb.checked && cb.dataset.acceptedPlan === plan) return true;
+  var wa = document.getElementById('poswa-' + idx);
+  if (wa) wa.style.display = 'none';
+  _revealAndScrollToTnc('posprem-sales-' + idx);
+  return false;
 }
 
 async function _posPremDecryptFile(idx, pwd) {
@@ -7833,6 +7989,7 @@ function _posPremShowContent(idx, html) {
   lockEl.style.display = 'none';
   _ofSavedReady(idx, 'pos');
   if (salesEl) salesEl.style.display = 'none';
+  _ofPremiumHideEntryLinks(idx);
 
   document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
 
@@ -8058,6 +8215,9 @@ function _volsurfPremShowContent(idx, volHtml, atmHtml) {
   _ofPremiumSubscriberConfirmed();
   if (lockEl) lockEl.style.display = 'none';
   _ofSavedReady(idx, 'vol');
+  var salesEl = document.getElementById('posprem-sales-' + idx);
+  if (salesEl) salesEl.style.display = 'none';
+  _ofPremiumHideEntryLinks(idx);
   contentEl.style.display = 'block';
 
   document.querySelector('#panel-' + idx + ' .stab[data-key="volsurf"]')?.classList.add('unlocked');
@@ -8178,9 +8338,11 @@ function _stickyStackBottom() {
   return bottom;
 }
 
-function _scrollOfferIntoView(el) {
+function _scrollOfferIntoView(el, extraSpace) {
   if (!el) return;
-  var y = el.getBoundingClientRect().top + window.pageYOffset - (_stickyStackBottom() - 2);
+  // Keep scroll targets below the sticky navigation rather than tucked under it.
+  var clearance = _stickyStackBottom() + 14 + (extraSpace || 0);
+  var y = el.getBoundingClientRect().top + window.pageYOffset - clearance;
   window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
 }
 
@@ -8340,6 +8502,12 @@ function _ofSavedInvalidEverywhere(pwd) {
       if (!state) _ofSavedError(idx, kind, new Error('wrong'));
     });
   });
+  // Expired or invalid saved keys must return to the visible offer—not an orphaned key form.
+  if (document.body.getAttribute('data-of-view') === 'premium') {
+    var active = document.querySelector('#main > .idx-panel.on');
+    var activeIdx = active ? active.id.slice(6) : 'nifty';
+    _ofShowPremiumOfferLocked(activeIdx, _ofPremiumActiveKind(activeIdx));
+  }
 }
 
 function _ofPremiumExplanationFirst(idx) {
@@ -8375,40 +8543,85 @@ function _ofScrollToSubscriberTab(idx) {
     }
   }, 60);
 }
+function _ofPremiumHasContent(idx) {
+  var pos = document.getElementById('posprem-content-' + idx);
+  var vol = document.getElementById('volsurfprem-content-' + idx);
+  return !!((_posPremDecrypted[idx]) || (_volsurfDecrypted[idx]) ||
+    (pos && pos.style.display !== 'none' && pos.querySelector('iframe')) ||
+    (vol && vol.style.display !== 'none' && vol.querySelector('iframe')));
+}
+function _ofPremiumHideEntryLinks(idx) {
+  var link = document.getElementById('of-premium-entry-sales-' + idx);
+  if (link) link.classList.add('is-unlocked');
+}
+function _ofPremiumShowEntryLinks(idx) {
+  var link = document.getElementById('of-premium-entry-sales-' + idx);
+  if (link) link.classList.remove('is-unlocked');
+}
+function _ofPremiumActiveKind(idx) {
+  var vol = document.querySelector('#panel-' + idx + ' > .sub-tabs > .stab[data-key="volsurf"].on');
+  return vol ? 'volsurf' : 'prob';
+}
+function _ofShowPremiumOfferLocked(idx, kind) {
+  kind = kind === 'volsurf' ? 'volsurf' : 'prob';
+  if (_ofPremiumHasContent(idx) || _ofStoredPositioningKey()) return;
+  _fillOfferSlot('posprem-offerslot-' + idx, 'tmpl-features-offer');
+  _markOfferSeen('features', idx);
+  _ofPremiumShowEntryLinks(idx);
+  var sales = document.getElementById('posprem-sales-' + idx);
+  var holder = document.getElementById('sp-' + idx + '-' + kind);
+  var lock = document.getElementById((kind === 'prob' ? 'posprem-lock-' : 'volsurfprem-lock-') + idx);
+  if (sales && holder && lock) {
+    // Move—not copy—the entire pricing/T&C block. Radio selection, checkbox,
+    // open details and WhatsApp action must survive tab switching.
+    if (sales.parentNode !== holder || sales.nextElementSibling !== lock) {
+      holder.insertBefore(sales, lock);
+    }
+    sales.style.display = 'block';
+    lock.style.display = 'block';
+  }
+  _ofScrollToSubscriberTab(idx);
+}
+function _ofPremiumSyncLockedTab(idx, kind) {
+  if (_ofPremiumHasContent(idx)) {
+    var sales = document.getElementById('posprem-sales-' + idx);
+    if (sales) sales.style.display = 'none';
+    _ofPremiumHideEntryLinks(idx);
+    return;
+  }
+  var saved = _ofStoredPositioningKey();
+  if (saved) {
+    var sales = document.getElementById('posprem-sales-' + idx);
+    if (sales) sales.style.display = 'none';
+    if (kind === 'volsurf') _ofSavedVolatilityCheck(idx, saved).catch(function(e){_ofSavedError(idx, 'vol', e);});
+    else _ofSavedPositioningCheck(idx, saved).catch(function(e){_ofSavedError(idx, 'pos', e);});
+    return;
+  }
+  _ofShowPremiumOfferLocked(idx, kind);
+}
+function ofPremiumJumpToKey(idx, kind) {
+  var tab = kind === 'vol' ? 'volsurf' : 'prob';
+  var panel = document.getElementById('panel-' + idx);
+  if (panel && !panel.querySelector(':scope > .sub-tabs > .stab[data-key="' + tab + '"].on')) {
+    var btn = panel.querySelector(':scope > .sub-tabs > .stab[data-key="' + tab + '"]');
+    if (btn) switchStab(idx, tab, btn, {silent:true});
+  }
+  // Don't change pricing visibility or plan/T&C state. Simply scroll to the key input.
+  var target = document.getElementById((kind === 'vol' ? 'volsurfprem-lock-' : 'posprem-lock-') + idx);
+  if (!target) return;
+  requestAnimationFrame(function() {
+    _scrollOfferIntoView(target, 18);
+    var input = document.getElementById((kind === 'vol' ? 'pw-inline-vol-' : 'pw-inline-pos-') + idx);
+    if (input) setTimeout(function(){try{input.focus({preventScroll:true});}catch(e){input.focus();}}, 350);
+  });
+}
 function showPremiumOffer(which, idx) {
   if (which === 'features' || which === 'volsurf') {
-    var btn = document.querySelector('#panel-' + idx + ' .stab-prob');
-    var sales = document.getElementById('posprem-sales-' + idx);
-    var lock = document.getElementById('posprem-lock-' + idx);
-    var content = document.getElementById('posprem-content-' + idx);
-    var holder = document.getElementById('sp-' + idx + '-prob');
-    var unlocked = !!(content && content.style.display !== 'none' && content.querySelector('iframe'));
-    var cached = _posPremDecrypted[idx];  
-    var savedKey = null;
-    try { savedKey = localStorage.getItem('_of_pw_pos'); } catch (e) {}
-
-    if (unlocked || cached) {
-      switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
-      if (sales) sales.style.display = 'none';
-      if (lock) lock.style.display = 'none';
-      if (!unlocked && cached) _posPremShowContent(idx, cached);
-      _ofPremiumChartFirst(idx);
-      _ofScrollToSubscriberTab(idx);
-      return;
-    }
-
-    if (savedKey) {
-      switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
-      if (sales) sales.style.display = 'none';
-      if (lock) lock.style.display = 'none';
-      _ofSavedStatus(idx, 'pos');
-      _ofSavedPositioningCheck(idx, savedKey).catch(function(){});
-      _ofScrollToSubscriberTab(idx);
-      return;
-    }
-
-    switchStab(idx, 'prob', btn, {fromOffer:true, silent:true});
-    _ofShowPremiumOfferLocked(idx);
+    var tab = which === 'volsurf' ? 'volsurf' : 'prob';
+    var btn = document.querySelector('#panel-' + idx + ' > .sub-tabs > .stab[data-key="' + tab + '"]');
+    switchStab(idx, tab, btn, {fromOffer:true, silent:true});
+    _ofPremiumSyncLockedTab(idx, tab);
+    _ofScrollToSubscriberTab(idx);
     return;
   } else if (which === 'recom' && window.PREMIUM_RECO_ENABLED) {
     var btn2 = document.querySelector('#panel-' + idx + ' .stab-premium[data-key="premium"]');
@@ -8420,19 +8633,6 @@ function showPremiumOffer(which, idx) {
     setTimeout(function(){ _scrollOfferIntoView(sales2); }, 60);
   }
 }
-function _ofShowPremiumOfferLocked(idx) {
-  _fillOfferSlot('posprem-offerslot-' + idx, 'tmpl-features-offer');
-  _markOfferSeen('features', idx);
-  var sales = document.getElementById('posprem-sales-' + idx);
-  var lock = document.getElementById('posprem-lock-' + idx);
-  if (sales) sales.style.display = 'block';
-  if (sales && lock) {
-    sales.insertAdjacentElement('afterend', lock);
-    lock.style.display = 'block';
-  }
-  _ofScrollToSubscriberTab(idx);
-}
-
 function _revealAndScrollToTnc(containerId) {
   var container = document.getElementById(containerId);
   var tnc = container && container.querySelector('.prem-tnc-wrap');
@@ -8454,19 +8654,18 @@ function scrollToTnc(btn) {
   var m = /^(posprem-offerslot|premrecom-offerslot)-(.+)$/.exec(slot.id);
   if (!m) return;
   var containerId = m[1] === 'premrecom-offerslot' ? ('prem-sub-' + m[2]) : ('posprem-sales-' + m[2]);
-  if (m[1] === 'posprem-offerslot') _posPremSetMode(m[2], 'monthly');
   _revealAndScrollToTnc(containerId);
 }
 
-function posPremQuickStart(idx) {
-  _posPremSetMode(idx, 'monthly');
+function posPremQuickStart(idx, plan) {
+  if (plan === 'training' || plan === 'standard') {
+    var selection = document.getElementById('pos-plan-' + plan + '-' + idx);
+    if (selection) selection.checked = true;
+    posPremTrainingChoice(idx);
+  }
   _revealAndScrollToTnc('posprem-sales-' + idx);
 }
 
-function posPremBundleStart(idx) {
-  _posPremSetMode(idx, 'bundle');
-  _revealAndScrollToTnc('posprem-sales-' + idx);
-}
 
 function _markOfferSeen(kind, idx) {
   var subId = kind === 'recom' ? ('sub-recom-' + idx) : ('sub-features-' + idx);
@@ -8939,6 +9138,24 @@ document.addEventListener('pointermove',function(e){
       showPremiumOffer('features',idx());
     } else if(view==='premium')ensureSelection('premium',idx());
     if(changed||historyEvent)window.scrollTo(0,0);
+    // On entry, place the existing-customer link and pricing near the top of
+    // the viewport, rather than cutting off the first price behind the mobile
+    // fixed index switcher. Do not auto-scroll during Premium tab switching.
+    if(view==='premium' && (changed||historyEvent)) {
+      setTimeout(function(){
+        var i=idx();
+        if (_ofPremiumHasContent(i) || _ofStoredPositioningKey()) return;
+        var kind=_ofPremiumActiveKind(i)==='volsurf'?'volsurf':'prob';
+        var entry=document.getElementById('of-premium-entry-sales-'+i);
+        if(!entry || !entry.getClientRects().length) return;
+        var title=entry.closest('.of-plan-heading')||entry;
+        // Leave clear space below the sticky navigation and mentorship CTA.
+        // The previous 14px buffer could leave the key button covered on entry.
+        var clearance=_stickyStackBottom()+58;
+        var y=title.getBoundingClientRect().top+window.pageYOffset-clearance;
+        window.scrollTo({top:Math.max(0,y),behavior:'auto'});
+      },125);
+    }
     if(changed)requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'));});
   }
   window.ofViewNavigate=function(view){
@@ -8966,7 +9183,7 @@ document.addEventListener('pointermove',function(e){
 
       var result=oldSwitchIdx.apply(this, arguments);
       if(document.body.getAttribute('data-of-view')==='analytics')ensureSelection('analytics',index);
-      if(document.body.getAttribute('data-of-view')==='premium'&&typeof showPremiumOffer==='function')showPremiumOffer('features',index);
+      if(document.body.getAttribute('data-of-view')==='premium'&&typeof showPremiumOffer==='function')showPremiumOffer(_ofPremiumActiveKind(index)==='volsurf'?'volsurf':'features',index);
       return result;
     };
     guarded._ofGuarded=true;window.switchIdx=guarded;
