@@ -6686,7 +6686,8 @@ async function switchIdx(idx, clickEvent){
 
   var activeIndex = document.querySelector('#main > .idx-panel.on');
   var currentIndex = activeIndex && activeIndex.id.slice(6);
-  if(clickEvent && clickEvent.isTrusted && currentIndex !== idx) {
+  // Only an actual index change collapses the Scenario Controller.
+  if(currentIndex && currentIndex !== idx) {
     _ofCollapsePremiumScenarios();
   }
   sessionStorage.setItem('_of_tab', idx);
@@ -7150,6 +7151,14 @@ function switchStab(idx, key, btn, options){
   if(key==='ivtrack'){ const _ivm=document.getElementById('ivtrack-mount-'+idx); if(_ivm && _ivm._ivtRefresh) _ivm._ivtRefresh(); }
   const panel = document.getElementById(`panel-${idx}`);
   if(!panel) return;
+
+  // Within an index, entering Volatility Surface is the ONLY navigation
+  // that automatically collapses/reset the Premium Scenario Controller.
+  // GEX/VEX/CEX/History, positioning matrices, and other tabs leave it open.
+  if(key === 'volsurf' && panel.classList.contains('on') &&
+     !panel.querySelector('.sub-tabs > .stab[data-key="volsurf"].on')) {
+    _ofCollapsePremiumScenarios();
+  }
 
   panel.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
   panel.querySelectorAll('.stab:not(.pcr-sub):not(.prob-sub):not(.volsurf-sub)').forEach(b=>b.classList.remove('on'));
@@ -8033,18 +8042,6 @@ function _posPremShowContent(idx, html) {
     if(refreshNavigationRevision === _ofScenarioNavigationRevision)
       _ofRestoreScenarioAfterRefresh(frame, priorScenarioState);
     URL.revokeObjectURL(url);
-
-    try {
-      frame.contentDocument.addEventListener('click', function(e) {
-        if (!e.isTrusted || !e.target.closest) return;
-        var nav = e.target.closest('.pp-tab, [data-pp-view]');
-        if (nav && !nav.classList.contains('on')) _ofCollapsePremiumScenarios();
-      }, true);
-      frame.contentDocument.addEventListener('keydown', function(e) {
-        if (!e.isTrusted || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
-        if (e.target.closest && e.target.closest('[data-pp-view]')) _ofCollapsePremiumScenarios();
-      }, true);
-    } catch (e) {}
 
     try {
       frame.contentDocument.addEventListener('click', function(e) {
@@ -9109,7 +9106,6 @@ document.addEventListener('pointermove',function(e){
   function show(view,historyEvent){
     if(view!=='analytics'&&view!=='premium')view='home';
     var old=lastView,changed=old!==view;
-    if(changed && old) _ofCollapsePremiumScenarios();
     document.body.setAttribute('data-of-view',view);
     if(currentLabels[view]){
       document.getElementById('of-view-kicker').textContent=currentLabels[view][0];
@@ -9197,11 +9193,6 @@ document.addEventListener('pointermove',function(e){
     }
   }
   function init(){installSwitchGuard();startQuoteSync();show(viewFromHash(),true);}
-  document.addEventListener('click',function(e){
-    if(!e.isTrusted || !e.target.closest)return;
-    var tab=e.target.closest('#main .idx-panel > .sub-tabs > .stab');
-    if(tab && !tab.classList.contains('on'))_ofCollapsePremiumScenarios();
-  },true);
   window.addEventListener('popstate',function(){show(viewFromHash(),true);});
   window.addEventListener('hashchange',function(){show(viewFromHash(),true);});
   document.addEventListener('click',function(event){
