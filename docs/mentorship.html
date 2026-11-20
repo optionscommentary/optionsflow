@@ -946,6 +946,20 @@ html[data-theme] #topbar .brand {gap: 9px;}
   html[data-theme] #topbar .brand {gap: 7px;}
 }
 </style>
+<style>
+.m-card .session-agenda{display:grid;gap:0;margin:0;padding:0;border-block:1px solid var(--border)}
+.m-card .session-agenda>div{padding:10px 0}
+.m-card .session-agenda>div+div{border-top:1px solid var(--border)}
+.solo-wrap{--offer-heading-teal:#6ce1ca;--offer-heading-blue:#81c6ff}
+html[data-theme="light"] .solo-wrap{--offer-heading-teal:#07675d;--offer-heading-blue:#154e95}
+.m-card .session-agenda dt{color:var(--offer-heading-teal);font-size:.86rem;font-weight:700;line-height:1.45}
+.featured-card .session-agenda dt{color:var(--accent)}
+.solo-wrap .m-card-badge.intro{color:var(--offer-heading-blue)}
+.solo-wrap .m-card-badge.prog{color:var(--offer-heading-teal)}
+.m-card .session-agenda dd,.m-card .session-note{color:var(--t2);font-size:.83rem;line-height:1.55;margin:4px 0 0}
+.m-card:has(.session-agenda) .m-card-desc{flex:0 0 auto}
+.m-card:has(.session-agenda) .m-cta{margin-top:auto}
+</style>
 </head>
 <body>
 
@@ -1008,16 +1022,15 @@ html[data-theme] #topbar .brand {gap: 9px;}
   <div class="m-card">
     <span class="m-card-badge intro">Trial Session</span>
     <div class="m-card-price">₹999 <span>/ 2 hours</span></div>
-    <h2>One Session to See If This Approach Works for You</h2>
-    <p class="m-card-desc">A focused 2-hour private session over Google Meet where we go through the live dashboard together — what each chart means, how to read the current structure, and how to build a pre-market view using GEX, VEX and PCR.</p>
-    <ul>
-      <li>Full walkthrough of your live dashboard (GEX, VEX, ZGL, PCR, Skew)</li>
-      <li>I explain the current market structure in real context</li>
-      <li>All your questions answered — nothing is off limits</li>
-      <li>Coordinate timing and further queries over WhatsApp</li>
-      <li>Good starting point before committing to the full mentorship</li>
-      <li>No preparation needed — just show up with your questions</li>
-    </ul>
+    <h2>An introduction to dealer flow</h2>
+    <p class="m-card-desc">You’ll learn why dealers hedge and how OptionsFlow uses options-chain data to estimate their positioning.</p>
+    <dl class="session-agenda">
+      <div><dt>Start with the dealer’s hedge</dt><dd>Follow what happens when the index rises. Why might a dealer buy more futures, while a dealer with the opposite position sells?</dd></div>
+      <div><dt>Understand what OptionsFlow estimates</dt><dd>Start with the open interest at one strike. Learn why it matters which side dealers hold and how that assumption shapes the chart.</dd></div>
+      <div><dt>Make sense of GEX, VEX and CEX</dt><dd>Connect each reading to a reason for adjusting a hedge. GEX relates to a move in price, VEX to a change in implied volatility, and CEX to time passing.</dd></div>
+      <div><dt>A trial tailored to you</dt><dd>Tell us what you’d like to understand when you book. We can plan the session around your experience, your questions and the topics that matter most to you.</dd></div>
+    </dl>
+    <p class="session-note">Live on Google Meet, with time for your questions.</p>
     <a class="m-cta intro"
        href="https://wa.me/919041156082?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B9999%20Trial%20Session%20on%20OptionsFlow.%20Please%20share%20available%20slots."
        target="_blank" rel="noopener">
@@ -1028,19 +1041,16 @@ html[data-theme] #topbar .brand {gap: 9px;}
 
   <!-- Card 2 -->
   <div class="m-card featured-card">
-    <span class="m-card-badge prog">Optionsflow Mentorship</span>
+    <span class="m-card-badge prog">Full Mentorship</span>
     <div class="m-card-price">₹19,999 <span>/ ~10 sessions · 2 hrs each</span></div>
-    <h2>One-on-One Mentorship in Options Flow Analysis</h2>
-    <p class="m-card-desc">A structured one-on-one engagement, generally around 10 sessions — could wrap up sooner or extend a little further, depending on the ground we need to cover together. We cover dealer gamma positioning, GEX, CEX, VEX regimes, expiry flow dynamics, synthetic futures, skew interpretation, how to read market structure and how to design trades around it.</p>
-    <ul>
-      <li>~10 private sessions × 2 hours — completely one-on-one</li>
-      <li>Structured from basics to live dealer flow analysis</li>
-      <li>Every session grounded in real charts and current market context</li>
-      <li>Real trade structuring — condors, straddles, directional setups</li>
-      <li>WhatsApp access for follow-up questions — during and after the sessions</li>
-      <li>Your pace — no batch, no fixed calendar, no expiry on sessions</li>
-
-    </ul>
+    <h2>Understand dealer flow from the ground up</h2>
+    <p class="m-card-desc">First, learn why dealers adjust their hedges. Once those concepts are clear, you’ll read the OptionsFlow charts and use them to build a trade. If needed, we start with the basics of options.</p>
+    <dl class="session-agenda">
+      <div><dt>Dealer hedging, GEX and the gamma curve</dt><dd>Learn why a dealer hedges delta and how gamma changes that hedge as price moves. Understand what positive and negative gamma exposure mean and why the gamma curve can cross zero.</dd></div>
+      <div><dt>Volatility and its relationship with gamma</dt><dd>Learn what implied volatility measures, why it varies by strike and expiry, and what creates skew. Then explore how a change in volatility reshapes gamma near and away from the money.</dd></div>
+      <div><dt>Vanna (VEX) and charm (CEX)</dt><dd>A hedge can change even when the index stands still. Learn how vanna links delta to implied volatility and how charm links delta to the passage of time.</dd></div>
+      <div><dt>Read the charts, then structure a trade</dt><dd>On the live dashboard, locate zero gamma, read the skew and interpret VEX and CEX. Use that market view to choose a structure, strikes and expiry, and explain what would change your plan.</dd></div>
+    </dl>
     <div class="bonus-note">
       🎁 Bonus: 6 months of Premium Probable Positioning access, free
     </div>
