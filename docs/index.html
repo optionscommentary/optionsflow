@@ -3599,7 +3599,6 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 </style>
 
 <style id="of-two-plan-options">
-/* Two clearly separated plans; Option 2 is green, Option 1 is gold. */
 html[data-theme] #main .of-plan-heading { display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:4px 0 13px;color:var(--t1);font-size:.93rem;font-weight:800; }
 html[data-theme] #main .of-plan-heading span {font-size:.74rem;line-height:1.45;color:var(--t3);font-weight:500}
 html[data-theme] #main .of-plan-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:14px;}
@@ -3639,7 +3638,6 @@ html[data-theme="light"] #main .of-plan-standard.is-selected {border-color:#A776
 </style>
 
 <style id="of-premium-pricing-visibility-fix">
-/* Keep both premium prices fully legible, including at tablet widths. */
 html[data-theme] #main .of-plan-card {min-width:0;overflow:visible;}
 html[data-theme] #main .of-plan-price {
   display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 7px;
@@ -3658,7 +3656,6 @@ html[data-theme] #main .of-plan-price small {white-space:normal;line-height:1.4;
 </style>
 
 <style id="of-premium-access-navigation-v3">
-/* Existing-key access lives inside the same heading as the pricing options. */
 html[data-theme] #main .posprem-outer .of-plan-heading {
   display:flex;align-items:center;justify-content:space-between;
   flex-wrap:wrap;gap:7px 13px;
@@ -3702,7 +3699,6 @@ html[data-theme] #main .posprem-outer {scroll-margin-top:140px}
 </style>
 
 <style id="of-compact-offerings-theme-contrast">
-/* Bright CTAs on dark backgrounds, deeper CTAs with white text on light backgrounds. */
 html[data-theme="dark"] #main .of-plan-getstarted-standard {
   background:linear-gradient(135deg,#FFD34F,#E6AB24)!important;color:#152030!important;
 }
@@ -5487,7 +5483,7 @@ function toggleTheme(){
       callIV: '#0288D1', putIV: '#E65100', net: '#6A1B9A',
       grid: 'rgba(0,0,0,.09)', zero: 'rgba(0,0,0,.5)', legbg: 'rgba(255,255,255,.93)', cursor: 'rgba(13,27,42,.35)'
     },
-    dark: {                                          // brighter colours so everything stays readable on dark
+    dark: {
       bg: '#000000', surf: '#000000', alt: '#0B0B0B', border: '#2B2B2B',
       call: '#4DA3FF', put: '#FF6B6B', sf: '#2EE6C5', synth: '#FF7EB6', absoluteFuture: '#FCD34D',
       pos: '#4ADE80', neg: '#FF6B81', neu: '#A8B7C7',
@@ -6034,7 +6030,7 @@ function toggleTheme(){
     ticks(0, ymax, 6).forEach(function (v) { ctx.beginPath(); ctx.moveTo(R.x, Yo(v)); ctx.lineTo(R.x + R.w, Yo(v)); ctx.stroke(); T(ctx, fmtLarge(v), R.x - 6 * u, Yo(v) + 3 * u, 9 * u, C.txt2, 'right'); });
     ticks(vlo, vhi, 6).forEach(function (v) { T(ctx, f(v, 1) + '%', R.x + R.w + 6 * u, Yv(v) + 3 * u, 9 * u, C.txt2, 'left'); });
     var bw = Math.max(2, step * 0.6 * R.w / (xhi - xlo)), i;
-    for (i = 0; i < k.length; i++) {                   // stacked OI bars
+    for (i = 0; i < k.length; i++) {
       var c = num(E.co && E.co[i]) || 0, p = num(E.po && E.po[i]) || 0, x0 = X(k[i]) - bw / 2;
       ctx.fillStyle = C.call; ctx.globalAlpha = 0.85; ctx.fillRect(x0, Yo(c), bw, Yo(0) - Yo(c));
       ctx.fillStyle = C.put; ctx.fillRect(x0, Yo(c + p), bw, Yo(c) - Yo(c + p)); ctx.globalAlpha = 1;
@@ -6058,7 +6054,7 @@ function toggleTheme(){
     T(ctx, 'Implied Volatility (%)', R.x + R.w, R.y - 8 * u, 9.5 * u, C.txt2, 'right');
     function leg(items, lx) { items.forEach(function (e, j) { T(ctx, e[0], lx + 18 * u, R.y + (16 + j * 14) * u, 9 * u, C.txt, 'left'); ctx.fillStyle = e[1]; ctx.fillRect(lx + 4 * u, R.y + (9 + j * 14) * u, 11 * u, 7 * u); }); }
     leg([['Call OI', C.call], ['Put OI', C.put]], R.x + 8 * u); leg([['Call IV', C.callIV], ['Put IV', C.putIV]], R.x + R.w - 78 * u);
-    if (E.a) {                                          // ATM readout box
+    if (E.a) {
       var lines = String(E.a).split('\n'), bwid = 190 * u, bh = (lines.length * 12 + 10) * u, bx = R.x + R.w - bwid, by = t + 4 * u;
       ctx.fillStyle = C.surf; rr(ctx, bx, by, bwid, bh, 4 * u); ctx.fill(); ctx.strokeStyle = C.sf; ctx.lineWidth = 1; ctx.stroke();
       lines.forEach(function (ln, j) { T(ctx, ln, bx + bwid - 6 * u, by + (13 + j * 12) * u, 8 * u, C.txt, 'right'); });
@@ -6199,7 +6195,7 @@ function toggleTheme(){
     var d = step >= 1 ? 0 : (step >= 0.1 ? 1 : 2);
     return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
   }
-  function legendRow(ctx, items, cx, y, u) {                 // items: [{col, txt, dash}] centered on cx
+  function legendRow(ctx, items, cx, y, u) {
     var tot = 0, size = 11 * u;
     items.forEach(function (it) { it.w = 19 * u + textW(ctx, it.txt, size, 600); tot += it.w + 22 * u; });
     var lx = cx - (tot - 22 * u) / 2;
@@ -6252,7 +6248,7 @@ function toggleTheme(){
       var cx = Xc(i), bl = dn[i], ab = up[i], tot = bl + ab, x0 = cx - bw / 2;
       ctx.fillStyle = cBelow; ctx.fillRect(x0, Y(bl), bw, Y(0) - Y(bl));
       if (ab > 0) { ctx.fillStyle = cAbove; ctx.fillRect(x0, Y(tot), bw, Y(bl) - Y(tot)); }
-      if (tot > 0) {                                           // dotted 50%-of-this-bar marker
+      if (tot > 0) {
         var hc = ab <= bl ? cAbove : cBelow;
         ctx.strokeStyle = hc; ctx.lineWidth = 2.3 * u; ctx.lineCap = 'round'; dash(ctx, [0.1, 4.6 * u]);
         ctx.beginPath(); ctx.moveTo(x0, Y(tot / 2)); ctx.lineTo(x0 + bw, Y(tot / 2)); ctx.stroke(); dash(ctx, []); ctx.lineCap = 'butt';
@@ -7392,7 +7388,7 @@ function renderIvTracker(mountId, jsonUrl, label) {
     CH.data.datasets.forEach(function (ds) {
       if (ds._c0 === undefined) ds._c0 = ds.borderColor;             
       let c = ds._c0;
-      if (!dk) {                                                    // light theme: darker lines so they stay readable
+      if (!dk) {
         const m = /^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/.exec(c);
         if (m) { const L = +m[3]; c = 'hsl(' + m[1] + ',' + m[2] + '%,' + (L >= 70 ? 52 : L >= 55 ? 44 : 36) + '%)'; }
         else if (String(c).toUpperCase() === '#EC4899') c = '#BE185D';
@@ -7997,7 +7993,6 @@ function posPremTrainingChoice(idx) {
   if (standardBtn) standardBtn.style.display = selected ? 'none' : 'block';
   if (trainingBtn) trainingBtn.style.display = selected ? 'block' : 'none';
 
-  // Tell visitors explicitly which option they are agreeing to.
   var head = sales && sales.querySelector('.prem-tnc-head');
   if (head) head.textContent = '⚠ Terms & Conditions — ' + (selected ? 'Option 2 (Subscription + One-Time Training)' : 'Option 1 (Subscription Only)');
   var label = sales && sales.querySelector('label[for="postnc-' + idx + '"]');
@@ -8596,7 +8591,6 @@ function _stickyStackBottom() {
 
 function _scrollOfferIntoView(el, extraSpace) {
   if (!el) return;
-  // Keep scroll targets below the sticky navigation rather than tucked under it.
   var clearance = _stickyStackBottom() + 14 + (extraSpace || 0);
   var y = el.getBoundingClientRect().top + window.pageYOffset - clearance;
   window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
@@ -8862,7 +8856,6 @@ function ofPremiumJumpToKey(idx, kind) {
     var btn = panel.querySelector(':scope > .sub-tabs > .stab[data-key="' + tab + '"]');
     if (btn) switchStab(idx, tab, btn, {silent:true});
   }
-  // Don't change pricing visibility or plan/T&C state. Simply scroll to the key input.
   var target = document.getElementById((kind === 'vol' ? 'volsurfprem-lock-' : 'posprem-lock-') + idx);
   if (!target) return;
   requestAnimationFrame(function() {
@@ -8971,7 +8964,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var _ofPremiumOpeningChecks = [];
   var saved = localStorage.getItem('_of_pw');
   var all = ['nifty','banknifty','sensex','finnifty','midcpnifty'];
-  if (window.PREMIUM_RECO_ENABLED && saved) {   // skipped while Premium RECO is switched off
+  if (window.PREMIUM_RECO_ENABLED && saved) {
     all.forEach(function(idx) {
       _ofPremiumOpeningChecks.push(_premDecryptFile(idx, saved)
         .then(function(dec) {
@@ -9404,8 +9397,6 @@ document.addEventListener('pointermove',function(e){
         var entry=document.getElementById('of-premium-entry-sales-'+i);
         if(!entry || !entry.getClientRects().length) return;
         var title=entry.closest('.of-plan-heading')||entry;
-        // Leave clear space below the sticky navigation and mentorship CTA.
-        // The previous 14px buffer could leave the key button covered on entry.
         var clearance=_stickyStackBottom()+58;
         var y=title.getBoundingClientRect().top+window.pageYOffset-clearance;
         window.scrollTo({top:Math.max(0,y),behavior:'auto'});
