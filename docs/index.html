@@ -5672,6 +5672,7 @@ function toggleTheme(){
     }
     var palette = PAL[curTheme()];
     tip._owner = owner;
+    tip.style.whiteSpace = host.matchMedia('(any-pointer: coarse)').matches ? 'normal' : 'nowrap';
     tip.style.backgroundColor = palette.surf;
     tip.style.borderColor = palette.border;
     tip.style.color = palette.txt;
@@ -5696,29 +5697,91 @@ function toggleTheme(){
     return !!details;
   }
   function bindInspector(canvas) {
-    var pending = 0, point;
+    var pending = 0, point, touch;
+    var doc = canvas.ownerDocument;
+    canvas.style.touchAction = 'manipulation';
+
+    function probe(x, y) {
+      var layout = canvas._ofsLayout, bounds = canvas.getBoundingClientRect();
+      if (layout && bounds.width && bounds.height) {
+        return inspect(canvas, (x - bounds.left) * layout.width / bounds.width,
+          (y - bounds.top) * layout.height / bounds.height, x, y);
+      }
+    }
     function clear() {
       if (pending) root.cancelAnimationFrame(pending);
       pending = 0;
       tooltip(canvas);
     }
+    canvas.addEventListener('pointerdown', function (e) {
+      clear();
+      touch = e.pointerType === 'touch' ? { id: e.pointerId, x: e.clientX, y: e.clientY } : null;
+    });
     canvas.addEventListener('pointermove', function (e) {
-      if (e.pointerType === 'touch' || e.buttons) return;
+      if (e.pointerType === 'touch') {
+        if (touch && touch.id === e.pointerId && Math.hypot(e.clientX - touch.x, e.clientY - touch.y) > 8)
+          touch.moved = true;
+        return;
+      }
+      if (e.buttons) return;
       point = [e.clientX, e.clientY];
       if (pending) return;
       pending = root.requestAnimationFrame(function () {
         pending = 0;
-        var layout = canvas._ofsLayout, b = canvas.getBoundingClientRect();
-        if (layout && b.width && b.height) inspect(canvas,
-          (point[0] - b.left) * layout.width / b.width, (point[1] - b.top) * layout.height / b.height, point[0], point[1]);
+        probe(point[0], point[1]);
       });
     });
-    canvas.addEventListener('pointerleave', clear);
-    canvas.addEventListener('pointerdown', clear);
+    canvas.addEventListener('pointercancel', function (e) {
+      if (touch && touch.id === e.pointerId) touch.moved = true;
+      clear();
+    });
+    canvas.addEventListener('click', function (e) {
+      var tapped = e.pointerType === 'touch' || (e.detail && !e.pointerType &&
+        (touch || e.sourceCapabilities?.firesTouchEvents));
+      if (!tapped) return;
+      e.stopImmediatePropagation();
+      if (!touch || !touch.moved) probe(e.clientX, e.clientY);
+      touch = null;
+    }, true);
+    canvas.addEventListener('pointerleave', function (e) {
+      if (e.pointerType !== 'touch') clear();
+    });
     canvas.addEventListener('blur', clear);
     canvas.addEventListener('ofs-clear', clear);
-    canvas.parentElement.addEventListener('scroll', clear, {passive: true});
+    canvas.parentElement.addEventListener('scroll', clear, { passive: true });
+
+    if (!doc._ofsTapDismissal) {
+      doc._ofsTapDismissal = true;
+      var style = doc.createElement('style');
+      style.textContent = '.ofs-touch-zoom{display:none}' +
+        '@media (any-pointer:coarse),(hover:none){' +
+        '.ofs-touch-zoom{display:inline-block;touch-action:manipulation;flex-shrink:0}' +
+        '.ofs-belt .ofs-lbl{min-width:0;overflow:hidden;text-overflow:ellipsis}}';
+      doc.head.appendChild(style);
+      doc.addEventListener('pointerdown', function (e) {
+        var tip = hostWin().document.getElementById('ofs-inspector');
+        if (tip && tip._owner && !tip._owner.contains(e.target)) {
+          tip.hidden = true;
+          tip._owner = null;
+        }
+      }, true);
+    }
+
+    var stage = canvas.closest('.ofs-stage');
+    var controls = stage ? stage.querySelector('.ofs-belt') :
+      canvas.closest('.pp-panel')?.querySelector('.pp-sim-viewnav');
+    if (!controls) return;
+    var zoom = doc.createElement('button');
+    zoom.type = 'button';
+    zoom.className = (stage ? 'ofs-btn' : 'pp-sim-btn') + ' ofs-touch-zoom';
+    zoom.textContent = 'Zoom';
+    zoom.title = 'Open chart zoom';
+    zoom.setAttribute('aria-label', 'Open chart zoom');
+    if (!stage) zoom.style.cssText = 'flex:none;align-self:center;margin-inline:6px';
+    zoom.addEventListener('click', function () { canvas.click(); });
+    controls.appendChild(zoom);
   }
+
   function renderWithDetails(ctx, width, height, scene, draw) {
     ctx.canvas._ofsLayout = {regions: [], width: width, height: height, scene: scene};
     draw(ctx, width, height);
@@ -6559,6 +6622,29 @@ function toggleTheme(){
     xb.setAttribute('aria-label', 'Close chart zoom');
     xb.style.cssText = 'position:absolute;top:12px;right:18px;color:#fff;background:transparent;border:0;font:700 28px/1 Arial,sans-serif;cursor:pointer;z-index:2;padding:6px';
     ov.appendChild(cv); ov.appendChild(xb);
+    var zoomIn, zoomOut;
+    if (!noWheel && HW.matchMedia('(any-pointer: coarse), (hover: none)').matches) {
+      var controls = HD.createElement('div');
+      controls.style.cssText = 'position:absolute;top:12px;right:58px;display:flex;gap:6px;z-index:2';
+      function zoomControl(label, symbol, factor) {
+        var button = HD.createElement('button');
+        button.type = 'button';
+        button.setAttribute('aria-label', label);
+        button.textContent = symbol;
+        button.style.cssText = 'width:40px;height:40px;border:1px solid #555;border-radius:6px;color:#fff;background:#181818;font:700 21px/1 sans-serif';
+        button.addEventListener('click', function (e) {
+          e.stopPropagation();
+          tooltip(cv);
+          setScale(S * factor, vw / 2, vh / 2);
+        });
+        controls.appendChild(button);
+        return button;
+      }
+      controls.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+      zoomOut = zoomControl('Zoom out', '−', 1 / Math.SQRT2);
+      zoomIn = zoomControl('Zoom in', '+', Math.SQRT2);
+      ov.appendChild(controls);
+    }
     var prevOverflow = HD.body.style.overflow; HD.body.style.overflow = 'hidden';
     HD.body.appendChild(ov);
     xb.focus({preventScroll: true});
@@ -6583,6 +6669,10 @@ function toggleTheme(){
       var ks = dpr * k * S; ctx.setTransform(ks, 0, 0, ks, dpr * Ox, dpr * Oy);
       try { renderWithDetails(ctx, LW, LH, m.scene || entries[idx], draw); } catch (err) { if (root.console) console.warn('OFS viewer', err); }
       cv.style.cursor = S > 1.01 ? (drag ? 'grabbing' : 'grab') : 'zoom-out';
+      if (zoomIn) {
+        zoomIn.disabled = S >= MAX_S;
+        zoomOut.disabled = S <= 1.001;
+      }
     }
     function sched() { if (!raf) raf = HW.requestAnimationFrame(paint); }
     function setScale(ns, mx, my) {
@@ -6606,7 +6696,7 @@ function toggleTheme(){
       return inspect(cv, (e.clientX - Ox) / (k * S), (e.clientY - Oy) / (k * S), e.clientX, e.clientY);
     }
 
-    var ptrs = {}, nptr = 0, drag = null, pinch = null, moved = false, downX = 0, downY = 0, lastTap = 0;
+    var ptrs = {}, nptr = 0, drag = null, pinch = null, moved = false, downX = 0, downY = 0, lastTap = null, lastRelease = null;
     function pts() { var a = []; for (var id in ptrs) a.push(ptrs[id]); return a; }
     ov.addEventListener('wheel', function (e) {
       e.preventDefault(); e.stopPropagation(); if (noWheel) return;
@@ -6647,23 +6737,36 @@ function toggleTheme(){
       if (nptr > 0) return;
       drag = null;
       if (S <= 1.001) { S = 1; clamp(); sched(); }
-      if (e.type === 'pointercancel' || moved) return;
+      if (e.type === 'pointercancel' || moved) {
+        lastTap = null;
+        return;
+      }
       var inside = e.clientX >= Ox && e.clientX <= Ox + BW * S && e.clientY >= Oy && e.clientY <= Oy + BH * S, now = Date.now();
+      lastRelease = { time: now, x: e.clientX, y: e.clientY };
       if (!inside) { close(); return; }
-      if (!noWheel && now - lastTap < 320) {
-        lastTap = 0; tooltip(cv);
+      if (!noWheel && lastTap && now - lastTap.time < 320 &&
+          Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 24) {
+        lastTap = null; tooltip(cv);
         if (S > 1.01) layoutReset();
         else setScale(2.4, e.clientX, e.clientY);
         return;
       }
-      lastTap = now;
+      lastTap = { time: now, x: e.clientX, y: e.clientY };
       probe(e);
     }
     function layoutReset() { S = 1; clamp(); sched(); }
     ov.addEventListener('pointerup', up); ov.addEventListener('pointercancel', up);
+    ov.addEventListener('click', function (e) {
+      if (e.target !== cv || e.pointerType === 'mouse' || e.pointerType === 'pen') return;
+      if (lastRelease && Date.now() - lastRelease.time < 400 &&
+          Math.hypot(e.clientX - lastRelease.x, e.clientY - lastRelease.y) < 4) return;
+      probe(e);
+    });
     xb.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
     xb.addEventListener('click', function (e) { e.stopPropagation(); close(); });
-    ov.addEventListener('pointerleave', function () { tooltip(cv); });
+    ov.addEventListener('pointerleave', function (e) {
+      if (e.pointerType !== 'touch') tooltip(cv);
+    });
     xb.addEventListener('pointerenter', function () { tooltip(cv); });
     ov.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 
@@ -8325,6 +8428,26 @@ function _ofRestoreScenarioAfterRefresh(frame, state) {
   } catch (e) { /* Old premium bundles may expose fewer controls. */ }
 }
 
+function _ofUpdatePositioningTouch(html) {
+  var shell = html.match(/<div\b[^>]*\bid="pp-sim"[^>]*>/);
+  if (!shell || !/\bdata-pp-ui="[67]"/.test(shell[0]) || !window.OFS) return html;
+  function replaceFunction(source, start, next, implementation) {
+    var from = source.indexOf(start);
+    if (from === -1) return source;
+    var to = source.indexOf(next, from);
+    if (to === -1 || to > source.indexOf('</' + 'script>', from)) return source;
+    return source.slice(0, from) + '  ' + implementation.toString() + '\n\n' + source.slice(to);
+  }
+  html = replaceFunction(html, '  function bindInspector(canvas)', '  function renderWithDetails',
+    window.OFS.bindInspector);
+  html = replaceFunction(html, '  function openViewer(m)', '  Mount.prototype.zoomOpen',
+    window.OFS.openViewer);
+  return html
+    .replace('    tip._owner = owner;', "    tip._owner = owner;\n    tip.style.whiteSpace = host.matchMedia('(any-pointer: coarse)').matches ? 'normal' : 'nowrap';")
+    .replace("    tile.addEventListener('pointerleave', function () { OFS.tooltip(tile); });", "    tile.addEventListener('pointerleave', function (e) {\n      if (e.pointerType !== 'touch') OFS.tooltip(tile);\n    });")
+    .replace("    tile.addEventListener('click', open);", "    tile.addEventListener('click', function (e) {\n      open();\n      if (e.pointerType !== 'mouse') requestAnimationFrame(function () { details(e); });\n    });");
+}
+
 function _posPremShowContent(idx, html) {
   var salesEl   = document.getElementById('posprem-sales-' + idx);
   var lockEl    = document.getElementById('posprem-lock-' + idx);
@@ -8353,6 +8476,7 @@ function _posPremShowContent(idx, html) {
   var capturedScenarioRevision = scenarioResetRevision;
   _posPremCaptureScroll(idx);
 
+  html = _ofUpdatePositioningTouch(html);
   var blob = new Blob([
     html.trimStart().toLowerCase().startsWith('<!doctype') ? html :
       '<!DOCTYPE html><html lang="en" data-theme="dark"><head>'
