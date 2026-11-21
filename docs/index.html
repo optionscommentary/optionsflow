@@ -6400,54 +6400,67 @@ function toggleTheme(){
     document.head.appendChild(s);
   }
 
+  function snapshotUpdate(previous, current, incoming, follow) {
+    if (follow || !current) return { entries: incoming, index: incoming.length - 1 };
+    var index = incoming.findIndex(function (entry) { return entry.ts === current.ts; });
+    if (index >= 0) return { entries: incoming, index: index };
+    var retained = current.ts ? previous.filter(function (entry) {
+      return entry.ts && entry.ts <= current.ts;
+    }) : [current];
+    return { entries: retained.concat(incoming), index: retained.length - 1 };
+  }
+
   function Mount(el) {
     this.el = el; this.kind = el.getAttribute('data-kind') || 'panels';
     this.src = el.getAttribute('data-src'); this.inline = el.getAttribute('data-inline');
-    this.entries = []; this.idx = -1; this.live = true; this.built = false;
+    this.entries = []; this.latestEntries = []; this.idx = -1; this.live = true; this.built = false;
     MOUNTS.push(this);
     var self = this;
-    this.fallbacks = [];
-    Array.prototype.forEach.call(el.children, function (c) {
-      if (c.tagName === 'IMG') {
-        self.fallbacks.push({ el: c, visibility: c.style.visibility });
-        c.style.visibility = 'hidden';
-      }
-    });
-    this.load(true);
+    this.load();
     if (this.src) this.timer = setInterval(function () {
-      if (!self.el.isConnected) { clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }    
-      if (document.hidden || !self.el.offsetWidth) return; self.load(false);
+      if (!self.el.isConnected) { clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }
+      if (self.el.offsetWidth) self.load();
     }, 30000);
     if (root.ResizeObserver) { this.ro = new root.ResizeObserver(function () { self.draw(); }); this.ro.observe(el); }
   }
-  Mount.prototype.showFallback = function () {
-    if (this.built) return;
-    (this.fallbacks || []).forEach(function (f) {
-      if (f.el.isConnected) f.el.style.visibility = f.visibility;
-    });
+  Mount.prototype.setEntries = function (entries) {
+    if (!Array.isArray(entries) || !entries.length) return;
+    var old = this.latestEntries, current = this.entries[this.idx];
+    if (old.length === entries.length && old[0]?.ts === entries[0].ts &&
+        old[old.length - 1]?.ts === entries[entries.length - 1].ts) return;
+    var next = snapshotUpdate(this.entries, current, entries, this.live);
+    this.latestEntries = entries;
+    this.entries = next.entries;
+    this.idx = next.index;
+    if (!this.built) this.build();
+    this.syncBelt();
+    if (!current || this.live || current.ts !== this.entries[this.idx].ts) this.draw();
   };
-  Mount.prototype.load = function (first) {
+  Mount.prototype.load = function () {
     var self = this;
-    function got(entries) {
-      if (!entries || !entries.length) { if (first) self.showFallback(); return; }
-      var last = self.entries.length ? self.entries[self.entries.length - 1].ts : null;
-      var changed = entries.length !== self.entries.length || entries[entries.length - 1].ts !== last;
-      self.entries = entries;
-      if (!self.built) self.build();
-      if (self.live || self.idx < 0 || self.idx >= entries.length) self.idx = entries.length - 1;
-      if (changed || first) { self.syncBelt(); self.draw(); }
-    }
     if (this.inline) {
-      var n = document.getElementById(this.inline);
-      try { got((JSON.parse(n.textContent) || {}).entries); } catch (e) { self.showFallback(); }
+      var node = document.getElementById(this.inline);
+      try { this.setEntries(JSON.parse(node.textContent).entries); } catch (_) {}
       return;
     }
-    if (!this.src) { this.showFallback(); return; }
-    fetch(this.src + (this.src.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : { entries: [] }; })
-      .then(function (j) { got((j && j.entries) || []); })
-      .catch(function () { self.showFallback(); });
+    if (!this.src) return;
+    if (this.request) {
+      this.reloadRequested = true;
+      return;
+    }
+    this.request = fetch(this.src + (this.src.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) { if (data && self.el.isConnected) self.setEntries(data.entries); })
+      .catch(function () {})
+      .finally(function () {
+        self.request = null;
+        if (self.reloadRequested && self.el.isConnected) {
+          self.reloadRequested = false;
+          self.load();
+        }
+      });
   };
+
   Mount.prototype.build = function () {
     addStyle(); var self = this, el = this.el;
     Array.prototype.forEach.call(el.children, function (c) { if (!c.classList.contains('ofs-stage')) c.style.display = 'none'; });
@@ -6669,6 +6682,8 @@ function toggleTheme(){
   }
   Mount.prototype.zoomOpen = function () {
     if (this.idx < 0) return;
+    this.live = false;
+    this.syncBelt();
     this.cv.dispatchEvent(new Event('ofs-clear'));
     try { if (openViewer(this)) return; } catch (err) { if (root.console) console.warn('OFS viewer', err); }    
     var lbx = (typeof root.openLbx === 'function') ? root.openLbx
@@ -6692,7 +6707,14 @@ function toggleTheme(){
 
   Mount.prototype.go = function (i) {
     i = Math.max(0, Math.min(this.entries.length - 1, i));
-    this.idx = i; this.live = (i === this.entries.length - 1);
+    if (i === this.entries.length - 1) {
+      this.entries = this.latestEntries;
+      this.idx = this.entries.length - 1;
+      this.live = true;
+    } else {
+      this.idx = i;
+      this.live = false;
+    }
     this.syncBelt(); this.draw();
   };
   Mount.prototype.syncBelt = function () {
@@ -6700,6 +6722,8 @@ function toggleTheme(){
     this.rng.max = Math.max(0, n - 1); this.rng.value = this.idx; this.rng.disabled = n < 2;
     this.lbl.textContent = (e.ts_label || '') + (n > 1 ? '  ' + (this.idx + 1) + '/' + n : '  · 1 snapshot');
     this.liveBtn.classList.toggle('on', this.live);
+    this.liveBtn.textContent = this.live ? 'LIVE' : 'Back to live';
+    this.liveBtn.setAttribute('aria-pressed', String(this.live));
   };
   Mount.prototype.draw = function () {
     if (!this.built || this.idx < 0) return;
@@ -6732,7 +6756,23 @@ function toggleTheme(){
     img.parentNode.insertBefore(w, img); w.appendChild(img); scan(w);
   }
 
+  function refresh(index) {
+    var name = String(index || '').toLowerCase();
+    var local = '/history/' + name + '/', publicPath = 'data/' + name + '/';
+    MOUNTS.forEach(function (mount) {
+      if (mount.el.isConnected && mount.src &&
+          (mount.src.startsWith(local) || mount.src.startsWith(publicPath))) mount.load();
+    });
+  }
+
+  function updateInline(id, entries) {
+    MOUNTS.forEach(function (mount) {
+      if (mount.el.isConnected && mount.inline === id) mount.setEntries(entries);
+    });
+  }
+
   root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS,
+    refresh: refresh, snapshotUpdate: snapshotUpdate, updateInline: updateInline,
     bindInspector: bindInspector, renderWithDetails: renderWithDetails,
     tooltip: tooltip, tipRow: tipRow, exposureRow: exposureRow, futureRow: futureRow,
     timestamp: timestamp, price: price, openViewer: openViewer, _draw: { panels: drawPanels, prob: drawProb, table: drawTable, oi: drawTable, skew: drawSkew, oipcr: drawOiPcr, absgex: drawAbsGex, pcrhist: drawPcrHist }, BELT: BELT };
@@ -6928,6 +6968,17 @@ function renderIndex(idx, data){
   activeKeys.forEach(key=>{
     const sp = document.getElementById(`sp-${idx}-${key}`);
     if(!sp) return;
+    const history = sp.querySelector('.ofs');
+    if (history) {
+      const fallback = history.querySelector('img');
+      const file = data?.plots?.[PLOT_KEY[key]];
+      if (fallback && file) {
+        const stamp = (data.timestamp_iso || '').replace(/[^0-9]/g, '');
+        const url = `data/${idx}/${file}?t=${stamp}`;
+        if (fallback.getAttribute('src') !== url) fallback.src = url;
+      }
+      return;
+    }
     const existingChart = sp.querySelector('.gcard');
     if(existingChart) existingChart.remove();
 
@@ -6948,6 +6999,7 @@ function renderIndex(idx, data){
   });
   const spa = document.getElementById(`sp-${idx}-analysis`);
   if(spa) spa.innerHTML = analysisHtml(idx, data);
+  if (window.OFS) window.OFS.refresh(idx);
 }
 async function switchIdx(idx, clickEvent){
   const activeIndex = document.querySelector('#main > .idx-panel.on');
@@ -7645,6 +7697,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLbx(); });
   });
 })();
 const _lastTs = {};
+const _posRefreshPending = new Set();
 Promise.all(INDICES.map(i => fetchData(i))).then(results => {
   INDICES.forEach((i, n) => { if(results[n]) renderIndex(i, results[n]); });
 });
@@ -7676,26 +7729,30 @@ function _refreshDataAndPremium() {
     }
 
     var pwdPos = localStorage.getItem('_of_pw_pos');
-    if (pwdPos && _posPremDecrypted[idx] && _posPremRawHash[idx + '_init']) {
-      fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now())
+    if (pwdPos && _posPremRawHash[idx + '_init'] && !_posRefreshPending.has(idx)) {
+      _posRefreshPending.add(idx);
+      fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now(), {cache: 'no-store'})
         .then(function(r) { return r.ok ? r.text() : null; })
-        .then(function(text) {
-          if (!text) return;
-          var h = _premHash(text);
-          if (h === _posPremRawHash[idx]) return;   
-          _posPremRawHash[idx] = h;                 
-          delete _posPremDecrypted[idx];            
-          _posPremDecryptFile(idx, pwdPos)
-            .then(function(dec) { _posPremShowContent(idx, dec); })
-            .catch(function(e) {
-              if (e && e.message === 'wrong' && _ofStoredPositioningKey() === pwdPos) {
-                var old = document.getElementById('posprem-content-' + idx);
-                if (old) old.style.display = 'none';
-                _ofSavedError(idx, 'pos', e);
-              }
-            });
+        .then(async function(text) {
+          if (!text || _premHash(text) === _posPremRawHash[idx] || _ofStoredPositioningKey() !== pwdPos) return;
+          try {
+            var html = await _posPremDecryptFile(idx, pwdPos, text);
+            if (_ofStoredPositioningKey() === pwdPos && _posPremShowContent(idx, html) !== false) {
+              _posPremRawHash[idx] = _premHash(text);
+              _posPremDecrypted[idx] = html;
+            }
+          } catch (e) {
+            if (e && e.message === 'wrong' && _ofStoredPositioningKey() === pwdPos) {
+              _posPremRawHash[idx] = _premHash(text);
+              delete _posPremDecrypted[idx];
+              var old = document.getElementById('posprem-content-' + idx);
+              if (old) old.style.display = 'none';
+              _ofSavedError(idx, 'pos', e);
+            }
+          }
         })
-        .catch(function() {});
+        .catch(function() {})
+        .finally(function() { _posRefreshPending.delete(idx); });
     }
 
     if (pwdPos && _volsurfDecrypted[idx]) {
@@ -8049,13 +8106,15 @@ function posPremCanWhatsApp(idx) {
   return false;
 }
 
-async function _posPremDecryptFile(idx, pwd) {
-  if (_posPremDecrypted[idx]) return _posPremDecrypted[idx];
+async function _posPremDecryptFile(idx, pwd, text) {
+  var refreshing = Boolean(text);
+  if (!refreshing && _posPremDecrypted[idx]) return _posPremDecrypted[idx];
   if (!window.crypto || !window.crypto.subtle) throw new Error('noCrypto');
-  var resp = await fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now());
-  if (!resp.ok) throw new Error('fetch');
-  var text = await resp.text();
-  _posPremRawHash[idx] = _premHash(text);   
+  if (!text) {
+    var resp = await fetch('data/' + idx + '/premium_positioning.html?t=' + Date.now(), {cache: 'no-store'});
+    if (!resp.ok) throw new Error('fetch');
+    text = await resp.text();
+  }
 
   var dm = text.match(/const DATA = (\{[\s\S]*?\});/);
   if (!dm) {
@@ -8106,7 +8165,10 @@ async function _posPremDecryptFile(idx, pwd) {
   }
 
   if (!dec || dec.length < 10) throw new Error('wrong');
-  _posPremDecrypted[idx] = dec;
+  if (!refreshing) {
+    _posPremRawHash[idx] = _premHash(text);
+    _posPremDecrypted[idx] = dec;
+  }
   return dec;
 }
 
@@ -8211,8 +8273,18 @@ function _ofCaptureScenarioBeforeRefresh(contentEl) {
       if (el) values[id] = el.value;
     });
     var hist = doc.getElementById('pp-historical');
+    var selectedSnapshot = null;
+    try {
+      var scene = JSON.parse(doc.getElementById('pp-scene').textContent);
+      selectedSnapshot = scene.entries[Number(hist.value)];
+    } catch (_) {}
+    var customForward = selectedSnapshot && Number(values['pp-forward']) !== Number(selectedSnapshot.sf);
+    var customScenario = customForward || Number(values['pp-future-time'] || 0) !== 0 ||
+      Number(values['pp-parallel-iv'] || 0) !== 0;
     return {expanded: !body.hidden, values: values,
-      historyAtLatest: !!(hist && Number(hist.value) >= Number(hist.max))};
+      snapshotTs: selectedSnapshot?.ts,
+      defaultForward: !!selectedSnapshot && !customForward,
+      historyAtLatest: !customScenario && !!(hist && Number(hist.value) >= Number(hist.max))};
   } catch (e) { return null; }
 }
 function _ofRestoreScenarioAfterRefresh(frame, state) {
@@ -8228,7 +8300,17 @@ function _ofRestoreScenarioAfterRefresh(frame, state) {
       var el = doc.getElementById(id);
       if (!el || !Object.prototype.hasOwnProperty.call(state.values || {}, id)) return;
       var v = state.values[id];
-      if (id === 'pp-historical' && state.historyAtLatest) v = el.max;
+      if (id === 'pp-forward' && state.defaultForward) return;
+      if (id === 'pp-historical') {
+        if (state.historyAtLatest) v = el.max;
+        else if (state.snapshotTs) {
+          try {
+            var scene = JSON.parse(doc.getElementById('pp-scene').textContent);
+            var at = scene.entries.findIndex(function (entry) { return entry.ts === state.snapshotTs; });
+            if (at >= 0) v = at;
+          } catch (_) {}
+        }
+      }
       if (el.type === 'range' || el.type === 'number') {
         var n = Number(v);
         if (!Number.isFinite(n)) return;
@@ -8257,6 +8339,15 @@ function _posPremShowContent(idx, html) {
   document.querySelector('#panel-' + idx + ' .stab[data-key="prob"]')?.classList.add('unlocked');
 
   _ofPremiumExplanationFirst(idx);
+
+  var mounted = contentEl.querySelector('iframe');
+  try {
+    if (mounted && typeof mounted.contentWindow.ppUpdateBundle === 'function') {
+      if (!mounted.contentWindow.ppUpdateBundle(html)) return false;
+      contentEl.style.display = 'block';
+      return true;
+    }
+  } catch (e) { console.warn('Positioning refresh', e); return false; }
 
   var priorScenarioState = _ofCaptureScenarioBeforeRefresh(contentEl);
   var capturedScenarioRevision = scenarioResetRevision;
