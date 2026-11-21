@@ -6785,8 +6785,6 @@ function toggleTheme(){
   }
   Mount.prototype.zoomOpen = function () {
     if (this.idx < 0) return;
-    this.live = false;
-    this.syncBelt();
     this.cv.dispatchEvent(new Event('ofs-clear'));
     try { if (openViewer(this)) return; } catch (err) { if (root.console) console.warn('OFS viewer', err); }    
     var lbx = (typeof root.openLbx === 'function') ? root.openLbx
@@ -8430,7 +8428,11 @@ function _ofRestoreScenarioAfterRefresh(frame, state) {
 
 function _ofUpdatePositioningTouch(html) {
   var shell = html.match(/<div\b[^>]*\bid="pp-sim"[^>]*>/);
-  if (!shell || !/\bdata-pp-ui="[67]"/.test(shell[0]) || !window.OFS) return html;
+  if (!shell || !/\bdata-pp-ui="[678]"/.test(shell[0]) || !window.OFS) return html;
+  html = html
+    .replace(/(Mount\.prototype\.zoomOpen = function \(\) \{\s+if \(this\.idx < 0\) return;)\s+this\.live = false;\s+this\.syncBelt\(\);/, '$1')
+    .replace(/(function openFocusedChart\(\) \{\s+if \(!focusedZoomScene\) return;)\s+chartHeld = true;\s+syncHistory\(\);/, '$1');
+  if (!/\bdata-pp-ui="[67]"/.test(shell[0])) return html;
   function replaceFunction(source, start, next, implementation) {
     var from = source.indexOf(start);
     if (from === -1) return source;
