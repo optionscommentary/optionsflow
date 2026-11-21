@@ -3748,6 +3748,345 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
  }
 }
 </style>
+<style id="of-mobile-dashboard-layout">
+.of-mobile-only { display:none; }
+
+@media (max-width:760px) {
+  html[data-theme] {
+    --of-mobile-nav-height:calc(62px + env(safe-area-inset-bottom,0px));
+    scroll-padding-top:calc(var(--app-bar-h,52px) + 56px);
+    scroll-padding-bottom:calc(var(--of-mobile-nav-height) + 8px);
+  }
+
+  html[data-theme] body[data-of-view] #main {
+    padding-bottom:calc(var(--of-mobile-nav-height) + 16px);
+  }
+
+  html[data-theme] .contact-strip,
+  html[data-theme] #topbar .app-menu-btn,
+  html[data-theme] #topbar .tb-right,
+  html[data-theme] body[data-of-view] #main > .app-quick-links,
+  html[data-theme] body[data-of-view] #main > .of-refined-toolbar,
+  html[data-theme] body[data-of-view] #main > .of-premium-promise,
+  html[data-theme] body[data-of-view] #main > #of-analytics,
+  html[data-theme] body[data-of-view] #main > .idx-panel > .sub-tabs,
+  html[data-theme] #main > .idx-panel > .pills,
+  html[data-theme] #main .stab-panel > .sub-tabs:has(.pcr-sub,.volsurf-sub) {
+    display:none !important;
+  }
+
+  html[data-theme] body[data-of-view="home"] #main > .of-landing-hero.of-refined-home {
+    min-height:0;
+    padding:0 0 12px;
+    margin:0;
+  }
+
+  html[data-theme] #main > .of-landing-hero .of-landing-copy,
+  html[data-theme] body[data-of-view="home"] #main > .of-premium-feature {
+    display:none !important;
+  }
+
+  #of-mobile-context {
+    display:flex;
+    position:sticky;
+    top:var(--app-bar-h,52px);
+    z-index:875;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    min-height:52px;
+    margin:0 -14px 12px;
+    padding-inline:15px;
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+  }
+
+  #of-mobile-context button,
+  #of-mobile-overview button,
+  #of-mobile-chartbar button,
+  #of-mobile-nav button,
+  #of-mobile-picker button,
+  #main .of-mobile-offer-toggle {
+    font-family:Inter,Arial,sans-serif;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  #of-mobile-context button:focus-visible,
+  #of-mobile-overview button:focus-visible,
+  #of-mobile-chartbar button:focus-visible,
+  #of-mobile-nav button:focus-visible,
+  #of-mobile-picker :is(button,a):focus-visible,
+  #main .of-mobile-offer-toggle:focus-visible {
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+
+  .of-mobile-index {
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    min-height:44px;
+    min-width:0;
+    padding:0;
+    border:0;
+    color:var(--t1);
+    background:none;
+    font-size:1rem;
+    font-weight:750;
+    white-space:nowrap;
+  }
+
+  .of-mobile-index span:last-child { color:var(--accent); }
+
+  .of-mobile-market {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:2px 8px;
+    text-align:right;
+    font-size:.67rem;
+    font-variant-numeric:tabular-nums;
+    color:var(--t3);
+  }
+
+  #of-mobile-market-state[data-open="true"] { color:var(--pos); }
+
+  body[data-of-view="home"] #of-mobile-overview,
+  body:is([data-of-view="analytics"],[data-of-view="premium"]) #of-mobile-chartbar {
+    display:block;
+  }
+
+  #of-mobile-overview { margin-bottom:14px; }
+  #of-mobile-overview h2 { margin:0 0 10px; font-size:1.13rem; color:var(--t1); }
+
+  .of-mobile-overview-metrics {
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--surface);
+  }
+
+  .of-mobile-overview-metrics button,
+  .of-mobile-synopsis {
+    display:grid;
+    grid-template-columns:1fr auto 14px;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    min-height:48px;
+    padding:8px 11px;
+    border:0;
+    color:var(--t2);
+    background:transparent;
+    text-align:left;
+    font-size:.82rem;
+  }
+
+  .of-mobile-overview-metrics button+button { border-top:1px solid var(--border); }
+  .of-mobile-overview-metrics strong { color:var(--t1); font-variant-numeric:tabular-nums; }
+  .of-mobile-overview-metrics button span:last-child,.of-mobile-synopsis span:last-child { color:var(--accent); }
+  .of-mobile-synopsis { margin-top:7px; }
+  #of-mobile-regime { color:var(--t3); text-align:right; font-size:.73rem; }
+
+  #of-mobile-chartbar { margin:0 0 9px; }
+  .of-mobile-chart-metrics {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin:0 0 9px;
+    padding:2px 3px;
+  }
+
+  .of-mobile-chart-metrics > div { display:grid; gap:3px; min-width:0; }
+  .of-mobile-chart-metrics > div+div { padding-left:12px; border-left:1px solid var(--border); }
+  .of-mobile-chart-metrics span { font-size:.73rem; color:var(--t3); }
+  .of-mobile-chart-metrics strong { font-size:1.09rem; line-height:1.25; color:var(--t1); font-variant-numeric:tabular-nums; }
+  [data-mobile-stat="gex"][data-sign="positive"] { color:var(--pos); }
+  [data-mobile-stat="gex"][data-sign="negative"] { color:var(--neg); }
+  body[data-of-view="premium"] #of-mobile-chartbar .of-mobile-chart-metrics { display:none; }
+
+  .of-mobile-chart-picker {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    width:100%;
+    min-height:46px;
+    padding:7px 11px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    color:var(--t1);
+    background:var(--surface);
+    text-align:left;
+  }
+
+  #of-mobile-chart-name { font-size:.89rem; font-weight:750; overflow-wrap:anywhere; }
+  .of-mobile-chart-picker span:last-child { flex-shrink:0; color:var(--t3); font-size:.68rem; }
+  .of-mobile-chart-picker b { color:var(--accent); margin-left:4px; }
+
+  #of-mobile-nav {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    position:fixed;
+    inset:auto 0 0;
+    z-index:950;
+    min-height:var(--of-mobile-nav-height);
+    margin:0;
+    padding:3px max(4px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(4px,env(safe-area-inset-left,0px));
+    border-top:1px solid var(--border);
+    background:var(--surface);
+  }
+
+  #of-mobile-nav button {
+    display:grid;
+    place-items:center;
+    align-content:center;
+    gap:4px;
+    min-width:0;
+    min-height:50px;
+    padding:3px 0;
+    border:0;
+    background:transparent;
+    color:var(--t3);
+    font-size:.68rem;
+    font-weight:650;
+  }
+
+  #of-mobile-nav button span { font-size:1.17rem; line-height:1; }
+  #of-mobile-nav button[aria-current="page"] { color:var(--accent); }
+
+  #of-mobile-picker[open] {
+    position:fixed;
+    inset:auto 0 0;
+    display:block;
+    width:min(100%,540px);
+    max-width:none;
+    max-height:min(84dvh,690px);
+    margin:0 auto;
+    padding:0;
+    border:1px solid var(--border);
+    border-radius:17px 17px 0 0;
+    background:var(--surface);
+    color:var(--t1);
+    box-shadow:0 -10px 42px #0005;
+    overflow:auto;
+  }
+
+  #of-mobile-picker::backdrop { background:#0008; }
+  .of-mobile-picker-body { padding:9px 13px calc(9px + env(safe-area-inset-bottom,0px)); }
+  .of-mobile-picker-head { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .of-mobile-picker-head h2 { margin:0; font-size:1.05rem; color:var(--t1); }
+  .of-mobile-picker-head button { width:44px; height:44px; border:0; border-radius:8px; background:var(--raised); color:var(--t1); font-size:1.35rem; }
+  .of-mobile-picker-group { margin:12px 0 1px; color:var(--t3); font-size:.69rem; }
+
+  #of-mobile-picker-options :is(button,a) {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    min-height:46px;
+    padding:7px 4px;
+    border:0;
+    border-bottom:1px solid var(--border);
+    background:transparent;
+    color:var(--t1);
+    text-align:left;
+    text-decoration:none;
+    font-size:.84rem;
+    font-weight:650;
+  }
+
+  #of-mobile-picker-options label { overflow-wrap:anywhere; }
+  #of-mobile-picker-options [aria-pressed="true"] { color:var(--accent); }
+  #of-mobile-picker-options small { color:var(--t3); text-align:right; font-variant-numeric:tabular-nums; }
+
+  html[data-theme] body[data-of-view="premium"] #main .posprem-outer {
+    margin-top:10px;
+    padding:6px 0 8px!important;
+  }
+
+  html[data-theme] body[data-of-view="premium"] #main .stab-panel.on:is([id$="-prob"],[id$="-volsurf"]) {
+    display:flex!important;
+    flex-direction:column;
+  }
+
+  body[data-of-view="premium"] #main .stab-panel.on:is([id$="-prob"],[id$="-volsurf"]) > .edu-box {
+    order:1;
+  }
+
+  #main .of-mobile-offer-title {
+    display:block;
+    margin:0 0 3px;
+    font-size:1.2rem;
+    color:var(--t1);
+    letter-spacing:-.02em;
+  }
+
+  #main .of-mobile-offer-description {
+    display:block;
+    margin:0 0 9px;
+    color:var(--t3);
+    font-size:.79rem;
+    line-height:1.45;
+  }
+
+  html[data-theme] #main .posprem-outer .of-plan-heading {
+    flex-direction:row;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:9px;
+  }
+
+  html[data-theme] #main .posprem-outer .of-premium-key-link {
+    order:0;
+    min-height:44px;
+    padding:6px 11px;
+    font-size:.75rem;
+  }
+
+  html[data-theme] #main .posprem-outer .of-plan-grid { gap:9px; margin:0 0 7px; }
+  html[data-theme] #main .posprem-outer .of-plan-card { margin:0; padding:10px 12px; transform:none; }
+  html[data-theme] #main .posprem-outer .of-plan-price { font-size:1.4rem; line-height:1.14; }
+  html[data-theme] #main .posprem-outer .of-plan-choice { min-height:44px; }
+  html[data-theme] #main .posprem-outer .of-plan-caption { margin-top:1px; }
+  html[data-theme] #main .posprem-outer .of-plan-getstarted { width:100%; min-height:44px; margin-bottom:0; }
+  html[data-theme] #main .posprem-outer .of-plan-details { margin:0; }
+  html[data-theme] #main .posprem-outer .of-plan-footnote { margin:6px 0 10px; }
+  html[data-theme] #main .of-premium-includes { margin:10px 0 13px!important; padding:10px 12px!important; }
+  html[data-theme] #main .of-premium-includes .prem-feat-row { margin:5px 0!important; }
+  html[data-theme] #main .of-premium-includes .prem-feat-item { padding-block:7px; }
+
+  #main .of-mobile-offer-toggle {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:7px;
+    width:100%;
+    min-height:44px;
+    margin:6px 0;
+    padding:6px 9px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--accent);
+    background:var(--raised);
+    font-size:.78rem;
+    font-weight:700;
+    text-align:left;
+  }
+
+  #main .of-premium-includes:not([data-mobile-preview-open]) .prem-offer-slot { display:none; }
+  #main .of-mobile-offer-toggle[aria-expanded="true"] span:last-child { transform:rotate(180deg); }
+}
+
+@media (max-width:360px) {
+  .of-mobile-market { font-size:.62rem; }
+  .of-mobile-index { font-size:.9rem; }
+}
+</style>
 </head>
 
 <body data-of-view="home">
@@ -3757,6 +4096,15 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   var view = (h === '#premium' || h === '#view-premium') ? 'premium'
     : (h === '#analytics' || h === '#view-analytics' || h === '#of-analytics') ? 'analytics'
     : 'home';
+  try {
+    if (matchMedia('(max-width:760px)').matches) {
+      var recentView = localStorage.getItem('_of_mobile_view');
+      if (!h && (recentView === 'analytics' || recentView === 'premium')) view = recentView;
+      var recentIndex = localStorage.getItem('_of_mobile_index');
+      if (!sessionStorage.getItem('_of_tab') && ['nifty','banknifty','sensex','finnifty','midcpnifty'].includes(recentIndex))
+        sessionStorage.setItem('_of_tab', recentIndex);
+    }
+  } catch (_) {}
   document.body.setAttribute('data-of-view', view);
   try {
     var posCandidate = localStorage.getItem('_of_pw_pos');
@@ -3819,6 +4167,37 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
 </div>
 
 <div id="main">
+<div id="of-mobile-context" class="of-mobile-only">
+  <button type="button" class="of-mobile-index" data-mobile-open="indices" aria-haspopup="dialog">
+    <span id="of-mobile-index-name">NIFTY</span><span aria-hidden="true">⌄</span>
+  </button>
+  <div class="of-mobile-market">
+    <span id="of-mobile-market-state"></span>
+    <time id="of-mobile-updated" aria-label="Latest snapshot time"></time>
+  </div>
+</div>
+
+<section id="of-mobile-overview" class="of-mobile-only" aria-labelledby="of-mobile-overview-title">
+  <h2 id="of-mobile-overview-title">Market overview</h2>
+  <div class="of-mobile-overview-metrics">
+    <button type="button" data-mobile-jump="totalgex"><span>Synthetic futures</span><strong data-mobile-stat="future">—</strong><span aria-hidden="true">›</span></button>
+    <button type="button" data-mobile-jump="gex"><span>Net GEX</span><strong data-mobile-stat="gex">—</strong><span aria-hidden="true">›</span></button>
+    <button type="button" data-mobile-jump="pcrhist"><span>ATM OI PCR</span><strong data-mobile-stat="pcr">—</strong><span aria-hidden="true">›</span></button>
+  </div>
+  <button type="button" class="of-mobile-synopsis" data-mobile-jump="analysis">
+    <span>Synopsis</span><span id="of-mobile-regime"></span><span aria-hidden="true">›</span>
+  </button>
+</section>
+
+<section id="of-mobile-chartbar" class="of-mobile-only" aria-label="Chart selection">
+  <div class="of-mobile-chart-metrics">
+    <div><span>Latest synthetic futures</span><strong data-mobile-stat="future">—</strong></div>
+    <div><span>Latest net GEX</span><strong data-mobile-stat="gex">—</strong></div>
+  </div>
+  <button type="button" class="of-mobile-chart-picker" data-mobile-open="charts" aria-haspopup="dialog">
+    <span id="of-mobile-chart-name">Raw GEX</span><span>Choose chart <b aria-hidden="true">⌄</b></span>
+  </button>
+</section>
 
   <div class="app-quick-links" aria-label="Site sections">
     <a href="blogs.html" title="Learn to use these analytics">&#128218; Learn Options</a>
@@ -4102,6 +4481,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
       </div>
 
       <div id="posprem-sales-nifty" class="posprem-outer" style="display:none">
+        <h2 class="of-mobile-only of-mobile-offer-title">Premium offerings</h2>
+        <p class="of-mobile-only of-mobile-offer-description">Probable positioning, scenario analysis and volatility tools.</p>
         <div class="prem-section-title">NIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-nifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('nifty', _ofPremiumActiveKind('nifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
         <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for NIFTY">
@@ -4127,6 +4508,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
         <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
+<button type="button" class="of-mobile-only of-mobile-offer-toggle" aria-expanded="false" aria-controls="posprem-offerslot-nifty"><span>Preview charts and scenarios</span><span aria-hidden="true">⌄</span></button>
 <div class="prem-offer-slot" id="posprem-offerslot-nifty"></div>
         <div class="prem-feat-row">
           <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
@@ -4406,6 +4788,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
       </div>
 
       <div id="posprem-sales-banknifty" class="posprem-outer" style="display:none">
+        <h2 class="of-mobile-only of-mobile-offer-title">Premium offerings</h2>
+        <p class="of-mobile-only of-mobile-offer-description">Probable positioning, scenario analysis and volatility tools.</p>
         <div class="prem-section-title">BANKNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-banknifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('banknifty', _ofPremiumActiveKind('banknifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
         <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for BANKNIFTY">
@@ -4431,6 +4815,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
         <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
+<button type="button" class="of-mobile-only of-mobile-offer-toggle" aria-expanded="false" aria-controls="posprem-offerslot-banknifty"><span>Preview charts and scenarios</span><span aria-hidden="true">⌄</span></button>
 <div class="prem-offer-slot" id="posprem-offerslot-banknifty"></div>
         <div class="prem-feat-row">
           <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
@@ -4712,6 +5097,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
       </div>
 
       <div id="posprem-sales-sensex" class="posprem-outer" style="display:none">
+        <h2 class="of-mobile-only of-mobile-offer-title">Premium offerings</h2>
+        <p class="of-mobile-only of-mobile-offer-description">Probable positioning, scenario analysis and volatility tools.</p>
         <div class="prem-section-title">SENSEX <em>Probable Positioning &mdash; Premium</em></div>
         <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-sensex" class="of-premium-key-link" onclick="ofPremiumJumpToKey('sensex', _ofPremiumActiveKind('sensex') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
         <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for SENSEX">
@@ -4737,6 +5124,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
         <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
+<button type="button" class="of-mobile-only of-mobile-offer-toggle" aria-expanded="false" aria-controls="posprem-offerslot-sensex"><span>Preview charts and scenarios</span><span aria-hidden="true">⌄</span></button>
 <div class="prem-offer-slot" id="posprem-offerslot-sensex"></div>
         <div class="prem-feat-row">
           <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
@@ -5018,6 +5406,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
       </div>
 
       <div id="posprem-sales-finnifty" class="posprem-outer" style="display:none">
+        <h2 class="of-mobile-only of-mobile-offer-title">Premium offerings</h2>
+        <p class="of-mobile-only of-mobile-offer-description">Probable positioning, scenario analysis and volatility tools.</p>
         <div class="prem-section-title">FINNIFTY <em>Probable Positioning &mdash; Premium</em></div>
         <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-finnifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('finnifty', _ofPremiumActiveKind('finnifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
         <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for FINNIFTY">
@@ -5043,6 +5433,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
         <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
+<button type="button" class="of-mobile-only of-mobile-offer-toggle" aria-expanded="false" aria-controls="posprem-offerslot-finnifty"><span>Preview charts and scenarios</span><span aria-hidden="true">⌄</span></button>
 <div class="prem-offer-slot" id="posprem-offerslot-finnifty"></div>
         <div class="prem-feat-row">
           <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
@@ -5324,6 +5715,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
       </div>
 
       <div id="posprem-sales-midcpnifty" class="posprem-outer" style="display:none">
+        <h2 class="of-mobile-only of-mobile-offer-title">Premium offerings</h2>
+        <p class="of-mobile-only of-mobile-offer-description">Probable positioning, scenario analysis and volatility tools.</p>
         <div class="prem-section-title">MIDCAP <em>Probable Positioning &mdash; Premium</em></div>
         <div class="of-plan-heading"><span class="of-plan-heading-title">Choose your option</span><button type="button" id="of-premium-entry-sales-midcpnifty" class="of-premium-key-link" onclick="ofPremiumJumpToKey('midcpnifty', _ofPremiumActiveKind('midcpnifty') === 'volsurf' ? 'vol' : 'pos')">&#128273; Already have a key? Enter it &rarr;</button><span class="of-plan-heading-description">Optional one-time training is available.</span></div>
         <div class="of-plan-grid" role="radiogroup" aria-label="Premium pricing options for MIDCAP NIFTY">
@@ -5349,6 +5742,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
         <p class="of-plan-footnote">Option 2: Request available session slots. Your subscription begins on the confirmed session date; your key is sent beforehand. Separate from Mentorship.</p>
         <div class="of-premium-more of-premium-includes"><h3 class="of-premium-includes-heading">What’s included</h3>
 <div class="of-premium-more-inner">
+<button type="button" class="of-mobile-only of-mobile-offer-toggle" aria-expanded="false" aria-controls="posprem-offerslot-midcpnifty"><span>Preview charts and scenarios</span><span aria-hidden="true">⌄</span></button>
 <div class="prem-offer-slot" id="posprem-offerslot-midcpnifty"></div>
         <div class="prem-feat-row">
           <div class="prem-feat-item"><div class="prem-feat-icon">&#128202;</div><div><div class="prem-feat-title">Dealer GEX, VEX &amp; CEX by strike</div><div class="prem-feat-desc">Bar charts showing estimated dealer gamma, vanna, and charm exposure at each strike, plus a running chart of net GEX through the session.</div></div></div>
@@ -7101,8 +7495,9 @@ function renderIndex(idx, data){
   const spa = document.getElementById(`sp-${idx}-analysis`);
   if(spa) spa.innerHTML = analysisHtml(idx, data);
   if (window.OFS) window.OFS.refresh(idx);
+  window.ofMobileSync?.();
 }
-async function switchIdx(idx, clickEvent){
+async function switchIdx(idx, clickEvent, options){
   const activeIndex = document.querySelector('#main > .idx-panel.on');
   if (activeIndex && activeIndex.id !== 'panel-' + idx) resetPremiumScenarios();
   sessionStorage.setItem('_of_tab', idx);
@@ -7114,8 +7509,11 @@ async function switchIdx(idx, clickEvent){
   });
 
   _posPremResetToMain(idx);
-  if (typeof ofScrollToAnalytics === 'function') ofScrollToAnalytics(null, 'auto');
-  else window.scrollTo({top:0,behavior:'smooth'});
+  if (!options?.keepView) {
+    if (typeof ofScrollToAnalytics === 'function') ofScrollToAnalytics(null, 'auto');
+    else window.scrollTo({top:0,behavior:'smooth'});
+  }
+  window.ofMobileSync?.();
   renderIndex(idx, await fetchData(idx));
   if (document.body.getAttribute('data-of-view') === 'premium' && typeof showPremiumOffer === 'function') {
     showPremiumOffer(_ofPremiumActiveKind(idx) === 'volsurf' ? 'volsurf' : 'features', idx);
@@ -7610,6 +8008,7 @@ function switchStab(idx, key, btn, options){
     _ofPremiumSyncLockedTab(idx, key);
   }
 
+  window.ofMobileSync?.();
   if (!(options && options.silent)) {
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){ _ofScrollToActiveModuleTabs(idx, 'smooth'); });
@@ -7648,6 +8047,7 @@ function switchPcrSub(idx, sub, btn){
       sp.appendChild(emptyDiv.firstElementChild);
     }
   }
+  window.ofMobileSync?.();
 }
 function switchVolsurfSub(idx, sub, btn){
   sessionStorage.setItem('_of_volsurfsub_' + idx, sub);
@@ -7660,6 +8060,7 @@ function switchVolsurfSub(idx, sub, btn){
     const el = document.getElementById(`sp-${idx}-${k}`);
     if(el) el.classList.toggle('on', k === sub);
   });
+  window.ofMobileSync?.();
 }
 function switchProbSub(idx, sub, btn){
   sessionStorage.setItem('_of_probsub_' + idx, sub);
@@ -8509,6 +8910,7 @@ function _posPremShowContent(idx, html) {
 
     try { frame.contentWindow.openLbx = window.openLbx; } catch (e) {}
     _fitHeight();
+    window.ofMobilePremiumReady?.(frame);
     _posPremRestoreScroll(idx, frame);
     if (capturedScenarioRevision === scenarioResetRevision)
       _ofRestoreScenarioAfterRefresh(frame, priorScenarioState);
@@ -8795,7 +9197,7 @@ function _fillOfferSlot(slotId, templateId) {
 function _stickyStackBottom() {
 
   var bottom = 0;
-  ['#topbar', '.tabs-bar', '.idx-panel.on .sub-tabs'].forEach(function (sel) {
+  ['#topbar', '#of-mobile-context', '.tabs-bar', '.idx-panel.on .sub-tabs'].forEach(function (sel) {
     var el = document.querySelector(sel);
     if (!el || !el.offsetHeight) return;
     var cs = getComputedStyle(el);
@@ -9533,10 +9935,12 @@ document.addEventListener('pointermove',function(e){
   var publicTabs=new Set(['gex','oi','topgex','totalgex','pcr','vex','skew','cex','ivtrack','analysis']);
   var paidTabs=new Set(['prob','volsurf','premium']);
   var lastView='';
+  var initialView=document.body.dataset.ofView;
   var currentLabels={analytics:['MARKET STRUCTURE','Analytics'],premium:['PREMIUM ACCESS','Premium Analytics']};
   function idx(){var on=document.querySelector('#main > .idx-panel.on');return on?on.id.slice(6):'nifty';}
   function viewFromHash(){
     var h=location.hash.toLowerCase();
+    if (!h && matchMedia('(max-width:760px)').matches) return initialView;
     return h==='#premium'||h==='#view-premium'?'premium':
       h==='#analytics'||h==='#view-analytics'||h==='#of-analytics'?'analytics':'home';
   }
@@ -9602,11 +10006,12 @@ document.addEventListener('pointermove',function(e){
 
       showPremiumOffer('features',idx());
     } else if(view==='premium')ensureSelection('premium',idx());
+    window.ofMobileViewChanged?.(view,idx(),changed);
     if(changed||historyEvent)window.scrollTo(0,0);
     // On entry, place the existing-customer link and pricing near the top of
     // the viewport, rather than cutting off the first price behind the mobile
     // fixed index switcher. Do not auto-scroll during Premium tab switching.
-    if(view==='premium' && (changed||historyEvent)) {
+    if(view==='premium' && (changed||historyEvent) && !matchMedia('(max-width:760px)').matches) {
       setTimeout(function(){
         var i=idx();
         if (_ofPremiumHasContent(i) || _ofStoredPositioningKey()) return;
@@ -9793,6 +10198,335 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
  });
  document.addEventListener('fullscreenchange',function(){document.querySelectorAll('.pp-demo-preview').forEach(redraw);});
  window.addEventListener('resize',function(){document.querySelectorAll('.pp-demo-preview').forEach(redraw);});
+})();
+</script>
+<nav id="of-mobile-nav" class="of-mobile-only" aria-label="Main navigation">
+  <button type="button" data-mobile-view="home" aria-current="page"><span aria-hidden="true">⊞</span>Overview</button>
+  <button type="button" data-mobile-view="analytics"><span aria-hidden="true">▥</span>Analytics</button>
+  <button type="button" data-mobile-view="premium"><span aria-hidden="true">✦</span>Premium</button>
+  <button type="button" data-mobile-open="more" aria-haspopup="dialog"><span aria-hidden="true">⋯</span>More</button>
+</nav>
+
+<dialog id="of-mobile-picker" class="of-mobile-only" aria-labelledby="of-mobile-picker-title">
+  <div class="of-mobile-picker-body">
+    <div class="of-mobile-picker-head">
+      <h2 id="of-mobile-picker-title"></h2>
+      <form method="dialog"><button type="submit" aria-label="Close menu">×</button></form>
+    </div>
+    <div id="of-mobile-picker-options"></div>
+  </div>
+</dialog>
+
+<template id="of-mobile-positioning-styles"><style id="of-mobile-positioning">
+@media (max-width:760px) {
+  html[data-of-mobile] #pp-sim .pp-workspace {
+    grid-template-columns:minmax(0,1fr);
+    gap:8px;
+  }
+  html[data-of-mobile] #pp-sim .pp-chart-area {
+    grid-area:1 / 1;
+  }
+  html[data-of-mobile] #pp-sim .pp-workspace .pp-scenario-shell {
+    grid-area:2 / 1;
+    margin:0 8px 8px;
+  }
+  html[data-of-mobile] #pp-sim .pp-workspace .pp-scenario-toggle {
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    min-height:54px;
+    height:auto;
+    padding:8px 12px;
+    gap:10px;
+    text-align:left;
+  }
+  html[data-of-mobile] #pp-sim .pp-workspace .pp-scenario-toggle .pp-scenario-icon {
+    align-self:center;
+    min-height:0;
+  }
+  html[data-of-mobile] #pp-sim .pp-workspace .pp-scenario-rail-label {
+    flex:1;
+    writing-mode:horizontal-tb;
+    transform:none;
+    text-align:left;
+  }
+  html[data-of-mobile] #pp-sim .pp-workspace .pp-scenario-rail-chevron {
+    align-self:center;
+    transform:rotate(90deg);
+  }
+  html[data-of-mobile] #pp-sim .pp-sim-controls .pp-sim-range {min-height:28px}
+}
+</style></template>
+<script id="of-mobile-dashboard">
+(function () {
+  const phone = matchMedia('(max-width:760px)');
+  const byId = id => document.getElementById(id);
+  const main = byId('main');
+  const picker = byId('of-mobile-picker');
+  const options = byId('of-mobile-picker-options');
+  const names = {nifty:'NIFTY', banknifty:'BANKNIFTY', sensex:'SENSEX', finnifty:'FINNIFTY', midcpnifty:'MIDCAP'};
+  const charts = {
+    gex:{label:'Raw GEX'}, vex:{label:'Raw VEX'}, cex:{label:'Raw CEX'},
+    totalgex:{label:'Total Absolute GEX'}, topgex:{label:'Top GEX + VOR'},
+    oi:{label:'GEX OI Monitor'}, pcrtable:{label:'PCR Table',tab:'pcr'},
+    pcrhist:{label:'PCR History',tab:'pcr'}, skew:{label:'Volatility Skew'},
+    ivtrack:{label:'IV Tracking'}, analysis:{label:'Synopsis'},
+    prob:{label:'Probable Positioning'}, pg:{label:'Probable GEX',tab:'prob',view:'g'},
+    pv:{label:'Probable VEX',tab:'prob',view:'v'}, px:{label:'Probable CEX',tab:'prob',view:'x'},
+    ph:{label:'GEX History',tab:'prob',view:'history'},
+    call:{label:'Call GEX Matrix',tab:'prob',panel:'call'},
+    put:{label:'Put GEX Matrix',tab:'prob',panel:'put'},
+    net:{label:'Net GEX Matrix',tab:'prob',panel:'net'},
+    oipcr:{label:'OI / Volume PCR',tab:'prob',panel:'oipcr'},
+    volsurfchart:{label:'Volatility Surface',tab:'volsurf'},
+    atmiv:{label:'ATM Volatility',tab:'volsurf'},
+    premium:{label:'Premium Recommendations'}
+  };
+  const analyticsGroups = [
+    ['Exposure',['gex','vex','cex','totalgex','topgex']],
+    ['OI / PCR',['oi','pcrtable','pcrhist']],
+    ['Volatility',['skew','ivtrack']],
+    ['Market overview',['analysis']]
+  ];
+  const publicCharts = new Set(analyticsGroups.flatMap(([, keys]) => keys));
+  const fmt = new Intl.DateTimeFormat('en-IN', {hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'Asia/Kolkata'});
+  const positionStyles = byId('of-mobile-positioning-styles');
+
+  function activeIndex() {
+    return main.querySelector(':scope > .idx-panel.on')?.id.slice(6) || 'nifty';
+  }
+
+  function activeView() { return document.body.dataset.ofView; }
+
+  function tabButton(index, tab) {
+    return byId('panel-' + index)?.querySelector(':scope > .sub-tabs > .stab[data-key="' + tab + '"]');
+  }
+
+  function premiumFrame(index) {
+    const frame = byId('posprem-content-' + index)?.querySelector('iframe');
+    try {
+      return typeof frame?.contentWindow?.ppSwitchByKey === 'function' &&
+        typeof frame.contentWindow.ppGetPositioningView === 'function' ? frame : null;
+    } catch (_) { return null; }
+  }
+
+  function currentChart(index) {
+    const tab = byId('panel-' + index)?.querySelector(':scope > .sub-tabs > .stab.on')?.dataset.key || 'gex';
+    if (tab === 'pcr') return byId('sp-' + index + '-pcr').querySelector('.pcr-sub.on')?.dataset.key || 'pcrtable';
+    if (tab === 'volsurf') return byId('sp-' + index + '-volsurf').querySelector('.volsurf-sub.on')?.dataset.key || 'volsurfchart';
+    if (tab === 'prob') {
+      const frame = premiumFrame(index);
+      if (!frame) return 'prob';
+      const panel = frame.contentDocument.querySelector('.pp-panel.on')?.id.replace('pp-panel-', '');
+      if (panel && panel !== 'main' && charts[panel]) return panel;
+      return {g:'pg',v:'pv',x:'px',history:'ph'}[frame.contentWindow.ppGetPositioningView()] || 'pg';
+    }
+    return tab;
+  }
+
+  function readPreference(key) {
+    try { return localStorage.getItem(key); } catch (_) { return null; }
+  }
+
+  function savePreference(key, value) {
+    try { localStorage.setItem(key, value); } catch (_) {}
+  }
+
+  function selectChart(index, key) {
+    const chart = charts[key];
+    if (!chart) return;
+    const tab = chart.tab || key;
+    const button = tabButton(index, tab);
+    if (!button) return;
+    if (!button.classList.contains('on')) switchStab(index, tab, button, {silent:true});
+    if (tab === 'pcr') {
+      const sub = byId('sp-' + index + '-pcr').querySelector('.pcr-sub[data-key="' + key + '"]');
+      if (sub) switchPcrSub(index, key, sub);
+    }
+    if (tab === 'volsurf') {
+      const sub = byId('sp-' + index + '-volsurf').querySelector('.volsurf-sub[data-key="' + key + '"]');
+      if (sub) switchVolsurfSub(index, key, sub);
+    }
+    const frame = tab === 'prob' ? premiumFrame(index) : null;
+    if (frame && (chart.panel || chart.view)) {
+      frame.contentWindow.ppSwitchByKey(chart.panel || 'main');
+      if (chart.view) frame.contentWindow.ppSetPositioningView(chart.view);
+    }
+    sync();
+  }
+
+  function restoreChart(index) {
+    if (!phone.matches || activeView() !== 'analytics') return;
+    const key = readPreference('_of_mobile_chart_' + index);
+    if (publicCharts.has(key) && currentChart(index) !== key) selectChart(index, key);
+  }
+
+  function syncMarket() {
+    const open = byId('mkt-badge').classList.contains('mkt-open');
+    const badge = byId('of-mobile-market-state');
+    badge.textContent = open ? 'Market open' : 'Market closed';
+    badge.dataset.open = String(open);
+  }
+
+  function sync() {
+    if (!phone.matches) return;
+    const index = activeIndex();
+    const view = activeView();
+    const data = _dataCache[index];
+    byId('of-mobile-index-name').textContent = names[index];
+    const stamp = data?.timestamp_iso ? new Date(data.timestamp_iso) : null;
+    const updated = byId('of-mobile-updated');
+    updated.textContent = stamp && Number.isFinite(stamp.getTime()) ? fmt.format(stamp) + ' IST' : '';
+    updated.dateTime = updated.textContent ? stamp.toISOString() : '';
+    syncMarket();
+    const values = {
+      future:Number.isFinite(data?.synthetic_futures) ? f(data.synthetic_futures,2) : '—',
+      gex:Number.isFinite(data?.net_gex) ? (data.net_gex > 0 ? '+' : '') + f(data.net_gex,1) + ' Cr' : '—',
+      pcr:Number.isFinite(data?.pcr_atm) ? f(data.pcr_atm,2) : '—'
+    };
+    main.querySelectorAll('[data-mobile-stat]').forEach(metric => { metric.textContent = values[metric.dataset.mobileStat]; });
+    main.querySelectorAll('[data-mobile-stat="gex"]').forEach(metric => {
+      metric.dataset.sign = data?.net_gex > 0 ? 'positive' : data?.net_gex < 0 ? 'negative' : '';
+    });
+    byId('of-mobile-regime').textContent = data?.gex_regime || '';
+    byId('of-mobile-chart-name').textContent = charts[currentChart(index)]?.label || 'Choose chart';
+    byId('of-mobile-nav').querySelectorAll('[data-mobile-view]').forEach(button => {
+      if (button.dataset.mobileView === view) button.setAttribute('aria-current','page');
+      else button.removeAttribute('aria-current');
+    });
+  }
+
+  function chartGroups(index) {
+    if (activeView() !== 'premium') return analyticsGroups;
+    const groups = premiumFrame(index)
+      ? [['Positioning',['pg','pv','px','ph']],['Matrices',['call','put','net']],['OI / PCR',['oipcr']]]
+      : [['Positioning',['prob']]];
+    groups.push(['Volatility',['volsurfchart','atmiv']]);
+    if (window.PREMIUM_RECO_ENABLED) groups.push(['Recommendations',['premium']]);
+    return groups;
+  }
+
+  function option(label, key, value, selected, note) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset[key] = value;
+    button.setAttribute('aria-pressed', String(selected));
+    const name = document.createElement('span');
+    name.textContent = label;
+    button.appendChild(name);
+    if (note) {
+      const caption = document.createElement('small');
+      caption.textContent = note;
+      button.appendChild(caption);
+    }
+    options.appendChild(button);
+  }
+
+  function openPicker(kind) {
+    const index = activeIndex();
+    byId('of-mobile-picker-title').textContent = {indices:'Choose index',charts:'Choose chart',more:'More'}[kind];
+    options.replaceChildren();
+    if (kind === 'indices') {
+      INDICES.forEach(key => {
+        const quote = byId('tabpx-' + key)?.textContent || '—';
+        option(names[key], 'mobileIndex', key, key === index, quote);
+      });
+    } else if (kind === 'charts') {
+      const selected = currentChart(index);
+      chartGroups(index).forEach(([group, keys]) => {
+        const heading = document.createElement('h3');
+        heading.className = 'of-mobile-picker-group';
+        heading.textContent = group;
+        options.appendChild(heading);
+        keys.forEach(key => option(charts[key].label, 'mobileChart', key, key === selected, key === selected ? 'Selected' : ''));
+      });
+    } else {
+      for (const [url, label] of [['blogs.html','Learn'],['mentorship.html','Mentorship'],['about.html','About'],['contact.html','Contact'],['privacy.html','Privacy']]) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.textContent = label;
+        options.appendChild(link);
+      }
+      option(byId('theme-btn-m').textContent, 'mobileTheme', 'toggle', false);
+      options.lastElementChild.removeAttribute('aria-pressed');
+    }
+    if (!picker.open) picker.showModal();
+    picker.scrollTop = 0;
+  }
+
+  async function selectIndex(index) {
+    if (index === activeIndex()) return;
+    savePreference('_of_mobile_index', index);
+    await switchIdx(index, null, {keepView:true});
+    if (index === activeIndex()) restoreChart(index);
+    sync();
+  }
+
+  document.addEventListener('click', function (event) {
+    if (!phone.matches) return;
+    const button = event.target.closest('button');
+    if (!button) return;
+    const data = button.dataset;
+    if (data.mobileOpen) openPicker(data.mobileOpen);
+    else if (data.mobileView && data.mobileView !== activeView()) {
+      ofViewNavigate(data.mobileView);
+    } else if (data.mobileJump) {
+      ofViewNavigate('analytics');
+      const index = activeIndex();
+      selectChart(index, data.mobileJump);
+      savePreference('_of_mobile_chart_' + index, data.mobileJump);
+    } else if (data.mobileIndex) {
+      picker.close();
+      selectIndex(data.mobileIndex);
+    } else if (data.mobileChart) {
+      picker.close();
+      const index = activeIndex();
+      selectChart(index, data.mobileChart);
+      if (activeView() === 'analytics') savePreference('_of_mobile_chart_' + index, data.mobileChart);
+    } else if (data.mobileTheme) {
+      toggleTheme();
+      button.querySelector('span').textContent = byId('theme-btn-m').textContent;
+    } else if (button.classList.contains('of-mobile-offer-toggle')) {
+      const includes = button.closest('.of-premium-includes');
+      const expanded = includes.toggleAttribute('data-mobile-preview-open');
+      button.setAttribute('aria-expanded',String(expanded));
+    }
+  });
+
+  picker.addEventListener('click', function (event) {
+    if (event.target === picker) picker.close();
+  });
+
+  function styleFrame(frame) {
+    try {
+      const doc = frame.contentDocument;
+      if (!doc?.getElementById('pp-sim')) return;
+      doc.documentElement.toggleAttribute('data-of-mobile',phone.matches);
+      if (!doc.getElementById('of-mobile-positioning')) {
+        doc.head.appendChild(positionStyles.content.cloneNode(true));
+        doc.addEventListener('click', function (event) {
+          if (event.target.closest('.pp-tab,[data-pp-view],[data-pp-metric-view]')) requestAnimationFrame(sync);
+        });
+      }
+    } catch (_) {}
+  }
+
+  window.ofMobilePremiumReady = function (frame) { styleFrame(frame); sync(); };
+  window.ofMobileSync = sync;
+  window.ofMobileViewChanged = function (view, index, changed) {
+    if (!phone.matches) return;
+    savePreference('_of_mobile_view',view);
+    if (changed) restoreChart(index);
+    sync();
+  };
+  phone.addEventListener('change',function () {
+    if (!phone.matches && picker.open) picker.close();
+    main.querySelectorAll('[id^="posprem-content-"] iframe').forEach(styleFrame);
+    sync();
+  });
+  const marketObserver = new MutationObserver(function () { if (phone.matches) syncMarket(); });
+  marketObserver.observe(byId('mkt-badge'),{attributes:true,attributeFilter:['class']});
+  sync();
 })();
 </script>
 </body>
