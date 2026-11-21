@@ -3716,12 +3716,15 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
 </style>
 <style>
 [data-theme="dark"] [id^="sp-"][id$="-analysis"] {
-  background:#000!important;color:#fff!important;
+  --bg:#000;
+  --surface:#000;
+  --t1:#fff;
+  --t2:#fff;
+  --t3:#fff;
+  --t4:#fff;
+  background:#000;
+  color:#fff;
 }
-[data-theme="dark"] [id^="sp-"][id$="-analysis"] *:not(svg *) {
-  background-color:#000!important;background-image:none!important;color:#fff!important;
-}
-[data-theme="dark"] [id^="sp-"][id$="-analysis"] svg text {fill:#fff!important}
 
 #of-analytics>.of-view-nav{align-self:center;justify-content:center;gap:clamp(16px,3vw,26px)}
 #of-analytics>.tabs-scroll{min-width:0}
@@ -3754,7 +3757,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
 @media (max-width:760px) {
   html[data-theme] {
     --of-mobile-nav-height:calc(62px + env(safe-area-inset-bottom,0px));
-    scroll-padding-top:calc(var(--app-bar-h,52px) + 56px);
+    scroll-padding-top:calc(var(--app-bar-h,52px) + 67px);
     scroll-padding-bottom:calc(var(--of-mobile-nav-height) + 8px);
   }
 
@@ -3868,28 +3871,6 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
     background:var(--surface);
   }
 
-  .of-mobile-overview-metrics button,
-  .of-mobile-synopsis {
-    display:grid;
-    grid-template-columns:1fr auto 14px;
-    align-items:center;
-    gap:8px;
-    width:100%;
-    min-height:48px;
-    padding:8px 11px;
-    border:0;
-    color:var(--t2);
-    background:transparent;
-    text-align:left;
-    font-size:.82rem;
-  }
-
-  .of-mobile-overview-metrics button+button { border-top:1px solid var(--border); }
-  .of-mobile-overview-metrics strong { color:var(--t1); font-variant-numeric:tabular-nums; }
-  .of-mobile-overview-metrics button span:last-child,.of-mobile-synopsis span:last-child { color:var(--accent); }
-  .of-mobile-synopsis { margin-top:7px; }
-  #of-mobile-regime { color:var(--t3); text-align:right; font-size:.73rem; }
-
   #of-mobile-chartbar { margin:0 0 9px; }
   .of-mobile-chart-metrics {
     display:grid;
@@ -3903,8 +3884,6 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   .of-mobile-chart-metrics > div+div { padding-left:12px; border-left:1px solid var(--border); }
   .of-mobile-chart-metrics span { font-size:.73rem; color:var(--t3); }
   .of-mobile-chart-metrics strong { font-size:1.09rem; line-height:1.25; color:var(--t1); font-variant-numeric:tabular-nums; }
-  [data-mobile-stat="gex"][data-sign="positive"] { color:var(--pos); }
-  [data-mobile-stat="gex"][data-sign="negative"] { color:var(--neg); }
   body[data-of-view="premium"] #of-mobile-chartbar .of-mobile-chart-metrics { display:none; }
 
   .of-mobile-chart-picker {
@@ -3923,8 +3902,6 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   }
 
   #of-mobile-chart-name { font-size:.89rem; font-weight:750; overflow-wrap:anywhere; }
-  .of-mobile-chart-picker span:last-child { flex-shrink:0; color:var(--t3); font-size:.68rem; }
-  .of-mobile-chart-picker b { color:var(--accent); margin-left:4px; }
 
   #of-mobile-nav {
     display:grid;
@@ -4086,6 +4063,154 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   .of-mobile-market { font-size:.62rem; }
   .of-mobile-index { font-size:.9rem; }
 }
+
+@media (max-width:760px) {
+  .of-mobile-index,
+  .of-mobile-chart-picker {
+    border:1px solid var(--border-lit);
+    border-radius:12px;
+    background:var(--raised);
+    padding:6px 9px 6px 11px;
+  }
+
+  #of-mobile-context { min-height:65px; }
+  .of-mobile-index { gap:11px; max-width:62%; }
+  .of-mobile-index-name,.of-mobile-engine-name { display:grid; gap:2px; min-width:0; text-align:left; }
+  .of-mobile-index-name small,.of-mobile-engine-name small { color:var(--t3); font-size:.64rem; font-weight:600; }
+  .of-mobile-index-name strong { font-size:.91rem; }
+
+  .of-mobile-chevron {
+    position:relative;
+    display:grid;
+    place-items:center;
+    flex:0 0 28px;
+    width:28px;
+    height:28px;
+    border:1px solid var(--border-lit);
+    border-radius:8px;
+    background:var(--surface);
+    color:var(--accent)!important;
+  }
+
+  .of-mobile-chevron::before {
+    content:'';
+    width:8px;
+    height:8px;
+    border-right:2px solid currentColor;
+    border-bottom:2px solid currentColor;
+    transform:translateY(-2px) rotate(45deg);
+  }
+
+  .of-mobile-quote-card {
+    display:flex;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:7px;
+    padding:12px 13px;
+    border:1px solid var(--border);
+    border-radius:12px 12px 0 0;
+    background:var(--surface);
+  }
+  .of-mobile-quote-card > div { display:grid; gap:3px; }
+  .of-mobile-quote-caption { color:var(--t3); font-size:.72rem; }
+  #of-mobile-quote { color:var(--t1); font-size:1.48rem; line-height:1.12; font-variant-numeric:tabular-nums; }
+  #of-mobile-quote-change { color:var(--t3); font-size:.79rem; font-variant-numeric:tabular-nums; }
+  #of-mobile-quote-change[data-sign="positive"] { color:var(--pos); }
+  #of-mobile-quote-change[data-sign="negative"] { color:var(--neg); }
+
+  .of-mobile-overview-metrics {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    margin:0;
+    border-top:0;
+    border-radius:0 0 12px 12px;
+  }
+  .of-mobile-overview-metrics > div { display:grid; gap:4px; min-width:0; padding:9px 13px; }
+  .of-mobile-overview-metrics > div+div { border-left:1px solid var(--border); }
+  .of-mobile-overview-metrics dt { color:var(--t3); font-size:.68rem; }
+  .of-mobile-overview-metrics dd { margin:0; color:var(--t1); font-size:.88rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  [data-mobile-stat="regime"][data-sign="positive"] { color:var(--pos); }
+  [data-mobile-stat="regime"][data-sign="negative"] { color:var(--neg); }
+
+  .of-mobile-overview-actions { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:11px; }
+  .of-mobile-overview-actions button {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:5px;
+    min-height:46px;
+    padding:8px 11px;
+    border:1px solid var(--border-lit);
+    border-radius:10px;
+    background:var(--raised);
+    color:var(--accent);
+    font-size:.86rem;
+    font-weight:750;
+    text-align:left;
+  }
+  .of-mobile-overview-actions [data-mobile-view="premium"] { color:var(--cta); }
+  .of-mobile-overview-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:6px; }
+  .of-mobile-overview-links :is(a,button) {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    min-height:44px;
+    padding:4px;
+    color:var(--t2);
+    background:transparent;
+    border:1px solid var(--border);
+    border-radius:9px;
+    font-size:.72rem;
+    text-decoration:none;
+  }
+  .of-mobile-overview-links a[href="mentorship.html"] { color:var(--cta); }
+
+  #of-mobile-chart-name { font-size:.94rem; font-weight:750; }
+  .of-mobile-chart-picker { min-height:51px; }
+  #of-mobile-chartbar #of-mobile-scenario:not([hidden]) {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:7px;
+    width:100%;
+    min-height:46px;
+    margin-top:7px;
+    padding:7px 11px;
+    border:1px solid var(--border-lit);
+    border-radius:10px;
+    background:var(--surface);
+    color:var(--t1);
+    font-size:.81rem;
+    font-weight:700;
+    text-align:left;
+  }
+  #of-mobile-scenario-action { color:var(--accent); }
+
+  #of-mobile-picker .of-mobile-picker-head {
+    position:sticky;
+    top:0;
+    z-index:1;
+    padding-bottom:5px;
+    background:var(--surface);
+  }
+  #of-mobile-picker-options :is([data-mobile-index],[data-mobile-chart]) {
+    min-height:48px;
+    margin:3px 0;
+    padding:7px 10px;
+    border:1px solid transparent;
+    border-radius:8px;
+    background:var(--raised);
+  }
+  #of-mobile-picker-options [data-mobile-index][aria-pressed="true"],
+  #of-mobile-picker-options [data-mobile-chart][aria-pressed="true"] {
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  #of-mobile-picker-options .of-mobile-picker-group { margin:13px 0 3px; font-weight:700; }
+}
 </style>
 </head>
 
@@ -4169,7 +4294,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
 <div id="main">
 <div id="of-mobile-context" class="of-mobile-only">
   <button type="button" class="of-mobile-index" data-mobile-open="indices" aria-haspopup="dialog">
-    <span id="of-mobile-index-name">NIFTY</span><span aria-hidden="true">⌄</span>
+    <span class="of-mobile-index-name"><small>Selected index</small><strong id="of-mobile-index-name">NIFTY</strong></span>
+    <span class="of-mobile-chevron" aria-hidden="true"></span>
   </button>
   <div class="of-mobile-market">
     <span id="of-mobile-market-state"></span>
@@ -4179,23 +4305,39 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
 
 <section id="of-mobile-overview" class="of-mobile-only" aria-labelledby="of-mobile-overview-title">
   <h2 id="of-mobile-overview-title">Market overview</h2>
-  <div class="of-mobile-overview-metrics">
-    <button type="button" data-mobile-jump="totalgex"><span>Synthetic futures</span><strong data-mobile-stat="future">—</strong><span aria-hidden="true">›</span></button>
-    <button type="button" data-mobile-jump="gex"><span>Net GEX</span><strong data-mobile-stat="gex">—</strong><span aria-hidden="true">›</span></button>
-    <button type="button" data-mobile-jump="pcrhist"><span>ATM OI PCR</span><strong data-mobile-stat="pcr">—</strong><span aria-hidden="true">›</span></button>
+  <div class="of-mobile-quote-card">
+    <div>
+      <span class="of-mobile-quote-caption">Index quote</span>
+      <strong id="of-mobile-quote">—</strong>
+    </div>
+    <span id="of-mobile-quote-change">—</span>
   </div>
-  <button type="button" class="of-mobile-synopsis" data-mobile-jump="analysis">
-    <span>Synopsis</span><span id="of-mobile-regime"></span><span aria-hidden="true">›</span>
-  </button>
+  <dl class="of-mobile-overview-metrics">
+    <div><dt>Gamma regime</dt><dd data-mobile-stat="regime">—</dd></div>
+    <div><dt>Analysis data age</dt><dd id="of-mobile-data-age">—</dd></div>
+  </dl>
+  <div class="of-mobile-overview-actions" aria-label="Open dashboard section">
+    <button type="button" data-mobile-view="analytics">Analytics <span aria-hidden="true">↗</span></button>
+    <button type="button" data-mobile-view="premium">Premium <span aria-hidden="true">↗</span></button>
+  </div>
+  <div class="of-mobile-overview-links">
+    <a href="blogs.html">Learn</a>
+    <a href="mentorship.html">Mentorship</a>
+    <button type="button" data-mobile-jump="analysis">Synopsis <span aria-hidden="true">›</span></button>
+  </div>
 </section>
 
 <section id="of-mobile-chartbar" class="of-mobile-only" aria-label="Chart selection">
   <div class="of-mobile-chart-metrics">
     <div><span>Latest synthetic futures</span><strong data-mobile-stat="future">—</strong></div>
-    <div><span>Latest net GEX</span><strong data-mobile-stat="gex">—</strong></div>
+    <div><span>Gamma regime</span><strong data-mobile-stat="regime">—</strong></div>
   </div>
   <button type="button" class="of-mobile-chart-picker" data-mobile-open="charts" aria-haspopup="dialog">
-    <span id="of-mobile-chart-name">Raw GEX</span><span>Choose chart <b aria-hidden="true">⌄</b></span>
+    <span class="of-mobile-engine-name"><small id="of-mobile-engine-label">Analytics engine</small><strong id="of-mobile-chart-name">Raw GEX</strong></span>
+    <span class="of-mobile-chevron" aria-hidden="true"></span>
+  </button>
+  <button type="button" id="of-mobile-scenario" data-mobile-scenario aria-expanded="false" hidden>
+    <span>Scenario Controller</span><span id="of-mobile-scenario-action">Open</span>
   </button>
 </section>
 
@@ -7330,6 +7472,7 @@ function applyPrice(idx, price, prev){
   if(tpx) tpx.textContent=f(Math.round(price));
   if(tch){ tch.textContent=`${arrow}${Math.abs(pct).toFixed(2)}%`; tch.style.color=col; }
   if(ec) ec.innerHTML=`<span style="color:${col}">${arrow} ${sign}${Math.round(chg)} (${sign}${pct.toFixed(2)}%)</span>`;
+  window.ofMobileQuote?.(idx,price,chg,pct);
 }
 function applyFallback(idx){
   const d=_dataCache[idx];
@@ -7401,10 +7544,16 @@ function analysisHtml(idx, data){
   }
   return panel ? panel.innerHTML : '<div style="padding:32px;text-align:center;color:var(--t3);font-family:Inter,sans-serif;font-size:0.88rem">Loading…</div>';
 }
+function publicGammaRegime(value) {
+  const name = String(value || '').toUpperCase();
+  if (name === 'LONG' || name === 'POSITIVE') return {label:'Long gamma',sign:'positive',color:'var(--pos)'};
+  if (name === 'SHORT' || name === 'NEGATIVE') return {label:'Short gamma',sign:'negative',color:'var(--neg)'};
+  return {label:name === 'NEUTRAL' ? 'Neutral gamma' : '—',sign:'',color:'var(--t1)'};
+}
 function _synFallback(idx, data){
   if(!data) return EMPTY;
   var sc=data.composite_score||0;
-  var gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
+  var regime=publicGammaRegime(data.gex_regime);
   var sup=(data.put_support_levels||[]).map(k=>f(k)).join(' · ')||'—';
   var res=(data.call_resist_levels||[]).map(k=>f(k)).join(' · ')||'—';
   return '<div class="pills" style="padding-top:8px;margin-bottom:14px">'+
@@ -7415,7 +7564,7 @@ function _synFallback(idx, data){
     '<div class="gcard"><div style="padding:22px">'+
     '<div class="kv-grid">'+
     '<div class="kv-item"><div class="kv-lbl">COMPOSITE SCORE</div><div class="kv-val"><span class="score-pill '+scoreClass(sc)+'">'+(sc>0?'+':'')+sc+'</span></div></div>'+
-    '<div class="kv-item"><div class="kv-lbl">NET GEX</div><div class="kv-val" style="color:'+gC+'">'+(data.net_gex>0?'+':'')+f(data.net_gex,0)+' Cr</div></div>'+
+    '<div class="kv-item"><div class="kv-lbl">GAMMA REGIME</div><div class="kv-val" style="color:'+regime.color+'">'+regime.label+'</div></div>'+
     '<div class="kv-item"><div class="kv-lbl">GEX PIN</div><div class="kv-val" style="color:var(--accent)">'+f(data.peak_gex_k)+'</div></div>'+
     '<div class="kv-item"><div class="kv-lbl">ATM IV</div><div class="kv-val">'+f(data.atm_iv,1)+'%</div></div>'+
     '<div class="kv-item"><div class="kv-lbl">SPOT</div><div class="kv-val">'+f(data.spot)+'</div></div>'+
@@ -7449,8 +7598,8 @@ function renderIndex(idx, data){
   const pills=document.getElementById(`pills-${idx}`);
   if(pills){
     if(data){
-      const gC=(data.net_gex||0)<0?'var(--neg)':'var(--pos)';
-      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${gC}">${data.gex_regime?String(data.gex_regime).toUpperCase().replace('POSITIVE','LONG').replace('NEGATIVE','SHORT'):'—'}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
+      const regime=publicGammaRegime(data.gex_regime);
+      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${regime.color}">${regime.label}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
         if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
@@ -10290,6 +10439,8 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   ];
   const publicCharts = new Set(analyticsGroups.flatMap(([, keys]) => keys));
   const fmt = new Intl.DateTimeFormat('en-IN', {hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'Asia/Kolkata'});
+  const quoteFormat = new Intl.NumberFormat('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const marketQuotes = Object.create(null);
   const positionStyles = byId('of-mobile-positioning-styles');
 
   function activeIndex() {
@@ -10368,28 +10519,93 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     badge.dataset.open = String(open);
   }
 
+  function selectedQuote(index) {
+    if (marketQuotes[index]) return marketQuotes[index];
+    const data = _dataCache[index];
+    if (!Number.isFinite(data?.spot)) return null;
+    const change = Number.isFinite(data.spot_chg) ? data.spot_chg : 0;
+    return {price:data.spot, change, percent:Number.isFinite(data.spot_pct) ? data.spot_pct : 0};
+  }
+
+  function syncQuote(index) {
+    const quote = selectedQuote(index);
+    const price = byId('of-mobile-quote');
+    const change = byId('of-mobile-quote-change');
+    price.textContent = quote ? quoteFormat.format(quote.price) : '—';
+    const sign = quote?.change > 0 ? '+' : '';
+    change.textContent = quote ? sign + quoteFormat.format(quote.change) + ' (' + sign + quoteFormat.format(quote.percent) + '%)' : '—';
+    change.dataset.sign = quote?.change > 0 ? 'positive' : quote?.change < 0 ? 'negative' : '';
+  }
+
+  function syncFreshness(index) {
+    const timestamp = _dataCache[index]?.timestamp_iso;
+    const hasZone = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(timestamp || '');
+    const stamp = timestamp ? new Date(hasZone ? timestamp : timestamp + '+05:30') : null;
+    const updated = byId('of-mobile-updated');
+    const age = byId('of-mobile-data-age');
+    if (!stamp || !Number.isFinite(stamp.getTime())) {
+      updated.textContent = '';
+      updated.removeAttribute('datetime');
+      age.textContent = '—';
+      return;
+    }
+    updated.textContent = fmt.format(stamp) + ' IST';
+    updated.dateTime = stamp.toISOString();
+    const seconds = Math.max(0, Math.floor((Date.now() - stamp.getTime()) / 1000));
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    age.textContent = (hours >= 24 ? Math.floor(hours / 24) + 'd ' + hours % 24 + 'h' :
+      hours ? hours + 'h ' + minutes % 60 + 'm' : minutes ? minutes + 'm' : seconds + 's') + ' ago';
+  }
+
+  function scenarioFrame(index) {
+    if (activeView() !== 'premium' || !tabButton(index, 'prob')?.classList.contains('on')) return null;
+    const frame = premiumFrame(index);
+    return frame?.contentDocument?.getElementById('pp-scenario-body') ? frame : null;
+  }
+
+  function openScenario(index) {
+    const frame = scenarioFrame(index);
+    if (!frame) return;
+    const doc = frame.contentDocument;
+    if (doc.getElementById('pp-sim').classList.contains('pp-on-oipcr')) frame.contentWindow.ppSwitchByKey('main');
+    if (doc.getElementById('pp-scenario-body').hidden) doc.getElementById('pp-scenario-toggle')?.click();
+    requestAnimationFrame(function () {
+      if (!frame.isConnected || index !== activeIndex() || activeView() !== 'premium') return;
+      const shell = doc.getElementById('pp-scenario-shell');
+      if (!shell) return;
+      const top = window.scrollY + frame.getBoundingClientRect().top + shell.getBoundingClientRect().top;
+      window.scrollTo({top:Math.max(0,top - _stickyStackBottom() - 9),
+        behavior:matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth'});
+      sync();
+    });
+  }
+
   function sync() {
     if (!phone.matches) return;
     const index = activeIndex();
     const view = activeView();
     const data = _dataCache[index];
     byId('of-mobile-index-name').textContent = names[index];
-    const stamp = data?.timestamp_iso ? new Date(data.timestamp_iso) : null;
-    const updated = byId('of-mobile-updated');
-    updated.textContent = stamp && Number.isFinite(stamp.getTime()) ? fmt.format(stamp) + ' IST' : '';
-    updated.dateTime = updated.textContent ? stamp.toISOString() : '';
     syncMarket();
-    const values = {
-      future:Number.isFinite(data?.synthetic_futures) ? f(data.synthetic_futures,2) : '—',
-      gex:Number.isFinite(data?.net_gex) ? (data.net_gex > 0 ? '+' : '') + f(data.net_gex,1) + ' Cr' : '—',
-      pcr:Number.isFinite(data?.pcr_atm) ? f(data.pcr_atm,2) : '—'
-    };
-    main.querySelectorAll('[data-mobile-stat]').forEach(metric => { metric.textContent = values[metric.dataset.mobileStat]; });
-    main.querySelectorAll('[data-mobile-stat="gex"]').forEach(metric => {
-      metric.dataset.sign = data?.net_gex > 0 ? 'positive' : data?.net_gex < 0 ? 'negative' : '';
+    syncQuote(index);
+    syncFreshness(index);
+    const regime = publicGammaRegime(data?.gex_regime);
+    main.querySelectorAll('[data-mobile-stat="future"]').forEach(metric => {
+      metric.textContent = Number.isFinite(data?.synthetic_futures) ? quoteFormat.format(data.synthetic_futures) : '—';
     });
-    byId('of-mobile-regime').textContent = data?.gex_regime || '';
+    main.querySelectorAll('[data-mobile-stat="regime"]').forEach(metric => {
+      metric.textContent = regime.label;
+      metric.dataset.sign = regime.sign;
+    });
+    byId('of-mobile-engine-label').textContent = view === 'premium' ? 'Premium engine' : 'Analytics engine';
     byId('of-mobile-chart-name').textContent = charts[currentChart(index)]?.label || 'Choose chart';
+    const frame = scenarioFrame(index);
+    const scenario = byId('of-mobile-scenario');
+    const expanded = Boolean(frame && !frame.contentDocument.getElementById('pp-scenario-body').hidden);
+    scenario.hidden = !frame;
+    scenario.setAttribute('aria-expanded',String(expanded));
+    byId('of-mobile-scenario-action').textContent = expanded ? 'View' : 'Open';
     byId('of-mobile-nav').querySelectorAll('[data-mobile-view]').forEach(button => {
       if (button.dataset.mobileView === view) button.setAttribute('aria-current','page');
       else button.removeAttribute('aria-current');
@@ -10428,8 +10644,8 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     options.replaceChildren();
     if (kind === 'indices') {
       INDICES.forEach(key => {
-        const quote = byId('tabpx-' + key)?.textContent || '—';
-        option(names[key], 'mobileIndex', key, key === index, quote);
+        const quote = selectedQuote(key);
+        option(names[key], 'mobileIndex', key, key === index, quote ? quoteFormat.format(quote.price) : '—');
       });
     } else if (kind === 'charts') {
       const selected = currentChart(index);
@@ -10483,6 +10699,8 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       const index = activeIndex();
       selectChart(index, data.mobileChart);
       if (activeView() === 'analytics') savePreference('_of_mobile_chart_' + index, data.mobileChart);
+    } else if (button.hasAttribute('data-mobile-scenario')) {
+      openScenario(activeIndex());
     } else if (data.mobileTheme) {
       toggleTheme();
       button.querySelector('span').textContent = byId('theme-btn-m').textContent;
@@ -10505,7 +10723,7 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       if (!doc.getElementById('of-mobile-positioning')) {
         doc.head.appendChild(positionStyles.content.cloneNode(true));
         doc.addEventListener('click', function (event) {
-          if (event.target.closest('.pp-tab,[data-pp-view],[data-pp-metric-view]')) requestAnimationFrame(sync);
+          if (event.target.closest('.pp-tab,[data-pp-view],[data-pp-metric-view],#pp-scenario-toggle,#pp-scenario-action')) requestAnimationFrame(sync);
         });
       }
     } catch (_) {}
@@ -10513,6 +10731,12 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
 
   window.ofMobilePremiumReady = function (frame) { styleFrame(frame); sync(); };
   window.ofMobileSync = sync;
+  window.ofMobileQuote = function (index, price, change, percent) {
+    if (!Number.isFinite(price)) return;
+    marketQuotes[index] = {price,change,percent};
+    if (phone.matches && index === activeIndex()) syncQuote(index);
+  };
+  setInterval(function () { if (phone.matches && !document.hidden) syncFreshness(activeIndex()); },15000);
   window.ofMobileViewChanged = function (view, index, changed) {
     if (!phone.matches) return;
     savePreference('_of_mobile_view',view);
