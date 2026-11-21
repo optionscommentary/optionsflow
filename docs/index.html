@@ -3281,24 +3281,71 @@ html[data-theme="light"] #main .of-refined-home .of-landing-actions button.of-la
   border-color:#d9aa4c!important;
 }
 
-html[data-theme] .tabs-bar .of-view-nav-btn.of-btn-analytics {
+html[data-theme] .tabs-bar .of-view-nav-btn.of-btn-analytics,
+html[data-theme] #of-mobile-overview [data-mobile-view="analytics"] {
   background:var(--accent)!important;
   color:#041321!important;
   border:1px solid var(--accent)!important;
   box-shadow:0 7px 23px rgba(45,157,230,.18)!important;
   border-radius:11px!important;
 }
-html[data-theme="light"] .tabs-bar .of-view-nav-btn.of-btn-analytics {color:#fff!important;}
-html[data-theme] .tabs-bar .of-view-nav-btn.of-btn-premium {
+html[data-theme="light"] .tabs-bar .of-view-nav-btn.of-btn-analytics,
+html[data-theme="light"] #of-mobile-overview [data-mobile-view="analytics"] {color:#fff!important;}
+html[data-theme] .tabs-bar .of-view-nav-btn.of-btn-premium,
+html[data-theme] #of-mobile-overview [data-mobile-view="premium"] {
   background:linear-gradient(115deg,#f4c86d 0%,#e9a841 100%)!important;
   color:#27200f!important;
   border:1px solid #f7d48b!important;
   box-shadow:0 7px 23px rgba(232,166,53,.17)!important;
   border-radius:11px!important;
 }
-html[data-theme="light"] .tabs-bar .of-view-nav-btn.of-btn-premium {
+html[data-theme="light"] .tabs-bar .of-view-nav-btn.of-btn-premium,
+html[data-theme="light"] #of-mobile-overview [data-mobile-view="premium"] {
   background:linear-gradient(115deg,#f9d78c 0%,#edb24f 100%)!important;
   border-color:#d9aa4c!important;
+}
+html[data-theme] #of-mobile-overview .of-link-learn {
+  --link-fill:#273444;
+  --link-ink:#e1e8f1;
+  --link-border:#3e4c60;
+}
+html[data-theme] #of-mobile-overview .of-link-mentorship {
+  --link-fill:#2b403d;
+  --link-ink:#ddece5;
+  --link-border:#3c5751;
+}
+html[data-theme="light"] #of-mobile-overview .of-link-learn {
+  --link-fill:#e9edf2;
+  --link-ink:#34465b;
+  --link-border:#c7d1dd;
+}
+html[data-theme="light"] #of-mobile-overview .of-link-mentorship {
+  --link-fill:#e3ece7;
+  --link-ink:#304a43;
+  --link-border:#bccfc3;
+}
+html[data-theme] #topbar .tb-nav > .of-link-learn {
+  --desktop-link-fill:#252f3c;
+  --desktop-link-ink:#e3e9ef;
+  --desktop-link-edge:#3a4655;
+}
+html[data-theme] #topbar .tb-nav > .of-link-mentorship {
+  --desktop-link-fill:color-mix(in srgb,var(--accent) 8%,var(--raised));
+  --desktop-link-ink:var(--t1);
+  --desktop-link-edge:color-mix(in srgb,var(--accent) 16%,var(--border));
+}
+html[data-theme="light"] #topbar .tb-nav > .of-link-learn {
+  --desktop-link-fill:#edf0f4;
+  --desktop-link-ink:#344152;
+  --desktop-link-edge:#cbd3dd;
+}
+html[data-theme] #topbar .tb-nav > :is(.of-link-learn,.of-link-mentorship) {
+  background:var(--desktop-link-fill);
+  color:var(--desktop-link-ink);
+  box-shadow:inset 0 0 0 1px var(--desktop-link-edge);
+}
+html[data-theme] #topbar .tb-nav > :is(.of-link-learn,.of-link-mentorship):is(:hover,:focus-visible) {
+  box-shadow:inset 0 0 0 1px currentColor;
 }
 html[data-theme] .tabs-bar .of-view-nav-btn[hidden] { display:none!important; }
 
@@ -3918,21 +3965,80 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
 
   #of-mobile-nav button {
     display:grid;
+    grid-template-rows:22px minmax(min-content,1fr);
     place-items:center;
-    align-content:center;
-    gap:4px;
+    gap:2px;
     min-width:0;
     min-height:50px;
-    padding:3px 0;
-    border:0;
+    padding:2px 0;
+    line-height:1.1;
+    text-align:center;
+    border:1px solid transparent;
+    border-radius:9px;
     background:transparent;
-    color:var(--t3);
+    color:var(--t2);
     font-size:.68rem;
     font-weight:650;
   }
 
-  #of-mobile-nav button span { font-size:1.17rem; line-height:1; }
-  #of-mobile-nav button[aria-current="page"] { color:var(--accent); }
+  #of-mobile-nav [data-mobile-view="home"] {
+    --nav-ink:#bbd5cb;
+    --nav-fill:#243c37;
+    --nav-edge:#49655d;
+  }
+  #of-mobile-nav [data-mobile-view="analytics"] {
+    --nav-ink:#c1d4eb;
+    --nav-fill:#283d56;
+    --nav-edge:#4b6380;
+  }
+  #of-mobile-nav [data-mobile-view="premium"] {
+    --nav-ink:#e4d0aa;
+    --nav-fill:#3d3528;
+    --nav-edge:#6a5a42;
+  }
+  #of-mobile-nav [data-mobile-open="more"] {
+    --nav-ink:#c8ccdb;
+    --nav-fill:#303646;
+    --nav-edge:#50596d;
+  }
+  [data-theme="light"] #of-mobile-nav [data-mobile-view="home"] {
+    --nav-ink:#335b50;
+    --nav-fill:#e4eee9;
+    --nav-edge:#afc8bb;
+  }
+  [data-theme="light"] #of-mobile-nav [data-mobile-view="analytics"] {
+    --nav-ink:#355677;
+    --nav-fill:#e5edf6;
+    --nav-edge:#b4c8df;
+  }
+  [data-theme="light"] #of-mobile-nav [data-mobile-view="premium"] {
+    --nav-ink:#5e4a2e;
+    --nav-fill:#f1e9dc;
+    --nav-edge:#d6c5a8;
+  }
+  [data-theme="light"] #of-mobile-nav [data-mobile-open="more"] {
+    --nav-ink:#4d566b;
+    --nav-fill:#ebedf2;
+    --nav-edge:#bec5d5;
+  }
+
+  #of-mobile-nav button span[aria-hidden="true"] {
+    display:grid;
+    place-items:center;
+    min-width:26px;
+    min-height:22px;
+    border-radius:6px;
+    background:var(--nav-fill);
+    color:var(--nav-ink);
+    font-size:1.06rem;
+    line-height:1;
+  }
+  #of-mobile-nav button[aria-current="page"] {
+    border-color:var(--nav-edge);
+    background:var(--nav-fill);
+    color:var(--nav-ink);
+  }
+  #of-mobile-nav button[aria-current="page"] span[aria-hidden="true"] { background:transparent; }
 
   #of-mobile-picker[open] {
     position:fixed;
@@ -4138,46 +4244,54 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   .of-mobile-overview-actions button {
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    gap:5px;
+    justify-content:center;
     min-height:46px;
-    padding:8px 11px;
-    border:1px solid var(--border-lit);
-    border-radius:10px;
-    background:var(--raised);
-    color:var(--accent);
+    padding:8px;
     font-size:.86rem;
     font-weight:750;
-    text-align:left;
+    text-align:center;
   }
-  .of-mobile-overview-actions [data-mobile-view="premium"] { color:var(--cta); }
-  .of-mobile-overview-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:6px; }
-  .of-mobile-overview-links :is(a,button) {
+  .of-mobile-overview-links {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+    margin-top:8px;
+  }
+  .of-mobile-overview-links a {
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:4px;
     min-height:44px;
-    padding:4px;
-    color:var(--t2);
-    background:transparent;
-    border:1px solid var(--border);
-    border-radius:9px;
-    font-size:.72rem;
+    padding:8px 10px;
+    border:1px solid var(--link-border);
+    border-radius:11px;
+    background:var(--link-fill);
+    color:var(--link-ink);
+    font-size:.84rem;
+    font-weight:700;
+    text-align:center;
     text-decoration:none;
   }
-  .of-mobile-overview-links a[href="mentorship.html"] { color:var(--cta); }
+  @media (hover:hover) {
+    .of-mobile-overview-links a:hover { border-color:var(--link-ink); }
+  }
+  html[data-theme] #of-mobile-overview .of-mobile-overview-actions button { box-shadow:none!important; }
+  #of-mobile-overview .of-mobile-overview-links a:focus-visible {
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
 
   #of-mobile-chart-name { font-size:.94rem; font-weight:750; }
   .of-mobile-chart-picker { min-height:51px; }
-  #of-mobile-chartbar #of-mobile-scenario:not([hidden]) {
+  #main .stab-panel:has(> #of-mobile-scenario:not([hidden])) > .edu-box { order:0; }
+  #main .stab-panel > #of-mobile-scenario:not([hidden]) {
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:7px;
     width:100%;
     min-height:46px;
-    margin-top:7px;
+    margin:0 0 7px;
     padding:7px 11px;
     border:1px solid var(--border-lit);
     border-radius:10px;
@@ -4223,8 +4337,6 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
     : 'home';
   try {
     if (matchMedia('(max-width:760px)').matches) {
-      var recentView = localStorage.getItem('_of_mobile_view');
-      if (!h && (recentView === 'analytics' || recentView === 'premium')) view = recentView;
       var recentIndex = localStorage.getItem('_of_mobile_index');
       if (!sessionStorage.getItem('_of_tab') && ['nifty','banknifty','sensex','finnifty','midcpnifty'].includes(recentIndex))
         sessionStorage.setItem('_of_tab', recentIndex);
@@ -4264,8 +4376,8 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   <div class="tb-right">
     <div class="tb-status"><span class="mkt-badge mkt-close" id="mkt-badge">● CLOSED</span><span id="tb-clock">—</span></div>
     <div class="tb-nav">
-    <a href="blogs.html" class="theme-btn" style="text-decoration:none">📚 Learn</a>
-    <a href="mentorship.html" class="theme-btn" style="text-decoration:none">🎓 Mentorship</a>
+    <a href="blogs.html" class="theme-btn of-link-learn" style="text-decoration:none">📚 Learn</a>
+    <a href="mentorship.html" class="theme-btn of-link-mentorship" style="text-decoration:none">🎓 Mentorship</a>
     <details class="tb-more">
       <summary class="theme-btn" aria-label="More">☰ More</summary>
       <div class="tb-more-menu">
@@ -4317,13 +4429,12 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
     <div><dt>Analysis data age</dt><dd id="of-mobile-data-age">—</dd></div>
   </dl>
   <div class="of-mobile-overview-actions" aria-label="Open dashboard section">
-    <button type="button" data-mobile-view="analytics">Analytics <span aria-hidden="true">↗</span></button>
-    <button type="button" data-mobile-view="premium">Premium <span aria-hidden="true">↗</span></button>
+    <button type="button" data-mobile-view="analytics">Analytics</button>
+    <button type="button" data-mobile-view="premium">Premium Analytics</button>
   </div>
   <div class="of-mobile-overview-links">
-    <a href="blogs.html">Learn</a>
-    <a href="mentorship.html">Mentorship</a>
-    <button type="button" data-mobile-jump="analysis">Synopsis <span aria-hidden="true">›</span></button>
+    <a href="blogs.html" class="of-link-learn">Learn</a>
+    <a href="mentorship.html" class="of-link-mentorship">Mentorship</a>
   </div>
 </section>
 
@@ -4336,7 +4447,7 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
     <span class="of-mobile-engine-name"><small id="of-mobile-engine-label">Analytics engine</small><strong id="of-mobile-chart-name">Raw GEX</strong></span>
     <span class="of-mobile-chevron" aria-hidden="true"></span>
   </button>
-  <button type="button" id="of-mobile-scenario" data-mobile-scenario aria-expanded="false" hidden>
+  <button type="button" id="of-mobile-scenario" class="of-mobile-only" data-mobile-scenario aria-expanded="false" hidden>
     <span>Scenario Controller</span><span id="of-mobile-scenario-action">Open</span>
   </button>
 </section>
@@ -9537,8 +9648,9 @@ function _ofPremiumExplanationFirst(idx) {
   if (!explanation) return;
   if (holder.firstElementChild !== explanation)
     holder.insertBefore(explanation, holder.firstElementChild);
-  if (explanation.nextElementSibling !== content)
-    holder.insertBefore(content, explanation.nextElementSibling);
+  var next = explanation.nextElementSibling;
+  if (next?.id === 'of-mobile-scenario') next = next.nextElementSibling;
+  if (next !== content) holder.insertBefore(content, next);
 }
 
 function _ofPremiumChartFirst(idx) {
@@ -10084,12 +10196,10 @@ document.addEventListener('pointermove',function(e){
   var publicTabs=new Set(['gex','oi','topgex','totalgex','pcr','vex','skew','cex','ivtrack','analysis']);
   var paidTabs=new Set(['prob','volsurf','premium']);
   var lastView='';
-  var initialView=document.body.dataset.ofView;
   var currentLabels={analytics:['MARKET STRUCTURE','Analytics'],premium:['PREMIUM ACCESS','Premium Analytics']};
   function idx(){var on=document.querySelector('#main > .idx-panel.on');return on?on.id.slice(6):'nifty';}
   function viewFromHash(){
     var h=location.hash.toLowerCase();
-    if (!h && matchMedia('(max-width:760px)').matches) return initialView;
     return h==='#premium'||h==='#view-premium'?'premium':
       h==='#analytics'||h==='#view-analytics'||h==='#of-analytics'?'analytics':'home';
   }
@@ -10155,7 +10265,7 @@ document.addEventListener('pointermove',function(e){
 
       showPremiumOffer('features',idx());
     } else if(view==='premium')ensureSelection('premium',idx());
-    window.ofMobileViewChanged?.(view,idx(),changed);
+    window.ofMobileViewChanged?.(idx(),changed);
     if(changed||historyEvent)window.scrollTo(0,0);
     // On entry, place the existing-customer link and pricing near the top of
     // the viewport, rather than cutting off the first price behind the mobile
@@ -10350,10 +10460,10 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
 })();
 </script>
 <nav id="of-mobile-nav" class="of-mobile-only" aria-label="Main navigation">
-  <button type="button" data-mobile-view="home" aria-current="page"><span aria-hidden="true">⊞</span>Overview</button>
-  <button type="button" data-mobile-view="analytics"><span aria-hidden="true">▥</span>Analytics</button>
-  <button type="button" data-mobile-view="premium"><span aria-hidden="true">✦</span>Premium</button>
-  <button type="button" data-mobile-open="more" aria-haspopup="dialog"><span aria-hidden="true">⋯</span>More</button>
+  <button type="button" data-mobile-view="home" aria-current="page"><span aria-hidden="true">⊞</span><span>Overview</span></button>
+  <button type="button" data-mobile-view="analytics"><span aria-hidden="true">▥</span><span>Analytics</span></button>
+  <button type="button" data-mobile-view="premium"><span aria-hidden="true">✦</span><span>Premium Analytics</span></button>
+  <button type="button" data-mobile-open="more" aria-haspopup="dialog"><span aria-hidden="true">⋯</span><span>More</span></button>
 </nav>
 
 <dialog id="of-mobile-picker" class="of-mobile-only" aria-labelledby="of-mobile-picker-title">
@@ -10602,6 +10712,10 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     byId('of-mobile-chart-name').textContent = charts[currentChart(index)]?.label || 'Choose chart';
     const frame = scenarioFrame(index);
     const scenario = byId('of-mobile-scenario');
+    if (frame) {
+      const explanation = byId('sp-' + index + '-prob').querySelector(':scope > .edu-box');
+      if (explanation && explanation.nextElementSibling !== scenario) explanation.after(scenario);
+    }
     const expanded = Boolean(frame && !frame.contentDocument.getElementById('pp-scenario-body').hidden);
     scenario.hidden = !frame;
     scenario.setAttribute('aria-expanded',String(expanded));
@@ -10686,11 +10800,6 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     if (data.mobileOpen) openPicker(data.mobileOpen);
     else if (data.mobileView && data.mobileView !== activeView()) {
       ofViewNavigate(data.mobileView);
-    } else if (data.mobileJump) {
-      ofViewNavigate('analytics');
-      const index = activeIndex();
-      selectChart(index, data.mobileJump);
-      savePreference('_of_mobile_chart_' + index, data.mobileJump);
     } else if (data.mobileIndex) {
       picker.close();
       selectIndex(data.mobileIndex);
@@ -10715,11 +10824,40 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     if (event.target === picker) picker.close();
   });
 
+  function placeScenarioCollapse(doc, mobile) {
+    const body = doc?.getElementById('pp-scenario-body');
+    const collapse = body?.querySelector('button#pp-scenario-action');
+    const header = body?.querySelector('.pp-scenario-header .pp-scenario-right');
+    if (!collapse || !header) return;
+
+    let footer = body.querySelector(':scope > .pp-scenario-footer');
+    if (mobile && !footer) return;
+    if (!footer) {
+      footer = doc.createElement('div');
+      footer.className = 'pp-scenario-footer';
+      footer.style.cssText = 'padding:0 12px 10px;text-align:right';
+      body.append(footer);
+      doc.getElementById('pp-scenario-toggle')?.addEventListener('click', function (event) {
+        if (event.detail === 0 && !footer.hidden && doc.activeElement === collapse) {
+          body.querySelector('#pp-reset')?.focus({preventScroll:true});
+        }
+      });
+    }
+    const target = mobile ? header : footer;
+    const focused = doc.activeElement === collapse;
+    footer.hidden = mobile;
+    if (collapse.parentElement !== target) {
+      target.append(collapse);
+      if (focused) collapse.focus({preventScroll:true});
+    }
+  }
+
   function styleFrame(frame) {
     try {
       const doc = frame.contentDocument;
       if (!doc?.getElementById('pp-sim')) return;
       doc.documentElement.toggleAttribute('data-of-mobile',phone.matches);
+      placeScenarioCollapse(doc, phone.matches);
       if (!doc.getElementById('of-mobile-positioning')) {
         doc.head.appendChild(positionStyles.content.cloneNode(true));
         doc.addEventListener('click', function (event) {
@@ -10737,9 +10875,8 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     if (phone.matches && index === activeIndex()) syncQuote(index);
   };
   setInterval(function () { if (phone.matches && !document.hidden) syncFreshness(activeIndex()); },15000);
-  window.ofMobileViewChanged = function (view, index, changed) {
+  window.ofMobileViewChanged = function (index, changed) {
     if (!phone.matches) return;
-    savePreference('_of_mobile_view',view);
     if (changed) restoreChart(index);
     sync();
   };
