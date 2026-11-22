@@ -7190,6 +7190,7 @@ function toggleTheme(){
     this.syncBelt();
     if (!current || this.live || current.ts !== this.entries[this.idx].ts) this.draw();
   };
+  var compareHistoryCache = new Map();
   Mount.prototype.load = function () {
     var self = this;
     if (this.inline) {
@@ -7202,8 +7203,19 @@ function toggleTheme(){
       this.reloadRequested = true;
       return;
     }
-    this.request = fetch(this.src + (this.src.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
+    // Avoid duplicate downloads when both comparison panels use the same index/chart.
+    // Cache lives only in memory and is short enough for normal snapshot updates.
+    var inComparison = !!this.el.closest('#of-compare-dialog');
+    var prior = inComparison ? compareHistoryCache.get(this.src) : null;
+    var now = Date.now();
+    var fetchJob = prior && now - prior.at < 12000 ? prior.job :
+      fetch(this.src + (this.src.indexOf('?') < 0 ? '?' : '&') + 't=' + now, { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; });
+    if (inComparison && !(prior && now - prior.at < 12000)) {
+      compareHistoryCache.set(this.src, {at: now, job: fetchJob});
+      if (compareHistoryCache.size > 30) compareHistoryCache.delete(compareHistoryCache.keys().next().value);
+    }
+    this.request = fetchJob
       .then(function (data) { if (data && self.el.isConnected) self.setEntries(data.entries); })
       .catch(function () {})
       .finally(function () {
@@ -7567,7 +7579,7 @@ function toggleTheme(){
     });
   }
 
-  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS,
+  root.OFS = { scan: scan, wrapImg: wrapImg, getMount: function (el) { return MOUNTS.find(function (m) { return m.el === el; }) || null; }, KINDS: KINDS,
     getMount: function(el) { return MOUNTS.find(function(m) { return m.el === el; }) || null; },
     refresh: refresh, snapshotUpdate: snapshotUpdate, updateInline: updateInline,
     bindInspector: bindInspector, renderWithDetails: renderWithDetails,
@@ -8754,6 +8766,12 @@ async function _premDecryptFile(idx, pwd) {
 
 function _ofPremiumSubscriberConfirmed() {
   document.body.setAttribute('data-of-premium-promise', 'subscriber');
+  var verifiedKey = (typeof _ofStoredPositioningKey === 'function') ? _ofStoredPositioningKey() : '';
+  if (verifiedKey) {
+    window.__ofPremiumValidatedKey = verifiedKey;
+    document.body.setAttribute('data-of-verified-premium', '1');
+    window.dispatchEvent(new Event('of:premium-access-changed'));
+  }
 }
 
 function _premShowContent(idx, html) {
@@ -8979,6 +8997,7 @@ async function _posPremDecryptFile(idx, pwd, text) {
   if (!refreshing) {
     _posPremRawHash[idx] = _premHash(text);
     _posPremDecrypted[idx] = dec;
+    (window.__ofPosPlainKey || (window.__ofPosPlainKey = Object.create(null)))[idx] = pwd;
   }
   return dec;
 }
@@ -9454,6 +9473,7 @@ async function volsurfPremUnlockInline(idx, pwdOverride) {
       ]);
       volHtml = results[0]; atmHtml = results[1];
       _volsurfDecrypted[idx] = { vol: volHtml, atm: atmHtml };
+      (window.__ofVolPlainKey || (window.__ofVolPlainKey = Object.create(null)))[idx] = pwd;
     }
 
     if (!pwdOverride) _ofNewPremiumKeyAccepted(pwd);
@@ -9631,6 +9651,10 @@ function _ofSavedError(idx, kind, error) {
 function _ofNewPremiumKeyAccepted(pwd) {
   try { localStorage.setItem('_of_pw_pos', pwd); } catch(e) {}
   document.body.setAttribute('data-of-saved-premium', '1');
+  // Called only by the original successful decryption/unlock path.
+  window.__ofPremiumValidatedKey = pwd;
+  document.body.setAttribute('data-of-verified-premium', '1');
+  window.dispatchEvent(new Event('of:premium-access-changed'));
   ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(idx) {
     ['pos','vol'].forEach(function(kind) {
       var lock = document.getElementById((kind === 'pos' ? 'posprem-lock-' : 'volsurfprem-lock-') + idx);
@@ -9674,6 +9698,9 @@ function _ofSavedInvalidEverywhere(pwd) {
   if (_ofStoredPositioningKey() !== pwd) return;
   try { localStorage.removeItem('_of_pw_pos'); } catch(e) {}
   document.body.removeAttribute('data-of-saved-premium');
+  window.__ofPremiumValidatedKey = null;
+  document.body.removeAttribute('data-of-verified-premium');
+  window.dispatchEvent(new Event('of:premium-access-changed'));
   ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(idx) {
     ['pos','vol'].forEach(function(kind) {
       var state = kind === 'pos' ? _posPremDecrypted[idx] : _volsurfDecrypted[idx];
@@ -11033,6 +11060,11 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
 #of-compare-dialog .of-compare-tile:hover {border-color:var(--border-lit);box-shadow:0 2px 15px rgba(23,53,81,.15)}
 #of-compare-dialog .of-compare-controls select:hover {border-color:#79A4C7}
 [data-theme="light"] #of-compare-dialog .of-compare-controls select:hover {border-color:#315B81}
+
+/* Remove premium tab padlocks only after validated subscriber decryption. */
+body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!important}
+#of-compare-dialog .of-compare-content{overflow:auto;overscroll-behavior:contain}
+#of-compare-dialog .of-compare-content .ofs-scroll{overscroll-behavior:contain}
 </style>
 <style id="of-compare-tailwind-compiled" data-version="4.1.10">
 /*! tailwindcss v4.1.10 | MIT License | https://tailwindcss.com */
@@ -11133,6 +11165,16 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   }
 }
 
+
+/* Scenario toolbar can collapse independently from its conditional availability. */
+#of-compare-dialog .of-compare-scenario-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+#of-compare-dialog #of-compare-scenario-collapse{border-color:#79A4C7!important;background:#315B81!important;color:#fff!important;font-weight:800!important}
+#of-compare-dialog #of-compare-scenario-collapse:hover,#of-compare-dialog #of-compare-scenario-collapse:focus-visible{background:#416F95!important;border-color:#ADD5EF!important}
+#of-compare-dialog #of-compare-scenario-box[data-collapsed="true"]{padding-bottom:9px}
+#of-compare-dialog #of-compare-scenario-box[data-collapsed="true"] .of-compare-toolhead{margin-bottom:0}
+#of-compare-dialog #of-compare-scenario-box[data-collapsed="true"] #of-compare-scenario-reset{display:none!important}
+#of-compare-dialog #of-compare-scenario-content[hidden]{display:none!important}
+@media(max-width:540px){#of-compare-dialog .of-compare-scenario-actions{justify-content:flex-start;width:100%}}
 </style>
 <dialog id="of-compare-dialog" aria-labelledby="of-compare-title">
   <div class="of-compare-head of:flex of:flex-wrap of:items-center of:justify-between of:gap-3 of:px-4 of:py-3 of:md:px-5">
@@ -11155,13 +11197,15 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       <p class="of-compare-guidance">Charts use the latest recorded snapshot at or before the selected timestamp. LIVE shows the latest available snapshot in each chart.</p>
     </section>
     <section class="of-compare-toolbox" id="of-compare-scenario-box" hidden aria-label="Common premium scenario controller">
-      <div class="of-compare-toolhead"><strong>Common scenario controller · Premium</strong><button type="button" id="of-compare-scenario-reset">Reset scenario</button></div>
+      <div class="of-compare-toolhead"><strong>Common scenario controller · Premium</strong><div class="of-compare-scenario-actions"><button type="button" id="of-compare-scenario-reset">↺ Reset scenario</button><button type="button" id="of-compare-scenario-collapse" aria-expanded="true" aria-controls="of-compare-scenario-content" title="Collapse the controller and reset both charts">⌃ Collapse &amp; Reset</button></div></div>
+      <div id="of-compare-scenario-content">
       <div class="of-compare-scenario-grid">
         <label>Future time <span id="of-compare-time-val">+0 trading min</span><input id="of-compare-time" type="range" min="0" max="180" value="0" step="5"></label>
         <label>Synthetic future change <span id="of-compare-price-val">+0 points</span><input id="of-compare-price" type="range" min="-500" max="500" value="0" step="25"></label>
         <label>Parallel IV change <span id="of-compare-iv-val">+0.00 vol points</span><input id="of-compare-iv" type="range" min="-5" max="5" value="0" step="0.25"></label>
       </div>
-      <p class="of-compare-guidance">The same time, price move (points), and IV shift are applied to both charts using each index's own selected snapshot. Each engine retains its existing limits and calculations.</p>
+      <p class="of-compare-guidance">The same time, price move (points), and IV shift are applied to both charts using each index's own selected snapshot. Each engine retains its existing limits and calculations. Collapsing resets both charts without changing the common history selection.</p>
+      </div>
     </section>
   </div>
   <div id="of-compare-panels" class="of:grid of:grid-cols-1 of:md:grid-cols-2 of:gap-3 of:p-3 of:items-stretch"></div>
@@ -11208,10 +11252,37 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     {id:'c2',index:'banknifty',chart:'gex',generation:0}
   ];
   let session=0, timeline=[], selectedTime=null, live=true;
+  const publicPending = new Map();
+  const premiumPending = new Map();
+  const premiumCache = new Map();
+  let historyRenderFrame = 0, scenarioTimer = 0;
   let scenario = {time:0,points:0,iv:0};
-  let hadScenario=false, historyVisible=false;
+  let hadScenario=false, historyVisible=false, scenarioCollapsed=false;
   const key = () => typeof _ofStoredPositioningKey==='function' ? _ofStoredPositioningKey() : '';
   const isPremium = chart => !publicKeys.has(chart);
+  const isVerified = () => !!(key() && window.__ofPremiumValidatedKey === key());
+  function setVerified(savedKey) {
+    if(!savedKey || savedKey !== key()) return;
+    window.__ofPremiumValidatedKey=savedKey;
+    document.body.setAttribute('data-of-verified-premium','1');
+    window.dispatchEvent(new Event('of:premium-access-changed'));
+  }
+  function clearVerified(savedKey) {
+    if(!savedKey || savedKey !== window.__ofPremiumValidatedKey)return;
+    window.__ofPremiumValidatedKey=null;
+    document.body.removeAttribute('data-of-verified-premium');
+    window.dispatchEvent(new Event('of:premium-access-changed'));
+  }
+  async function getPublicData(index,force=false) {
+    const bucket=index+(force?':force':'');
+    if(publicPending.has(bucket))return publicPending.get(bucket);
+    const job=fetchData(index,force).finally(()=>{
+      if(publicPending.get(bucket)===job)publicPending.delete(bucket);
+    });
+    publicPending.set(bucket,job);
+    return job;
+  }
+
   const round = (value,dec) => Number(value).toFixed(dec);
 
   // Normalize both GEXMA public history and premium positioning IST timestamps.
@@ -11238,7 +11309,7 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       for(const [chart,label] of choices){
         const o=document.createElement('option');
         o.value=chart;
-        o.textContent=premium?'🔒 '+label:label;
+        o.textContent=premium && !isVerified()?'🔒 '+label:label;
         // This disables selection for visitors. Actual premium security is
         // still enforced by decrypting the current encrypted file on every load.
         if(premium && !hasKey) o.disabled=true;
@@ -11250,10 +11321,21 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     return sel;
   }
   function note() {
-    byId('of-compare-access').textContent=key()
-      ? 'Saved subscriber key detected. Premium charts are shown only after successful decryption of their current encrypted file.'
-      : 'Free comparison: choose any public charts. Premium comparisons unlock after you enter a valid key in Premium Analytics.';
-    // Exactly two slots are fixed for the entire comparison session.
+    byId('of-compare-access').textContent=isVerified()
+      ? 'Subscriber access verified. Premium comparison charts are unlocked.'
+      : key()
+        ? 'Saved subscriber key found. Premium access will be verified before showing protected charts.'
+        : 'Free comparison: public charts only. Unlock premium with a valid subscriber key in Premium Analytics.';
+  }
+  function refreshAccessLabels() {
+    for(const sel of grid.querySelectorAll('select[aria-label="Chart type"]')){
+      for(const opt of sel.options){
+        if(!isPremium(opt.value))continue;
+        opt.disabled=!key();
+        opt.textContent=(isVerified()?'':'🔒 ')+labels.get(opt.value);
+      }
+    }
+    note();
   }
   function showMessage(slot,description,action=false) {
     const content=byId(slot.id+'-body');
@@ -11281,12 +11363,12 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     const indexSel=document.createElement('select');indexSel.setAttribute('aria-label','Index');
     for(const [id,name] of indices){const o=document.createElement('option');o.value=id;o.textContent=name;indexSel.append(o);}
     indexSel.value=slot.index;
-    indexSel.addEventListener('change',()=>{slot.index=indexSel.value;renderTile(slot,true);});
+    indexSel.addEventListener('change',()=>{slot.index=indexSel.value;renderTile(slot,false);});
     indexLabel.append(indexSel);
     const chartLabel=document.createElement('label');chartLabel.textContent='CHART';
     const chartSel=optionElements(slot.chart);
     chartSel.value=slot.chart;
-    chartSel.addEventListener('change',()=>{slot.chart=chartSel.value;renderTile(slot,true);});
+    chartSel.addEventListener('change',()=>{slot.chart=chartSel.value;renderTile(slot,false);});
     chartLabel.append(chartSel);
     const expand=document.createElement('button');
     expand.type='button';expand.className='of-compare-expand';
@@ -11299,7 +11381,9 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     // OFS canvases retain their own click-to-zoom interactive viewer.
     content.addEventListener('click',e=>{
       if(e.target.closest('button,a,input,select,textarea,label,[role="button"],[role="tab"]'))return;
-      if(e.target.closest('.ofs-stage, .ofs canvas'))return;
+      // The real chart canvas owns its hover/click/zoom gestures. Do not steal
+      // them to expand the comparison tile.
+      if(e.target.closest('.ofs,canvas,.ivt-chart,.gcard img'))return;
       if(!dialog.dataset.expanded)toggleExpanded(slot);
     });
     const stamp=document.createElement('div');stamp.className='of-compare-stamp';stamp.id=slot.id+'-stamp';
@@ -11336,15 +11420,13 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     for(const slot of plans) {
       if(!byId(slot.id+'-tile')) {
         grid.append(makeTile(slot));
-        renderTile(slot,true);
+        renderTile(slot,false);
       } else {
         // Refresh the disabled flags after an access key has been entered.
-        const old=byId(slot.id+'-tile').querySelector('select[aria-label="Chart type"]');
-        if(old) for(const opt of old.options) {
-          if(isPremium(opt.value))opt.disabled=!key();
-        }
+        // Existing tile is retained so its live renderer is never reloaded. 
       }
     }
+    refreshAccessLabels();
     updateExpandButtons();
   }
   function stamp(slot,text) {
@@ -11353,6 +11435,7 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   function resetTileState(slot) {
     slot.status='loading';slot.history=[];slot.mount=null;slot.frame=null;
     slot.scenarioCapable=false;slot.scenarioApplied=false;
+    slot.historyIndex=undefined;slot.lastHistoryLive=undefined;
     stamp(slot,'');syncToolbar();
   }
   function patchPremiumZoomHost(html){
@@ -11365,20 +11448,52 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       'var cmpInside=!!(cmp&&cmp.open&&cmpFrame&&cmp.contains(cmpFrame));'+
       '(cmpInside?cmp:HD.body).appendChild(ov);');
   }
-  async function decryptChart(index,chart) {
+  async function decryptChart(index,chart,force=false) {
     const pwd=key();
     if(!pwd)throw new Error('locked');
-    if(positionMap[chart]) {
-      // Refreshing mode revalidates the current ciphertext; a saved key flag
-      // alone never grants access, and plaintext is never cached to disk.
-      const r=await fetch('data/'+index+'/premium_positioning.html?t='+Date.now(),{cache:'no-store'});
-      if(!r.ok)throw new Error('fetch');
-      const plain=await _posPremDecryptFile(index,pwd,await r.text());
-      const updated=typeof _ofUpdatePositioningTouch==='function' ? _ofUpdatePositioningTouch(plain) : plain;
-      return patchPremiumZoomHost(updated);
-    }
-    const file=chart==='volsurfchart'?'premium_volsurface.html':'premium_atmiv.html';
-    return _volsurfPremDecryptFile(index,pwd,file);
+    const positioning=!!positionMap[chart];
+    const bucket=index+'|'+(positioning?'positioning':chart);
+    const cached=premiumCache.get(bucket);
+    if(!force && cached && cached.key===pwd && Date.now()-cached.at<25000)return cached.html;
+    const pendingId=bucket+'|'+(force?'force':'normal');
+    if(premiumPending.has(pendingId))return premiumPending.get(pendingId);
+    const work=(async()=>{
+      let html;
+      // The main dashboard may have decrypted exactly this bundle already.
+      // Reuse only if it previously confirmed the SAME key, and revalidate on
+      // explicit Refresh. All plaintext remains in memory, never localStorage.
+      if(!force && isVerified() && positioning &&
+         typeof _posPremDecrypted!=='undefined' && _posPremDecrypted[index] &&
+         window.__ofPosPlainKey?.[index]===pwd) {
+        html=_posPremDecrypted[index];
+      } else if(!force && isVerified() && !positioning &&
+          typeof _volsurfDecrypted!=='undefined' && _volsurfDecrypted[index] &&
+          window.__ofVolPlainKey?.[index]===pwd) {
+        html=chart==='volsurfchart' ? _volsurfDecrypted[index].vol : _volsurfDecrypted[index].atm;
+      }
+      if(!html){
+        if(positioning){
+          const r=await fetch('data/'+index+'/premium_positioning.html?t='+Date.now(),{cache:'no-store'});
+          if(!r.ok)throw new Error('fetch');
+          html=await _posPremDecryptFile(index,pwd,await r.text());
+        } else {
+          const file=chart==='volsurfchart'?'premium_volsurface.html':'premium_atmiv.html';
+          html=await _volsurfPremDecryptFile(index,pwd,file);
+        }
+      }
+      if(pwd!==key())throw new Error('key-changed');
+      // Successful AES-GCM decryption (or a previously validated same-key
+      // plaintext) is the only reason the premium lock icon disappears.
+      setVerified(pwd);
+      const output=positioning ? patchPremiumZoomHost(
+        typeof _ofUpdatePositioningTouch==='function' ? _ofUpdatePositioningTouch(html) : html
+      ) : html;
+      premiumCache.set(bucket,{key:pwd,html:output,at:Date.now()});
+      return output;
+    })();
+    premiumPending.set(pendingId,work);
+    try{return await work;}
+    finally {if(premiumPending.get(pendingId)===work)premiumPending.delete(pendingId);}
   }
   function onPublicUpdated(slot,mount) {
     if(!dialog.open || !plans.includes(slot) || slot.mount!==mount)return;
@@ -11427,7 +11542,6 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   }
   function embedPremium(slot,html,gen) {
     const content=byId(slot.id+'-body');
-    const url=URL.createObjectURL(new Blob([html],{type:'text/html'}));
     const frame=document.createElement('iframe');
     frame.title=names[slot.index]+' '+labels.get(slot.chart);
     frame.loading='eager';frame.allowFullscreen=true;
@@ -11436,7 +11550,6 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       // Ignore the iframe's initial about:blank load (some browsers fire it
       // before the requested Blob document has finished loading).
       try { if(frame.contentWindow.location.href==='about:blank')return; } catch(_) {}
-      URL.revokeObjectURL(url);
       if(!dialog.open || !plans.includes(slot) || gen!==slot.generation)return;
       try {
         const doc=frame.contentDocument, win=frame.contentWindow;
@@ -11467,7 +11580,8 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
             if(dialog.dataset.expanded || !frame.isConnected)return;
             const t=e.target;
             if(t?.closest?.('button,a,input,select,textarea,label,td,th,[role="button"],[role="tab"],.pp-scenario-shell'))return;
-            if(!t?.closest?.('canvas,.pp-chart-area,.pp-chart,.pp-sim-chart, .pp-panel'))return;
+            if(t?.closest?.('canvas,.ofs,.zm-box'))return; // Keep native hover/zoom and scrolling.
+            if(!t?.closest?.('.pp-chart-area,.pp-chart,.pp-sim-chart,.pp-panel'))return;
             requestAnimationFrame(()=>{
               if(frame.isConnected && !dialog.dataset.expanded)toggleExpanded(slot);
             });
@@ -11507,7 +11621,7 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     };
     // Set src BEFORE insertion to avoid a premature about:blank onload.
     // Display only after decryption succeeds.
-    frame.src=url;
+    frame.srcdoc=html;
     content.replaceChildren(frame);
   }
   async function renderTile(slot,refresh) {
@@ -11521,13 +11635,14 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
         stamp(slot,'Subscriber key required');syncToolbar();return;
       }
       try {
-        const plain=await decryptChart(slot.index,slot.chart);
+        const plain=await decryptChart(slot.index,slot.chart,Boolean(refresh));
         if(!dialog.open || gen!==slot.generation || !plans.includes(slot))return;
         embedPremium(slot,plain,gen);
       }catch(err) {
         if(!dialog.open || gen!==slot.generation || !plans.includes(slot))return;
         slot.status='error';
         const invalid=err?.message==='wrong'||err?.message==='noSubscribers';
+        if(invalid){clearVerified(key());premiumCache.clear();}
         showMessage(slot,invalid ? 'Subscriber key is invalid or expired for this chart.' :
           'Could not verify premium access or load this chart. Refresh and retry.',true);
         stamp(slot,'Premium · Access not verified');syncToolbar();
@@ -11535,7 +11650,7 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       return;
     }
     try {
-      const data=slot.chart==='ivtrack'?null:await fetchData(slot.index,Boolean(refresh));
+      const data=slot.chart==='ivtrack'?null:await getPublicData(slot.index,Boolean(refresh));
       if(!dialog.open || gen!==slot.generation || !plans.includes(slot))return;
       buildPublic(slot,data);
     }catch(err){
@@ -11560,7 +11675,10 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     if(!list?.length)return;
     const where=ts===null?list.length-1:latestRecordedBefore(list,ts);
     if(where<0)return;
+    const alreadyHere=slot.historyIndex===where && slot.lastHistoryLive===(ts===null);
     slot.historyIndex=where;
+    slot.lastHistoryLive=ts===null;
+    if(alreadyHere)return;
     if(slot.mount){
       // Existing public renderer is fully reused; only its internal slider is
       // hidden, while its canvas and hover/zoom behaviour remain untouched.
@@ -11587,7 +11705,14 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     try {
       const doc=slot.frame.contentDocument, win=slot.frame.contentWindow;
       if(reset){
-        if(slot.scenarioApplied)doc.getElementById('pp-reset')?.click();
+        const time=doc.getElementById('pp-future-time');
+        const iv=doc.getElementById('pp-parallel-iv');
+        const price=doc.getElementById('pp-forward');
+        const e=slot.history[slot.historyIndex??(slot.history.length-1)];
+        const changed=slot.scenarioApplied || Number(time?.value||0)!==0 ||
+          Number(iv?.value||0)!==0 ||
+          (e && price && Math.abs(Number(price.value)-Number(e.sf))>1e-7);
+        if(changed)doc.getElementById('pp-reset')?.click();
         slot.scenarioApplied=false;
         return;
       }
@@ -11620,7 +11745,7 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   }
   function applyHistoryAndScenario() {
     for(const slot of plans)applyHistory(slot,live?null:selectedTime);
-    if(hadScenario)for(const slot of plans)applyScenario(slot);
+    if(hadScenario && !scenarioCollapsed)for(const slot of plans)applyScenario(slot);
   }
   function labelHistory() {
     const bar=byId('of-compare-history'), liveBtn=byId('of-compare-live');
@@ -11669,6 +11794,16 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     historyBox.hidden=!showHistory;
     // A scenario is coherent only if all chosen chart types actually have
     // scenario engines. A mix with Total Absolute GEX hides scenarios entirely.
+    syncScenarioVisibility();
+    if(showHistory){
+      labelHistory();
+      applyHistoryAndScenario();
+    }
+    historyVisible=showHistory;
+  }
+  function syncScenarioVisibility() {
+    const scenarioBox=byId('of-compare-scenario-box');
+    const showHistory=timeline.length>0;
     const showScenario=showHistory && plans.every(s=>{
       if(!s.scenarioCapable || s.status!=='ready')return false;
       const at=live ? s.history.length-1 : latestRecordedBefore(s.history,selectedTime||timeline.at(-1));
@@ -11686,17 +11821,19 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       updateScenarioLabels();
     }
     hadScenario=showScenario;
-    if(showHistory){
-      labelHistory();
-      applyHistoryAndScenario();
-    }
-    historyVisible=showHistory;
   }
   function setCommonHistory(position) {
     if(!timeline.length)return;
     const index=Math.max(0,Math.min(timeline.length-1,position));
     selectedTime=timeline[index];live=false;
-    syncToolbar();
+    labelHistory();
+    if(historyRenderFrame)cancelAnimationFrame(historyRenderFrame);
+    historyRenderFrame=requestAnimationFrame(()=>{
+      historyRenderFrame=0;
+      for(const slot of plans)applyHistory(slot,selectedTime);
+      syncScenarioVisibility();
+      if(hadScenario && !scenarioCollapsed)for(const slot of plans)applyScenario(slot);
+    });
   }
   function refresh() {for(const slot of plans)renderTile(slot,true);}
   function open() {
@@ -11704,6 +11841,9 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     drawTiles();syncToolbar();
   }
   window.ofCompareOpen=open;
+  window.addEventListener('of:premium-access-changed',()=>{
+    if(dialog.open)refreshAccessLabels();
+  });
   byId('of-compare-close').addEventListener('click',()=>dialog.close());
   byId('of-compare-refresh').addEventListener('click',refresh);
   byId('of-compare-history').addEventListener('input',e=>setCommonHistory(+e.target.value));
@@ -11715,25 +11855,53 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   for(const [id,prop] of [['of-compare-time','time'],['of-compare-price','points'],['of-compare-iv','iv']]){
     byId(id).addEventListener('input',e=>{
       scenario[prop]=Number(e.target.value);updateScenarioLabels();
-      if(hadScenario)for(const slot of plans)applyScenario(slot);
+      clearTimeout(scenarioTimer);
+      scenarioTimer=setTimeout(()=>{
+        if(hadScenario && !scenarioCollapsed)for(const slot of plans)applyScenario(slot);
+      },85);
     });
   }
-  byId('of-compare-scenario-reset').addEventListener('click',()=>{
+  function resetCommonScenario() {
+    // Cancel stale pending updates BEFORE returning the embedded chart engines
+    // to their own original (non-simulated) snapshots.
+    clearTimeout(scenarioTimer);
+    scenarioTimer=0;
     scenario={time:0,points:0,iv:0};
-    for(const [id,value] of [['of-compare-time',0],['of-compare-price',0],['of-compare-iv',0]])byId(id).value=String(value);
+    for(const id of ['of-compare-time','of-compare-price','of-compare-iv'])byId(id).value='0';
     updateScenarioLabels();
     for(const slot of plans)applyScenario(slot,true);
-  });
+  }
+  function setScenarioCollapsed(collapsed) {
+    if(scenarioCollapsed===collapsed)return;
+    if(collapsed)resetCommonScenario();
+    scenarioCollapsed=collapsed;
+    const body=byId('of-compare-scenario-content');
+    const button=byId('of-compare-scenario-collapse');
+    const box=byId('of-compare-scenario-box');
+    body.hidden=collapsed;
+    box.dataset.collapsed=String(collapsed);
+    button.setAttribute('aria-expanded',String(!collapsed));
+    button.textContent=collapsed?'⌄ Expand scenario':'⌃ Collapse & Reset';
+  }
+  byId('of-compare-scenario-reset').addEventListener('click',resetCommonScenario);
+  byId('of-compare-scenario-collapse').addEventListener('click',()=>setScenarioCollapsed(!scenarioCollapsed));
   dialog.addEventListener('cancel',e=>{
+    const closeZoom=dialog.querySelector('[aria-label="Interactive chart zoom"] [aria-label="Close chart zoom"]');
+    if(closeZoom){e.preventDefault();closeZoom.click();return;}
     if(dialog.dataset.expanded){e.preventDefault();toggleExpanded(plans.find(s=>s.id===dialog.dataset.expanded),true);}
   });
   dialog.addEventListener('click',e=>{if(e.target===dialog && !dialog.dataset.expanded)dialog.close();});
   dialog.addEventListener('close',()=>{
     if(dialog.open)return; // Delayed close event must not wipe a freshly reopened comparison.
+    dialog.querySelector('[aria-label="Interactive chart zoom"] [aria-label="Close chart zoom"]')?.click();
+    if(historyRenderFrame){cancelAnimationFrame(historyRenderFrame);historyRenderFrame=0;}
+    clearTimeout(scenarioTimer);
     for(const slot of plans){slot.generation++;slot.frame=null;slot.mount=null;slot.history=[];slot.status='new';}
     grid.replaceChildren();
     delete dialog.dataset.expanded;
     timeline=[];selectedTime=null;live=true;hadScenario=false;historyVisible=false;
+    // A newly opened comparison starts with its eligible scenario panel expanded.
+    setScenarioCollapsed(false);
     scenario={time:0,points:0,iv:0};
     for(const id of ['of-compare-time','of-compare-price','of-compare-iv'])byId(id).value='0';
     updateScenarioLabels();
