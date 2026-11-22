@@ -4326,6 +4326,47 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   #of-mobile-picker-options .of-mobile-picker-group { margin:13px 0 3px; font-weight:700; }
 }
 </style>
+<style id="of-mobile-offer-dropdown">
+@media (max-width:760px){
+  /* "What's included": accent heading so it reads as a section with content under it */
+  html[data-theme] #main .of-premium-includes-heading{
+    display:flex;align-items:center;gap:9px;color:var(--accent);letter-spacing:.01em;
+  }
+  html[data-theme] #main .of-premium-includes-heading::before{
+    content:"";flex:0 0 auto;width:4px;height:1.05em;border-radius:3px;background:var(--accent);
+  }
+  /* Preview dropdown: looks like a real dropdown control */
+  html[data-theme] #main .of-mobile-offer-toggle{
+    min-height:48px;padding:8px 10px 8px 14px;border:1.5px solid var(--accent);border-radius:12px;
+    background:var(--raised);color:var(--accent);font-size:.86rem;font-weight:750;
+    box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 2px 8px rgba(0,0,0,.14);
+    transition:background .15s ease,border-color .15s ease;
+  }
+  html[data-theme] #main .of-mobile-offer-toggle{
+    border-color:color-mix(in srgb,var(--accent) 60%,var(--border));
+    background:color-mix(in srgb,var(--accent) 9%,var(--raised));
+  }
+  html[data-theme] #main .of-mobile-offer-toggle:active{
+    background:color-mix(in srgb,var(--accent) 18%,var(--raised));
+  }
+  html[data-theme] #main .of-mobile-offer-toggle[aria-expanded="true"]{
+    border-color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 14%,var(--raised));
+  }
+  /* Chevron: round button with a drawn arrow (the text glyph sat too low and looked tiny) */
+  html[data-theme] #main .of-mobile-offer-toggle span:last-child{
+    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:50%;font-size:0;line-height:0;
+    border:1.5px solid var(--accent);color:var(--accent);
+    transition:transform .2s ease;
+  }
+  html[data-theme] #main .of-mobile-offer-toggle span:last-child::after{
+    content:"";width:8px;height:8px;margin-top:-3px;
+    border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;
+    transform:rotate(45deg);
+  }
+}
+</style>
 </head>
 
 <body data-of-view="home">
