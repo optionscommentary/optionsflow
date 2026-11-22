@@ -2854,6 +2854,62 @@ html[data-theme] #main .stab-panel .sub-tabs {
   top: auto !important;
 }
 </style>
+
+<style id="gexma-mobile-synopsis-clean-20261122">
+/* Styles apply only to Synopsis; keep all generated signals and metrics intact. */
+@media(max-width:760px){
+ #main .stab-panel[id$="-analysis"]{min-width:0!important;max-width:100%;overflow-x:hidden}
+ #main .stab-panel[id$="-analysis"] .syn-wrap{width:100%;min-width:0;max-width:100%;overflow-wrap:anywhere}
+ #main .stab-panel[id$="-analysis"] .syn-header{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-bottom:12px!important}
+ #main .stab-panel[id$="-analysis"] .syn-pill{min-width:0;padding:10px!important;border-radius:11px}
+ #main .stab-panel[id$="-analysis"] .syn-pill-lbl{font-size:.71rem!important;letter-spacing:0!important}
+ #main .stab-panel[id$="-analysis"] .syn-pill-val{font-size:clamp(.87rem,3.7vw,1.16rem)!important;line-height:1.4;word-break:break-word;overflow-wrap:anywhere}
+ #main .stab-panel[id$="-analysis"] .syn-pill-sub{font-size:.7rem!important;line-height:1.45}
+ #main .stab-panel[id$="-analysis"] .syn-wrap > div[style*="overflow-x"]{width:100%!important;max-width:100%;overflow-x:visible!important}
+ #main .stab-panel[id$="-analysis"] .syn-view-box[style*="min-width"]{min-width:0!important;max-width:100%;}
+ #main .stab-panel[id$="-analysis"] .syn-view-box > div[style*="grid-template-columns:repeat(3"]{grid-template-columns:minmax(0,1fr)!important}
+ #main .stab-panel[id$="-analysis"] .syn-view-box > div[style*="grid-template-columns:repeat(3"] > div{border-right:0!important;border-bottom:1px solid var(--border);min-width:0;padding:10px 11px!important}
+ #main .stab-panel[id$="-analysis"] .syn-grid[style*="min-width"]{min-width:0!important}
+ #main .stab-panel[id$="-analysis"] .syn-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:10px!important}
+ #main .stab-panel[id$="-analysis"] .syn-card{min-width:0;padding:10px 12px!important;border-radius:12px}
+ #main .stab-panel[id$="-analysis"] .syn-card-title{font-size:.83rem!important;margin:0 0 8px!important;overflow-wrap:anywhere}
+ #main .stab-panel[id$="-analysis"] .syn-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:8px;min-height:34px;align-items:center}
+ #main .stab-panel[id$="-analysis"] .syn-row-lbl{min-width:0!important;max-width:100%;padding-right:0!important;font-size:.68rem!important;line-height:1.45}
+ #main .stab-panel[id$="-analysis"] .syn-row-val{min-width:0;text-align:right;white-space:normal;overflow-wrap:anywhere;font-size:.71rem!important;line-height:1.45}
+ #main .stab-panel[id$="-analysis"] .syn-card [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:minmax(0,1fr)!important}
+ #main .stab-panel[id$="-analysis"] .syn-card table{min-width:520px;border-collapse:collapse}
+ #main .stab-panel[id$="-analysis"] .syn-card div[style*="overflow-x:auto"]{max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+ #main .stab-panel[id$="-analysis"] .syn-sig-row,#main .stab-panel[id$="-analysis"] .syn-sig-row-hdr{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 55px 40px!important;gap:3px;font-size:.69rem}
+ #main .stab-panel[id$="-analysis"] .syn-sig-lbl,#main .stab-panel[id$="-analysis"] .syn-sig-val{font-size:.71rem!important;overflow-wrap:anywhere}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-fold{min-width:0}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;list-style:none;font:800 .8rem/1.4 Inter,sans-serif;color:var(--t1);padding:4px 0}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-heading::-webkit-details-marker{display:none}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-heading::after{content:'+';font-size:1.15rem;color:var(--accent);flex:none}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-fold[open]>.syn-mobile-heading::after{content:'−'}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-fold>.syn-card-title{display:none!important}
+ #main .stab-panel[id$="-analysis"] .syn-mobile-fold[open]>.syn-mobile-heading{padding-bottom:10px;margin-bottom:8px;border-bottom:1px solid var(--border)}
+}
+@media(min-width:761px){
+ .syn-mobile-fold>.syn-mobile-heading{display:none!important}
+ .syn-mobile-fold>.syn-card-title{display:flex}
+}
+</style>
+<style id="of-premium-chart-full-width">
+/* Premium chart cards receive the same horizontal space as public Analytics. */
+html[data-theme] body[data-of-view="premium"] #main .stab-panel.on,
+html[data-theme] body[data-of-view="premium"] #main .stab-panel.on > [id^="posprem-content-"],
+html[data-theme] body[data-of-view="premium"] #main .stab-panel.on > [id^="volsurfprem-content-"],
+html[data-theme] body[data-of-view="premium"] #main .prem-frame-card,
+html[data-theme] body[data-of-view="premium"] #main .prem-frame-card iframe {
+  width:100%!important;max-width:none!important;min-width:0!important;
+}
+html[data-theme] body[data-of-view="premium"] #main .prem-frame-card {
+  display:block!important;box-sizing:border-box!important;
+}
+@media (min-width:761px) {
+  html[data-theme] body[data-of-view="premium"] #main .prem-frame-card iframe{min-height:520px;}
+}
+</style>
 <style id="of-prob-explainer-position-fix">
 html[data-theme] #main .stab-panel[id^="sp-"][id$="-prob"].on {
   display: flex;
@@ -3658,6 +3714,15 @@ html[data-theme] body[data-of-saved-premium="1"] #main [id^="volsurfprem-lock-"]
 }
 @media(max-width:760px){
   html[data-theme] #main .of-premium-saved-status {padding:14px 12px;font-size:.82rem}
+}
+</style>
+<style id="of-saved-key-offering-visibility-fix">
+/* A saved key is verified against encrypted bundles. Do not flash a pricing
+   gallery while the decrypt/validation promise is running. A rejected key
+   removes data-of-saved-premium and restores the ordinary offering flow. */
+html[data-theme] body[data-of-saved-premium="1"] #main .posprem-outer,
+html[data-theme] body[data-of-premium-promise="subscriber"] #main .posprem-outer {
+  display:none!important;
 }
 </style>
 
@@ -4751,6 +4816,32 @@ body[data-of-view="home"] #ofterm-discover{align-items:start}
 @media(max-width:780px){#ofterm-preview-cards{grid-template-columns:1fr}}
 </style>
 
+<style id="of-scenario-comparison-palette">
+/* Match the native premium Scenario Controller's blue / indigo palette. */
+#ofterm-expanded.compare-mode #ofterm-scenario:not([hidden]) {
+  border:1px solid #4b65ad;border-radius:12px;padding:9px 12px;margin-top:8px;
+  background:linear-gradient(115deg,#0d2035,#151c38 72%,#172039);
+}
+#ofterm-expanded.compare-mode #ofterm-scenario summary {
+  color:#f1f5ff!important;font-weight:800;letter-spacing:.015em;
+}
+#ofterm-expanded.compare-mode #ofterm-scenario .shared-inputs label,
+#ofterm-expanded.compare-mode #ofterm-scenario output {color:#e2edff;}
+#ofterm-expanded.compare-mode #ofterm-scenario input[type="range"] {accent-color:#60a5fa!important;}
+#ofterm-expanded.compare-mode #ofterm-shared:has(#ofterm-scenario:not([hidden])) {
+  border-color:#4b65ad;
+}
+html[data-theme="light"] #ofterm-expanded.compare-mode #ofterm-scenario:not([hidden]) {
+  border-color:#8daee1;background:linear-gradient(112deg,#eaf4ff,#eaeafa);
+}
+html[data-theme="light"] #ofterm-expanded.compare-mode #ofterm-scenario summary {
+  color:#152645!important;
+}
+html[data-theme="light"] #ofterm-expanded.compare-mode #ofterm-scenario .shared-inputs label,
+html[data-theme="light"] #ofterm-expanded.compare-mode #ofterm-scenario output {color:#163e72;}
+html[data-theme="light"] #ofterm-expanded.compare-mode #ofterm-scenario input[type="range"] {accent-color:#2563eb!important;}
+html[data-theme="light"] #ofterm-expanded.compare-mode #ofterm-shared:has(#ofterm-scenario:not([hidden])) {border-color:#8daee1;}
+</style>
 <style id="gexma-tailwind-v4-precompiled">
 /*! tailwindcss v4.1.10 | MIT License | https://tailwindcss.com */
 @layer properties;
@@ -5256,7 +5347,7 @@ html[data-theme] #of-terminal-home #ofterm-preview-gallery {display:none!importa
 <a href="blogs.html" class="theme-btn of-link-learn mobile-resource">Learn</a>
 <a href="mentorship.html" class="theme-btn of-link-mentorship mobile-resource">Mentorship</a>
 </nav><label>Selected index <select id="ofterm-index"></select></label></div>
-<section class="quotes" aria-label="Index snapshot"><div><small>Index quote</small><b id="ofterm-quote">—</b></div><div><small>Session change</small><b id="ofterm-change">—</b></div><div><small>Gamma regime</small><b id="ofterm-regime">—</b></div><div><small>Data age</small><b id="ofterm-time">—</b></div></section>
+<section class="quotes" aria-label="Index snapshot"><div><small>Index quote</small><b id="ofterm-quote">—</b></div><div><small>Session change</small><b id="ofterm-change">—</b></div><div><small>Gamma regime</small><b id="ofterm-regime">—</b></div><div><small>Data status</small><b id="ofterm-time">—</b></div></section>
 <section id="ofterm-discover" aria-label="Explore OptionsFlow">
 <div class="discover-routes">
 <a href="#analytics" class="discover-path" data-tone="flow"><strong>Analytics <span aria-hidden="true">→</span></strong><small>Explore exposure, PCR and volatility by strike.</small></a>
@@ -5312,7 +5403,7 @@ html[data-theme] #of-terminal-home #ofterm-preview-gallery {display:none!importa
   </div>
   <dl class="of-mobile-overview-metrics">
     <div><dt>Gamma regime</dt><dd data-mobile-stat="regime">—</dd></div>
-    <div><dt>Analysis data age</dt><dd id="of-mobile-data-age">—</dd></div>
+    <div><dt>Analysis data status</dt><dd id="of-mobile-data-age">—</dd></div>
   </dl>
   <div class="of-mobile-overview-actions" aria-label="Open dashboard section">
     <button type="button" data-mobile-view="analytics">Analytics</button>
@@ -8450,13 +8541,35 @@ function tick(){
 }
 setInterval(tick,1000); tick();
 const f = (v,d=0)=> typeof v==='number'?v.toLocaleString('en-IN',{maximumFractionDigits:d}):(v||'—');
+// This timestamp represents the *published analysis*, not the browser visit.
+// A months-old latest.json is stale data; do not format it as a live quote.
+function ofPublishedDate(iso) {
+  if(!iso) return null;
+  if(iso instanceof Date) return Number.isFinite(iso.getTime()) ? iso : null;
+  const value=String(iso).trim();
+  const zoned=/(?:Z|[+-]\d{2}:?\d{2})$/i.test(value);
+  const normalized=value.replace(' ','T')+(zoned?'':'+05:30'); // GEXMA writes IST
+  const date=new Date(normalized);
+  return Number.isFinite(date.getTime())?date:null;
+}
+function ofPublishedStale(iso) {
+  const d=ofPublishedDate(iso);
+  return Boolean(d && Date.now()-d.getTime()>96*3600*1000);
+}
 function ago(iso){
-  if(!iso) return '';
-  const s=(Date.now()-new Date(iso))/1000;
-  if(s<60) return `${Math.round(s)}s ago`;
-  if(s<3600) return `${Math.round(s/60)}m ago`;
-  if(s<86400) return `${Math.round(s/3600)}h ago`;
-  return `${Math.round(s/86400)}d ago`;
+  const date=ofPublishedDate(iso);
+  if(!date) return 'Awaiting data';
+  const elapsed=(Date.now()-date.getTime())/1000;
+  if(elapsed < -300) return 'Check timestamp';
+  const s=Math.max(0,elapsed);
+  if(s>96*3600){
+    const stamp=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'numeric',timeZone:'Asia/Kolkata'}).format(date);
+    return 'STALE · '+stamp;
+  }
+  if(s<60) return 'Just now';
+  if(s<3600) return Math.floor(s/60)+'m ago';
+  if(s<86400) return Math.floor(s/3600)+'h ago';
+  return Math.floor(s/86400)+'d ago';
 }
 function scoreClass(sc){
   if(sc>=4) return 'sp-pos'; if(sc<=-4) return 'sp-neg';
@@ -8533,6 +8646,35 @@ function chartHtml(idx, data, key){
   let _imgs=`<img class="th-light" src="${src}" alt="${CHART_TITLE[key]||key}" style="${_imgSt}">`;
   return `<div class="gcard"><div class="gcard-hdr"><span class="gcard-title">${CHART_TITLE[key]||key}</span><span class="gcard-badge">${CHART_BADGE[key]||''}</span></div>${_imgs}</div>`;
 }
+function gexmaFormatMobileSynopsis(panel){
+  if(!panel)return;
+  const root=panel.querySelector('.syn-wrap');
+  if(!root)return;
+  const mobile=window.matchMedia('(max-width:760px)').matches;
+  const cards=Array.from(root.querySelectorAll('.syn-grid > .syn-card'));
+  cards.forEach((card,n)=>{
+    let disclosure=card.querySelector(':scope > details.syn-mobile-fold');
+    if(!disclosure){
+      disclosure=document.createElement('details');disclosure.className='syn-mobile-fold';
+      const summary=document.createElement('summary');summary.className='syn-mobile-heading';
+      summary.textContent=card.querySelector(':scope > .syn-card-title')?.textContent.trim()||'View details';
+      disclosure.append(summary);
+      while(card.firstChild)disclosure.append(card.firstChild);
+      card.append(disclosure);
+    }
+    if(!mobile||n<2)disclosure.open=true;
+    else if(!disclosure.dataset.visited)disclosure.open=false;
+    if(!disclosure.dataset.wired){
+      disclosure.addEventListener('toggle',()=>{if(window.matchMedia('(max-width:760px)').matches)disclosure.dataset.visited='1'});
+      disclosure.dataset.wired='1';
+    }
+  });
+}
+(function(){
+ const mq=window.matchMedia('(max-width:760px)');
+ const refresh=()=>document.querySelectorAll('.stab-panel[id$="-analysis"]').forEach(gexmaFormatMobileSynopsis);
+ mq.addEventListener?.('change',refresh);
+})();
 function analysisHtml(idx, data){
   if(!data) return EMPTY;
   var panel = document.getElementById('sp-'+idx+'-analysis');
@@ -8542,7 +8684,7 @@ function analysisHtml(idx, data){
     panel.innerHTML = '<div style="padding:32px;text-align:center;color:var(--t3);font-family:Inter,sans-serif;font-size:0.88rem">Loading synopsis…</div>';
     fetch('data/'+idx+'/synopsis.html?t='+tsKey)
       .then(r=>r.ok ? r.text() : null)
-      .then(html=>{ if(html && panel) panel.innerHTML = html; else if(panel) panel.innerHTML = _synFallback(idx, data); })
+      .then(html=>{ if(html && panel) panel.innerHTML = html; else if(panel) panel.innerHTML = _synFallback(idx, data); gexmaFormatMobileSynopsis(panel); })
       .catch(()=>{ if(panel) panel.innerHTML = _synFallback(idx, data); });
   }
   return panel ? panel.innerHTML : '<div style="padding:32px;text-align:center;color:var(--t3);font-family:Inter,sans-serif;font-size:0.88rem">Loading…</div>';
@@ -8602,10 +8744,12 @@ function renderIndex(idx, data){
   if(pills){
     if(data){
       const regime=publicGammaRegime(data.gex_regime);
-      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Status</div><div class="pv" style="color:var(--pos)">ACTIVE</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${regime.color}">${regime.label}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Age</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
+      const stale=ofPublishedStale(data.timestamp_iso);
+      const known=Boolean(ofPublishedDate(data.timestamp_iso));
+      pills.innerHTML=`<div class="pill"><div class="pl">Index</div><div class="pv" style="color:var(--call)">${idx.toUpperCase()}</div></div><div class="pill"><div class="pl">Data status</div><div class="pv" style="color:${stale?'var(--neg)':'var(--pos)'}">${!known?'UNKNOWN':stale?'STALE DATA':'RECENT'}</div></div><div class="pill"><div class="pl">Last Run</div><div class="pv" style="font-size:.75rem">${data.timestamp||'—'}</div></div><div class="pill"><div class="pl">Expiry</div><div class="pv">${data.expiry||'—'}</div></div><div class="pill"><div class="pl">TTE</div><div class="pv">${data.tte_days||'—'}d</div></div><div class="pill"><div class="pl">Spot</div><div class="pv">${f(data.spot)}</div></div><div class="pill"><div class="pl">GEX Regime</div><div class="pv" style="color:${regime.color}">${regime.label}</div></div><div class="pill" style="flex-shrink:0"><div class="pl">Last published</div><div class="pv" id="age-${idx}" style="font-size:.75rem">—</div></div>`;
       if(data.timestamp_iso){
         const el=document.getElementById(`age-${idx}`);
-        if(el){ const u=()=>el.textContent=ago(data.timestamp_iso); u(); setInterval(u,30000); }
+        if(el){ const u=()=>{el.textContent=ago(data.timestamp_iso);el.title='Published analysis timestamp: '+String(data.timestamp_iso);el.dataset.stale=String(ofPublishedStale(data.timestamp_iso));};u();setInterval(u,30000); }
       }
     } else { pills.innerHTML=''; }
   }
@@ -10567,6 +10711,8 @@ function _ofSavedStatus(idx, kind, message) {
   }
   var lock = document.getElementById((kind === 'pos' ? 'posprem-lock-' : 'volsurfprem-lock-') + idx);
   if (lock && lock.getAttribute('data-of-key-invalid') !== '1') lock.style.display = 'none';
+  var sales = document.getElementById('posprem-sales-' + idx);
+  if (sales && lock?.getAttribute('data-of-key-invalid') !== '1') sales.style.display = 'none';
   return el;
 }
 function _ofSavedReady(idx, kind) {
@@ -10644,6 +10790,8 @@ function _ofSavedInvalidEverywhere(pwd) {
   if (_ofStoredPositioningKey() !== pwd) return;
   try { localStorage.removeItem('_of_pw_pos'); } catch(e) {}
   document.body.removeAttribute('data-of-saved-premium');
+  if (document.body.getAttribute('data-of-premium-promise') === 'subscriber')
+    document.body.removeAttribute('data-of-premium-promise');
   ['nifty','banknifty','sensex','finnifty','midcpnifty'].forEach(function(idx) {
     notifyPremiumCharts(idx);
     ['pos','vol'].forEach(function(kind) {
@@ -10747,7 +10895,8 @@ function _ofPremiumSyncLockedTab(idx, kind) {
   }
   var saved = _ofStoredPositioningKey();
   if (saved) {
-    _ofShowPremiumOfferLocked(idx,kind);
+    // Existing subscribers see the access check, never the offer first.
+    _ofSavedStatus(idx, kind === 'volsurf' ? 'vol' : 'pos');
     if (kind === 'volsurf') _ofSavedVolatilityCheck(idx, saved).catch(function(e){_ofSavedError(idx, 'vol', e);});
     else _ofSavedPositioningCheck(idx, saved).catch(function(e){_ofSavedError(idx, 'pos', e);});
     return;
@@ -11530,6 +11679,10 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
   html[data-of-mobile] #pp-sim .pp-sim-controls .pp-sim-range {min-height:28px}
 }
 </style></template>
+<style id="of-published-staleness">
+#of-mobile-data-age[data-stale="true"], #ofterm-time[data-stale="true"],
+.pill [id^="age-"][data-stale="true"] {color:var(--neg)!important;font-weight:800}
+</style>
 <script id="of-mobile-dashboard">
 (function () {
   const phone = matchMedia('(max-width:760px)');
@@ -11675,24 +11828,27 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
     }
     updated.textContent = fmt.format(stamp) + ' IST';
     updated.dateTime = stamp.toISOString();
-    const seconds = Math.max(0, Math.floor((Date.now() - stamp.getTime()) / 1000));
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    age.textContent = (hours >= 24 ? Math.floor(hours / 24) + 'd ' + hours % 24 + 'h' :
-      hours ? hours + 'h ' + minutes % 60 + 'm' : minutes ? minutes + 'm' : seconds + 's') + ' ago';
+    age.textContent=ago(timestamp);
+    age.dataset.stale=String(ofPublishedStale(timestamp));
+    age.title='Published analysis timestamp: '+updated.textContent;
   }
 
   function scenarioFrame(index) {
     if (activeView() !== 'premium' || !tabButton(index, 'prob')?.classList.contains('on')) return null;
-    const frame = premiumFrame(index);
-    return frame?.contentDocument?.getElementById('pp-scenario-body') ? frame : null;
+    const frame=premiumFrame(index),doc=frame?.contentDocument;
+    if (!doc?.getElementById('pp-scenario-body')) return null;
+    // OI/PCR has no future price/IV scenario. Only reveal this action after
+    // the subscriber has actually selected or touched a positioning chart.
+    if (doc.getElementById('pp-sim')?.classList.contains('pp-on-oipcr') ||
+        doc.documentElement.dataset.ofScenarioActivated!=='1') return null;
+    return frame;
   }
 
   function openScenario(index) {
     const frame = scenarioFrame(index);
     if (!frame) return;
     const doc = frame.contentDocument;
-    if (doc.getElementById('pp-sim').classList.contains('pp-on-oipcr')) frame.contentWindow.ppSwitchByKey('main');
+    if (doc.getElementById('pp-sim').classList.contains('pp-on-oipcr')) return;
     if (doc.getElementById('pp-scenario-body').hidden) doc.getElementById('pp-scenario-toggle')?.click();
     requestAnimationFrame(function () {
       if (!frame.isConnected || index !== activeIndex() || activeView() !== 'premium') return;
@@ -11880,6 +12036,31 @@ new MutationObserver(list=>{for(const rec of list)for(const n of rec.addedNodes)
       if (!doc?.getElementById('pp-sim')) return;
       doc.documentElement.toggleAttribute('data-of-mobile',phone.matches);
       placeScenarioCollapse(doc, phone.matches);
+      // Presentation-only CSS, injected after decryption. Never modify the encrypted payload.
+      if (!doc.getElementById('of-positioning-chart-first')) {
+        const rules=doc.createElement('style');
+        rules.id='of-positioning-chart-first';
+        rules.textContent=`
+          #pp-sim .pp-workspace{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:8px!important}
+          #pp-sim .pp-chart-area{grid-area:1 / 1!important;min-width:0!important;width:100%!important}
+          #pp-sim #pp-scenario-shell{grid-area:2 / 1!important;width:auto!important;margin:0 8px 8px!important}
+          html:not([data-of-scenario-activated="1"]) #pp-sim #pp-scenario-shell,
+          #pp-sim.pp-on-oipcr #pp-scenario-shell{display:none!important}
+          #pp-sim .pp-sim-canvas-scroll{width:100%!important;min-width:0!important}
+          #pp-sim .pp-chart-area .ofs{min-width:0!important}
+        `;
+        doc.head.append(rules);
+        doc.addEventListener('click', function(event) {
+          const element=event.target;
+          if (!element?.closest) return;
+          const root=doc.getElementById('pp-sim');
+          if (!root || root.classList.contains('pp-on-oipcr')) return;
+          if (element.closest('#pp-chart,#pp-canvas-wrap,.pp-sim-viewtab,[data-pp-metric-view],.pp-chart-area .ofs,[data-pp-view]')) {
+            doc.documentElement.setAttribute('data-of-scenario-activated','1');
+            requestAnimationFrame(sync);
+          }
+        });
+      }
       if (!doc.getElementById('of-mobile-positioning')) {
         doc.head.appendChild(positionStyles.content.cloneNode(true));
         doc.addEventListener('click', function (event) {
@@ -11961,11 +12142,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   function updateAge(){
     const valid=Number.isFinite(snapshotDate?.getTime()), el=$('time');
     if(!valid){el.textContent='—';el.removeAttribute('title');return}
-    const minutes=Math.max(0,Math.floor((Date.now()-snapshotDate)/60000));
-    const unit=minutes<60?'minute':minutes<1440?'hour':'day';
-    const n=Math.floor(minutes/(unit==='minute'?1:unit==='hour'?60:1440));
-    el.textContent=minutes===0?'Just now':n+' '+unit+(n===1?'':'s')+' ago';
-    el.title=stampFormat.format(snapshotDate)+' IST';
+    el.textContent=ago(snapshotDate);
+    el.dataset.stale=String(ofPublishedStale(snapshotDate));
+    el.title='Published analysis: '+stampFormat.format(snapshotDate)+' IST';
   }
   setInterval(updateAge,15000);
   function render(){
@@ -11973,7 +12152,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const regime=String(latest?.gex_regime||'').toUpperCase();$('regime').textContent=({LONG:'Long gamma',POSITIVE:'Long gamma',SHORT:'Short gamma',NEGATIVE:'Short gamma',NEUTRAL:'Neutral gamma'})[regime]||'—';$('regime').dataset.sign=['LONG','POSITIVE'].includes(regime)?'positive':['SHORT','NEGATIVE'].includes(regime)?'negative':regime==='NEUTRAL'?'neutral':'';
     let stamp=latest?.timestamp_iso||'';if(stamp&&!/(Z|[+-]\d\d:?\d\d)$/i.test(stamp))stamp+='+05:30';const d=new Date(stamp);
     snapshotDate=d; updateAge();
-    $('status').textContent=Number.isFinite(d.getTime())?names[index]+' · Market snapshot · '+stampFormat.format(d)+' IST'+feedNote:names[index]+' · Snapshot time unavailable';
+    $('status').textContent=Number.isFinite(d.getTime())?names[index]+(ofPublishedStale(d)?' · STALE published analysis · ':' · Market snapshot · ')+stampFormat.format(d)+' IST'+feedNote:names[index]+' · Snapshot time unavailable';
     cards.forEach((_,i)=>draw(i));
   }
   function syncMount(key,entries){
@@ -12068,16 +12247,41 @@ document.addEventListener('DOMContentLoaded',()=>{
     $('enter-key').href=pos&&!vol?'#premium/volsurfchart':'#premium/prob';
   }
   function fillSelectors(){
+    // The mobile comparison follows the Analytics reading order exactly.
+    // Keep numeric chart IDs unchanged so history, comparison and premium mixing work.
+    const mobileOrder=[
+      ['gex','Raw GEX'],
+      ['oi','GEX and OI Monitor'],
+      ['topgex','Top Absolute GEX + VOR'],
+      ['absgex','Total Absolute GEX'],
+      ['pcr','PCR Table'],
+      ['pcrhist','PCR History'],
+      ['otmiv','Volatility Skew'],
+      ['vex','Raw VEX'],
+      ['cex','Raw CEX']
+    ];
+    const mobile=window.matchMedia('(max-width:760px)').matches;
+    const publicChoices=mobile
+      ? mobileOrder.map(([key,label])=>[charts.findIndex(chart=>chart[1]===key),label]).filter(([id])=>id>=0)
+      : charts.map(([name],i)=>[i,name]);
     sides.forEach((side,n)=>{
       const select=$(side+'-select');
+      const previous=select.value;
       select.replaceChildren();
-      for(const [label,items] of [['Public charts',charts.map(([name],i)=>[i,name])],['Premium charts',chartCatalog]]){
+      for(const [label,items] of [['Public charts',publicChoices],['Premium charts',chartCatalog]]){
         if(!items.length)continue;
         const group=document.createElement('optgroup');
         group.label=label;
-        items.filter(([id])=>id!==pair[1-n]).forEach(([id,name])=>group.append(new Option(name,String(id))));
+        items.forEach(([id,name])=>{
+          // The complete 9-item mobile menu stays visible; duplicate selection is disabled.
+          if(!mobile && id===pair[1-n])return;
+          const option=new Option(name,String(id));
+          if(mobile && id===pair[1-n])option.disabled=true;
+          group.append(option);
+        });
         if(group.children.length)select.append(group);
       }
+      if(previous && [...select.options].some(option=>option.value===previous))select.value=previous;
     });
   }
   function removePremiumFrame(side){
@@ -12089,27 +12293,42 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   function fitPremiumPane(entry,side){
     const frame=entry.frame,doc=frame.contentDocument,slot=$(side+'-plot');
+    // The premium bundle has many off-screen panels, long matrix tables and
+    // sometimes a tall control workspace. Fitting body.scrollHeight to a
+    // fixed comparison pane shrinks the visible premium chart to a thumbnail.
+    // Instead centre and size the ACTIVE graph inside the same-height slot.
     const style=doc.createElement('style');
-    style.textContent='html{overflow:hidden!important}body{margin:0!important;min-height:0!important;box-sizing:border-box}.pp-matrix-viewport,.scroll-area,.ofs-scroll{overflow:visible!important;max-height:none!important;height:auto!important}.plotly-graph-div{height:var(--compare-chart-height)!important}';
+    style.textContent='html{overflow:hidden!important}body{margin:0!important;min-height:0!important;box-sizing:border-box}.pp-matrix-viewport,.scroll-area{max-height:none!important}.plotly-graph-div{height:var(--compare-chart-height)!important}';
     doc.head.append(style);
     let task=0;
     function fit(){
       task=0;
-      if(!slot.clientWidth||!slot.clientHeight||!frame.isConnected)return;
-      const width=Math.max(900,slot.clientWidth);
-      const height=Math.round(width/1.35);
+      if(!frame.isConnected||slot.clientWidth<20||slot.clientHeight<20)return;
+      const width=Math.max(660,slot.clientWidth);
       doc.body.style.width=width+'px';
-      doc.documentElement.style.setProperty('--compare-chart-height',height+'px');
-      const naturalW=Math.max(width,doc.body.scrollWidth);
-      const naturalH=Math.max(height,doc.body.scrollHeight);
-      const ratio=Math.min(slot.clientWidth/naturalW,slot.clientHeight/naturalH);
+      doc.documentElement.style.setProperty('--compare-chart-height',Math.max(420,Math.min(920,Math.round(slot.clientHeight*width/slot.clientWidth)))+'px');
+      // Prefer actual rendered chart geometry, falling back to the active tab.
+      const target=doc.querySelector('.pp-panel.on .pp-chart-area')
+        ||doc.querySelector('.pp-panel.on .pp-sim-canvas-scroll')
+        ||doc.querySelector('.pp-panel.on .pp-matrix-viewport')
+        ||doc.querySelector('.pp-panel.on .ofs')
+        ||doc.querySelector('.pp-panel.on')
+        ||doc.querySelector('.plotly-graph-div')
+        ||doc.getElementById('scrollArea')||doc.body;
+      const bounds=target.getBoundingClientRect();
+      let graphW=Math.max(1,bounds.width),graphH=Math.max(1,bounds.height);
+      // Do not let a stray giant scrollable matrix determine the chart scale.
+      graphH=Math.min(graphH,1900);
+      const ratio=Math.min(slot.clientWidth/graphW,slot.clientHeight/graphH);
+      const naturalW=Math.max(width,Math.ceil(doc.body.scrollWidth));
+      const naturalH=Math.max(Math.ceil(doc.body.scrollHeight),Math.ceil(bounds.bottom+24),420);
       frame.style.width=naturalW+'px';frame.style.height=naturalH+'px';
       frame.style.transform='scale('+ratio+')';
-      frame.style.left=(slot.clientWidth-naturalW*ratio)/2+'px';
+      frame.style.left=((slot.clientWidth-graphW*ratio)/2-bounds.left*ratio)+'px';
+      frame.style.top=((slot.clientHeight-graphH*ratio)/2-bounds.top*ratio)+'px';
     }
     function schedule(){if(!task)task=requestAnimationFrame(fit)}
-    const resize=new ResizeObserver(schedule);
-    resize.observe(slot);resize.observe(doc.body);
+    const resize=new ResizeObserver(schedule);resize.observe(slot);resize.observe(doc.body);
     const changes=new MutationObserver(schedule);
     changes.observe(doc.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','hidden']});
     doc.addEventListener('load',schedule,true);
@@ -12278,7 +12497,8 @@ document.addEventListener('DOMContentLoaded',()=>{
       return ready&&!missing&&source.controls&&scenarioFields.every(([key])=>source.controls(key));
     });
     const scenario=$('scenario');
-    scenario.hidden=!available.every(Boolean);
+    const positioningChoices=new Set(['g','v','x','history']);
+    scenario.hidden=!available.every(Boolean) || !pair.every(choice=>positioningChoices.has(choice));
     if(scenario.hidden)scenario.open=false;
     cancelAnimationFrame(controlFrame);
     if(!scenario.hidden)controlFrame=requestAnimationFrame(()=>{
