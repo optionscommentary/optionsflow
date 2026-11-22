@@ -11204,7 +11204,7 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
         <label>Synthetic future change <span id="of-compare-price-val">+0 points</span><input id="of-compare-price" type="range" min="-500" max="500" value="0" step="25"></label>
         <label>Parallel IV change <span id="of-compare-iv-val">+0.00 vol points</span><input id="of-compare-iv" type="range" min="-5" max="5" value="0" step="0.25"></label>
       </div>
-      <p class="of-compare-guidance">The same time, price move (points), and IV shift are applied to both charts using each index's own selected snapshot. Each engine retains its existing limits and calculations. Collapsing resets both charts without changing the common history selection.</p>
+      <p class="of-compare-guidance">For charts of the same index, the same time, price move (points), and IV shift are applied to both snapshots. Each engine retains its existing limits and calculations. Collapsing resets both charts without changing the common history selection.</p>
       </div>
     </section>
   </div>
@@ -11219,6 +11219,19 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
   const grid = document.getElementById('of-compare-panels');
   if (!dialog || !grid) return;
   const byId = id => document.getElementById(id);
+  function fitLightboxInModal() {
+    const lbx=document.getElementById('lbx');
+    if(lbx && lbx.parentNode!==dialog)dialog.appendChild(lbx);
+  }
+  function fitInspectorInModal() {
+    if(!dialog.open)return;
+    const tip=document.getElementById('ofs-inspector');
+    if(tip && tip.parentNode!==dialog)dialog.appendChild(tip);
+  }
+  // A premium iframe can create the inspector in the host document later.
+  // Move it into the modal top layer without altering the original tooltip.
+  const inspectorWatcher=new MutationObserver(fitInspectorInModal);
+  inspectorWatcher.observe(document.body,{childList:true});
   const indices = [
     ['nifty','NIFTY'], ['banknifty','BANKNIFTY'], ['sensex','SENSEX'],
     ['finnifty','FINNIFTY'], ['midcpnifty','MIDCAP']
@@ -11379,6 +11392,15 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
     const content=document.createElement('div');content.className='of-compare-content of:min-w-0 of:overflow-hidden';content.id=slot.id+'-body';
     // Clicking a static/chart-content surface expands the active chart. Native
     // OFS canvases retain their own click-to-zoom interactive viewer.
+    // The comparison is one scrollable page. No nested wheel-scrolling panels.
+    // Public chart hover/click remains native; the fullscreen zoom is outside
+    // this content element and keeps its own wheel-to-zoom interaction.
+    content.addEventListener('wheel',e=>{
+      if(e.ctrlKey || e.metaKey || !e.deltaY)return;
+      e.preventDefault();
+      const pixels=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?dialog.clientHeight:1);
+      dialog.scrollTop+=pixels;
+    },{passive:false,capture:true});
     content.addEventListener('click',e=>{
       if(e.target.closest('button,a,input,select,textarea,label,[role="button"],[role="tab"]'))return;
       // The real chart canvas owns its hover/click/zoom gestures. Do not steal
@@ -11532,9 +11554,14 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
         if(mount.entries.length)onPublicUpdated(slot,mount);
       }
     }
-    if(img && !img.parentElement.classList.contains('ofs')) {
-      img.addEventListener('click',()=>{if(img.naturalWidth>0)openLbx(img.src);});
-    }
+    // Keep the fallback PNG clickable if its history JSON is missing. The
+    // original OFS canvas owns its click and zoom when history is available.
+    if(img)img.addEventListener('click',e=>{
+      if(!img.naturalWidth)return;
+      e.stopPropagation();
+      fitLightboxInModal();
+      openLbx(img.src);
+    });
     // A chart can still display its latest image if its history file is missing.
     slot.status='ready';
     stamp(slot,'Public · Snapshot: '+(data.timestamp_iso||'latest available'));
@@ -11554,6 +11581,32 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
       try {
         const doc=frame.contentDocument, win=frame.contentWindow;
         if(!doc)throw new Error('Cannot access chart document');
+        // Premium fallback images use the same zoomable host lightbox.
+        // Their built-in interactive canvas viewer remains unchanged.
+        win.openLbx=(src,noWheel)=>{fitLightboxInModal();openLbx(src,noWheel);};
+        win.__ofsLbx=win.openLbx;
+        const fitStyle=doc.createElement('style');
+        fitStyle.id='of-compare-embedded-fit';
+        fitStyle.textContent=[
+          'html,body{height:auto!important;min-height:0!important;overflow-x:hidden!important;overflow-y:hidden!important}',
+          'body{max-width:100%!important;box-sizing:border-box!important}',
+          'img,canvas,svg{max-width:100%!important}',
+          '.pp-sim-canvas-scroll{width:100%!important;max-width:100%!important;overflow-x:hidden!important;overflow-y:visible!important}',
+          '#pp-chart{max-width:100%!important;width:100%!important;height:auto!important;cursor:zoom-in!important}',
+          '#pp-fallback{max-width:100%!important;width:100%!important;height:auto!important}',
+          '.pp-chart-area,.pp-sim,.pp-workspace{max-width:100%!important;min-width:0!important}',
+          '.pp-matrix-viewport{max-width:100%!important}'
+        ].join('');
+        doc.head.append(fitStyle);
+        // Wheel events cannot bubble out of an iframe. Send them directly
+        // to the comparison's only vertical scroller without disabling chart
+        // hover, taps, matrix selection or click-to-open interactive zoom.
+        doc.addEventListener('wheel',e=>{
+          if(!frame.isConnected || e.ctrlKey || e.metaKey || !e.deltaY)return;
+          e.preventDefault();e.stopPropagation();
+          const pixels=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?dialog.clientHeight:1);
+          dialog.scrollTop+=pixels;
+        },{passive:false,capture:true});
         if(positionMap[slot.chart]) {
           if(!doc.getElementById('pp-scene') || !doc.getElementById('pp-historical'))
             throw new Error('Missing expected premium positioning controls');
@@ -11603,13 +11656,24 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
             requestAnimationFrame(()=>{if(frame.isConnected && !dialog.dataset.expanded)toggleExpanded(slot);});
           },true);
         }
+        // Unconstrained first measurement: otherwise the iframe's old 710px
+        // height becomes the minimum reported scrollHeight forever.
+        frame.style.height='1px';
+        let measureQueued=false;
         const size=()=>{
-          if(!frame.isConnected || gen!==slot.generation)return;
-          const height=Math.min(1900,Math.max(570,Math.ceil(doc.documentElement.scrollHeight)+12));
-          if(Math.abs((parseFloat(frame.style.height)||0)-height)>6)frame.style.height=height+'px';
+          if(measureQueued || !frame.isConnected || gen!==slot.generation)return;
+          measureQueued=true;
+          requestAnimationFrame(()=>{
+            measureQueued=false;
+            if(!frame.isConnected || gen!==slot.generation)return;
+            const intrinsic=Math.max(doc.body?.scrollHeight||0,doc.documentElement?.scrollHeight||0);
+            const height=Math.min(20000,Math.max(200,Math.ceil(intrinsic)+8));
+            if(Math.abs((parseFloat(frame.style.height)||0)-height)>5)frame.style.height=height+'px';
+          });
         };
         size();
-        try {new ResizeObserver(size).observe(doc.body);} catch(_) {}
+        try {const resize=new ResizeObserver(size);resize.observe(doc.body); } catch(_) {}
+        try {doc.fonts?.ready?.then(size);}catch(_){}
         slot.status='ready';
         stamp(slot,'Premium · Verified using the current encrypted subscriber key');
         syncToolbar();
@@ -11804,7 +11868,8 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
   function syncScenarioVisibility() {
     const scenarioBox=byId('of-compare-scenario-box');
     const showHistory=timeline.length>0;
-    const showScenario=showHistory && plans.every(s=>{
+    const showScenario=showHistory && plans.length===2 &&
+      plans[0].index===plans[1].index && plans.every(s=>{
       if(!s.scenarioCapable || s.status!=='ready')return false;
       const at=live ? s.history.length-1 : latestRecordedBefore(s.history,selectedTime||timeline.at(-1));
       // A historical positioning entry without private expiry/strike inputs
@@ -11838,7 +11903,7 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
   function refresh() {for(const slot of plans)renderTile(slot,true);}
   function open() {
     if(!dialog.open){session++;dialog.showModal();}
-    drawTiles();syncToolbar();
+    drawTiles();syncToolbar();fitInspectorInModal();
   }
   window.ofCompareOpen=open;
   window.addEventListener('of:premium-access-changed',()=>{
@@ -11886,6 +11951,7 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
   byId('of-compare-scenario-reset').addEventListener('click',resetCommonScenario);
   byId('of-compare-scenario-collapse').addEventListener('click',()=>setScenarioCollapsed(!scenarioCollapsed));
   dialog.addEventListener('cancel',e=>{
+    if(dialog.querySelector('#lbx.open')){e.preventDefault();closeLbx();return;}
     const closeZoom=dialog.querySelector('[aria-label="Interactive chart zoom"] [aria-label="Close chart zoom"]');
     if(closeZoom){e.preventDefault();closeZoom.click();return;}
     if(dialog.dataset.expanded){e.preventDefault();toggleExpanded(plans.find(s=>s.id===dialog.dataset.expanded),true);}
@@ -11894,6 +11960,10 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
   dialog.addEventListener('close',()=>{
     if(dialog.open)return; // Delayed close event must not wipe a freshly reopened comparison.
     dialog.querySelector('[aria-label="Interactive chart zoom"] [aria-label="Close chart zoom"]')?.click();
+    const tip=dialog.querySelector('#ofs-inspector');
+    if(tip){tip.hidden=true;document.body.appendChild(tip);}
+    const lbx=dialog.querySelector('#lbx');
+    if(lbx){if(lbx.classList.contains('open'))closeLbx();document.body.appendChild(lbx);}
     if(historyRenderFrame){cancelAnimationFrame(historyRenderFrame);historyRenderFrame=0;}
     clearTimeout(scenarioTimer);
     for(const slot of plans){slot.generation++;slot.frame=null;slot.mount=null;slot.history=[];slot.status='new';}
@@ -11910,6 +11980,52 @@ body[data-of-verified-premium="1"] .stab-premium .stab-lock{display:none!importa
 })();
 
 </script>
+
+
+<style id="of-compare-scroll-layout-v6">
+/* One page-level vertical scrollbar, not a scrollbar inside each chart. */
+#of-compare-dialog{overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain;scrollbar-gutter:stable}
+#of-compare-panels{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:auto!important;align-items:stretch!important;overflow:visible!important}
+#of-compare-dialog .of-compare-tile{height:auto!important;min-width:0!important;overflow:hidden!important;align-self:stretch!important}
+#of-compare-dialog .of-compare-content{display:block!important;overflow:visible!important;overscroll-behavior:auto!important;min-width:0!important;min-height:0!important;flex:1 1 auto!important}
+#of-compare-dialog .of-compare-content .ofs{width:100%!important;max-width:100%!important;min-width:0!important}
+#of-compare-dialog .of-compare-content .ofs-stage{width:100%!important;max-width:100%!important;overflow:hidden!important}
+#of-compare-dialog .of-compare-content .ofs-scroll{width:100%!important;max-width:100%!important;overflow:hidden!important;overscroll-behavior:auto!important}
+/* Retain high-resolution drawing, visually fit it to the 50%-wide chart. */
+#of-compare-dialog .of-compare-content .ofs canvas{display:block!important;max-width:100%!important;width:100%!important;height:auto!important;cursor:zoom-in!important}
+#of-compare-dialog .of-compare-content .gcard img{display:block;max-width:100%!important;width:100%!important;height:auto!important}
+#of-compare-dialog .of-compare-content iframe{display:block;width:100%!important;max-width:100%!important;height:200px;min-height:0!important;overflow:hidden!important;border:0!important}
+#of-compare-dialog .of-compare-tile .of-compare-controls{position:relative;z-index:1}
+/* Same indigo/navy gradient as Premium Analytics' Scenario Controller. */
+#of-compare-dialog #of-compare-scenario-box{
+ background:linear-gradient(115deg,#0d2035,#151c38 72%,#172039)!important;
+ border:1px solid #4b65ad!important;color:#f1f5ff!important;
+ box-shadow:0 3px 16px rgba(16,34,80,.13)
+}
+#of-compare-dialog #of-compare-scenario-box .of-compare-toolhead strong{color:#f1f5ff!important}
+#of-compare-dialog #of-compare-scenario-box .of-compare-scenario-grid label{color:#dbeafe!important}
+#of-compare-dialog #of-compare-scenario-box .of-compare-scenario-grid label span{color:#a8bedc!important}
+#of-compare-dialog #of-compare-scenario-box input[type=range]{accent-color:#7dd3fc!important}
+#of-compare-dialog #of-compare-scenario-collapse{
+ background:linear-gradient(140deg,#173F74,#1F528D)!important;
+ color:#f1f5ff!important;border:1px solid #688ed0!important
+}
+#of-compare-dialog #of-compare-scenario-collapse:hover{background:#24518A!important}
+[data-theme="light"] #of-compare-dialog #of-compare-scenario-box{
+ background:linear-gradient(112deg,#eaf4ff,#eaeafa)!important;
+ border-color:#8daee1!important;color:#152645!important
+}
+[data-theme="light"] #of-compare-dialog #of-compare-scenario-box .of-compare-toolhead strong,
+[data-theme="light"] #of-compare-dialog #of-compare-scenario-box .of-compare-scenario-grid label{color:#152645!important}
+[data-theme="light"] #of-compare-dialog #of-compare-scenario-box .of-compare-scenario-grid label span{color:#315B81!important}
+[data-theme="light"] #of-compare-dialog #of-compare-scenario-box input[type=range]{accent-color:#315B81!important}
+#of-compare-dialog[data-expanded] #of-compare-panels{grid-template-columns:minmax(0,1fr)!important}
+#of-compare-dialog[data-expanded] .of-compare-tile:not(.of-compare-expanded){display:none!important}
+@media(max-width:767px){
+  #of-compare-dialog{scrollbar-gutter:auto}
+  #of-compare-panels{grid-template-columns:minmax(0,1fr)!important}
+}
+</style>
 
 </body>
 </html>
