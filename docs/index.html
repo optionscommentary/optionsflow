@@ -7657,9 +7657,9 @@ function analysisHtml(idx, data){
 }
 function publicGammaRegime(value) {
   const name = String(value || '').toUpperCase();
-  if (name === 'LONG' || name === 'POSITIVE') return {label:'Long gamma',sign:'positive',color:'var(--pos)'};
-  if (name === 'SHORT' || name === 'NEGATIVE') return {label:'Short gamma',sign:'negative',color:'var(--neg)'};
-  return {label:name === 'NEUTRAL' ? 'Neutral gamma' : '—',sign:'',color:'var(--t1)'};
+  if (name === 'LONG' || name === 'POSITIVE') return {label:'LONG',sign:'positive',color:'var(--pos)'};
+  if (name === 'SHORT' || name === 'NEGATIVE') return {label:'SHORT',sign:'negative',color:'var(--neg)'};
+  return {label:name === 'NEUTRAL' ? 'NEUTRAL' : '—',sign:'',color:'var(--t1)'};
 }
 function _synFallback(idx, data){
   if(!data) return EMPTY;
