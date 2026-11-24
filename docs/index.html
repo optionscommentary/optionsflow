@@ -7418,17 +7418,19 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
     var self = this;
     if (this.inline || this.visible()) this.load();
     if (this.src) this.timer = setInterval(function () {
-      if (!self.el.isConnected) { clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }
-      if (self.visible()) self.load(); else self.stopReplay();
+      if (!self.el.isConnected) { self.stopReplay(); clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }
+      if (!self.onScreen()) self.stopReplay(); else if (self.visible()) self.load();
     }, 30000);
     if (root.ResizeObserver) { this.ro = new root.ResizeObserver(function () {
       var visible=self.visible(), was=self._wasVisible; self._wasVisible=visible;
-      if (!visible) {self.stopReplay();return;}
+      if (!self.onScreen()) {self.stopReplay();return;}
+      if (!visible) return;
       if (!was && self.src) {self._lastLoad=0;self.load();}
       self.draw();
     }); this.ro.observe(el); }
   }
-  Mount.prototype.visible = function(){return this.el.isConnected && !document.hidden && !!this.el.offsetWidth;
+  Mount.prototype.onScreen = function(){return this.el.isConnected && !!this.el.offsetWidth;};
+  Mount.prototype.visible = function(){return !document.hidden && this.onScreen();
   }
   Mount.prototype.setEntries = function (entries, revision) {
     if (!Array.isArray(entries) || !entries.length) return;
@@ -7468,6 +7470,7 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
     },full):full()).catch(function(){}).finally(function(){self.request=null;});
   };
   Mount.prototype.stopReplay=function(){
+    this._replayHiddenAt=null;
     if(this._replay){clearInterval(this._replay);this._replay=null;}
     if(this.replayBtn){this.replayBtn.textContent='▶ Replay';this.replayBtn.setAttribute('aria-pressed','false');}
     if(this._deferredHistory&&!this._scrubbing&&!this._timelineFrame)this.applyLatest();
@@ -7479,8 +7482,10 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
     if(this.idx>=this.entries.length-1)this.idx=0;
     this.live=false;this.replayBtn.textContent='Ⅱ Pause';this.replayBtn.setAttribute('aria-pressed','true');
     var self=this;
+    this._replayHiddenAt=null;
     this._replay=setInterval(function(){
-      if(!self.visible()){self.stopReplay();return;}
+      if(!self.onScreen()){self.stopReplay();return;}
+      if(document.hidden){if(self._replayHiddenAt==null)self._replayHiddenAt=Date.now();return;}
       if(self.idx>=self.entries.length-1){self.stopReplay();return;}
       self.idx++;self.syncBelt();self.draw();
       if(self.idx>=self.entries.length-1)self.stopReplay();
@@ -7868,7 +7873,16 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
 
   function start() {
     scan(document);
-    document.addEventListener('visibilitychange',function(){MOUNTS.forEach(function(m){if(!m.visible())m.stopReplay();else{m.load();m.draw();}});});
+    document.addEventListener('visibilitychange',function(){MOUNTS.forEach(function(m){
+      if(!m.onScreen()){m.stopReplay();return;}
+      if(document.hidden){if(m._replay&&m._replayHiddenAt==null)m._replayHiddenAt=Date.now();return;}
+      if(m._replay&&m._replayHiddenAt!=null){
+        var advance=Math.floor(Math.max(0,Date.now()-m._replayHiddenAt)/650);m._replayHiddenAt=null;
+        m.idx=Math.min(m.entries.length-1,m.idx+advance);m.syncBelt();m.draw();
+        if(m.idx>=m.entries.length-1)m.stopReplay();
+      }
+      m.load();m.draw();
+    });});
     if (root.MutationObserver) new root.MutationObserver(function () {
       var live = [];
       MOUNTS.forEach(function (m) { if (m.el.isConnected) { live.push(m); m.draw(); } });
@@ -8566,6 +8580,9 @@ function switchStab(idx, key, btn, options){
   if(key==='ivtrack'){ const _ivm=document.getElementById('ivtrack-mount-'+idx); if(_ivm && _ivm._ivtRefresh) _ivm._ivtRefresh(); }
   const panel = document.getElementById(`panel-${idx}`);
   if(!panel) return;
+  if(key!=='prob' && panel.querySelector(`#sp-${idx}-prob.on`)){
+    try{panel.querySelector('[id^="posprem-content-"] iframe')?.contentWindow?.ppStopReplayForNavigation?.();}catch(_){}
+  }
 
   panel.querySelectorAll('details.edu-collapsible').forEach(function(d){ d.removeAttribute('open'); });
   panel.querySelectorAll('.stab:not(.pcr-sub):not(.prob-sub):not(.volsurf-sub)').forEach(b=>b.classList.remove('on'));
