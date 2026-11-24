@@ -7363,7 +7363,7 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
       '[data-theme="light"] .ofs-btn{color:#1565C0}' +
       '[data-theme="light"] .ofs-live{border-color:#1565C0;color:#1565C0}' +
       '[data-theme="light"] .ofs-live.on{background:#1565C0;color:#FFFFFF}' +
-      '.ofs-belt .ofs-btn:focus-visible,.ofs-belt .ofs-live:focus-visible{outline:2px solid currentColor;outline-offset:1px}@media(max-width:480px){.ofs-belt{gap:3px;padding:0 4px}.ofs-lbl{min-width:0;font-size:9px}}' +
+      'html .ofs-belt .ofs-btn.ofs-replay{white-space:nowrap;flex-shrink:0;background:var(--raised,#0F1E33);color:var(--accent,#7DD3FC);border:1px solid var(--border-lit,#3B5B7A);border-radius:4px;padding:0 6px;line-height:16px;font-weight:700;transition:background-color .15s ease,border-color .15s ease,color .15s ease}html .ofs-belt .ofs-btn.ofs-replay:hover:not(:disabled){background:var(--hover,#142742)}html .ofs-belt .ofs-btn.ofs-replay[aria-pressed="true"]{background:var(--hover,#142742);border-color:var(--accent,#7DD3FC)}html .ofs-belt .ofs-btn.ofs-replay[aria-pressed="true"]:hover:not(:disabled){background:var(--hover,#142742)}html .ofs-belt .ofs-btn.ofs-replay:disabled{background:var(--raised,#0F1E33);color:var(--t3,#94A3B8);opacity:.65;cursor:default}.ofs-belt .ofs-btn:focus-visible,.ofs-belt .ofs-live:focus-visible{outline:2px solid currentColor;outline-offset:1px}@media(max-width:480px){.ofs-belt{gap:3px;padding:0 4px}.ofs-lbl{min-width:0;font-size:9px}.ofs-replay{font-size:9px}}' +
       '.ofs-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}' +
       '.ofs canvas{display:block}';
     document.head.appendChild(s);
@@ -7419,11 +7419,11 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
     if (this.inline || this.visible()) this.load();
     if (this.src) this.timer = setInterval(function () {
       if (!self.el.isConnected) { clearInterval(self.timer); if (self.ro) self.ro.disconnect(); return; }
-      if (self.visible()) self.load();
+      if (self.visible()) self.load(); else self.stopReplay();
     }, 30000);
     if (root.ResizeObserver) { this.ro = new root.ResizeObserver(function () {
       var visible=self.visible(), was=self._wasVisible; self._wasVisible=visible;
-      if (!visible) return;
+      if (!visible) {self.stopReplay();return;}
       if (!was && self.src) {self._lastLoad=0;self.load();}
       self.draw();
     }); this.ro.observe(el); }
@@ -7437,7 +7437,7 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
       (!revision && old.length===entries.length && old[0]?.ts===entries[0]?.ts && old[old.length-1]?.ts===entries[entries.length-1]?.ts && JSON.stringify(old)===JSON.stringify(entries));
     if(same){this.revision=revision||null;return;}
     this.revision=revision||null;this.latestEntries=entries;
-    if(this._scrubbing || this._timelineFrame){this._deferredHistory=true;return;}
+    if(this._replay || this._scrubbing || this._timelineFrame){this._deferredHistory=true;return;}
     this.applyLatest(current);
   };
   Mount.prototype.applyLatest = function(current){
@@ -7467,6 +7467,27 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
       },full);
     },full):full()).catch(function(){}).finally(function(){self.request=null;});
   };
+  Mount.prototype.stopReplay=function(){
+    if(this._replay){clearInterval(this._replay);this._replay=null;}
+    if(this.replayBtn){this.replayBtn.textContent='▶ Replay';this.replayBtn.setAttribute('aria-pressed','false');}
+    if(this._deferredHistory&&!this._scrubbing&&!this._timelineFrame)this.applyLatest();
+  };
+  Mount.prototype.toggleReplay=function(){
+    if(this._replay){this.stopReplay();return;}
+    if(this.entries.length<2)return;
+    if(this._timelineFrame){root.cancelAnimationFrame(this._timelineFrame);this._timelineFrame=0;}
+    if(this.idx>=this.entries.length-1)this.idx=0;
+    this.live=false;this.replayBtn.textContent='Ⅱ Pause';this.replayBtn.setAttribute('aria-pressed','true');
+    var self=this;
+    this._replay=setInterval(function(){
+      if(!self.visible()){self.stopReplay();return;}
+      if(self.idx>=self.entries.length-1){self.stopReplay();return;}
+      self.idx++;self.syncBelt();self.draw();
+      if(self.idx>=self.entries.length-1)self.stopReplay();
+    },650);
+    this.syncBelt();this.draw();
+  };
+
   Mount.prototype.build = function () {
     addStyle(); var self = this, el = this.el;
     Array.prototype.forEach.call(el.children, function (c) { if (!c.classList.contains('ofs-stage')) c.style.display = 'none'; });
@@ -7474,15 +7495,17 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
     st.innerHTML = '<div class="ofs-belt"><button class="ofs-btn" data-a="p" title="Previous">◀</button>' +
       '<input class="ofs-rng" type="range" min="0" max="0" value="0" step="1" aria-label="Time slider">' +
       '<button class="ofs-btn" data-a="n" title="Next">▶</button><span class="ofs-lbl"></span>' +
+      '<button type="button" class="ofs-btn ofs-replay" data-a="r" aria-pressed="false" title="Replay recorded snapshots">▶ Replay</button>' +
       '<button class="ofs-live on" data-a="l" title="Jump to latest">LIVE</button></div>' +
       '<div class="ofs-scroll"><canvas></canvas></div>';
     el.appendChild(st);
     this.stage = st; this.rng = st.querySelector('.ofs-rng'); this.lbl = st.querySelector('.ofs-lbl');
     this.liveBtn = st.querySelector('.ofs-live'); this.scroll = st.querySelector('.ofs-scroll'); this.cv = st.querySelector('canvas');
-    this.rng.addEventListener('pointerdown',function(e){self._scrubbing=true;try{self.rng.setPointerCapture(e.pointerId);}catch(_){}});
+    this.replayBtn=st.querySelector('[data-a=r]');this.replayBtn.addEventListener('click',function(){self.toggleReplay();});
+    this.rng.addEventListener('pointerdown',function(e){self._scrubbing=true;self.stopReplay();try{self.rng.setPointerCapture(e.pointerId);}catch(_){}});
     function endScrub(){self._scrubbing=false;if(self._deferredHistory&&!self._timelineFrame)self.applyLatest();}
     this.rng.addEventListener('pointerup',endScrub);this.rng.addEventListener('pointercancel',endScrub);this.rng.addEventListener('lostpointercapture',endScrub);this.rng.addEventListener('blur',endScrub);
-    this.rng.addEventListener('input', function () {if(self._timelineFrame)return;self._timelineFrame=root.requestAnimationFrame(function(){self._timelineFrame=0;self.go(+self.rng.value);if(self._deferredHistory&&!self._scrubbing)self.applyLatest();});});
+    this.rng.addEventListener('input', function () {self.stopReplay();if(self._timelineFrame)return;self._timelineFrame=root.requestAnimationFrame(function(){self._timelineFrame=0;self.go(+self.rng.value);if(self._deferredHistory&&!self._scrubbing)self.applyLatest();});});
     st.querySelector('[data-a=p]').addEventListener('click', function () { self.go(self.idx - 1); });
     st.querySelector('[data-a=n]').addEventListener('click', function () { self.go(self.idx + 1); });
     this.liveBtn.addEventListener('click', function () { self.go(self.entries.length - 1); });
@@ -7764,6 +7787,7 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
   };
 
   Mount.prototype.go = function (i) {
+    if(this._replay){clearInterval(this._replay);this._replay=null;this.replayBtn.textContent="▶ Replay";this.replayBtn.setAttribute("aria-pressed","false");}
     if(this._timelineFrame){root.cancelAnimationFrame(this._timelineFrame);this._timelineFrame=0;}
     i = Math.max(0, Math.min(this.entries.length - 1, i));
     if (i === this.entries.length - 1) {
@@ -7780,6 +7804,7 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
   Mount.prototype.syncBelt = function () {
     var n = this.entries.length, e = this.entries[this.idx]; if (!e) return;
     this.rng.max = Math.max(0, n - 1); this.rng.value = this.idx; this.rng.disabled = n < 2;
+    if(this.replayBtn)this.replayBtn.disabled=n<2;
     this.lbl.textContent = (e.ts_label || '') + (n > 1 ? '  ' + (this.idx + 1) + '/' + n : '  · 1 snapshot');
     this.liveBtn.classList.toggle('on', this.live);
     this.liveBtn.textContent = this.live ? 'LIVE' : 'Back to live';
@@ -7843,7 +7868,7 @@ return i.size=function(n){return arguments.length?(l=n,i):l},i.padding=function(
 
   function start() {
     scan(document);
-    document.addEventListener('visibilitychange',function(){MOUNTS.forEach(function(m){if(m.visible()){m.load();m.draw();}});});
+    document.addEventListener('visibilitychange',function(){MOUNTS.forEach(function(m){if(!m.visible())m.stopReplay();else{m.load();m.draw();}});});
     if (root.MutationObserver) new root.MutationObserver(function () {
       var live = [];
       MOUNTS.forEach(function (m) { if (m.el.isConnected) { live.push(m); m.draw(); } });
