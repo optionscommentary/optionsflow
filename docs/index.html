@@ -6358,6 +6358,7 @@ function toggleTheme(){
       tip.setAttribute('role', 'tooltip');
       tip.style.cssText = 'position:fixed;pointer-events:none;z-index:2147483646;box-sizing:border-box;max-width:calc(100vw - 20px);padding:8px 11px;border:1px solid;border-radius:6px;font:500 12px/1.5 Inter,Arial,sans-serif;font-variant-numeric:tabular-nums;white-space:pre-line;box-shadow:0 3px 14px #0003';
       doc.body.appendChild(tip);
+      tip._fresh = true;
       host.addEventListener('scroll', function () { tip.hidden = true; tip._owner = null; }, true);
       host.addEventListener('resize', function () { tip.hidden = true; tip._owner = null; });
     }
@@ -6377,6 +6378,8 @@ function toggleTheme(){
       fillTooltip(tip, lines, doc, curTheme());
       tip._displayKey = key;
     }
+    tip.style.transition = (tip.hidden || tip._fresh || !MOTION.on) ? 'none' : 'left .09s ease-out, top .09s ease-out';
+    tip._fresh = false;
     tip.hidden = false;
     var width = tip.offsetWidth, height = tip.offsetHeight;
     tip.style.left = Math.max(8, Math.min(x + 14, host.innerWidth - width - 8)) + 'px';
@@ -6390,6 +6393,10 @@ function toggleTheme(){
     });
     var details = hit && hit.details(x, y, layout.scene);
     tooltip(canvas, clientX, clientY, details, canvas.ownerDocument);
+    var hadHover = !!canvas._ofsHover;
+    canvas._ofsHover = details ? { x: x, y: y } : null;
+    if (!details && canvas._ofsAnim) canvas._ofsAnim.hy = null;
+    if (details || hadHover) redrawNow(canvas);
     return !!details;
   }
   function bindInspector(canvas) {
@@ -6408,6 +6415,7 @@ function toggleTheme(){
       if (pending) root.cancelAnimationFrame(pending);
       pending = 0;
       tooltip(canvas);
+      if (canvas._ofsHover) { canvas._ofsHover = null; if (canvas._ofsAnim) canvas._ofsAnim.hy = null; redrawNow(canvas); }
     }
     canvas.addEventListener('pointerdown', function (e) {
       clear();
@@ -6457,8 +6465,10 @@ function toggleTheme(){
       doc.addEventListener('pointerdown', function (e) {
         var tip = hostWin().document.getElementById('ofs-inspector');
         if (tip && tip._owner && !tip._owner.contains(e.target)) {
+          var ow = tip._owner;
           tip.hidden = true;
           tip._owner = null;
+          if (ow._ofsHover) { ow._ofsHover = null; if (ow._ofsAnim) ow._ofsAnim.hy = null; redrawNow(ow); }
         }
       }, true);
     }
@@ -6479,13 +6489,118 @@ function toggleTheme(){
   }
 
   function renderWithDetails(ctx, width, height, scene, draw) {
-    ctx.canvas._ofsLayout = {regions: [], width: width, height: height, scene: scene};
+    var canvas = ctx.canvas, bank = bankOf(canvas);
+    canvas._ofsLayout = {regions: [], width: width, height: height, scene: scene};
+    bank.n = 0; bank.busy = false; bank.cw = canvas.width;
+    bank.redraw = function () {                                   // repaint this same frame again (animation / hover)
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.restore();
+      renderWithDetails(ctx, width, height, scene, draw);
+    };
     draw(ctx, width, height);
+    kick(canvas);
   }
 
 
+  /* ---------- Fluid motion ---------- */
+  // Bars, the synthetic-future line and ZGL glide to new values instead of snapping, and the hover band
+  // glides between strikes. Duration adapts to how fast the data changes (slider drag, replay), so fast
+  // scrubbing follows tightly and a single step eases gently. Off for reduced-motion visitors.
+  var MOTION = { on: true, min: 90, max: 260, grow: 360, hover: 55 };
+  try { if (root.matchMedia && root.matchMedia('(prefers-reduced-motion: reduce)').matches) MOTION.on = false; } catch (e) {}
+  function nowMs() { return (root.performance && root.performance.now) ? root.performance.now() : Date.now(); }
+  function easeOut(p) { p = p < 0 ? 0 : (p > 1 ? 1 : p); return 1 - Math.pow(1 - p, 3); }
+  function bankOf(canvas) {
+    return canvas._ofsAnim || (canvas._ofsAnim = { panels: {}, n: 0, busy: false, raf: 0, cw: 0, redraw: null, hasBars: false, hy: null, hkey: '', hlast: 0 });
+  }
+  function kick(canvas) {
+    var b = canvas._ofsAnim;
+    if (!b || !b.busy || b.raf || !b.redraw) return;
+    var win = (canvas.ownerDocument && canvas.ownerDocument.defaultView) || root;
+    b.raf = win.requestAnimationFrame(function () {
+      b.raf = 0;
+      if (!canvas.isConnected || canvas.width !== b.cw) return;      // hidden / resized: the owner redraws it
+      b.redraw();
+    });
+  }
+  function redrawNow(canvas) {
+    var b = canvas && canvas._ofsAnim;
+    if (b && b.hasBars && b.redraw && canvas.isConnected && canvas.width === b.cw) b.redraw();
+  }
+  function lerp(a, b, p) { return a + (b - a) * p; }
+  function lerpOpt(a, b, p) { return (a === null || b === null) ? b : lerp(a, b, p); }
+  function strikeMap(P) {
+    var m = {}, k = P.k || [], c = P.c || [], q = P.q || [], i, a, b;
+    for (i = 0; i < k.length; i++) { a = num(c[i]); b = num(q[i]); m[k[i]] = [a === null ? 0 : a, b === null ? 0 : b]; }
+    return m;
+  }
+  function zeroMap(m) { var z = {}, key; for (key in m) z[key] = [0, 0]; return z; }
+  function sameMap(a, b) {
+    var ka = Object.keys(a), kb = Object.keys(b), i, x, y;
+    if (ka.length !== kb.length) return false;
+    for (i = 0; i < kb.length; i++) {
+      x = a[kb[i]]; y = b[kb[i]];
+      if (!x || Math.abs(x[0] - y[0]) > 1e-9 || Math.abs(x[1] - y[1]) > 1e-9) return false;
+    }
+    return true;
+  }
+  function zList(o) { var out = []; if (Array.isArray(o.zgls)) o.zgls.forEach(function (v) { out.push(num(v)); }); return out; }
+  function sameList(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+    return true;
+  }
+  function lerpList(a, b, p) {
+    if (a.length !== b.length) return b;
+    return b.map(function (v, i) { return lerpOpt(a[i], v, p); });
+  }
+  // Value-axis range of a panel (same rule barPanel uses at rest). It is animated too, otherwise bars that
+  // scale together would be re-normalised by the axis every frame and look like they snapped.
+  function axisOf(m) {
+    var lo = 0, hi = 0, key, a, xp;
+    for (key in m) { a = m[key]; lo = Math.min(lo, a[0], a[1]); hi = Math.max(hi, a[0], a[1]); }
+    if (hi - lo < 1e-12) { lo = -1; hi = 1; }
+    xp = (hi - lo) * 0.07;
+    return [lo - xp, hi + xp];
+  }
+  function sample(st, now) {
+    var p = easeOut((now - st.t0) / st.dur), m = {}, key, f, t;
+    for (key in st.to) { f = st.from[key] || [0, 0]; t = st.to[key]; m[key] = [lerp(f[0], t[0], p), lerp(f[1], t[1], p)]; }
+    return { map: m, ax: [lerp(st.axF[0], st.axT[0], p), lerp(st.axF[1], st.axT[1], p)],
+             sf: lerpOpt(st.sfF, st.sfT, p), z: lerpList(st.zF, st.zT, p), zg: lerpOpt(st.zgF, st.zgT, p) };
+  }
+  // Returns the in-between values for this frame, or null when the panel is at rest (draw the real data).
+  function tween(bank, key, P, o) {
+    var now = nowMs(), st = bank.panels[key], to = strikeMap(P), sfT = num(o.sf), zT = zList(o), zgT = num(o.zgl);
+    var k = P.k || [], c = [], q = [], i, v, s, o2, cur;
+    if (!st) {                                                    // first draw: bars grow out of the zero line
+      st = bank.panels[key] = { from: zeroMap(to), to: to, t0: now, dur: MOTION.grow, last: now,
+        axF: axisOf(to), axT: axisOf(to), sfF: sfT, sfT: sfT, zF: zT, zT: zT, zgF: zgT, zgT: zgT };
+    } else if (!sameMap(st.to, to) || st.sfT !== sfT || st.zgT !== zgT || !sameList(st.zT, zT)) {
+      cur = sample(st, now);                                      // new target: continue from what is on screen
+      st.from = cur.map; st.axF = cur.ax; st.sfF = cur.sf; st.zF = cur.z; st.zgF = cur.zg;
+      st.to = to; st.axT = axisOf(to); st.sfT = sfT; st.zT = zT; st.zgT = zgT;
+      st.dur = Math.max(MOTION.min, Math.min(MOTION.max, (now - st.last) * 1.4));
+      st.last = now; st.t0 = now;
+    }
+    if (now - st.t0 >= st.dur) return null;
+    s = sample(st, now);
+    for (i = 0; i < k.length; i++) { v = s.map[k[i]] || [0, 0]; c.push(v[0]); q.push(v[1]); }
+    o2 = {}; for (v in o) o2[v] = o[v];
+    o2.sf = s.sf; o2.zgl = s.zg; if (Array.isArray(o.zgls)) o2.zgls = s.z;
+    bank.busy = true;
+    return { c: c, q: q, o: o2, ax: s.ax };
+  }
+
   function barPanel(ctx, R, P, o) {
     var u = o.u, k = P.k || [], c = P.c || [], q = P.q || [], n = k.length, dec = P.d == null ? 2 : P.d;
+    var canvas = ctx.canvas, bank = bankOf(canvas), motion = MOTION.on && !canvas._ofsNoAnim;
+    var akey = (bank.n++) + '|' + (P.x || '') + '|' + (P.cn || '');
+    bank.hasBars = true;
+    var tw = null;
+    if (motion) {
+      tw = tween(bank, akey, P, o);
+      if (tw) { c = tw.c; q = tw.q; o = tw.o; }
+    }
     ctx.save();
     ctx.fillStyle = C.surf; ctx.fillRect(R.x, R.y, R.w, R.h);
     if (!n) {
@@ -6502,6 +6617,7 @@ function toggleTheme(){
     for (i = 0; i < n; i++) { v = num(c[i]); if (v !== null) { xlo = Math.min(xlo, v); xhi = Math.max(xhi, v); } v = num(q[i]); if (v !== null) { xlo = Math.min(xlo, v); xhi = Math.max(xhi, v); } }
     if (xhi - xlo < 1e-12) { xlo = -1; xhi = 1; }
     var xp = (xhi - xlo) * 0.07; xlo -= xp; xhi += xp;
+    if (tw && tw.ax) { xlo = tw.ax[0]; xhi = tw.ax[1]; }
     function X(val) { return R.x + (val - xlo) / (xhi - xlo) * R.w; }
     function Y(val) { return R.y + R.h - (val - ylo) / (yhi - ylo) * R.h; }
 
@@ -6550,6 +6666,24 @@ function toggleTheme(){
       for (i = 0; i < n; i++) bar(c[i], k[i], C.call, 0.82);
     }
 
+    // hover band: follows the pointer strike by strike and glides between them
+    var hv = canvas._ofsHover;
+    if (hv && n && hv.x >= R.x && hv.x <= R.x + R.w && hv.y >= R.y && hv.y <= R.y + R.h) {
+      var hj = 0, hd = Infinity, hdd, hgoal, hy, hn = nowMs();
+      for (i = 0; i < n; i++) { hdd = Math.abs(Y(k[i]) - hv.y); if (hdd < hd) { hd = hdd; hj = i; } }
+      hgoal = Y(k[hj]); hy = hgoal;
+      if (motion && bank.hy !== null && bank.hkey === akey) {
+        hy = bank.hy + (hgoal - bank.hy) * (1 - Math.exp(-Math.min(hn - bank.hlast, 34) / MOTION.hover));
+        if (Math.abs(hgoal - hy) > 0.4) bank.busy = true; else hy = hgoal;
+      }
+      bank.hy = hy; bank.hkey = akey; bank.hlast = hn;
+      var hh = Math.max(bpx, 4 * u);
+      ctx.save();
+      ctx.globalAlpha = 0.10; ctx.fillStyle = C.txt; ctx.fillRect(R.x, hy - hh / 2, R.w, hh);
+      ctx.globalAlpha = 0.45; ctx.strokeStyle = C.txt2; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(R.x, hy); ctx.lineTo(R.x + R.w, hy); ctx.stroke();
+      ctx.restore();
+    } else if (bank.hkey === akey) { bank.hy = null; }
     ctx.strokeStyle = C.zero; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(X(0), R.y); ctx.lineTo(X(0), R.y + R.h); ctx.stroke();
 
@@ -7321,6 +7455,7 @@ function toggleTheme(){
     var ov = HD.createElement('div'), cv = HD.createElement('canvas'), xb = HD.createElement('button');
     ov.style.cssText = 'position:fixed;left:0;top:0;right:0;bottom:0;z-index:2147483000;background:rgba(0,0,0,.93);overflow:hidden;touch-action:none;cursor:zoom-out;-webkit-user-select:none;user-select:none';
     cv.style.cssText = 'position:absolute;left:0;top:0;display:block;touch-action:none';
+    cv._ofsNoAnim = true;
     ov.setAttribute('role', 'dialog');
     ov.setAttribute('aria-modal', 'true');
     ov.setAttribute('aria-label', 'Interactive chart zoom');
@@ -7615,7 +7750,7 @@ function toggleTheme(){
     });
   }
 
-  root.OFS = { scan: scan, wrapImg: wrapImg, KINDS: KINDS,
+  root.OFS = { motion: MOTION, scan: scan, wrapImg: wrapImg, KINDS: KINDS,
     refresh: refresh, snapshotUpdate: snapshotUpdate, updateInline: updateInline,
     bindInspector: bindInspector, renderWithDetails: renderWithDetails,
     tooltip: tooltip, tipRow: tipRow, exposureRow: exposureRow, futureRow: futureRow,
