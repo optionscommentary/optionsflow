@@ -4367,14 +4367,6 @@ html[data-theme] #main .of-plan-getstarted:focus-visible {outline:3px solid var(
   }
 }
 </style>
-<style id="of-index-tab-outline">
-@media (min-width: 761px) {
-  html[data-theme] .tabs-bar { gap: 8px; align-items: center; padding-top: 7px; padding-bottom: 7px; }
-  html[data-theme] .tabs-bar .tab:not(.mentor-cta-tab) { border: 1px solid var(--border); border-radius: 8px; padding: 8px 20px; }
-  html[data-theme] .tabs-bar .tab:not(.mentor-cta-tab):hover { border-color: var(--accent); }
-  html[data-theme] .tabs-bar .tab.on:not(.mentor-cta-tab) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-}
-</style>
 </head>
 
 <body data-of-view="home">
@@ -6534,14 +6526,9 @@ function toggleTheme(){
     function bar(val, key, col, al) {
       val = num(val); if (val === null || val === 0) return;
       var yc = Y(key);
-      var bx = Math.min(X(0), X(val)), bwid = Math.abs(X(val) - X(0)), by = yc - bpx / 2;
-      ctx.globalAlpha = 0.72; ctx.fillStyle = col;
-      ctx.fillRect(bx, by, bwid, bpx);
+      ctx.globalAlpha = al; ctx.fillStyle = col;
+      ctx.fillRect(Math.min(X(0), X(val)), yc - bpx / 2, Math.abs(X(val) - X(0)), bpx);
       ctx.globalAlpha = 1;
-      if (bpx >= 3 && bwid >= 2) {
-        ctx.strokeStyle = col; ctx.lineWidth = 1;
-        ctx.strokeRect(bx + 0.5, by + 0.5, bwid - 1, bpx - 1);
-      }
     }
     if (P.o) {                                       // VEX / CEX: call below, put above the strike
       for (i = 0; i < n; i++) { bar(c[i], k[i] - off, C.call, 0.85); bar(q[i], k[i] + off, C.put, 0.85); }
@@ -7154,10 +7141,6 @@ function toggleTheme(){
       '.ofs-lbl{min-width:112px;text-align:right;white-space:nowrap;font-size:10px}' +
       '.ofs-live{background:none;border:1px solid #00E5FF;color:#00E5FF;border-radius:9px;padding:0 7px;font:700 9px/14px inherit;cursor:pointer}' +
       '.ofs-live.on{background:#00E5FF;color:#08080F}' +
-      '.ofs-replay{display:inline-flex;align-items:center;gap:4px;border:1px solid #4C7BE8;background:linear-gradient(110deg,#1F57D6,#4C3FB1);color:#FFFFFF;border-radius:9px;padding:0 9px;font:700 9px/14px inherit;letter-spacing:.05em;cursor:pointer}' +
-      '.ofs-replay:hover{filter:brightness(1.15)}' +
-      '.ofs-replay.on{background:linear-gradient(110deg,#0E8C9B,#1F57D6);border-color:#3CC7D8}' +
-      '@media(max-width:560px){.ofs-replay .t{display:none}}' +
       '[data-theme="light"] .ofs-belt{background:rgba(240,240,240,.97);color:#0D1B2A}' +
       '[data-theme="light"] .ofs-rng{accent-color:#1565C0}' +
       '[data-theme="light"] .ofs-btn{color:#1565C0}' +
@@ -7236,17 +7219,15 @@ function toggleTheme(){
     st.innerHTML = '<div class="ofs-belt"><button class="ofs-btn" data-a="p" title="Previous">◀</button>' +
       '<input class="ofs-rng" type="range" min="0" max="0" value="0" step="1" aria-label="Time slider">' +
       '<button class="ofs-btn" data-a="n" title="Next">▶</button><span class="ofs-lbl"></span>' +
-      '<button class="ofs-replay" data-a="r" title="Replay all snapshots"><span class="i">▶</span><span class="t">REPLAY</span></button>' +
       '<button class="ofs-live on" data-a="l" title="Jump to latest">LIVE</button></div>' +
       '<div class="ofs-scroll"><canvas></canvas></div>';
     el.appendChild(st);
     this.stage = st; this.rng = st.querySelector('.ofs-rng'); this.lbl = st.querySelector('.ofs-lbl');
-    this.liveBtn = st.querySelector('.ofs-live'); this.rpBtn = st.querySelector('.ofs-replay'); this.scroll = st.querySelector('.ofs-scroll'); this.cv = st.querySelector('canvas');
+    this.liveBtn = st.querySelector('.ofs-live'); this.scroll = st.querySelector('.ofs-scroll'); this.cv = st.querySelector('canvas');
     this.rng.addEventListener('input', function () { self.go(+self.rng.value); });
     st.querySelector('[data-a=p]').addEventListener('click', function () { self.go(self.idx - 1); });
     st.querySelector('[data-a=n]').addEventListener('click', function () { self.go(self.idx + 1); });
     this.liveBtn.addEventListener('click', function () { self.go(self.entries.length - 1); });
-    this.rpBtn.addEventListener('click', function () { self.startReplay(); });
 
     this.cv.style.cursor = 'zoom-in';
     this.cv.tabIndex = 0;
@@ -7513,8 +7494,7 @@ function toggleTheme(){
     return /(?:^|\/)(?:oi|pcr|topgex)(?:_history\.json)?(?:[?#]|$)/.test(this.src || '');
   };
 
-  Mount.prototype.go = function (i, fromReplay) {
-    if (!fromReplay && this.rp && this.rp.on) this.stopReplay(false);
+  Mount.prototype.go = function (i) {
     i = Math.max(0, Math.min(this.entries.length - 1, i));
     if (i === this.entries.length - 1) {
       this.entries = this.latestEntries;
@@ -7525,41 +7505,6 @@ function toggleTheme(){
       this.live = false;
     }
     this.syncBelt(); this.draw();
-  };
-  // Replay: steps through every snapshot on a steady clock (time based, so it keeps its pace in a
-  // background tab) and finishes on the latest snapshot. It resets to the latest snapshot when this
-  // plot is hidden by an index or analysis switch.
-  Mount.prototype.replayUi = function () {
-    var b = this.rpBtn, on = !!(this.rp && this.rp.on);
-    if (!b) return;
-    b.classList.toggle('on', on);
-    b.querySelector('.i').textContent = on ? '❚❚' : '▶';
-    b.querySelector('.t').textContent = on ? 'PAUSE' : 'REPLAY';
-    b.title = on ? 'Pause replay' : 'Replay all snapshots';
-  };
-  Mount.prototype.stopReplay = function (toLatest) {
-    if (this.rp) { this.rp.on = false; clearTimeout(this.rp.timer); }
-    this.replayUi();
-    if (toLatest && this.entries.length) this.go(this.entries.length - 1, true);
-  };
-  Mount.prototype.startReplay = function () {
-    var n = this.entries.length;
-    if (this.rp && this.rp.on) { this.stopReplay(false); return; }
-    if (n < 2) return;
-    this.rp = { on: true, i0: this.idx >= n - 1 ? 0 : Math.max(0, this.idx), t0: Date.now(),
-                per: Math.max(35, Math.min(140, 12000 / n)), timer: 0 };
-    this.replayUi();
-    this.replayTick();
-  };
-  Mount.prototype.replayTick = function () {
-    var self = this, rp = this.rp, n, i;
-    if (!rp || !rp.on) return;
-    if (!this.el.isConnected || !this.el.getClientRects().length) { this.stopReplay(true); return; }
-    n = this.entries.length;
-    i = rp.i0 + Math.floor((Date.now() - rp.t0) / rp.per);
-    if (i >= n - 1) { this.stopReplay(true); return; }
-    if (i !== this.idx) this.go(i, true);
-    rp.timer = setTimeout(function () { self.replayTick(); }, 16);
   };
   Mount.prototype.syncBelt = function () {
     var n = this.entries.length, e = this.entries[this.idx]; if (!e) return;
