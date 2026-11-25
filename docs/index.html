@@ -7682,7 +7682,7 @@ function toggleTheme(){
     if (this.rp && this.rp.on) { this.stopReplay(false); return; }
     if (n < 2) return;
     this.rp = { on: true, i0: this.idx >= n - 1 ? 0 : Math.max(0, this.idx), t0: Date.now(),
-                per: Math.max(35, Math.min(140, 12000 / n)), timer: 0 };
+                per: Math.max(55, Math.min(210, 18000 / n)), timer: 0 };
     this.replayUi();
     this.replayTick();
   };
